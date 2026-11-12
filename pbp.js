@@ -309,7 +309,7 @@
     h += '<div class="st-five">';
     teams.forEach(function (t) {
       var ids = five[t] || [];
-      h += '<div class="st-team"><div class="st-tn" style="color:' + esc(P.teams[t].color) + '">' + esc(P.teams[t].cn) + (liveState(g) === "post" ? " 终场时场上五人" : " 当前场上五人") + "</div>" +
+      h += '<div class="st-team"><div class="st-tn" style="border-left-color:' + esc(P.teams[t].color) + '">' + esc(P.teams[t].cn) + (liveState(g) === "post" ? " 终场时场上五人" : " 当前场上五人") + "</div>" +
         (ids.length === 5 ? ids.map(function (id) { var a = P.ath[id]; return '<span class="st-p' + (a.fouls >= 5 ? " f5" : "") + '">' + head(id) + "<b>" + esc(nm(id)) + "</b>" + (a.starter ? '<em class="st-fs">首发</em>' : "") + (a.ejected ? '<em class="ejt">已驱逐</em>' : "") + "<i>" + (a.fouls != null ? a.fouls + "犯" : "") + "</i></span>"; }).join("") : '<span class="dim">暂无（ESPN 没给出完整在场名单）</span>') + "</div>";
     });
     h += '</div><div class="st-src">在场名单：ESPN 技术统计实时字段</div>';

@@ -496,3 +496,81 @@ body{background:radial-gradient(1200px 600px at 50% -200px,#14224a 0,var(--bg) 6
 #ldLogo{position:absolute;inset:0;pointer-events:none;will-change:transform}
 #ldFx{position:absolute;inset:0;pointer-events:none;will-change:transform}
 #ldFx .ld-spr{position:absolute;display:block;will-change:transform,opacity;transform-origin:50% 50%}
+/* ================= 视觉 v2「能量黑」：黑底 + 青蓝能量光 + 镀铬，和启动动画统一 =================
+   只改外观：毛玻璃只用在顶栏和底部导航（模糊 14px），卡片用半透明渐变代替；常驻动画只有直播红点这种小元素；尊重“减少动态效果” */
+:root{--bg:#020409;--panel:#0b1222;--panel2:#0d1628;--line:rgba(110,200,255,.16);--txt:#eef3ff;--dim:#93a1c2;--cyan:#33e1ff;
+--glass:linear-gradient(180deg,rgba(17,27,50,.86),rgba(7,11,22,.9));--edge:linear-gradient(90deg,transparent,rgba(51,225,255,.55),transparent);
+--mono:"SF Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+html,body{background:#020409}
+body{background:radial-gradient(900px 420px at 50% -160px,rgba(30,90,170,.35),transparent 70%),#020409 !important}
+body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+background:linear-gradient(rgba(51,225,255,.035) 1px,transparent 1px) 0 0/100% 28px,linear-gradient(90deg,rgba(51,225,255,.03) 1px,transparent 1px) 0 0/28px 100%;
+-webkit-mask-image:linear-gradient(180deg,#000 0,rgba(0,0,0,.35) 60%,transparent 100%);mask-image:linear-gradient(180deg,#000 0,rgba(0,0,0,.35) 60%,transparent 100%)}
+/* 顶栏 */
+.top{background:rgba(3,6,14,.78) !important;-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);border-bottom:0 !important;box-shadow:0 1px 0 rgba(51,225,255,.18),0 8px 24px rgba(0,0,0,.45)}
+.brand{letter-spacing:.02em;background:linear-gradient(180deg,#fff 0,#d7e0ee 45%,#7d8aa3 52%,#e9f0fb 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand .logo{-webkit-text-fill-color:var(--cyan);color:var(--cyan);text-shadow:0 0 12px rgba(51,225,255,.9)}
+.meta{color:var(--dim)}
+/* 卡片：深色玻璃 + 顶部一道能量高光 + 细发光描边 */
+.card{background:var(--edge) top/100% 1px no-repeat,var(--glass) !important;border:1px solid var(--line) !important;border-radius:18px !important;
+box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 0 24px rgba(51,225,255,.05),0 14px 34px rgba(0,0,0,.55)} /* 不加 !important：保留“刚更新”黄框闪动 */
+main>.card:nth-of-type(2){transition-delay:.05s}main>.card:nth-of-type(3){transition-delay:.1s}main>.card:nth-of-type(4){transition-delay:.15s}main>.card:nth-of-type(n+5){transition-delay:.2s}
+.hero:before{display:none !important}
+h2{color:#f4f7ff;letter-spacing:.02em}
+h2 em{background:linear-gradient(180deg,#7ff0ff,#1fb8e0) !important;color:#02121c !important;box-shadow:0 0 10px rgba(51,225,255,.45)}
+h2 small{color:var(--dim) !important}
+/* 日期条 / 场次切换：选中项发光 + 底部指示 */
+.tab{background:linear-gradient(180deg,rgba(18,28,50,.9),rgba(9,14,27,.92)) !important;border:1px solid rgba(110,200,255,.14) !important;border-radius:14px !important;position:relative;transition:border-color .2s,box-shadow .2s,transform .2s}
+.tab.on{border-color:rgba(51,225,255,.85) !important;background:linear-gradient(180deg,rgba(25,70,100,.55),rgba(8,20,36,.95)) !important;box-shadow:0 0 0 1px rgba(51,225,255,.25),0 0 18px rgba(51,225,255,.35),inset 0 0 12px rgba(51,225,255,.12) !important}
+.tab.on:after{content:"";position:absolute;left:28%;right:28%;bottom:-1px;height:2px;border-radius:2px;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+.tab.on b{color:#fff;text-shadow:0 0 10px rgba(51,225,255,.6)}
+/* 比赛卡：玻璃 + 两侧球队主色细条 + 等宽发光比分 */
+.glist{list-style:none}
+.gcard{position:relative;overflow:hidden;background:linear-gradient(90deg,var(--ca,transparent) 0,var(--ca,transparent) 3px,transparent 3px) ,linear-gradient(270deg,var(--ch,transparent) 0,var(--ch,transparent) 3px,transparent 3px),linear-gradient(180deg,rgba(20,31,56,.8),rgba(9,14,27,.88)) !important;
+border:1px solid rgba(110,200,255,.13) !important;border-radius:16px !important;box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 8px 22px rgba(0,0,0,.45);transition:transform .15s,border-color .2s}
+.gcard:active{transform:scale(.985);border-color:rgba(51,225,255,.5) !important}
+.gc-t b{color:#f2f6ff}
+.gc-sc{font-family:var(--mono);font-size:24px !important;letter-spacing:.02em;color:#fff;text-shadow:0 0 12px rgba(51,225,255,.45)}
+.gc-st{letter-spacing:.08em}
+.gcard.live{border-color:rgba(255,77,94,.7) !important;box-shadow:0 0 0 1px rgba(255,77,94,.25) inset,0 0 18px rgba(255,77,94,.18),0 8px 22px rgba(0,0,0,.45) !important}
+.gc-st.on{color:#ff6b78 !important;font-weight:700}
+.gc-st.on:before,.lvst .on:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#ff4d5e;margin-right:5px;vertical-align:1px;box-shadow:0 0 8px #ff4d5e;animation:livedot 1.2s ease-in-out infinite}
+@keyframes livedot{50%{transform:scale(.6);opacity:.45}}
+.gc-sc.bump{animation:bump .9s ease-out 1}
+@keyframes bump{0%{transform:rotateX(90deg);color:var(--cyan);text-shadow:0 0 22px var(--cyan)}35%{transform:none}100%{text-shadow:0 0 12px rgba(51,225,255,.45)}}
+.gl-in .gcard{animation:gcin .5s cubic-bezier(.2,.8,.2,1) both}
+.gl-in .gcard:nth-child(2){animation-delay:.05s}.gl-in .gcard:nth-child(3){animation-delay:.1s}.gl-in .gcard:nth-child(4){animation-delay:.15s}.gl-in .gcard:nth-child(5){animation-delay:.2s}.gl-in .gcard:nth-child(n+6){animation-delay:.25s}
+@keyframes gcin{from{opacity:0;transform:translateY(14px)}}
+/* 大比分 */
+.lvsc b{font-family:var(--mono)}
+.lvsc b.blue{text-shadow:0 0 16px rgba(47,123,255,.8),0 0 2px #fff}.lvsc b.red{text-shadow:0 0 16px rgba(255,59,92,.8),0 0 2px #fff}
+.team .nm{letter-spacing:.02em}
+/* 把握度徽章：高把握发光 */
+.pill{background:rgba(255,255,255,.02)}
+.pill.高{background:rgba(47,227,154,.1);box-shadow:0 0 0 1px rgba(47,227,154,.35),0 0 16px rgba(47,227,154,.45) !important;text-shadow:0 0 8px rgba(47,227,154,.6)}
+.pill.中{box-shadow:0 0 10px rgba(51,225,255,.25)}
+/* 按钮 */
+.lsbtn{background:linear-gradient(90deg,#1f9fff,#33e1ff) !important;color:#03121f !important;box-shadow:0 0 14px rgba(51,225,255,.4)}
+.lsbtn.off{background:rgba(20,30,52,.9) !important;color:var(--dim) !important;box-shadow:none;border:1px solid rgba(110,200,255,.18)}
+/* 底部导航：玻璃 + 发光指示条 + 图标动效 */
+.bnav{background:rgba(3,6,14,.8) !important;-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);border-top:0 !important;box-shadow:0 -1px 0 rgba(51,225,255,.18),0 -10px 24px rgba(0,0,0,.5)}
+.bnav button{color:#8d9bbb;transition:color .2s}
+.bnav button svg{transition:transform .25s cubic-bezier(.3,1.6,.5,1),filter .25s}
+.bnav button.on{color:#5ee8ff}
+.bnav button.on svg{transform:translateY(-1px) scale(1.12);filter:drop-shadow(0 0 6px rgba(51,225,255,.85))}
+.bnav button.on:after{left:32% !important;right:32% !important;height:3px !important;border-radius:0 0 3px 3px !important;background:linear-gradient(90deg,transparent,#33e1ff,transparent) !important;box-shadow:0 0 12px #33e1ff,0 0 24px rgba(51,225,255,.6) !important}
+.bnav button i{box-shadow:0 0 8px #ff4d5e;animation:livedot 1.2s ease-in-out infinite}
+/* 解说按钮 / 设置 */
+.vbtn,.vgear{background:rgba(8,14,28,.92) !important;border:1px solid rgba(51,225,255,.35) !important;color:#e9f6ff !important;box-shadow:0 0 14px rgba(51,225,255,.18),0 6px 18px rgba(0,0,0,.55) !important}
+.vpanel{background:var(--edge) top/100% 1px no-repeat,linear-gradient(180deg,rgba(14,22,42,.98),rgba(6,10,20,.98)) !important;border:1px solid rgba(51,225,255,.3) !important;border-radius:16px !important;box-shadow:0 0 24px rgba(51,225,255,.12),0 12px 32px rgba(0,0,0,.6) !important}
+.vpanel select{background:#0b1426 !important;border-color:rgba(110,200,255,.25) !important}
+.vpanel input[type=checkbox]{accent-color:#33e1ff}
+/* 骨架屏 */
+.skel{background:linear-gradient(90deg,rgba(18,28,50,.9) 0,rgba(40,80,120,.55) 50%,rgba(18,28,50,.9) 100%) !important;background-size:200% 100% !important}
+/* 表格、行 */
+.tbl th{color:var(--dim)}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none !important;transition:none !important}}
+/* 自检修正：小字对比度达到 AA；球队名不用球队主色上字（马刺黑、公牛深红在黑底上看不清），改成左侧色条 */
+.feed .src,.foot,.src{color:#8794b6 !important}
+.pl .ph{color:#8794b6 !important}
+.st-tn{color:#eef3ff !important;border-left:3px solid #33e1ff;padding-left:7px}

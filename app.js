@@ -1378,16 +1378,20 @@
     }
   }
   function tomorrowKey() { return ptParts(new Date(Date.now() + 86400000)).key; }
-  function gameCard(id, an, hn, mid, sub, cls) { return '<li class="gcard' + (cls || "") + '" data-id="' + esc(id) + '"><div class="gc-t"><b>' + esc(an) + '</b><span class="gc-m">' + mid + '</span><b>' + esc(hn) + '</b></div><div class="gc-s">' + sub + "</div></li>"; }
+  // 球队主色（只做卡片两侧细条点缀）
+  var TCOL = { ATL: "#E03A3E", BOS: "#007A33", BKN: "#A3A9AF", CHA: "#00788C", CHI: "#CE1141", CLE: "#860038", DAL: "#0064B1", DEN: "#FEC524", DET: "#C8102E", GSW: "#FFC72C", GS: "#FFC72C", HOU: "#CE1141", IND: "#FDBB30", LAC: "#C8102E", LAL: "#FDB927", MEM: "#5D76A9", MIA: "#98002E", MIL: "#00A651", MIN: "#236192", NOP: "#B4975A", NO: "#B4975A", NYK: "#F58426", NY: "#F58426", OKC: "#007AC1", ORL: "#0077C0", PHI: "#006BB6", PHX: "#E56020", POR: "#E03A3E", SAC: "#5A2D81", SAS: "#C4CED4", SA: "#C4CED4", TOR: "#CE1141", UTA: "#F9A01B", UTAH: "#F9A01B", WAS: "#E31837", WSH: "#E31837" };
+  function gameCard(id, an, hn, mid, sub, cls, aa, ha) { var ca = TCOL[String(aa || "").toUpperCase()], ch = TCOL[String(ha || "").toUpperCase()]; return '<li class="gcard' + (cls || "") + '" data-id="' + esc(id) + '"' + (ca || ch ? ' style="' + (ca ? "--ca:" + ca + ";" : "") + (ch ? "--ch:" + ch : "") + '"' : "") + '><div class="gc-t"><b>' + esc(an) + '</b><span class="gc-m">' + mid + '</span><b>' + esc(hn) + '</b></div><div class="gc-s">' + sub + "</div></li>"; }
   function drawGameList() {
     var box = $("gameList"); if (!box || !state.data) return;
     var h = '<h2>今天的比赛 <small class="dim">点开看单场（比分、动画、文字直播、预测）</small></h2><ul class="glist">' + allGames().map(function (g) {
       var s = dispOf(liveFor(g)), ms = mainSpread(g), p = ms && ms.v8 ? "第八版：" + ms.pick_text : g.nomodel ? "本场模型未预测" : ms ? "模型：" + ms.pick_text : "暂无结论";
       var st = !s || s.state === "pre" ? '<i class="gc-tip">' + esc(String((s && s.tip) || g.tip_pt || "时间待定").replace(/ PT$/, "")) + "</i>" : '<i class="gc-sc">' + s.as + " : " + s.hs + '</i><i class="gc-st' + (s.state === "in" ? " on" : "") + '">' + esc(statusCn(s)) + "</i>";
-      return gameCard(g.espn_id, g.away_cn, g.home_cn, st, esc(p), s && s.state === "in" ? " live" : "");
+      return gameCard(g.espn_id, g.away_cn, g.home_cn, st, esc(p), s && s.state === "in" ? " live" : "", g.away, g.home);
     }).join("") + "</ul>";
     if (box._h !== h) {
-      box._h = h; box.innerHTML = h;
+      var old = box._sc || {}, now = {}; box._h = h; box.innerHTML = h;
+      box.querySelectorAll(".gcard").forEach(function (li) { var e = li.querySelector(".gc-sc"); if (!e) return; var id = li.getAttribute("data-id"); now[id] = e.textContent; if (old[id] != null && old[id] !== now[id]) e.classList.add("bump"); }); box._sc = now; // 比分变了：翻牌闪光
+      if (!box._shown) { box._shown = 1; box.classList.add("gl-in"); setTimeout(function () { box.classList.remove("gl-in"); }, 1200); } // 第一次出现：卡片错落入场
       box.querySelectorAll(".gcard").forEach(function (li) { li.onclick = function () { var id = li.getAttribute("data-id"), tb = document.querySelector('#gameTabs .tab[data-id="' + id + '"]'); NAV.y.gd = 0; setTab("gd"); if (tb && state.sel !== id) tb.click(); window.scrollTo(0, 0); }; });
     }
   }
