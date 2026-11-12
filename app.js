@@ -693,18 +693,40 @@
     if (w) w.textContent = live.fail ? "比分暂时没刷新到，显示的是 " + (live.okAt || "上次") + " 的比分" : "";
   }
   function anyLive() { for (var k in live.byId) if (live.byId[k].state === "in") return true; return false; }
+  // 比分更新时间（太平洋时间，精确到秒），显示在页头，方便看是否卡住
+  function stampScore() {
+    var s = ""; try { s = new Intl.DateTimeFormat("zh-CN", { timeZone: "America/Los_Angeles", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).format(new Date()); } catch (e) {}
+    var el = $("scoreAt"); if (el && s) el.textContent = "比分更新于 " + s;
+  }
+  function clkSec(c) { c = String(c || ""); var m = /^(\d+):(\d+)/.exec(c); return m ? +m[1] * 60 + +m[2] : parseFloat(c) || 0; }
+  // 把逐回合接口（summary）头部的比分合进来：两个来源谁新用谁，大比分绝不等动画
+  window.LIVE_MERGE = function (id, r) {
+    var cur = live.byId[String(id)]; if (!cur || !r) return;
+    var rank = function (x) { return (x.state === "post" ? 1e7 : 0) + (x.period || 0) * 1e5 + (x.as || 0) + (x.hs || 0) + (720 - clkSec(x.clock)) / 1000; };
+    if (rank(r) > rank(cur)) {
+      ["as", "hs", "period", "clock", "state", "name", "als", "hls"].forEach(function (k) { if (r[k] != null) cur[k] = r[k]; });
+      paintLive(true);
+    }
+    stampScore();
+  };
   live.fastMs = 2000; live.busy = false;
   function sbFetch(url, ms) {
     var ac = window.AbortController ? new AbortController() : null, t = ac ? setTimeout(function () { ac.abort(); }, ms) : 0;
     return fetch(url, ac ? { cache: "no-store", signal: ac.signal } : { cache: "no-store" }).then(function (r) { clearTimeout(t); return r; }, function (e) { clearTimeout(t); throw e; });
   }
-  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible" && state.data && !live.busy) pollScores(); });
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible" && state.data) { live.busy = false; pollScores(); } });
+  // 看门狗：请求挂住超过 8 秒或定时器丢了，就强制重新拉，轮询永不中断
+  setInterval(function () {
+    if (!state.data || !state.shown) return;
+    if (live.busy && Date.now() - (live.busyAt || 0) > 8000) { live.busy = false; pollScores(); return; }
+    if (!live.busy && anyLive() && document.visibilityState === "visible" && Date.now() - (live.doneAt || 0) > 8000) pollScores();
+  }, 4000);
   function pollScores() {
     clearTimeout(live.timer);
     if (live.busy) return; // 上一个请求没回来就不发下一个
-    live.busy = true;
+    live.busy = true; live.busyAt = Date.now();
     sbFetch(SB_URL + "?t=" + Date.now(), 5000).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
-      live.fastMs = 2000;
+      live.fastMs = 2000; stampScore();
       var nb = parseSB(d), prev = {};
       (state.data ? allGames() : []).forEach(function (g) { var s = liveFor(g); if (s) prev[g.espn_id] = s; });
       var oldIds = (live.events || []).map(function (e) { return e.id + e.state; }).join(",");
@@ -714,7 +736,7 @@
       paintLive(true);
       if (window.PBP) window.PBP.kick();
     }).catch(function () { live.fail = true; live.fastMs = live.fastMs < 3000 ? 3000 : 5000; paintLive(false); }).then(function () {
-      live.busy = false;
+      live.busy = false; live.doneAt = Date.now();
       // 有比赛进行中：前台 2 秒（出错退到 3→5 秒，成功后回到 2 秒），后台 6 秒；没有比赛进行中 2 分钟
       live.timer = setTimeout(pollScores, anyLive() ? (document.visibilityState === "visible" ? live.fastMs : 6000) : 120000);
     });

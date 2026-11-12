@@ -174,9 +174,14 @@
     }
     if (st === "post" && P.loadedPost) { P.timer = setTimeout(tick, 60000); return; }
     var gid = g.espn_id;
-    P.busy = true;
+    P.busy = true; P.busyAt = Date.now();
     tfetch(SUM + gid + "&t=" + Date.now(), 5000).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
       P.fastMs = 2000;
+      try { // 头部比分立刻合进大比分
+        var cp = ((d.header || {}).competitions || [])[0] || {}, stt = cp.status || {}, ty = stt.type || {}, hr = { state: ty.state, name: ty.name, period: stt.period, clock: stt.displayClock };
+        (cp.competitors || []).forEach(function (t) { var k = t.homeAway === "home" ? "h" : "a"; if (t.score != null && t.score !== "") hr[k + "s"] = +t.score; if (t.linescores) hr[k + "ls"] = t.linescores.map(function (x) { var v = x.value != null ? x.value : x.displayValue; return v == null || v === "" ? null : +v; }); });
+        if (window.LIVE_MERGE && hr.as != null && hr.hs != null) window.LIVE_MERGE(gid, hr);
+      } catch (e) {}
       if (gid !== P.gid) return;
       loadPeople(d, g);
       var fresh = [];
@@ -378,7 +383,8 @@
     if (P.drawExtra) P.drawExtra(cx, m, cw, ch, W, H, t);
   };
 
-  document.addEventListener("visibilitychange", function () { if (!document.hidden) P.kick(); });
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) { P.busy = false; P.kick(); } });
+  setInterval(function () { if (P.busy && Date.now() - (P.busyAt || 0) > 8000) { P.busy = false; P.kick(); } }, 4000); // 看门狗：请求挂住就重来
   P.loadNames().then(function () { setTimeout(tick, 300); });
   setInterval(P.loadNames, 600000);
 })();
