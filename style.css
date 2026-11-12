@@ -155,3 +155,5 @@ details{margin-top:10px;font-size:14px}summary{cursor:pointer;color:var(--cyan)}
 .ob.med .og{grid-template-columns:repeat(2,minmax(0,1fr))}
 .oc b .miss,.oc .miss{font-size:18px}
 @media(max-width:360px){.oc b.big{font-size:16px}}
+.small-miss{font-size:12px;margin:4px 0 8px;opacity:.85}
+.feed .tm{color:var(--cyan);font-size:14px;margin-right:2px}
