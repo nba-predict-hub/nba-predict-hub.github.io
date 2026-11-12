@@ -208,7 +208,8 @@
   };
   P.draw = function (cx, m, cw, ch, W, H, t) {
     if (!P.active) return;
-    var shots = P.plays.filter(function (r) { return r.kind === "shot" && r.x != null; }).slice(-60);
+    var pend = {}; if (P.anim) { P.anim.q.forEach(function (r) { pend[r.id] = 1; }); if (P.anim.cur && P.anim.cur.r) pend[P.anim.cur.r.id] = 1; }
+    var shots = P.plays.filter(function (r) { return r.kind === "shot" && r.x != null && !pend[r.id]; }).slice(-60);
     var now = performance.now();
     shots.forEach(function (r) {
       var tm = P.teams[r.team]; if (!tm) return;

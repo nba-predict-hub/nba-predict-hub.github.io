@@ -42,7 +42,7 @@
     <h2><em>01</em> 全息球场</h2>
     <p class="say">左边是主队（蓝），右边是客队（红），发光那边就是模型站的方向。</p>
     <div class="court-wrap"><canvas id="court" width="720" height="400"></canvas></div>
-    <p class="note" id="courtNote">比赛开打后：绿点 = 投进，红叉 = 没进，闪光的是最新一球。左半场画主队的投篮，右半场画客队的投篮（位置按 ESPN 真实坐标）。</p>
+    <p class="note" id="courtNote">比赛开打后：绿点 = 投进，红叉 = 没进，闪光的是最新一球；圆点小人是场上球员（号码），每条直播记录都由对应球员做动作。左半场是主队进攻方向，右半场是客队。<b>跑位为动画模拟，投篮位置和结果为真实数据；两个回合之间的跑动只是过渡动画。</b></p>
   </section>
 
   <section class="card">
@@ -105,5 +105,6 @@
 <div id="toast"></div>
 <script src="app.js"></script>
 <script src="pbp.js"></script>
+<script src="anim.js"></script>
 </body>
 </html>
