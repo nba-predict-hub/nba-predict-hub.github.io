@@ -217,7 +217,7 @@
     }
     requestAnimationFrame(frame);
   }
-  function finishLoader() { if (state.ldOut) return; state.ldOut = true; var L = $("loader"); L.classList.add("done"); revealCards(); if (window.__intro) window.__intro.end = Date.now(); }
+  function finishLoader() { if (state.ldOut) return; state.ldOut = true; var L = $("loader"); L.classList.add("done"); setTimeout(function () { if (L.parentNode) L.parentNode.removeChild(L); }, 900); revealCards(); if (window.__intro) window.__intro.end = Date.now(); }
   function startIntro(quiet) {
     if (state.tapped) { if (!quiet && !state.ldOut) { IN.skip = true; finishLoader(); } return; } // 再点一下：跳过
     state.tapped = true; loaderStart = Date.now();

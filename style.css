@@ -688,3 +688,6 @@ body{background:linear-gradient(rgba(51,225,255,.025) 1px,transparent 1px) 0 0/1
 .card:before,.hero.card:before,.gcard:after,.lvmid:after,#scanFx{will-change:auto!important}
 .card.in.done:before{animation:none!important;opacity:0}
 #scanFx:not(.go){display:none}
+/* 兜底防闪：内容区禁用循环动画、will-change、遮罩和滤镜，只保留直播红点/在线点 */
+main *,main *:before,main *:after{animation-iteration-count:1!important;will-change:auto!important;-webkit-mask-image:none!important;mask-image:none!important;filter:none!important;-webkit-filter:none!important}
+main .live i,main .lvtab.live:before,main .lvst.live i,main .gc-st.on:before,main .lvst .on:before{animation-iteration-count:infinite!important}
