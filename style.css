@@ -215,3 +215,13 @@ html{overflow-anchor:auto}
 .cb-act{font-size:17px;font-weight:900;line-height:1.35;color:#fff;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .cb-sub{font-size:14px;font-weight:700;color:var(--yel);margin-top:2px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .one-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:6px 0 0}
+/* 第八版早锁 */
+.v8tag{display:inline-block;font-size:11px;font-weight:800;color:#04101f;background:var(--yel);border-radius:6px;padding:1px 6px;margin-left:4px;vertical-align:1px}
+.vd.v8{border-color:rgba(255,197,61,.55);box-shadow:0 0 14px rgba(255,197,61,.15)}
+.v8board{border:1px solid rgba(255,197,61,.45);border-radius:12px;padding:12px;margin-bottom:12px;background:#0d1428}
+.v8bt{font-weight:900;margin-bottom:6px}
+.v8row{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid #18213b;font-size:14px;font-variant-numeric:tabular-nums}
+.v8row b{text-align:right}
+.v8empty{font-size:15px;color:var(--txt);margin:4px 0 8px}
+.v8prog{height:10px;border-radius:6px;background:#18223d;overflow:hidden;margin-top:10px}
+.v8prog i{display:block;height:100%;background:linear-gradient(90deg,#ffc53d,#2fe39a)}

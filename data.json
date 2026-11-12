@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-11 18:45:30 PT",
- "generated_at_iso": "2026-11-11T18:45:30.054252-08:00",
+ "generated_at": "2026-11-11 18:47:52 PT",
+ "generated_at_iso": "2026-11-11T18:47:52.683006-08:00",
  "game_date": "2026-11-11",
  "last_lock": "2026-11-11 17:17:17 PT",
  "featured": "401909974",
@@ -2547,6 +2547,13 @@
    "extra": null
   }
  ],
+ "v8": {
+  "by_id": {},
+  "board": {
+   "has": false,
+   "target": 300
+  }
+ },
  "unlocked_games": [
   {
    "espn_id": "401909966",

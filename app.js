@@ -85,6 +85,32 @@
 
   /* ---------- 渲染 ---------- */
   var TEAM_CN = { ATL: "老鹰", BOS: "凯尔特人", BKN: "篮网", CHA: "黄蜂", CHI: "公牛", CLE: "骑士", DAL: "独行侠", DEN: "掘金", DET: "活塞", GSW: "勇士", HOU: "火箭", IND: "步行者", LAC: "快船", LAL: "湖人", MEM: "灰熊", MIA: "热火", MIL: "雄鹿", MIN: "森林狼", NOP: "鹈鹕", NYK: "尼克斯", OKC: "雷霆", ORL: "魔术", PHI: "76人", PHX: "太阳", POR: "开拓者", SAC: "国王", SAS: "马刺", TOR: "猛龙", UTA: "爵士", WAS: "奇才" };
+  /* ---------- 第八版让分早锁（有就以它为让分主结论） ---------- */
+  function v8For(g) {
+    var d = state.data || {}, v = ((d.v8 || {}).by_id || {})[String(g.espn_id)];
+    return v && (!v.home || v.home === g.home) ? v : null;
+  }
+  function mainSpread(g) {
+    var v = v8For(g);
+    if (!v) return g.spread || null;
+    return { v8: true, pick_team: v.pick_team, pick_cn: v.pick_cn, pick_text: v.pick_text, line_home: v.cur_home, band_cn: v.band_cn, edge: v.edge,
+      model_label: "第八版早锁", lock_time: v.lock_time, line_source: "第八版锁定时的 DraftKings 盘口" };
+  }
+  function m9aText(v) {
+    if (!v.m9a) return "第九版候选 M9a：这场没有给方向";
+    return "第九版候选 M9a：" + (v.m9a.same ? "和第八版同向" : "方向相反，看好" + v.m9a.team_cn) + (v.m9a.high ? "（高把握）" : "");
+  }
+  function v8Block(g) {
+    var v = v8For(g), home = v.pick_team === g.home;
+    var mv = v.moved ? "（开盘后已往" + (v.moved > 0 ? g.home_cn : g.away_cn) + "一侧走了 " + num(Math.abs(v.moved), 1) + " 分）" : "";
+    var dir = v.pred_home != null && v.open_home != null && v.pred_home !== v.open_home ? "第八版预测盘口还会往" + (v.pred_home > v.open_home ? g.home_cn : g.away_cn) + "这边走" + (v.edge != null ? " 约 " + num(v.edge, 1) + " 分" : "") + "，所以开盘后早早锁定。" : "";
+    return '<div class="vd v8"><div class="k">让分方向 · 第八版早锁 <span class="v8tag">实盘验证中</span></div>' +
+      '<div class="pick ' + (home ? "blue" : "red") + '">' + roll(v.pick_text) + "</div>" +
+      '<div class="row">' + bandPill(v.band_cn) + "<span>" + (v.lock_time ? esc(String(v.lock_time).slice(5, 16)) + " 锁定" : "") + "</span></div>" +
+      '<p class="note">开盘线 ' + esc(hcText(g, v.open_home) || "暂无") + "，锁定时 " + esc(hcText(g, v.cur_home) || "暂无") + mv + "。" + esc(dir) + "</p>" +
+      '<p class="note">' + esc(m9aText(v)) + "</p></div>";
+  }
+
   // 当天全部比赛：有 ESPN 赛程时用赛程（含模型没预测的场次），进行中的置顶；否则只用 data.json 里的场次
   function allGames() {
     var d = state.data || {}, mg = d.games || [], evs = (window.LIVE && LIVE.events) || [];
@@ -116,7 +142,7 @@
   function renderTabs() {
     var d = state.data, gs = allGames(), full = gs !== d.games;
     $("gameTabs").innerHTML = gs.map(function (g) {
-      var p = g.nomodel ? "本场模型未预测" : g.spread ? "模型：" + g.spread.pick_text : "暂无结论";
+      var ms = mainSpread(g), p = ms && ms.v8 ? "第八版：" + ms.pick_text : g.nomodel ? "本场模型未预测" : ms ? "模型：" + ms.pick_text : "暂无结论";
       return '<button class="tab' + (g.espn_id === state.sel ? " on" : "") + '" data-id="' + esc(g.espn_id) + '"><b>' + esc(g.away_cn) + " @ " + esc(g.home_cn) +
         "</b><span class=\"lvtab\" data-lvtab=\"" + esc(g.espn_id) + "\">" + esc(String(g.tip_pt || "时间待定").replace(/ PT$/, "")) + "</span><span>" + esc(p) + "</span></button>";
     }).join("") + (!full && (d.unlocked_games || []).length ? '<button class="tab" disabled><b class="dim">另 ' + d.unlocked_games.length + ' 场</b><span>锁定时已开赛，无模型结论</span></button>' : "");
@@ -133,7 +159,8 @@
     var g = game(); if (!g) { $("hero").innerHTML = "<p>今天还没有锁定的比赛。</p>"; return; }
     if (g.nomodel) {
       renderHeroNoModel(g); renderLeisu(g); drawCourtSetup(g); courtBarIdle(g);
-      ["scale", "odds", "edge", "factors", "inj"].forEach(function (k) { $(k).innerHTML = '<p class="note">本场模型未预测，只显示比分和直播。</p>'; });
+      if (v8For(g)) renderScale(g);
+      ["scale", "odds", "edge", "factors", "inj"].filter(function (k) { return !(k === "scale" && v8For(g)); }).forEach(function (k) { $(k).innerHTML = '<p class="note">本场模型未预测，只显示比分和直播。</p>'; });
       return;
     }
     renderHero(g); renderLeisu(g); drawCourtSetup(g); courtBarIdle(g); renderScale(g); renderOdds(g); renderEdge(g); renderFactors(g); renderInj(g);
@@ -142,7 +169,8 @@
     var h = '<div class="vs"><div class="team h"><div class="ab">主场</div><div class="nm">' + esc(g.home_cn) + '</div></div>';
     h += '<div class="mid lvmid" data-lvmid="' + esc(g.espn_id) + '"><b>VS</b>' + esc(g.tip_pt || "") + "</div>";
     h += '<div class="team a"><div class="ab">客场</div><div class="nm">' + esc(g.away_cn) + "</div></div></div>";
-    h += '<div class="nomodel">本场模型未预测</div><p class="note lvwarn" id="lvWarn"></p>';
+    if (v8For(g)) h += '<div class="verdicts">' + v8Block(g) + '</div><p class="note">其他模型没有预测这场，只有第八版早锁。</p><p class="note lvwarn" id="lvWarn"></p>';
+    else h += '<div class="nomodel">本场模型未预测</div><p class="note lvwarn" id="lvWarn"></p>';
     $("hero").innerHTML = h; paintLive(false);
   }
   function renderHero(g) {
@@ -151,7 +179,10 @@
     h += '<div class="mid lvmid" data-lvmid="' + esc(g.espn_id) + '"><b>VS</b>' + esc(String(g.tip_pt || "时间待定").replace(/ PT$/, "")) + "</div>";
     h += '<div class="team a"><div class="ab">客场</div><div class="nm">' + esc(g.away_cn) + '</div><div class="ab">' + esc(g.records[g.away] || "") + "</div></div></div>";
     h += '<div class="verdicts">';
-    if (sp) {
+    var v8 = v8For(g);
+    if (v8) {
+      h += v8Block(g);
+    } else if (sp) {
       h += '<div class="vd"><div class="k">让分方向</div><div class="pick ' + (sp.pick_team === g.home ? "blue" : "red") + '">' + roll(sp.pick_text) + "</div>" +
         '<div class="row">' + bandPill(sp.band_cn) + "<span>盘口线 " + esc(hcText(g, sp.line_home)) + "（" + esc(sp.line_source) + "）</span></div>" +
         '<p class="note">模型算 ' + esc(winText(g, sp.pred_home_margin)) + "，盘口是 " + esc(hcText(g, sp.line_home)) + " → 站" + esc(sp.pick_cn) + "，差 " + esc(num(sp.edge, 2)) + " 分。</p></div>";
@@ -165,7 +196,9 @@
     var rs = g.version_record || {}, rt = g.version_record_total || {};
     function rec(r) { return r && r.graded ? (r.w + "胜 " + r.l + "负 " + r.p + "走（" + (r.pct == null ? "—" : r.pct + "%") + "）") : '<span class="miss">暂无</span>（比赛结束后才有）'; }
     var lbl = sp ? sp.model_label : (g.version_cn || "暂无");
-    h += '<div class="ver">当前用：<b>' + esc(lbl) + "</b>" + (to && to.model_label !== lbl ? "（大小分用 " + esc(to.model_label) + "）" : "") + (sp && sp.lock_time ? " · " + esc(String(sp.lock_time).slice(11, 16)) + " 锁定" : "") +
+    if (v8) h += '<div class="ver">让分以第八版早锁为准（实盘验证中，成绩见下方成绩板）' + (sp && sp.pick_text ? "。参考：" + esc(lbl) + " → " + esc(sp.pick_text) + "（把握度 " + esc(sp.band_cn) + "）" : "") + "<br>";
+    else h += '<div class="ver">';
+    h += (v8 ? "大小分用：" : "当前用：") + '<b>' + esc(v8 && to ? to.model_label : lbl) + "</b>" + (to && to.model_label !== lbl ? "（大小分用 " + esc(to.model_label) + "）" : "") + (sp && sp.lock_time ? " · " + esc(String(sp.lock_time).slice(11, 16)) + " 锁定" : "") +
       "<br>这一版的实际战绩：让分 " + rec(rs) + " · 大小分 " + rec(rt);
     if (mv.version && g.version !== mv.version) h += '<div class="warn">' + esc(mv.version_cn) + "没有锁定这场（可能锁定时已开赛），结论沿用" + esc(g.version_cn) + "。</div>";
     if (g.alt_pick) h += '<br><span class="dim">参考：' + esc(g.alt_pick.label) + " → " + esc(g.alt_pick.pick_text) + "（把握度 " + esc(g.alt_pick.band_cn) + "）</span>";
@@ -208,7 +241,7 @@
     var c = $("court"); if (!c || !court.g) return;
     var rect = c.getBoundingClientRect(); if (rect.bottom < 0 || rect.top > innerHeight) return; // 不在屏幕内就不画
     var x = c.getContext("2d"), W = c.width, H = c.height, g = court.g, t = ts / 1000;
-    var pickHome = g.spread && g.spread.pick_team === g.home, pickAway = g.spread && g.spread.pick_team === g.away;
+    var MS = mainSpread(g), pickHome = MS && MS.pick_team === g.home, pickAway = MS && MS.pick_team === g.away;
     x.clearRect(0, 0, W, H);
     var m = 24, cw = W - 2 * m, ch = H - 2 * m;
     // 两半场底色
@@ -242,7 +275,7 @@
       rg.addColorStop(0, col.replace("A", (0.35 + 0.25 * pulse).toFixed(2))); rg.addColorStop(1, col.replace("A", "0"));
       x.fillStyle = rg; x.fillRect(m, m, cw, ch);
     }
-    var liveOn = window.PBP && window.PBP.active;
+    var liveOn = window.PBP && window.PBP.isOn && window.PBP.isOn(g);
     if (pickHome && !liveOn) glow(m + cw * 0.25, "rgba(47,123,255,A)");
     if (pickAway && !liveOn) glow(m + cw * 0.75, "rgba(255,59,92,A)");
     // 扫描线
@@ -252,7 +285,7 @@
     // 队名
     x.textAlign = "center";
     function team(cx, nm, ab, rec, col, picked) {
-      if (window.PBP && window.PBP.active) return; // 直播时把球场让给投篮点
+      if (liveOn) return; // 直播时把球场让给动画
       x.shadowColor = col; x.shadowBlur = picked ? 26 : 10; x.fillStyle = "#fff";
       x.font = "900 56px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif"; x.fillText(nm, cx, H / 2 + 8);
       x.shadowBlur = 0; x.fillStyle = col; x.font = "700 18px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif"; x.fillText(ab + (rec ? "  " + rec : ""), cx, H / 2 + 40);
@@ -272,6 +305,8 @@
     if (s1.textContent !== sub) s1.textContent = sub;
   }
   function preSentence(g) {
+    var v = v8For(g);
+    if (v) return "第八版早锁看好" + v.pick_cn + "（" + v.pick_text + "），把握度" + v.band_cn + "；开盘 " + (hcText(g, v.open_home) || "暂无") + "，锁定时 " + (hcText(g, v.cur_home) || "暂无") + "。" + m9aText(v).replace("第九版候选 ", "");
     if (g.nomodel) return "本场模型未预测";
     var sp = g.spread; if (!sp || sp.pred_home_margin == null || sp.line_home == null) return "暂无模型结论";
     var pm = sp.pred_home_margin, lh = sp.line_home;
@@ -287,7 +322,7 @@
     return statusCn(s) + " · " + g.away_cn + " " + s.as + " : " + s.hs + " " + g.home_cn;
   }
   function courtBarIdle(g) {
-    if (window.PBP && window.PBP.active) return; // 直播时由动画接管
+    if (window.PBP && window.PBP.isOn && window.PBP.isOn(g)) return; // 直播时由动画接管
     var s = liveFor(g);
     if (!s || s.state === "pre") setBar(preSentence(g), s ? scoreLine(g, s) : String(g.tip_pt || "").replace(/ PT$/, ""));
     else setBar(s.state === "post" ? "比赛已结束" : "直播数据读取中…", scoreLine(g, s));
@@ -296,7 +331,7 @@
 
   /* ---------- 天平 ---------- */
   function renderScale(g) {
-    var sp = g.spread;
+    var sp = mainSpread(g);
     if (!sp || sp.edge == null) { $("scale").innerHTML = "<p>暂无模型结论</p>"; return; }
     var a = Math.min(Math.abs(sp.edge) / 4, 1) * 16 + 2, home = sp.pick_team === g.home, deg = home ? -a : a;
     var lvl = Math.abs(sp.edge) >= 3 ? "明显倾向" : Math.abs(sp.edge) >= 1.5 ? "中等倾向" : "轻微倾向";
@@ -316,7 +351,7 @@
       '<text x="330" y="172" fill="#ff6b84" font-size="18" font-weight="900" text-anchor="middle">' + esc(g.away_cn) + "</text></g>" +
       "</g></svg>" +
       '<div class="scale-say">判决：<span class="' + (home ? "blue" : "red") + '">' + esc(sp.pick_text) + "</span> · " + lvl + "</div>" +
-      '<p class="note" style="text-align:center">与盘口差 <span data-roll="' + num(sp.edge, 2) + '" data-dec="2">0</span> 分 · ' + bandPill(sp.band_cn) + "</p>";
+      '<p class="note" style="text-align:center">' + (sp.v8 ? "第八版预测盘口移动" : "与盘口差") + ' <span data-roll="' + num(sp.edge, 2) + '" data-dec="2">0</span> 分 · ' + bandPill(sp.band_cn) + "</p>";
     var beam = $("scale").querySelector(".beam");
     if ($("scale").closest(".card").classList.contains("in")) setTimeout(function () { beam.style.transform = "rotate(" + deg.toFixed(1) + "deg)"; runRolls($("scale")); }, 200);
   }
@@ -456,8 +491,20 @@
   }
 
   /* ---------- 历史命中率 ---------- */
+  function v8Board() {
+    var B = ((state.data || {}).v8 || {}).board || {}, T = B.target || 300;
+    var h = '<div class="v8board"><div class="v8bt">第八版早锁 · 实盘成绩板 <span class="v8tag">实盘验证中</span></div>';
+    if (!B.has) return h + '<p class="v8empty">明天开始记录（每场开盘后锁一次，比赛结束后算对错）</p><div class="v8prog"><i style="width:0%"></i></div><p class="note">目标攒满 ' + T + " 场，现在 0 场。</p></div>";
+    function row(t, r) {
+      return '<div class="v8row"><span>' + t + "</span><b>" + (r && r.n ? r.w + " 对 " + r.l + " 错" + (r.p ? "（" + r.p + " 场走盘）" : "") + " · " + r.pct + "%" : "还没有结束的比赛") + "</b></div>";
+    }
+    var n = B.all.n, left = Math.max(0, T - n);
+    h += row("第八版全部", B.all) + row("其中高把握", B.high) + row("第九版候选 M9a", B.m9a) + row("M9a 高把握", B.m9a_high);
+    h += '<div class="v8prog"><i style="width:' + Math.min(100, 100 * n / T).toFixed(1) + '%"></i></div><p class="note">已记录 ' + n + " 场，离 " + T + " 场还差 " + left + " 场" + (B.pending ? "；另有 " + B.pending + " 场还没打完" : "") + "。只算让分方向对错，走盘不算。</p></div>";
+    return h;
+  }
   function renderHist() {
-    var H = state.data.history || {}, mv = state.data.model_version || {}, h = "";
+    var H = state.data.history || {}, mv = state.data.model_version || {}, h = v8Board();
     function box(title, r) {
       return '<div class="box"><div class="dim">' + esc(title) + "</div>" + (r && r.graded ? "<b>" + (r.pct == null ? "—" : '<span data-roll="' + r.pct + '" data-dec="1">0</span>%') + '</b><div class="dim">' + r.w + "胜 " + r.l + "负 " + r.p + "走</div>" : '<b class="miss">暂无</b><div class="dim">比赛结束后才有</div>') + "</div>";
     }

@@ -131,7 +131,7 @@
   /* ---- 拉取 ---- */
   function selGame() { return window.NBA && window.NBA.game ? window.NBA.game() : null; }
   function liveState(g) { var s = g && window.liveFor ? window.liveFor(g) : null; return s ? s.state : null; }
-  function reset(g) { P.gid = g ? g.espn_id : null; P.plays = []; P.seen = {}; P.loadedPost = false; P.latestShot = null; P.showN = 30; P.fail = false; P.listeners.forEach(function (f) { f("reset"); }); }
+  function reset(g) { P.active = false; P.gid = g ? g.espn_id : null; P.plays = []; P.seen = {}; P.loadedPost = false; P.latestShot = null; P.showN = 30; P.fail = false; P.listeners.forEach(function (f) { f("reset"); }); }
   function tick() {
     clearTimeout(P.timer);
     var g = selGame();
@@ -222,8 +222,9 @@
     var sx = cw / 94, sy = ch / 50;
     return side === "h" ? [m + (y + 5.25) * sx, m + x * sy] : [m + cw - (y + 5.25) * sx, m + ch - x * sy];
   };
+  P.isOn = function (g) { return !!(P.active && g && String(g.espn_id) === String(P.gid)); };
   P.draw = function (cx, m, cw, ch, W, H, t) {
-    if (!P.active) return;
+    if (!P.isOn(selGame())) return;
     if (P.drawExtra) P.drawExtra(cx, m, cw, ch, W, H, t);
   };
 

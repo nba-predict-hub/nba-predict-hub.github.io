@@ -920,6 +920,84 @@ if vsel and os.path.exists(vsel):
 if mon_lines:
     missing.append("目前只拿到 DraftKings、平博两家公司的实时盘口，其他公司暂无")
 
+# ---- 第八版让分早锁（新外部输入：没有或格式不对都不能影响其他内容） ----
+V8_LEDGER = os.environ.get("V8_LEDGER_TEST") or os.path.join(M, "out", "live_ledger_v8_early.csv")
+V8_SCORES = os.environ.get("V8_SCORES_TEST") or os.path.join(M, "out", "v8_early_live_scores.csv")
+V8_COLS = {  # 实际列名来自 v8/lock_v8_early.py、v8/grade_v8_early.py；后面是宽松备选
+    "espn_id": ["espn_id", "game_id", "event_id"], "game_date": ["game_date", "date"], "lock_time": ["lock_time", "locked_at"],
+    "away": ["away", "away_team"], "home": ["home", "home_team"], "pick": ["pick", "pick_team", "m8_pick"],
+    "pick_line": ["pick_line", "take", "line"], "open_home": ["open_home_margin", "open_line_home", "open_line"],
+    "cur_home": ["cur_home_margin", "lock_line_home", "line_home"], "moved": ["moved_since_open"], "pred": ["pred", "pred_line_home"],
+    "edge": ["edge", "pred_move"], "band": ["band", "confidence"], "m9a": ["m9a_pick", "m9a"], "dry": ["dry"], "res": ["res", "result"],
+}
+
+
+def v8_read(path):
+    try:
+        if not os.path.exists(path) or os.path.getsize(path) == 0:
+            return []
+        with open(path, newline="", encoding="utf-8-sig") as f:
+            rows = list(csv.DictReader(f))
+        out = []
+        for r in rows:
+            low = {(k or "").strip().lower(): (v or "").strip() for k, v in r.items()}
+            x = {}
+            for key, alts in V8_COLS.items():
+                x[key] = next((low[a] for a in alts if low.get(a) not in (None, "")), "")
+            if x["dry"] in ("1", "true", "True"):
+                continue  # 干跑行不算
+            out.append(x)
+        return out
+    except Exception as ex:
+        print("第八版早锁文件读取失败（忽略）：", ex, file=sys.stderr)
+        return []
+
+
+def v8_team(t):
+    t = (t or "").split("|")[0].strip().upper()
+    return ESPN_ABBR.get(t, t)
+
+
+V8 = {"by_id": {}, "board": {"has": False, "target": 300}}
+try:
+    keep_from = (datetime.now(PT) - timedelta(days=1)).strftime("%Y-%m-%d")
+    for x in v8_read(V8_LEDGER):
+        gid, a8, h8, pk = x["espn_id"], v8_team(x["away"]), v8_team(x["home"]), v8_team(x["pick"])
+        if not gid or not pk or (x["game_date"] and x["game_date"] < keep_from):
+            continue
+        pl, op, cu = fnum(x["pick_line"]), fnum(x["open_home"]), fnum(x["cur_home"])
+        m9t = v8_team(x["m9a"]) if x["m9a"] else ""
+        V8["by_id"][str(gid).split(".")[0]] = {
+            "away": a8, "home": h8, "pick_team": pk, "pick_cn": cn(pk),
+            "pick_text": f"{cn(pk)} {pl:+g}" if pl is not None else cn(pk), "pick_line": pl,
+            "open_home": op, "cur_home": cu, "moved": fnum(x["moved"]), "pred_home": fnum(x["pred"]), "edge": fnum(x["edge"]),
+            "band": x["band"] or None, "band_cn": BAND.get(x["band"], "暂无"), "lock_time": x["lock_time"],
+            "m9a": ({"team": m9t, "team_cn": cn(m9t), "high": "|high" in x["m9a"].lower(), "same": m9t == pk} if m9t else None),
+        }
+    sc = v8_read(V8_SCORES)
+    def tally(rows, flip=None):
+        w = l = p_ = 0
+        for x in rows:
+            r = (x["res"] or "").upper()[:1]
+            if flip and flip(x):
+                r = {"W": "L", "L": "W"}.get(r, r)
+            w += r == "W"; l += r == "L"; p_ += r == "P"
+        n = w + l
+        return {"w": w, "l": l, "p": p_, "n": n, "pct": round(100 * w / n, 1) if n else None}
+    graded = [x for x in sc if (x["res"] or "").upper()[:1] in ("W", "L", "P")]
+    if graded:
+        m9 = [x for x in graded if x["m9a"]]
+        V8["board"] = {"has": True, "target": 300, "all": tally(graded), "high": tally([x for x in graded if x["band"] == "high"]),
+                       # M9a 和 M8 用同一条线：同向结果相同，反向则输赢互换
+                       "m9a": tally(m9, flip=lambda x: v8_team(x["m9a"]) != v8_team(x["pick"])),
+                       "m9a_high": tally([x for x in m9 if "|high" in x["m9a"].lower()], flip=lambda x: v8_team(x["m9a"]) != v8_team(x["pick"])),
+                       "pending": sum(1 for x in sc if not (x["res"] or "").strip())}
+    if V8["by_id"] or V8["board"].get("has"):
+        add_source("第八版让分早锁记录", V8_LEDGER, "每场开盘后锁一次，之后不改")
+except Exception as ex:
+    print("第八版早锁处理失败（忽略）：", ex, file=sys.stderr)
+    V8 = {"by_id": {}, "board": {"has": False, "target": 300}}
+
 now = datetime.now(PT)
 data = {
     "generated_at": now.strftime("%Y-%m-%d %H:%M:%S PT"),
@@ -937,6 +1015,7 @@ data = {
         "note": None,
     },
     "games": out_games,
+    "v8": V8,
     "unlocked_games": unlocked,
     "feed": feed,
     "history": history,
