@@ -164,22 +164,38 @@
   /* ---- 渲染 ---- */
   function renderEmpty(st) {
     var b = $("pbp"); if (!b) return;
-    b.innerHTML = '<p class="note small-miss">' + (st === "pre" ? "开赛后开始直播" : "比赛状态读取中…") + "</p>";
+    var t = st === "pre" ? "开赛后开始直播" : "比赛状态读取中…";
+    if (b.getAttribute("data-gid") === "empty:" + t) return;
+    b.setAttribute("data-gid", "empty:" + t);
+    b.innerHTML = '<p class="note small-miss">' + t + "</p>";
   }
   function scoreTxt(r) { return r.a == null ? "" : r.a + ":" + r.h; }
+  function li(r, isNew) {
+    var t = P.teams[r.team], side = t ? t.side : "";
+    return '<li class="k-' + r.kind + (side ? " s-" + side : "") + (isNew ? " new" : "") + (r.made ? " made" : "") + '"><span class="pt">' + esc(perCn(r.per)) + "<br>" + esc(String(r.clock).indexOf(":") < 0 ? r.clock + "秒" : r.clock) + '</span><span class="tx">' + esc(r.txt) + '</span><span class="sc">' + esc(scoreTxt(r)) + "</span></li>";
+  }
+  // 固定骨架：标题行、固定高度走势图、固定高度内部滚动列表；刷新时只改变化的部分，页面不跳
   function render(g, fresh) {
     var b = $("pbp"); if (!b) return;
-    var freshIds = {}; fresh.forEach(function (r) { freshIds[r.id] = 1; });
-    var list = P.plays.filter(function (r) { return r.txt; }).slice().reverse();
-    var h = '<div class="pbp-head"><span>比分为 ' + esc(g.away_cn) + " : " + esc(g.home_cn) + '</span><span class="dim">' + (P.fail ? "刷新失败，显示 " + esc(P.okAt || "上次") + " 的内容" : "更新于 " + esc(P.okAt || "")) + "</span></div>";
-    h += chart(g);
-    h += '<ol class="pbp-list">' + list.slice(0, P.showN).map(function (r) {
-      var t = P.teams[r.team], side = t ? t.side : "";
-      return '<li class="k-' + r.kind + (side ? " s-" + side : "") + (freshIds[r.id] && fresh.length < 40 ? " new" : "") + (r.made ? " made" : "") + '"><span class="pt">' + esc(perCn(r.per)) + "<br>" + esc(String(r.clock).indexOf(":") < 0 ? r.clock + "秒" : r.clock) + '</span><span class="tx">' + esc(r.txt) + '</span><span class="sc">' + esc(scoreTxt(r)) + "</span></li>";
-    }).join("") + "</ol>";
-    if (list.length > P.showN) h += '<button class="more" id="pbpMore">再看 30 条（共 ' + list.length + " 条）</button>";
-    b.innerHTML = h;
-    var mb = $("pbpMore"); if (mb) mb.onclick = function () { P.showN += 30; render(g, []); };
+    if (b.getAttribute("data-gid") !== String(g.espn_id) || !$("pbpList")) {
+      b.setAttribute("data-gid", g.espn_id);
+      b.innerHTML = '<div class="pbp-head"><span>比分为 ' + esc(g.away_cn) + " : " + esc(g.home_cn) + '</span><span class="dim" id="pbpUpd"></span></div><div class="pbp-chart" id="pbpChart"></div><ol class="pbp-list" id="pbpList"></ol>';
+      fresh = null;
+    }
+    var upd = P.fail ? "刷新失败，显示 " + (P.okAt || "上次") + " 的内容" : "更新于 " + (P.okAt || "");
+    if ($("pbpUpd").textContent !== upd) $("pbpUpd").textContent = upd;
+    var ch = chart(g); if ($("pbpChart")._h !== ch) { $("pbpChart")._h = ch; $("pbpChart").innerHTML = ch; }
+    var L = $("pbpList"), list = P.plays.filter(function (r) { return r.txt; });
+    if (fresh === null || L.children.length === 0) {
+      L.innerHTML = list.slice().reverse().map(function (r) { return li(r, false); }).join("");
+    } else if (fresh.length) {
+      var add = fresh.filter(function (r) { return r.txt; }).slice().reverse().map(function (r) { return li(r, fresh.length < 40); }).join("");
+      if (add) {
+        var top = L.scrollTop, h0 = L.scrollHeight;
+        L.insertAdjacentHTML("afterbegin", add);
+        if (top > 0) L.scrollTop = top + (L.scrollHeight - h0); // 用户在看旧记录时不把内容顶走
+      }
+    }
   }
   function chart(g) {
     var pts = P.plays.filter(function (r) { return r.a != null; }); if (!pts.length) return "";

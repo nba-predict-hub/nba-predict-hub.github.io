@@ -177,7 +177,7 @@ details{margin-top:10px;font-size:14px}summary{cursor:pointer;color:var(--cyan)}
 .plus{position:absolute;left:50%;top:-6px;transform:translateX(-50%);font-style:normal;font-size:14px;font-weight:900;color:#2fe39a;text-shadow:0 0 8px #2fe39a;animation:plus 1.4s ease-out forwards;pointer-events:none}
 @keyframes plus{0%{opacity:0;transform:translate(-50%,6px)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-26px)}}
 @keyframes blink{50%{opacity:.25}}
-.lvwarn:empty{display:none}
+.lvwarn{min-height:18px;margin:2px 0}
 .lsframe{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff;height:900px;margin:0 -6px}
 .lsframe iframe{width:100%;height:100%;border:0;display:block}
 .lsbtn{display:block;text-align:center;margin:10px 0 4px;padding:11px;border-radius:12px;background:linear-gradient(90deg,#2f7bff,#33e1ff);color:#04101f;font-weight:800;text-decoration:none}
@@ -198,3 +198,15 @@ details{margin-top:10px;font-size:14px}summary{cursor:pointer;color:var(--cyan)}
 .pbp-list li.new{animation:pnew 1.6s ease-out}
 @keyframes pnew{0%{background:rgba(51,225,255,.28);transform:translateX(-8px)}100%{background:transparent;transform:none}}
 .nomodel{margin:6px auto 2px;width:max-content;padding:4px 12px;border-radius:999px;background:#1b2440;color:var(--yel);font-size:13px;font-weight:700}
+/* 防跳动：固定尺寸 + 等宽数字 */
+html{overflow-anchor:auto}
+.top{height:64px;flex-wrap:nowrap;align-items:center;overflow:hidden}
+.top .meta{flex-direction:column;align-items:flex-end;gap:2px;flex-wrap:nowrap;white-space:nowrap}
+#genAt,.lvtab,.lvsc,.lvst,.pbp-list .sc,.pbp-list .pt,.pbp-head,.tab span{font-variant-numeric:tabular-nums}
+.tab{height:76px;overflow:hidden}
+.tab span{display:block;white-space:nowrap}
+.lvmid{height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#pbp{min-height:40px}
+.pbp-chart{height:190px}
+.pbp-list{height:420px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:10px}
+#lvWarn{min-height:0}

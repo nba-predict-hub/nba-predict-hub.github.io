@@ -100,7 +100,12 @@
     var gs = allGames(), id = state.sel;
     return gs.filter(function (g) { return g.espn_id === id; })[0] || gs[0];
   }
-  function renderAll(first) {
+  function keepScroll(fn) {
+    var y = window.scrollY; fn();
+    if (Math.abs(window.scrollY - y) > 1) window.scrollTo(0, y);
+  }
+  function renderAll(first) { keepScroll(function () { renderAll0(first); }); }
+  function renderAll0(first) {
     var d = state.data;
     $("genAt").textContent = "更新于 " + String(d.generated_at || "").slice(11, 16) + " · 最新锁定 " + (d.last_lock ? String(d.last_lock).slice(11, 16) : "暂无");
     $("footGen").textContent = "数据更新于 " + String(d.generated_at || "").slice(0, 16) + "（太平洋时间）";
@@ -118,7 +123,8 @@
     setTimeout(function () { paintLive(false); }, 0);
     $("gameTabs").querySelectorAll(".tab[data-id]").forEach(function (b) {
       b.onclick = function () {
-        state.sel = b.getAttribute("data-id"); renderTabs(); renderGame(); paintLive(false); if (window.PBP) window.PBP.kick();
+        var sl = $("gameTabs").scrollLeft;
+        state.sel = b.getAttribute("data-id"); renderTabs(); renderGame(); paintLive(false); $("gameTabs").scrollLeft = sl; if (window.PBP) window.PBP.kick();
         document.querySelectorAll(".card.in").forEach(animateIn);
       };
     });
@@ -498,11 +504,13 @@
       var started = s.state !== "pre", inp = s.state === "in";
       if (tab) {
         tab.className = "lvtab" + (inp ? " live" : s.state === "post" ? " fin" : "");
-        tab.innerHTML = started ? '<b class="sa">' + s.as + '</b> : <b class="sh">' + s.hs + "</b> · " + esc(statusCn(s)) : esc(s.tip + " 开赛");
+        var th = started ? '<b class="sa">' + s.as + '</b> : <b class="sh">' + s.hs + "</b> · " + esc(statusCn(s)) : esc(s.tip + " 开赛");
+        if (tab._h !== th) { tab._h = th; tab.innerHTML = th; }
       }
       if (mid) {
-        mid.innerHTML = '<div class="lvst' + (inp ? " live" : s.state === "post" ? " fin" : "") + '">' + (inp ? "<i></i>" : "") + esc(started ? statusCn(s) : s.tip + " 开赛") + "</div>" +
+        var mh = '<div class="lvst' + (inp ? " live" : s.state === "post" ? " fin" : "") + '">' + (inp ? "<i></i>" : "") + esc(started ? statusCn(s) : s.tip + " 开赛") + "</div>" +
           (started ? '<div class="lvsc"><b class="sh blue">' + s.hs + '</b><em>:</em><b class="sa red">' + s.as + "</b></div>" : "<b>VS</b><small>太平洋时间</small>");
+        if (mid._h !== mh) { mid._h = mh; mid.innerHTML = mh; }
       }
       if (animate && pv && started) {
         if (s.hs > pv.hs) document.querySelectorAll('[data-lvtab="' + key + '"] .sh, [data-lvmid="' + key + '"] .sh').forEach(function (el) { bump(el, s.hs - pv.hs); });
@@ -521,7 +529,7 @@
       var oldIds = (live.events || []).map(function (e) { return e.id + e.state; }).join(",");
       live.events = []; for (var k in nb) if (k === nb[k].id) live.events.push(nb[k]);
       live.prev = prev; live.byId = nb;
-      if (state.data && oldIds !== live.events.map(function (e) { return e.id + e.state; }).join(",")) { renderTabs(); var gg = game(); if (gg && (gg.nomodel || !$("hero").innerHTML)) renderGame(); } live.fail = false; live.okAt = ptTime(new Date().toISOString());
+      if (state.data && oldIds !== live.events.map(function (e) { return e.id + e.state; }).join(",")) keepScroll(function () { var sl = $("gameTabs").scrollLeft; renderTabs(); $("gameTabs").scrollLeft = sl; var gg = game(); if (gg && (gg.nomodel || !$("hero").innerHTML)) renderGame(); }); live.fail = false; live.okAt = ptTime(new Date().toISOString());
       paintLive(true);
       if (window.PBP) window.PBP.kick();
     }).catch(function () { live.fail = true; paintLive(false); }).then(function () {
@@ -551,7 +559,6 @@
   setInterval(function () {
     state.left -= 1;
     if (state.left <= 0) { state.left = REFRESH; load(!state.data); }
-    $("countdown").textContent = state.left;
   }, 1000);
   load(true);
 })();
