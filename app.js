@@ -113,7 +113,7 @@
   }
   function renderGame() {
     var g = game(); if (!g) { $("hero").innerHTML = "<p>今天还没有锁定的比赛。</p>"; return; }
-    renderHero(g); drawCourtSetup(g); renderScale(g); renderOdds(g); renderEdge(g); renderFactors(g); renderInj(g);
+    renderHero(g); renderLeisu(g); drawCourtSetup(g); renderScale(g); renderOdds(g); renderEdge(g); renderFactors(g); renderInj(g);
   }
   function renderHero(g) {
     var d = state.data, mv = d.model_version || {}, sp = g.spread, to = g.total, h = "";
@@ -145,6 +145,29 @@
     $("hero").innerHTML = h;
     runRolls($("hero"));
     paintLive(false);
+  }
+
+  /* ---------- 雷速动画直播（iframe 嵌入雷速自己的页面，不搬运数据） ---------- */
+  var leisuIds = {};
+  function loadLeisu() {
+    return fetch("leisu_ids.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (j) { leisuIds = (j && j.games) || j || {}; }).catch(function () { leisuIds = {}; });
+  }
+  function leisuId(g) {
+    var keys = [g.espn_id, g.away_cn + "@" + g.home_cn, g.away + "@" + g.home, g.away_cn + " @ " + g.home_cn, g.away + " @ " + g.home];
+    for (var i = 0; i < keys.length; i++) { var v = leisuIds[keys[i]]; if (v && /^\d+$/.test(String(v))) return String(v); }
+    return null;
+  }
+  function renderLeisu(g) {
+    var card = $("leisuCard"), id = leisuId(g);
+    if (!id) { card.hidden = true; $("leisu").innerHTML = ""; return; }
+    card.hidden = false;
+    var url = "https://m.leisu.com/live/lanqiu/detail-" + id, box = $("leisu");
+    if (box.getAttribute("data-id") === id) return; // 同一场不重载，避免刷新打断动画
+    box.setAttribute("data-id", id);
+    box.innerHTML = '<div class="lsframe"><iframe src="' + url + '" title="雷速动画直播" loading="lazy" referrerpolicy="no-referrer"></iframe></div>' +
+      '<a class="lsbtn" href="' + url + '" target="_blank" rel="noopener">在雷速打开动画直播 ↗</a>' +
+      '<p class="note">画面来自雷速网站，本站只是嵌入他们的页面；如果上面空白，点按钮在新窗口看。</p>';
   }
 
   /* ---------- 全息球场 ---------- */
@@ -485,7 +508,9 @@
     }).then(function (d) {
       var changed = d.generated_at !== state.gen;
       state.data = d; state.gen = d.generated_at;
-      if (first) return loaderFeed(d).then(function () { renderAll(true); hideLoader(); pollScores(); });
+      var lp = loadLeisu();
+      if (first) return lp.then(function () { return loaderFeed(d); }).then(function () { renderAll(true); hideLoader(); pollScores(); });
+      lp.then(function () { var g = game(); if (g) renderLeisu(g); });
       if (changed) { renderAll(false); toast("数据已更新 · " + String(d.generated_at || "").slice(11, 16)); }
     }).catch(function (e) {
       if (first) { document.querySelector(".ld-title").textContent = "数据读取失败，60 秒后自动重试"; }
