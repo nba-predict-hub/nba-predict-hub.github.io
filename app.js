@@ -49,41 +49,142 @@
 
   /* ---------- 开场加载动画 ---------- */
   var loaderStart = Date.now();
-  // 开场：首屏和 iOS 静态启动图同一画面（深色 + 球框）+“点一下进入”；数据在点之前就开始后台读。
-  // 点一下：播放入网音效（Web Audio 现场合成，无音频文件）+ 篮球划弧入网动画约 1 秒，最晚点后 1.5 秒进入首页
+  /* ---------- 片头：黑底光束扫过 → 火焰篮球带光轨飞入 → 空心入网（网绳抖动、冲击波、粒子爆散、屏幕微震）→ 金属 Logo 扫光炸亮 → “NBA 智能预测”霓虹逐字点亮 ----------
+     Canvas + requestAnimationFrame，约 1.75 秒，点一下可跳过；首帧（未点击时）= 暗色球框 + 暗金属 Logo，和 iOS 静态启动图同一画面。
+     音效 Web Audio 现场合成：呼啸（噪声带通上扫）、唰（噪声高往低扫）、低音轰鸣（正弦下滑 + 低通噪声），无音频文件 */
+  var IN = { T: 1650, hit: 0.9 };
   function loaderFeed() { return Promise.resolve(); }
   function introSound() {
     try { if (localStorage.getItem("nba_intro_sound") === "0") return; } catch (e) {}
     var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
     try {
       var ac = new AC(); if (ac.resume) ac.resume();
-      var t0 = ac.currentTime + 0.8, sr = ac.sampleRate, n = Math.floor(sr * 0.45), buf = ac.createBuffer(1, n, sr), ch = buf.getChannelData(0);
-      for (var i = 0; i < n; i++) ch[i] = Math.random() * 2 - 1; // 白噪声
-      var src = ac.createBufferSource(); src.buffer = buf;
-      var bp = ac.createBiquadFilter(); bp.type = "bandpass"; bp.Q.value = 0.9; bp.frequency.setValueAtTime(7000, t0); bp.frequency.exponentialRampToValueAtTime(1800, t0 + 0.4); // 高往低扫：“唰”
-      var g1 = ac.createGain(); g1.gain.setValueAtTime(0.0001, t0); g1.gain.exponentialRampToValueAtTime(0.55, t0 + 0.03); g1.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.42);
-      src.connect(bp); bp.connect(g1); g1.connect(ac.destination); src.start(t0); src.stop(t0 + 0.45);
-      var o = ac.createOscillator(); o.type = "sine"; o.frequency.setValueAtTime(140, t0 + 0.05); o.frequency.exponentialRampToValueAtTime(42, t0 + 0.32); // 正弦下滑：低音冲击
-      var g2 = ac.createGain(); g2.gain.setValueAtTime(0.0001, t0 + 0.05); g2.gain.exponentialRampToValueAtTime(0.9, t0 + 0.07); g2.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.38);
-      o.connect(g2); g2.connect(ac.destination); o.start(t0 + 0.05); o.stop(t0 + 0.4);
-      setTimeout(function () { try { ac.close(); } catch (e) {} }, 2000);
-      FR_SND = 1;
+      var T = ac.currentTime + 0.03, sr = ac.sampleRate;
+      function noise(sec) { var n = Math.floor(sr * sec), b = ac.createBuffer(1, n, sr), c = b.getChannelData(0); for (var i = 0; i < n; i++) c[i] = Math.random() * 2 - 1; var s = ac.createBufferSource(); s.buffer = b; return s; }
+      function env(g, t0, a, peak, d) { g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(peak, t0 + a); g.gain.exponentialRampToValueAtTime(0.0001, t0 + a + d); }
+      // 呼啸：球飞来
+      var w = noise(0.85), wf = ac.createBiquadFilter(), wg = ac.createGain(); wf.type = "bandpass"; wf.Q.value = 2.2; wf.frequency.setValueAtTime(300, T + 0.1); wf.frequency.exponentialRampToValueAtTime(3200, T + 0.9);
+      env(wg, T + 0.1, 0.65, 0.35, 0.2); w.connect(wf); wf.connect(wg); wg.connect(ac.destination); w.start(T + 0.1); w.stop(T + 0.98);
+      // 唰：空心入网
+      var t1 = T + IN.hit, sw = noise(0.45), bp = ac.createBiquadFilter(), g1 = ac.createGain(); bp.type = "bandpass"; bp.Q.value = 0.9; bp.frequency.setValueAtTime(7000, t1); bp.frequency.exponentialRampToValueAtTime(1800, t1 + 0.4);
+      env(g1, t1, 0.02, 0.6, 0.4); sw.connect(bp); bp.connect(g1); g1.connect(ac.destination); sw.start(t1); sw.stop(t1 + 0.45);
+      // 低音轰鸣
+      var o = ac.createOscillator(), g2 = ac.createGain(); o.type = "sine"; o.frequency.setValueAtTime(110, t1 + 0.03); o.frequency.exponentialRampToValueAtTime(32, t1 + 0.7); env(g2, t1 + 0.03, 0.02, 1.0, 0.7);
+      o.connect(g2); g2.connect(ac.destination); o.start(t1 + 0.03); o.stop(t1 + 0.8);
+      var rb = noise(0.8), lp = ac.createBiquadFilter(), g3 = ac.createGain(); lp.type = "lowpass"; lp.frequency.value = 180; env(g3, t1 + 0.03, 0.03, 0.7, 0.7);
+      rb.connect(lp); lp.connect(g3); g3.connect(ac.destination); rb.start(t1 + 0.03); rb.stop(t1 + 0.85);
+      setTimeout(function () { try { ac.close(); } catch (e) {} }, 2500);
     } catch (e) {}
   }
-  var FR_SND = 0;
-  function finishLoader() { if (state.ldOut) return; state.ldOut = true; $("loader").classList.add("done"); revealCards(); }
+  var cv = $("ldCv"), cx = cv && cv.getContext("2d"), W = 0, H = 0, DPR = 1;
+  function sizeCv() { if (!cv) return; DPR = Math.min(2, window.devicePixelRatio || 1); W = window.innerWidth; H = window.innerHeight; cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR); cx.setTransform(DPR, 0, 0, DPR, 0, 0); }
+  function geo() { var u = Math.min(W, H * 0.6) / 390; return { u: u, hx: W / 2, hy: H * 0.36, ly: H * 0.56 }; }
+  function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function eo(x) { x = clamp(x); return 1 - Math.pow(1 - x, 3); }
+  function drawHoop(G, a, shake) {
+    var u = G.u, hx = G.hx, hy = G.hy;
+    cx.save(); cx.globalAlpha = a; cx.lineCap = "round";
+    cx.strokeStyle = "#33e1ff"; cx.shadowColor = "#33e1ff"; cx.shadowBlur = 14 * u; cx.lineWidth = 3 * u;
+    cx.strokeRect(hx - 44 * u, hy - 74 * u, 88 * u, 58 * u); cx.lineWidth = 2 * u; cx.strokeRect(hx - 16 * u, hy - 52 * u, 32 * u, 22 * u);
+    cx.strokeStyle = "#ff7a2f"; cx.shadowColor = "#ff7a2f"; cx.lineWidth = 4.5 * u; cx.beginPath(); cx.ellipse(hx, hy, 32 * u, 7 * u, 0, 0, Math.PI * 2); cx.stroke();
+    cx.strokeStyle = "rgba(220,240,255,.85)"; cx.shadowBlur = 0; cx.lineWidth = 1.4 * u;
+    for (var i = 0; i <= 6; i++) { var x0 = hx - 30 * u + i * 10 * u, x1 = hx - 18 * u + i * 6 * u, wob = shake * Math.sin(i * 1.7 + shake * 40) * 6 * u; cx.beginPath(); cx.moveTo(x0, hy + 3 * u); cx.quadraticCurveTo((x0 + x1) / 2 + wob, hy + 22 * u + shake * 10 * u, x1 - wob * 0.5, hy + (40 + shake * 12) * u); cx.stroke(); }
+    for (var j = 1; j <= 2; j++) { var yy = hy + (j * 13 + shake * 6 * j) * u, ww = (30 - j * 5) * u; cx.beginPath(); cx.moveTo(hx - ww, yy); cx.quadraticCurveTo(hx, yy + shake * 8 * u * Math.sin(shake * 30), hx + ww, yy); cx.stroke(); }
+    cx.restore();
+  }
+  function drawLogo(G, k, sweep, flash) { // k: 0 暗金属 → 1 点亮
+    var u = G.u, y = G.ly, fs = 64 * u;
+    cx.save(); cx.textAlign = "center"; cx.textBaseline = "middle"; cx.font = "900 " + fs + "px -apple-system,'Helvetica Neue',Arial,sans-serif";
+    var gr = cx.createLinearGradient(0, y - fs / 2, 0, y + fs / 2);
+    gr.addColorStop(0, "rgba(255,255,255," + (0.18 + 0.82 * k) + ")"); gr.addColorStop(0.45, "rgba(150,165,190," + (0.14 + 0.86 * k) + ")"); gr.addColorStop(0.55, "rgba(70,80,100," + (0.12 + 0.88 * k) + ")"); gr.addColorStop(1, "rgba(200,210,230," + (0.15 + 0.85 * k) + ")");
+    if (flash > 0) { cx.shadowColor = "rgba(120,230,255," + flash + ")"; cx.shadowBlur = 40 * u * flash; }
+    cx.fillStyle = gr; cx.fillText("NBA", W / 2, y);
+    if (sweep > 0 && sweep < 1) { // 扫光
+      cx.globalCompositeOperation = "source-atop"; var sx = W / 2 - 130 * u + sweep * 260 * u, sg = cx.createLinearGradient(sx - 30 * u, 0, sx + 30 * u, 0);
+      sg.addColorStop(0, "rgba(255,255,255,0)"); sg.addColorStop(0.5, "rgba(255,255,255,.95)"); sg.addColorStop(1, "rgba(255,255,255,0)"); cx.fillStyle = sg; cx.fillRect(sx - 30 * u, y - fs, 60 * u, fs * 2);
+    }
+    cx.restore();
+  }
+  function drawWords(G, t) { // 霓虹逐字点亮
+    var s = "NBA 智能预测".split(""), u = G.u, fs = 24 * u, y = G.ly + 52 * u;
+    cx.save(); cx.font = "800 " + fs + "px -apple-system,'PingFang SC','Noto Sans CJK SC',sans-serif"; cx.textBaseline = "middle"; cx.textAlign = "left";
+    var tw = cx.measureText(s.join("")).width, x = W / 2 - tw / 2;
+    s.forEach(function (ch, i) {
+      var a = clamp((t - (1.12 + i * 0.05)) / 0.12), fl = a > 0 && a < 1 ? (Math.random() < 0.5 ? 0.35 : 1) : 1;
+      if (a > 0) { cx.globalAlpha = a * fl; cx.shadowColor = "#33e1ff"; cx.shadowBlur = 16 * u; cx.fillStyle = "#e9fbff"; cx.fillText(ch, x, y); }
+      x += cx.measureText(ch).width;
+    });
+    cx.restore();
+  }
+  function firstFrame() { if (!cx) return; sizeCv(); var G = geo(); cx.fillStyle = "#000"; cx.fillRect(0, 0, W, H); drawHoop(G, 0.45, 0); drawLogo(G, 0, 0, 0); }
+  var parts = [], trail = [];
+  function burst(G) { for (var i = 0; i < 90; i++) { var a = Math.random() * Math.PI * 2, v = (120 + Math.random() * 380) * G.u; parts.push({ x: G.hx, y: G.hy + 10 * G.u, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 80 * G.u, life: 0.5 + Math.random() * 0.5, age: 0, c: Math.random() < 0.5 ? "#33e1ff" : (Math.random() < 0.5 ? "#ffb347" : "#ffffff"), r: (1 + Math.random() * 2.2) * G.u }); } }
+  function playIntro(done) {
+    if (!cx) return done();
+    sizeCv(); var G = geo(), t0 = performance.now(), last = t0, hitDone = false, fr = []; parts = []; trail = [];
+    window.__intro = { frames: fr, start: Date.now() };
+    function ballAt(t) { // 0.12 → hit 远处飞入（透视放大）后穿网下落
+      var k = clamp((t - 0.12) / (IN.hit - 0.12)), e = k * k * (3 - 2 * k), x0 = -0.15 * W, y0 = H * 0.08, cxp = W * 0.25, cyp = -H * 0.12;
+      if (t <= IN.hit) { var x = (1 - e) * (1 - e) * x0 + 2 * (1 - e) * e * cxp + e * e * G.hx, y = (1 - e) * (1 - e) * y0 + 2 * (1 - e) * e * cyp + e * e * (G.hy - 8 * G.u); return { x: x, y: y, r: (5 + 12 * e) * G.u, k: k }; }
+      var d = clamp((t - IN.hit) / 0.22); return { x: G.hx, y: G.hy - 8 * G.u + d * 60 * G.u, r: 17 * G.u, k: 1, fade: 1 - d };
+    }
+    function frame(now) {
+      var t = (now - t0) / 1000, dt = Math.min(0.05, (now - last) / 1000); fr.push(now - last); last = now;
+      if (IN.skip || t * 1000 >= IN.T) { done(); return; }
+      var sh = 0; if (t > IN.hit && t < IN.hit + 0.28) sh = (1 - (t - IN.hit) / 0.28) * 7 * G.u;
+      cx.setTransform(DPR, 0, 0, DPR, 0, 0); cx.fillStyle = "#000"; cx.fillRect(0, 0, W, H);
+      if (sh) cx.translate((Math.random() - 0.5) * sh * 2, (Math.random() - 0.5) * sh * 2);
+      // 光束扫过
+      var bk = clamp(t / 0.6); if (bk < 1) { var bx = -W * 0.6 + bk * W * 2.2; cx.save(); cx.globalCompositeOperation = "lighter"; cx.translate(bx, H / 2); cx.rotate(-0.35); var bg = cx.createLinearGradient(-90, 0, 90, 0); bg.addColorStop(0, "rgba(51,225,255,0)"); bg.addColorStop(0.5, "rgba(120,200,255," + (0.35 * (1 - bk)) + ")"); bg.addColorStop(1, "rgba(51,225,255,0)"); cx.fillStyle = bg; cx.fillRect(-90, -H, 180, H * 2); cx.restore(); }
+      // 球场地面辉光
+      var gl = eo(t / 0.5); cx.save(); var rg = cx.createRadialGradient(G.hx, G.hy + 40 * G.u, 0, G.hx, G.hy + 40 * G.u, 260 * G.u); rg.addColorStop(0, "rgba(40,90,200," + 0.28 * gl + ")"); rg.addColorStop(1, "rgba(0,0,0,0)"); cx.fillStyle = rg; cx.fillRect(0, 0, W, H); cx.restore();
+      var nshake = t > IN.hit ? Math.max(0, 1 - (t - IN.hit) / 0.5) : 0;
+      drawHoop(G, 0.45 + 0.55 * eo(t / 0.4), nshake);
+      // 篮球 + 火焰 + 光轨
+      var b = ballAt(t);
+      if (t > 0.12 && (b.fade == null || b.fade > 0)) {
+        trail.push({ x: b.x, y: b.y }); if (trail.length > 16) trail.shift();
+        cx.save(); cx.globalCompositeOperation = "lighter"; cx.lineCap = "round";
+        for (var i = 1; i < trail.length; i++) { var q = i / trail.length; cx.strokeStyle = "rgba(51,225,255," + 0.5 * q + ")"; cx.lineWidth = b.r * 1.2 * q; cx.beginPath(); cx.moveTo(trail[i - 1].x, trail[i - 1].y); cx.lineTo(trail[i].x, trail[i].y); cx.stroke(); }
+        if (t < IN.hit) for (var f = 0; f < 3; f++) parts.push({ x: b.x + (Math.random() - 0.5) * b.r, y: b.y + (Math.random() - 0.5) * b.r, vx: (Math.random() - 0.5) * 60 * G.u - 120 * G.u, vy: (Math.random() - 0.5) * 60 * G.u - 40 * G.u, life: 0.28 + Math.random() * 0.2, age: 0, c: Math.random() < 0.6 ? "#ff7a1a" : "#ffd04d", r: b.r * (0.35 + Math.random() * 0.35), fire: 1 });
+        cx.restore();
+        cx.save(); cx.globalAlpha = b.fade == null ? 1 : b.fade; var bgd = cx.createRadialGradient(b.x - b.r * 0.35, b.y - b.r * 0.35, b.r * 0.1, b.x, b.y, b.r); bgd.addColorStop(0, "#ffc27a"); bgd.addColorStop(0.6, "#f2711c"); bgd.addColorStop(1, "#8a3306");
+        cx.shadowColor = "#ff8a2a"; cx.shadowBlur = 18 * G.u; cx.fillStyle = bgd; cx.beginPath(); cx.arc(b.x, b.y, b.r, 0, Math.PI * 2); cx.fill(); cx.shadowBlur = 0;
+        cx.strokeStyle = "rgba(60,20,0,.8)"; cx.lineWidth = Math.max(1, b.r * 0.1); cx.beginPath(); cx.moveTo(b.x - b.r, b.y); cx.lineTo(b.x + b.r, b.y); cx.moveTo(b.x, b.y - b.r); cx.lineTo(b.x, b.y + b.r); cx.stroke(); cx.restore();
+        if (t > IN.hit) drawHoop(G, 1, nshake); // 穿过篮网：网绳盖在球前面
+      }
+      // 入网：冲击波 + 粒子爆散 + 闪白
+      if (t >= IN.hit && !hitDone) { hitDone = true; burst(G); }
+      if (t > IN.hit) {
+        var w = (t - IN.hit) / 0.55;
+        if (w < 1) { cx.save(); cx.globalCompositeOperation = "lighter"; [0, 0.18].forEach(function (o) { var ww = clamp(w - o); if (ww <= 0 || ww >= 1) return; cx.strokeStyle = "rgba(120,230,255," + (1 - ww) * 0.9 + ")"; cx.lineWidth = (6 - 5 * ww) * G.u; cx.beginPath(); cx.ellipse(G.hx, G.hy, 30 * G.u + ww * 260 * G.u, 8 * G.u + ww * 80 * G.u, 0, 0, Math.PI * 2); cx.stroke(); }); cx.restore(); }
+        var fl = 1 - (t - IN.hit) / 0.14; if (fl > 0) { cx.fillStyle = "rgba(200,240,255," + 0.45 * fl + ")"; cx.fillRect(-20, -20, W + 40, H + 40); }
+      }
+      // 粒子
+      cx.save(); cx.globalCompositeOperation = "lighter";
+      for (var p = parts.length - 1; p >= 0; p--) { var P = parts[p]; P.age += dt; if (P.age > P.life) { parts.splice(p, 1); continue; } P.x += P.vx * dt; P.y += P.vy * dt; P.vy += (P.fire ? -60 : 260) * G.u * dt; P.vx *= 0.985; var a = 1 - P.age / P.life; cx.globalAlpha = a; cx.fillStyle = P.c; cx.beginPath(); cx.arc(P.x, P.y, P.r * (P.fire ? a : 1), 0, Math.PI * 2); cx.fill(); }
+      cx.restore();
+      // Logo：暗金属 → 扫光 → 炸亮；文字霓虹逐字点亮
+      var lk = clamp((t - 1.0) / 0.35), sweep = clamp((t - 0.6) / 0.45), flash = t > 1.05 ? Math.max(0, 1 - (t - 1.05) / 0.5) : 0;
+      drawLogo(G, lk, sweep, flash); drawWords(G, t);
+      var out = clamp((t - (IN.T / 1000 - 0.25)) / 0.25); if (out > 0) { cx.setTransform(DPR, 0, 0, DPR, 0, 0); } // 最后 0.25 秒由外层淡出
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  function finishLoader() { if (state.ldOut) return; state.ldOut = true; var L = $("loader"); L.classList.add("done"); revealCards(); if (window.__intro) window.__intro.end = Date.now(); }
   function startIntro(quiet) {
-    if (state.tapped) return; state.tapped = true; loaderStart = Date.now();
-    if (!quiet) { $("loader").classList.add("go"); var m = $("ldMove"); try { if (m && m.beginElement) m.beginElement(); } catch (e) {} introSound(); }
-    if (state.dataReady) hideLoader();
-    setTimeout(function () { if (!state.loadFailed) finishLoader(); }, quiet ? 0 : 1500);
+    if (state.tapped) { if (!quiet && !state.ldOut) { IN.skip = true; finishLoader(); } return; } // 再点一下：跳过
+    state.tapped = true; loaderStart = Date.now();
+    if (!quiet) { $("loader").classList.add("go"); introSound(); playIntro(function () { state.animDone = true; if (state.dataReady || state.loadFailed === undefined) finishLoader(); }); }
+    else state.animDone = true;
+    if (state.dataReady && quiet) finishLoader();
+    setTimeout(function () { if (!state.loadFailed) finishLoader(); }, quiet ? 0 : IN.T + 50); // 最长 1.8 秒一定进入首页（数据没到就先显示加载中）
   }
-  function hideLoader() {
-    state.dataReady = true; if (!state.tapped) return;
-    setTimeout(finishLoader, Math.max(0, 1100 - (Date.now() - loaderStart)));
-  }
+  function hideLoader() { state.dataReady = true; if (state.tapped && state.animDone) finishLoader(); }
   (function () {
     var L = $("loader"); if (!L) return;
+    firstFrame(); window.addEventListener("resize", function () { if (!state.tapped) firstFrame(); });
     var go = function (e) { if (e && e.cancelable && e.type === "touchend") e.preventDefault(); startIntro(false); };
     L.addEventListener("click", go); L.addEventListener("touchend", go);
     var rl = null; try { rl = sessionStorage.getItem("nba_reload"); } catch (e) {}
@@ -854,7 +955,7 @@
     var on = bar.querySelector(".dchip.on"); if (on) bar.scrollLeft = on.offsetLeft - bar.clientWidth / 2 + on.offsetWidth / 2;
   }
   function selectDay(key, iso) {
-    dayState.sel = key; dayState.iso = iso; if (FR.nav) FR.nav.sync(key); if (key > dayState.today) { NAV.preKey = key; NAV.preIso = iso; }
+    dayState.sel = key; dayState.iso = iso; if (FR.nav) FR.nav.sync(key);
     $("dateBar").querySelectorAll(".dchip").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-day") === key); });
     var main = $("app"), dv = $("dayView");
     if (key === dayState.today) { main.classList.remove("day-mode"); dv.hidden = true; return; }
@@ -1038,7 +1139,7 @@
         // 只有上面的读取/解析失败才算“读取失败”；渲染出错只影响对应板块，加载动画一定收起
         return Promise.race([lp, new Promise(function (r) { setTimeout(r, 300); })]).then(function () { return loaderFeed(d); }).catch(function () {}).then(function () {
           safe("整页", function () { renderAll(true); });
-          state.shown = true; hideLoader(); lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); }); safe("比分", function () { pollScores(); }); safe("恢复", function () { FR.restore(); }); safe("导航", function () { FR.nav.build(); var t0 = null; try { t0 = sessionStorage.getItem("nba_tab"); } catch (e) {} if (t0 && t0 !== "game" && t0 !== "pre") FR.nav.set(t0); else FR.nav.sync(dayState.sel || dayState.today); });
+          state.shown = true; hideLoader(); lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); }); safe("比分", function () { pollScores(); }); safe("恢复", function () { FR.restore(); }); safe("导航", function () { FR.nav.build(); var t0 = null; try { t0 = sessionStorage.getItem("nba_tab"); } catch (e) {} FR.nav.set(/^(gl|gd|lv|pr|hs)$/.test(t0 || "") ? t0 : "gl", true); });
         });
       }
       lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); });
@@ -1076,7 +1177,7 @@
     { k: "lineup", name: "首发·缺阵", on: function () { return todayView() && PB().gid && curState() !== "post"; }, exp: function () { return curState() === "pre" && near() ? 30000 : 60000; }, last: function () { var P = PB(); return Math.min(P.sumOkT || 0, (P.inj || {}).okT || 0); }, cards: function () { return [$("lineupCard")]; }, chk: ["lineupCard"] },
     { k: "data", name: "预测和盘口", on: function () { return todayView(); }, exp: function () { return REFRESH * 1000; }, last: function () { return state.okT; }, cards: function () { return DATA_CARDS.map(cardOf); }, chk: DATA_CARDS },
     { k: "day", name: "赛程", on: function () { return state.shown && dayState.sel > dayState.today; }, exp: function () { return 120000; }, last: function () { return (dayState.okT || {})[dayState.sel]; }, cards: function () { return [$("dayView")]; }, chk: ["dayView"] },
-    { k: "pre", name: "赛前详情", on: function () { return state.shown && dayState.sel > dayState.today && !!dayState.open; }, exp: function () { return 60000; }, last: function () { return Math.min(pre.oddsOk || 0, (PB().inj || {}).okT || 0); }, cards: function () { var d = document.querySelector(".dli .ddet:not([hidden])"); return [d]; }, chk: null }
+    { k: "pre", name: "赛前详情", on: function () { return state.shown && !!dayState.open && !!document.querySelector(".ddet:not([hidden])"); }, exp: function () { return 60000; }, last: function () { return Math.min(pre.oddsOk || 0, (PB().inj || {}).okT || 0); }, cards: function () { var d = document.querySelector(".ddet:not([hidden])"); return [d]; }, chk: null }
   ];
   function paintChk(id, b, t) {
     var c = cardOf(id); if (!c) return;
@@ -1163,44 +1264,108 @@
   document.addEventListener("touchmove", function (e) { if (e.touches && e.touches.length > 1) e.preventDefault(); }, { passive: false });
   var lastTouch = 0;
   document.addEventListener("touchend", function (e) { var n = Date.now(); if (n - lastTouch < 300 && !(e.target.closest && e.target.closest("input,select,textarea"))) e.preventDefault(); lastTouch = n; }, { passive: false });
-  // 底部导航：比赛（今天）/ 赛前（未来日期）/ 直播（进行中的比赛）/ 战绩（历史命中率）——只是单页内切换现有内容
-  var NAV = { tab: "game", y: {} };
-  var ICO = { game: '<path d="M3 5h18v14H3z"/><path d="M12 5v14M3 12h18"/>', pre: '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>', live: '<circle cx="12" cy="12" r="3"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/>', hist: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>' };
+  // 底部四个标签 = 四个独立页面（同一页面内切换，不跳转、不白屏，各自记住滚动位置）
+  //   比赛 gl：当天比赛卡片列表 → 点进去 gd：单场完整页面；直播 lv：只看进行中的比赛，没有就显示下一场倒计时；赛前 pr：未开打比赛的首发/缺阵/回归/盘口；战绩 hs：模型方向命中率
+  var NAV = { pg: "gl", y: {} };
+  var ICO = { gl: '<path d="M3 5h18v14H3z"/><path d="M12 5v14M3 12h18"/>', pr: '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>', lv: '<circle cx="12" cy="12" r="3"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/>', hs: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>' };
+  function tabOf(pg) { return pg === "gd" ? "gl" : pg; }
+  function mk(id, cls, html, after) { var e = document.createElement("section"); e.id = id; e.className = cls; e.innerHTML = html || ""; (after ? after.parentNode.insertBefore(e, after.nextSibling) : $("app").insertBefore(e, $("app").firstChild)); return e; }
   function buildNav() {
     var n = document.createElement("nav"); n.className = "bnav"; n.setAttribute("aria-label", "页面导航");
-    n.innerHTML = [["game", "比赛"], ["pre", "赛前"], ["live", "直播"], ["hist", "战绩"]].map(function (x) { return '<button data-t="' + x[0] + '"' + (x[0] === NAV.tab ? ' class="on"' : "") + '><svg viewBox="0 0 24 24">' + ICO[x[0]] + "</svg>" + x[1] + "<i></i></button>"; }).join("");
+    n.innerHTML = [["gl", "比赛"], ["lv", "直播"], ["pr", "赛前"], ["hs", "战绩"]].map(function (x) { return '<button data-t="' + x[0] + '"><svg viewBox="0 0 24 24">' + ICO[x[0]] + "</svg>" + x[1] + "<i></i></button>"; }).join("");
     document.body.appendChild(n);
-    n.querySelectorAll("button").forEach(function (b) { b.onclick = function () { setTab(b.getAttribute("data-t")); }; });
-    ["scale", "odds", "edge", "feed", "factors", "inj", "hist", "missing"].forEach(function (k) { var c = cardOf(k); if (c) c.classList.add("model-card"); });
-    var hc = cardOf("hist"); if (hc) hc.classList.add("hist-card");
+    n.querySelectorAll("button").forEach(function (b) { b.onclick = function () { var t = b.getAttribute("data-t"); setTab(t === "gl" && NAV.pg === "gl" ? "gl" : t); }; });
+    var app = $("app");
+    mk("gameList", "card p-gl", "", $("dayView"));
+    mk("backBar", "backbar p-gd", '<button type="button">‹ 返回比赛列表</button>', $("dayView")).querySelector("button").onclick = function () { setTab("gl"); };
+    mk("liveNone", "card p-lv nolive", "", $("gameTabs"));
+    mk("preView", "card p-pr", '<div class="skel"></div><div class="skel"></div>', $("gameTabs"));
+    $("dateBar").classList.add("p-gl"); $("dayView").classList.add("p-gl");
+    ["gameTabs", "alertBar", "liveTop", "hero", "courtCard", "statusCard", "lineupCard"].forEach(function (k) { var e = $(k); if (e) e.classList.add("p-gd"); });
+    ["gameTabs", "alertBar", "liveTop", "courtCard", "statusCard"].forEach(function (k) { var e = $(k); if (e) e.classList.add("p-lv"); });
+    var pc = cardOf("pbp"); if (pc) pc.classList.add("p-gd", "p-lv");
+    ["scale", "odds", "edge", "feed", "factors", "inj", "missing"].forEach(function (k) { var c = cardOf(k); if (c) c.classList.add("p-gd", "model-card"); });
+    var hc = cardOf("hist"); if (hc) hc.classList.add("p-hs");
   }
-  function paintNav() { document.querySelectorAll(".bnav button").forEach(function (b) { var t = b.getAttribute("data-t"); b.classList.toggle("on", t === NAV.tab); if (t === "live") b.classList.toggle("haslive", anyLive()); }); }
-  function navSync(key) { // 用户点日期栏时，导航跟着变
-    if (NAV.busy) return;
-    if (key > dayState.today) NAV.tab = "pre"; else if (NAV.tab === "pre" || key !== dayState.today) { NAV.tab = "game"; $("app").classList.remove("tab-live", "tab-hist"); }
-    paintNav();
+  function paintNav() {
+    var t = tabOf(NAV.pg);
+    document.querySelectorAll(".bnav button").forEach(function (b) { var k = b.getAttribute("data-t"); b.classList.toggle("on", k === t); if (k === "lv") b.classList.toggle("haslive", anyLive()); });
   }
-  function setTab(t) {
+  function navSync() { paintNav(); }
+  function setTab(pg, keep) {
     if (!state.shown) return;
-    NAV.y[NAV.tab] = window.scrollY; NAV.busy = true;
-    var main = $("app"), prevTab = NAV.tab; NAV.tab = t;
-    main.classList.toggle("tab-live", t === "live"); main.classList.toggle("tab-hist", t === "hist");
-    var nl = $("noLive"); if (nl) nl.remove();
-    if (t === "pre") {
-      var k = NAV.preKey, iso = NAV.preIso;
-      if (!k || k <= dayState.today) { var b = document.querySelector(".dchip.today + .dchip"); if (b) { k = b.getAttribute("data-day"); iso = b.getAttribute("data-iso"); } }
-      if (k) { NAV.preKey = k; NAV.preIso = iso; selectDay(k, iso); }
-    } else if (dayState.sel !== dayState.today) selectDay(dayState.today, ptParts(new Date()).iso);
-    if (t === "live") {
-      var lv = null; (live.events || []).forEach(function (e) { if (!lv && e.state === "in") lv = e; });
-      if (lv) { var tb = document.querySelector('#gameTabs .tab[data-id="' + lv.id + '"]'); if (tb && state.sel !== lv.id) tb.click(); }
-      else { var d = document.createElement("section"); d.id = "noLive"; d.className = "card nolive"; d.textContent = "现在没有进行中的比赛，开赛后这里显示比分、动画和文字直播。"; $("gameTabs").insertAdjacentElement("afterend", d); }
-    }
-    NAV.busy = false; paintNav();
-    try { sessionStorage.setItem("nba_tab", t); } catch (e) {}
-    if (prevTab !== t) window.scrollTo(0, NAV.y[t] || 0);
+    var main = $("app"), old = NAV.pg;
+    if (!keep) NAV.y[old] = window.scrollY;
+    NAV.pg = pg; main.setAttribute("data-pg", pg);
+    if (pg !== "gl" && dayState.sel !== dayState.today) selectDay(dayState.today, ptParts(new Date()).iso); // 其他页面都只看今天
+    if (pg === "lv") { var lv = null; (live.events || []).forEach(function (e) { if (!lv && e.state === "in") lv = e; }); if (lv && state.sel !== lv.id) { var tb = document.querySelector('#gameTabs .tab[data-id="' + lv.id + '"]'); if (tb) tb.click(); } }
+    if (pg === "pr") drawPre();
+    if (pg === "gl") drawGameList();
+    paintPage(); paintNav();
+    try { sessionStorage.setItem("nba_tab", pg); } catch (e) {}
+    if (old !== pg || keep) { var y = NAV.y[pg] || 0; window.scrollTo(0, y); requestAnimationFrame(function () { window.scrollTo(0, y); }); }
   }
-  setInterval(function () { if (state.shown) paintNav(); }, 3000);
+  // 每秒刷新：比赛列表比分、直播页的进行中筛选和倒计时
+  function paintPage() {
+    if (!state.shown) return;
+    var pg = NAV.pg;
+    if (pg === "gl") drawGameList();
+    var any = anyLive();
+    document.querySelectorAll("#gameTabs .tab[data-id]").forEach(function (b) { var s = live.byId[b.getAttribute("data-id")]; var hide = pg === "lv" && !(s && s.state === "in"); if ((b.style.display === "none") !== hide) b.style.display = hide ? "none" : ""; });
+    $("app").classList.toggle("lv-none", pg === "lv" && !any);
+    if (pg === "lv") {
+      var box = $("liveNone"), h;
+      if (any) h = "";
+      else {
+        var nx = null, cand = (live.events || []).filter(function (e) { return e.state === "pre" && e.date; });
+        var tk = tomorrowKey(), c = dayState.cache[tk]; if (!cand.length && c) cand = c.events.filter(function (e) { return e.state === "pre" && e.date; });
+        if (!cand.length && !c && !NAV.fetchedT) { NAV.fetchedT = 1; refreshDay(tk, tk.slice(0, 4) + "-" + tk.slice(4, 6) + "-" + tk.slice(6)); }
+        cand.sort(function (a, b) { return a.date < b.date ? -1 : 1; }); nx = cand[0];
+        if (!nx) h = '<p class="note">现在没有进行中的比赛，今明两天的赛程暂时没读到。</p>';
+        else {
+          var ms = Date.parse(nx.date) - Date.now(), sec = Math.max(0, Math.floor(ms / 1000)), hh = Math.floor(sec / 3600), mm = Math.floor(sec % 3600 / 60), ss = sec % 60;
+          var at = ""; try { at = new Intl.DateTimeFormat("zh-CN", { timeZone: "America/Los_Angeles", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(nx.date)); } catch (e) {}
+          h = '<div class="cd-h">现在没有进行中的比赛</div><div class="cd-g">下一场 ' + esc((TEAM_CN[nx.aab] || nx.aab) + " @ " + (TEAM_CN[nx.hab] || nx.hab)) + '</div><div class="cd-t">' + (ms > 0 ? (hh ? hh + " 小时 " : "") + (mm < 10 && hh ? "0" : "") + mm + " 分 " + (ss < 10 ? "0" : "") + ss + " 秒" : "即将开赛") + '</div><div class="cd-s">开赛时间 ' + esc(at) + "（太平洋时间，ESPN 赛程）</div>";
+        }
+      }
+      if (box._h !== h) { box._h = h; box.innerHTML = h; box.hidden = !h; }
+    }
+  }
+  function tomorrowKey() { return ptParts(new Date(Date.now() + 86400000)).key; }
+  function gameCard(id, an, hn, mid, sub, cls) { return '<li class="gcard' + (cls || "") + '" data-id="' + esc(id) + '"><div class="gc-t"><b>' + esc(an) + '</b><span class="gc-m">' + mid + '</span><b>' + esc(hn) + '</b></div><div class="gc-s">' + sub + "</div></li>"; }
+  function drawGameList() {
+    var box = $("gameList"); if (!box || !state.data) return;
+    var h = '<h2>今天的比赛 <small class="dim">点开看单场（比分、动画、文字直播、预测）</small></h2><ul class="glist">' + allGames().map(function (g) {
+      var s = dispOf(liveFor(g)), ms = mainSpread(g), p = ms && ms.v8 ? "第八版：" + ms.pick_text : g.nomodel ? "本场模型未预测" : ms ? "模型：" + ms.pick_text : "暂无结论";
+      var st = !s || s.state === "pre" ? '<i class="gc-tip">' + esc(String((s && s.tip) || g.tip_pt || "时间待定").replace(/ PT$/, "")) + "</i>" : '<i class="gc-sc">' + s.as + " : " + s.hs + '</i><i class="gc-st' + (s.state === "in" ? " on" : "") + '">' + esc(statusCn(s)) + "</i>";
+      return gameCard(g.espn_id, g.away_cn, g.home_cn, st, esc(p), s && s.state === "in" ? " live" : "");
+    }).join("") + "</ul>";
+    if (box._h !== h) {
+      box._h = h; box.innerHTML = h;
+      box.querySelectorAll(".gcard").forEach(function (li) { li.onclick = function () { var id = li.getAttribute("data-id"), tb = document.querySelector('#gameTabs .tab[data-id="' + id + '"]'); NAV.y.gd = 0; setTab("gd"); if (tb && state.sel !== id) tb.click(); window.scrollTo(0, 0); }; });
+    }
+  }
+  function drawPre() {
+    var box = $("preView"), tk = tomorrowKey(), c = dayState.cache[tk];
+    if (!c && !NAV.preFetch) { NAV.preFetch = 1; refreshDay(tk, tk.slice(0, 4) + "-" + tk.slice(4, 6) + "-" + tk.slice(6)).then(function () { NAV.preFetch = 0; if (NAV.pg === "pr") drawPre(); }); }
+    var today = (live.events || []).filter(function (e) { return e.state === "pre"; }), tm = c ? c.events : null;
+    function list(evs) { return '<ul class="daylist">' + evs.map(function (s) { return '<li class="dli" data-id="' + esc(s.id) + '"><div class="tm2"><span>' + esc((TEAM_CN[s.aab] || s.aab) + " @ " + (TEAM_CN[s.hab] || s.hab)) + '</span><span class="st2">' + esc(s.tip) + ' 开赛</span></div><div class="dmore">点开看首发、缺阵、回归、盘口 ›</div><div class="ddet" hidden></div></li>'; }).join("") + "</ul>"; }
+    var h = '<h2>赛前 <small class="dim">未开打的比赛 · 太平洋时间</small></h2><div class="pv-h">今天</div>' + (today.length ? list(today) : '<p class="note">今天的比赛都已开打或结束。</p>') +
+      '<div class="pv-h">明天 ' + (+tk.slice(4, 6)) + "/" + (+tk.slice(6)) + "</div>" + (tm ? (tm.length ? list(tm) : '<p class="note">明天没有比赛。</p>') : '<div class="skel"></div><div class="skel"></div>');
+    if (box._h === h) return; box._h = h; box.innerHTML = h;
+    var all = today.concat(tm || []);
+    box.querySelectorAll(".dli").forEach(function (li) {
+      var s = null; all.forEach(function (e) { if (e.id === li.getAttribute("data-id")) s = e; });
+      var d = li.querySelector(".ddet");
+      li.querySelector(".tm2").onclick = li.querySelector(".dmore").onclick = function () {
+        var open = d.hidden; box.querySelectorAll(".ddet").forEach(function (x) { x.hidden = true; }); box.querySelectorAll(".dmore").forEach(function (x) { x.textContent = "点开看首发、缺阵、回归、盘口 ›"; });
+        dayState.open = open ? s.id : null;
+        if (open) { d.hidden = false; li.querySelector(".dmore").textContent = "收起 ‹"; preDetail(s, d); }
+      };
+      if (dayState.open === s.id) { d.hidden = false; li.querySelector(".dmore").textContent = "收起 ‹"; preDetail(s, d); }
+    });
+  }
+  setInterval(function () { if (state.shown) { paintNav(); paintPage(); } }, 1000);
   FR.nav = { set: setTab, sync: navSync, build: buildNav, state: NAV };
   load(true);
 })();

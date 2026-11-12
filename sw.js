@@ -2,7 +2,7 @@
    - 页面外壳（HTML/CSS/JS/图标）：HTML 网络优先，断网才用缓存；带 ?v= 的脚本样式按版本缓存
    - 数据（所有 .json 和 ESPN 接口）：网络优先，有网永远用最新；只有拿不到网络时才返回上次缓存，并加 x-sw-cache（缓存时间），页面据此显示红色“⚠ 数据已旧”
    - version.json 只走网络；发新版时这个文件的 VER 会被提交钩子改掉，SW 立即接管（skipWaiting + clients.claim） */
-var VER = "108b75fee6";
+var VER = "59e16d3b95";
 var SHELL = "shell-" + VER, DATA = "data-v1", lastPut = {};
 self.addEventListener("install", function (e) {
   self.skipWaiting();

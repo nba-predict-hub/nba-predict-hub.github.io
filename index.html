@@ -23,24 +23,12 @@
 <title>NBA 智能预测 · 今日结论</title>
 <meta name="description" content="NBA 智能预测系统：只展示真实模型输出，缺的数据明确标缺。">
 <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
-<link rel="stylesheet" href="style.css?v=108b75fee6">
+<link rel="stylesheet" href="style.css?v=59e16d3b95">
 </head>
 <body>
 <div id="staleBar" class="stalebar" role="alert" hidden></div>
 <div id="loader" aria-live="polite">
-  <svg class="ld-svg" viewBox="64 10 300 260" aria-hidden="true">
-    <defs><filter id="ldg" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-    <g class="ld-hoop" filter="url(#ldg)" fill="none" stroke="#33e1ff" stroke-linecap="round">
-      <rect x="196" y="58" width="74" height="50" rx="4" stroke-width="3" opacity=".75"/><rect x="220" y="76" width="26" height="20" rx="2" stroke-width="2" opacity=".6"/>
-      <path d="M233 108V118" stroke-width="3"/>
-      <ellipse cx="214" cy="122" rx="28" ry="6" stroke-width="4" stroke="#ff7a2f"/>
-      <path class="ld-net" d="M188 124L196 156M201 127L204 158M214 128L214 159M227 127L224 158M240 124L232 156M193 140L235 140M197 152L231 152" stroke-width="1.6" opacity=".8"/>
-    </g>
-    <path class="ld-arc" d="M40 220Q120 -10 214 116" fill="none" stroke="#33e1ff" stroke-width="3" stroke-dasharray="4 7" opacity=".55"/>
-    <g class="ld-ball" filter="url(#ldg)"><circle r="13" fill="#0b1a3a" stroke="#33e1ff" stroke-width="3"/><path d="M-13 0H13M0 -13V13M-9 -9Q0 0 -9 9M9 -9Q0 0 9 9" stroke="#33e1ff" stroke-width="1.6" fill="none"/>
-      <animateMotion id="ldMove" dur="0.85s" begin="indefinite" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".3 .1 .6 1" path="M40 220Q120 -10 214 116L214 150"/></g>
-  </svg>
-  <div class="ld-logo"><span class="logo">◆</span> NBA 智能预测</div>
+  <canvas id="ldCv" aria-hidden="true"></canvas>
   <div class="ld-tap">点一下进入</div>
   <div class="ld-title"></div>
 </div>
@@ -137,9 +125,9 @@
   </footer>
 </main>
 <div id="toast"></div>
-<script src="app.js?v=108b75fee6"></script>
-<script src="pbp.js?v=108b75fee6"></script>
-<script src="anim.js?v=108b75fee6"></script>
-<script src="voice.js?v=108b75fee6"></script>
+<script src="app.js?v=59e16d3b95"></script>
+<script src="pbp.js?v=59e16d3b95"></script>
+<script src="anim.js?v=59e16d3b95"></script>
+<script src="voice.js?v=59e16d3b95"></script>
 </body>
 </html>

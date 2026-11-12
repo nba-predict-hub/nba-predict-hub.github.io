@@ -417,7 +417,7 @@ main.live-mode>#liveTop{top:64px}
 @keyframes flashcard{0%{box-shadow:0 0 0 3px #ffd34d}100%{box-shadow:0 0 0 0 rgba(255,211,77,0)}}
 /* ---- 开场动画（和 iOS 静态启动图首帧一致：纯色 #070b18 + 球框） ---- */
 html,body{background-color:#070b18}
-#loader{background:#070b18 !important;transition:opacity .35s ease}
+#loader{background:#070b18 !important;transition:opacity .3s ease}
 #loader .ld-svg{width:min(300px,78vw);height:auto;display:block;overflow:visible}
 .ld-arc{stroke-dashoffset:0;opacity:0;animation:ldArc .9s .05s ease-out forwards}
 @keyframes ldArc{0%{opacity:.6;clip-path:inset(0 100% 0 0)}100%{opacity:.35;clip-path:inset(0 0 0 0)}}
@@ -447,9 +447,6 @@ body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-ri
 .bnav button.on:after{content:"";position:absolute;top:0;left:30%;right:30%;height:2px;background:#33e1ff;box-shadow:0 0 8px #33e1ff;border-radius:2px}
 .bnav button i{position:absolute;top:8px;right:calc(50% - 18px);width:7px;height:7px;border-radius:50%;background:#ff4d5e;display:none}
 .bnav button.haslive i{display:block}
-main.tab-hist>*:not(.hist-card):not(.foot){display:none !important}
-main.tab-hist>.hist-card{display:block !important}
-main.tab-live .model-card{display:none !important}
 .nolive{text-align:center;padding:18px;color:#8a96b8}
 .skel{height:64px;border-radius:12px;margin:10px 0;background:linear-gradient(90deg,#111a33 0,#1a2546 50%,#111a33 100%);background-size:200% 100%;animation:skel 1.2s linear infinite}
 @keyframes skel{from{background-position:200% 0}to{background-position:-200% 0}}
@@ -464,3 +461,32 @@ main.live-mode>#liveTop{top:calc(64px + env(safe-area-inset-top))}
 html{scroll-padding-top:calc(72px + env(safe-area-inset-top))}
 html.lm{scroll-padding-top:calc(200px + env(safe-area-inset-top))}
 .vsnd{display:flex;align-items:center;gap:6px;margin-top:8px}
+/* ---- 四个独立页面 ---- */
+main[data-pg="gl"]>*:not(.p-gl):not(.foot),main[data-pg="gd"]>*:not(.p-gd):not(.foot),main[data-pg="lv"]>*:not(.p-lv):not(.foot),main[data-pg="pr"]>*:not(.p-pr):not(.foot),main[data-pg="hs"]>*:not(.p-hs):not(.foot){display:none !important}
+main[data-pg]>[hidden]{display:none !important}
+main.day-mode>#gameList{display:none !important}
+main[data-pg="hs"]>.p-hs,main[data-pg="pr"]>#preView,main[data-pg="gl"]:not(.day-mode)>#gameList{display:block !important}
+main.lv-none>#gameTabs,main.lv-none>#alertBar,main.lv-none>#liveTop,main.lv-none>#courtCard,main.lv-none>#statusCard,main.lv-none>.p-lv.card:not(#liveNone){display:none !important}
+main[data-pg="lv"]:not(.lv-none)>#liveNone{display:none !important}
+.backbar{margin:0 0 8px}.backbar button{background:none;border:0;color:#33e1ff;font-size:15px;font-weight:700;padding:6px 2px}
+.glist{list-style:none;margin:0;padding:0}
+.gcard{border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:10px 0;background:var(--panel2);cursor:pointer}
+.gcard.live{border-color:#ff4d5e;box-shadow:0 0 0 1px rgba(255,77,94,.35) inset}
+.gc-t{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
+.gc-t b{font-size:17px;font-weight:900;min-width:0;overflow-wrap:anywhere}.gc-t b:last-child{text-align:right}
+.gc-m{display:flex;flex-direction:column;align-items:center;font-style:normal}
+.gc-m i{font-style:normal}.gc-sc{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums}
+.gc-st{font-size:11px;color:var(--dim)}.gc-st.on{color:#ff4d5e}.gc-tip{font-size:13px;color:var(--dim)}
+.gc-s{margin-top:6px;font-size:12px;color:var(--dim);text-align:center}
+.pv-h{margin:12px 0 4px;font-weight:800;color:#33e1ff}
+#liveNone{text-align:center;padding:28px 14px}
+.cd-h{color:var(--dim);font-size:14px}.cd-g{margin-top:10px;font-size:20px;font-weight:900}
+.cd-t{margin-top:10px;font-size:30px;font-weight:900;color:#33e1ff;font-variant-numeric:tabular-nums;text-shadow:0 0 14px rgba(51,225,255,.5)}
+.cd-s{margin-top:8px;font-size:12px;color:var(--dim)}
+/* ---- 片头（Canvas）：黑底；首帧 = 暗色球框 + 暗金属 Logo，和 iOS 静态启动图一致 ---- */
+#loader{background:#000 !important}
+html,body{background-color:#000}
+body{background:radial-gradient(1200px 600px at 50% -200px,#14224a 0,var(--bg) 60%) fixed,var(--bg)}
+#ldCv{position:absolute;inset:0;width:100%;height:100%;display:block}
+#loader .ld-tap{position:absolute;left:0;right:0;bottom:calc(18% + env(safe-area-inset-bottom));text-align:center;margin:0}
+#loader .ld-title{position:absolute;left:0;right:0;bottom:calc(12% + env(safe-area-inset-bottom));text-align:center}
