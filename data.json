@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-12 12:08:40 PT",
- "generated_at_iso": "2026-11-12T12:08:40.415458-08:00",
+ "generated_at": "2026-11-12 14:23:41 PT",
+ "generated_at_iso": "2026-11-12T14:23:41.013754-08:00",
  "game_date": "2026-11-11",
  "last_lock": "2026-11-12 11:01:17 PT",
  "featured": "401909974",
@@ -86,7 +86,7 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "11:23",
+      "time": "14:22",
       "open_home": 9.5,
       "cur_home": 7.5,
       "total_open": 221.5,
@@ -96,20 +96,20 @@
      {
       "book": "平博",
       "via": "",
-      "time": "11:23",
+      "time": "14:22",
       "open_home": null,
       "cur_home": 7.0,
       "total_open": null,
-      "total_cur": 223.5,
+      "total_cur": 224.5,
       "in_median": true,
       "note": ""
      },
      {
       "book": "美盘共识",
       "via": "",
-      "time": "11:23",
+      "time": "14:22",
       "open_home": 9.0,
-      "cur_home": 4.0,
+      "cur_home": 7.0,
       "total_open": null,
       "total_cur": null,
       "in_median": true,
@@ -119,10 +119,10 @@
     "median_home": 7.0,
     "median_text": "76人 -7",
     "median_n": 3,
-    "median_total": 223.5,
+    "median_total": 224.0,
     "median_total_n": 2,
-    "spread_range": 3.5,
-    "source": "实时盘口，更新于 11:23",
+    "spread_range": 0.5,
+    "source": "实时盘口，更新于 14:22",
     "median_books": [
      "DraftKings",
      "平博",
@@ -209,7 +209,7 @@
     }
    ],
    "injuries": {
-    "report": "美东下午 2:00（太平洋时间 11:00）",
+    "report": "美东下午 5:00（太平洋时间 14:00）",
     "players": [],
     "not_submitted": [],
     "changes": []
@@ -267,28 +267,28 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "11:23",
+      "time": "14:22",
       "open_home": -9.5,
       "cur_home": -10.5,
       "total_open": 220.5,
-      "total_cur": 220.5,
+      "total_cur": 221.5,
       "in_median": true
      },
      {
       "book": "平博",
       "via": "",
-      "time": "11:23",
+      "time": "14:22",
       "open_home": null,
-      "cur_home": -10.5,
+      "cur_home": -10.0,
       "total_open": null,
-      "total_cur": 220.5,
+      "total_cur": 221.5,
       "in_median": true,
       "note": ""
      },
      {
       "book": "美盘共识",
       "via": "",
-      "time": "11:23",
+      "time": "14:22",
       "open_home": -9.5,
       "cur_home": -10.5,
       "total_open": null,
@@ -300,10 +300,10 @@
     "median_home": -10.5,
     "median_text": "活塞 -10.5",
     "median_n": 3,
-    "median_total": 220.5,
+    "median_total": 221.5,
     "median_total_n": 2,
-    "spread_range": 0.0,
-    "source": "实时盘口，更新于 11:23",
+    "spread_range": 0.5,
+    "source": "实时盘口，更新于 14:22",
     "median_books": [
      "DraftKings",
      "平博",
@@ -390,7 +390,7 @@
     }
    ],
    "injuries": {
-    "report": "美东下午 2:00（太平洋时间 11:00）",
+    "report": "美东下午 5:00（太平洋时间 14:00）",
     "players": [],
     "not_submitted": [],
     "changes": []
@@ -448,7 +448,7 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "11:23",
+      "time": "14:22",
       "open_home": 4.5,
       "cur_home": 5.5,
       "total_open": 226.5,
@@ -458,18 +458,18 @@
      {
       "book": "平博",
       "via": "",
-      "time": "11:23",
+      "time": "14:22",
       "open_home": null,
       "cur_home": 6.0,
       "total_open": null,
-      "total_cur": 226.5,
+      "total_cur": 226.0,
       "in_median": true,
       "note": ""
      },
      {
       "book": "美盘共识",
       "via": "",
-      "time": "11:23",
+      "time": "14:22",
       "open_home": 6.0,
       "cur_home": 5.5,
       "total_open": null,
@@ -481,10 +481,10 @@
     "median_home": 5.5,
     "median_text": "森林狼 -5.5",
     "median_n": 3,
-    "median_total": 226.0,
+    "median_total": 225.75,
     "median_total_n": 2,
     "spread_range": 0.5,
-    "source": "实时盘口，更新于 11:23",
+    "source": "实时盘口，更新于 14:22",
     "median_books": [
      "DraftKings",
      "平博",
@@ -571,7 +571,7 @@
     }
    ],
    "injuries": {
-    "report": "美东下午 2:00（太平洋时间 11:00）",
+    "report": "美东下午 5:00（太平洋时间 14:00）",
     "players": [],
     "not_submitted": [],
     "changes": []
@@ -629,7 +629,7 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "11:23",
+      "time": "14:22",
       "open_home": 7.5,
       "cur_home": 6.5,
       "total_open": 213.5,
@@ -639,7 +639,7 @@
      {
       "book": "平博",
       "via": "",
-      "time": "11:23",
+      "time": "14:22",
       "open_home": null,
       "cur_home": 6.5,
       "total_open": null,
@@ -650,7 +650,7 @@
      {
       "book": "美盘共识",
       "via": "",
-      "time": "11:23",
+      "time": "14:22",
       "open_home": 7.5,
       "cur_home": 6.5,
       "total_open": null,
@@ -665,7 +665,7 @@
     "median_total": 214.5,
     "median_total_n": 2,
     "spread_range": 0.0,
-    "source": "实时盘口，更新于 11:23",
+    "source": "实时盘口，更新于 14:22",
     "median_books": [
      "DraftKings",
      "平博",
@@ -752,7 +752,7 @@
     }
    ],
    "injuries": {
-    "report": "美东下午 2:00（太平洋时间 11:00）",
+    "report": "美东下午 5:00（太平洋时间 14:00）",
     "players": [],
     "not_submitted": [],
     "changes": []
@@ -911,7 +911,7 @@
     }
    ],
    "injuries": {
-    "report": "美东下午 2:00（太平洋时间 11:00）",
+    "report": "美东下午 5:00（太平洋时间 14:00）",
     "players": [],
     "not_submitted": [],
     "changes": [
@@ -927,8 +927,8 @@
       ]
      },
      {
-      "report": "美东下午 2:00",
-      "pt": "太平洋时间 11:00",
+      "report": "美东下午 5:00",
+      "pt": "太平洋时间 14:00",
       "items": [
        "公牛 Tobe Awaka：出战成疑→未列入",
        "公牛 Zach Collins：出战成疑→未列入",
@@ -1097,7 +1097,7 @@
     }
    ],
    "injuries": {
-    "report": "美东下午 2:00（太平洋时间 11:00）",
+    "report": "美东下午 5:00（太平洋时间 14:00）",
     "players": [],
     "not_submitted": [],
     "changes": [
@@ -1115,8 +1115,8 @@
       ]
      },
      {
-      "report": "美东下午 2:00",
-      "pt": "太平洋时间 11:00",
+      "report": "美东下午 5:00",
+      "pt": "太平洋时间 14:00",
       "items": [
        "掘金 Julian Strawther：缺阵→未列入",
        "灰熊 Karim Lopez：缺阵→未列入",
@@ -1283,7 +1283,7 @@
     }
    ],
    "injuries": {
-    "report": "美东下午 2:00（太平洋时间 11:00）",
+    "report": "美东下午 5:00（太平洋时间 14:00）",
     "players": [],
     "not_submitted": [],
     "changes": [
@@ -1296,8 +1296,8 @@
       ]
      },
      {
-      "report": "美东下午 2:00",
-      "pt": "太平洋时间 11:00",
+      "report": "美东下午 5:00",
+      "pt": "太平洋时间 14:00",
       "items": [
        "湖人 Quentin Grimes：出战成疑→未列入",
        "湖人 Walker Kessler：可出战→未列入"
@@ -1459,7 +1459,7 @@
     }
    ],
    "injuries": {
-    "report": "美东下午 2:00（太平洋时间 11:00）",
+    "report": "美东下午 5:00（太平洋时间 14:00）",
     "players": [],
     "not_submitted": [],
     "changes": [
@@ -1483,8 +1483,8 @@
       ]
      },
      {
-      "report": "美东下午 2:00",
-      "pt": "太平洋时间 11:00",
+      "report": "美东下午 5:00",
+      "pt": "太平洋时间 14:00",
       "items": [
        "篮网 Tyler Bilodeau：缺阵→未列入",
        "篮网 Mikel Brown Jr.：出战成疑→未列入",
@@ -1656,7 +1656,7 @@
     }
    ],
    "injuries": {
-    "report": "美东下午 2:00（太平洋时间 11:00）",
+    "report": "美东下午 5:00（太平洋时间 14:00）",
     "players": [],
     "not_submitted": [],
     "changes": []
@@ -1815,13 +1815,13 @@
     }
    ],
    "injuries": {
-    "report": "美东下午 2:00（太平洋时间 11:00）",
+    "report": "美东下午 5:00（太平洋时间 14:00）",
     "players": [],
     "not_submitted": [],
     "changes": [
      {
-      "report": "美东下午 2:00",
-      "pt": "太平洋时间 11:00",
+      "report": "美东下午 5:00",
+      "pt": "太平洋时间 14:00",
       "items": [
        "勇士 Jimmy Butler III：缺阵→未列入",
        "勇士 Moses Moody：缺阵→未列入",
@@ -1991,7 +1991,7 @@
     }
    ],
    "injuries": {
-    "report": "美东下午 2:00（太平洋时间 11:00）",
+    "report": "美东下午 5:00（太平洋时间 14:00）",
     "players": [],
     "not_submitted": [],
     "changes": []
@@ -2395,31 +2395,17 @@
  ],
  "feed": [
   {
-   "sort": "2026-11-12 11:23:19",
-   "time": "11月12日 11:23",
-   "tag": "主力伤病",
-   "text": "雷霆@开拓者 伤病：雷霆 Jaylin Williams 由缺阵改为缺（下背痉挛）",
-   "source": "NBA 官方伤病报告"
+   "sort": "2026-11-12 14:22:00",
+   "time": "11月12日 14:22",
+   "tag": "变盘",
+   "text": "猛龙@76人 让分线：美盘共识 76人 -4→76人 -7。我们按新线改看76人 -7，优势 0.0 分。",
+   "source": "DraftKings、平博盘口"
   },
   {
-   "sort": "2026-11-12 11:23:19",
-   "time": "11月12日 11:23",
-   "tag": "主力伤病",
-   "text": "掘金@灰熊 伤病：掘金 Julian Strawther 由缺阵改为缺（左膝扭伤）",
-   "source": "NBA 官方伤病报告"
-  },
-  {
-   "sort": "2026-11-12 11:23:19",
-   "time": "11月12日 11:23",
-   "tag": "主力伤病",
-   "text": "勇士@火箭 伤病：勇士 Will Richard 由可出战改为缺（左拇指尺侧副韧带撕裂）",
-   "source": "NBA 官方伤病报告"
-  },
-  {
-   "sort": "2026-11-12 11:23:19",
-   "time": "11月12日 11:23",
-   "tag": "主力伤病",
-   "text": "勇士@火箭 伤病：勇士 Jimmy Butler III 由缺阵改为缺（右前十字韧带修复手术）",
+   "sort": "2026-11-12 14:00:00",
+   "time": "11月12日 14:00",
+   "tag": "官方伤病",
+   "text": "官方伤病报告更新（美东下午 5:00）：今天这几场共有 40 人状态有变，看下方缺阵名单",
    "source": "NBA 官方伤病报告"
   },
   {
@@ -2794,25 +2780,11 @@
    "source": "NBA 官方伤病报告"
   },
   {
-   "sort": "2026-11-12 11:23:00",
-   "time": "11月12日 11:23",
-   "tag": "变盘",
-   "text": "独行侠@森林狼 大小分线：平博 224.5→226.5。我们仍看小，优势 1.8 分。",
-   "source": "DraftKings、平博盘口"
-  },
-  {
    "sort": "2026-11-12 11:01:17",
    "time": "11月12日 11:01",
    "tag": "模型锁定",
    "text": "第六版锁定 4 场：猛龙@76人、活塞@奇才、独行侠@森林狼、黄蜂@太阳",
    "source": "我们的模型"
-  },
-  {
-   "sort": "2026-11-12 11:00:00",
-   "time": "11月12日 11:00",
-   "tag": "官方伤病",
-   "text": "官方伤病报告更新（美东下午 2:00）：今天这几场共有 40 人状态有变，看下方缺阵名单",
-   "source": "NBA 官方伤病报告"
   },
   {
    "sort": "2026-11-12 07:16:54",
@@ -2829,123 +2801,11 @@
    "source": "我们的模型"
   },
   {
-   "sort": "2026-11-11 17:34:24",
-   "time": "17:34",
-   "tag": "主力伤病",
-   "text": "魔术@爵士 伤病：爵士 Keyonte George 由出战成疑改为可出战（右踝扭伤）",
-   "source": "NBA 官方伤病报告"
-  },
-  {
-   "sort": "2026-11-11 17:34:24",
-   "time": "17:34",
-   "tag": "主力伤病",
-   "text": "魔术@爵士 伤病：魔术 Tristan da Silva 由出战成疑改为缺阵（左小腿拉伤）",
-   "source": "NBA 官方伤病报告"
-  },
-  {
-   "sort": "2026-11-11 17:34:24",
-   "time": "17:34",
-   "tag": "主力伤病",
-   "text": "魔术@爵士 伤病：魔术 Jamal Cain 由出战成疑改为缺阵（左肩挫伤）",
-   "source": "NBA 官方伤病报告"
-  },
-  {
-   "sort": "2026-11-11 17:27:00",
-   "time": "17:27",
-   "tag": "变盘",
-   "text": "魔术@爵士 大小分线：DraftKings 214.5→216.5，平博 214.5→216。我们仍看大，优势 12.4 分。",
-   "source": "DraftKings、平博盘口"
-  },
-  {
    "sort": "2026-11-11 17:17:17",
    "time": "17:17",
    "tag": "模型锁定",
    "text": "第六版锁定 3 场：魔术@爵士、勇士@火箭、雷霆@开拓者",
    "source": "我们的模型"
-  },
-  {
-   "sort": "2026-11-11 17:12:00",
-   "time": "17:12",
-   "tag": "变盘",
-   "text": "魔术@爵士 大小分线：DraftKings 214.5→215.5。我们仍看大，优势 13.4 分。",
-   "source": "DraftKings、平博盘口"
-  },
-  {
-   "sort": "2026-11-11 17:11:50",
-   "time": "17:11",
-   "tag": "伤病",
-   "text": "独行侠@森林狼 伤病：独行侠 Caleb Martin 列入伤病名单，可出战（右拇指夹板）",
-   "source": "NBA 官方伤病报告"
-  },
-  {
-   "sort": "2026-11-11 17:11:50",
-   "time": "17:11",
-   "tag": "主力伤病",
-   "text": "篮网@鹈鹕 伤病：篮网 Egor Demin 由大概率出战改为可出战（右骨挫伤）",
-   "source": "NBA 官方伤病报告"
-  },
-  {
-   "sort": "2026-11-11 17:11:50",
-   "time": "17:11",
-   "tag": "主力伤病",
-   "text": "篮网@鹈鹕 伤病：篮网 Nolan Traore 由出战成疑改为缺阵（右小腿紧绷/酸痛）",
-   "source": "NBA 官方伤病报告"
-  },
-  {
-   "sort": "2026-11-11 17:11:50",
-   "time": "17:11",
-   "tag": "伤病",
-   "text": "魔术@爵士 伤病：魔术 Jonathan Isaac 列入伤病名单，缺阵（左膝伤病管理）",
-   "source": "NBA 官方伤病报告"
-  },
-  {
-   "sort": "2026-11-11 17:11:50",
-   "time": "17:11",
-   "tag": "伤病",
-   "text": "黄蜂@太阳 伤病：黄蜂 Brandon Miller 列入伤病名单，缺阵（右髋拉伤）",
-   "source": "NBA 官方伤病报告"
-  },
-  {
-   "sort": "2026-11-11 17:11:50",
-   "time": "17:11",
-   "tag": "伤病",
-   "text": "魔术@爵士 伤病：魔术 Paolo Banchero 列入伤病名单，缺阵（右高位踝扭伤）",
-   "source": "NBA 官方伤病报告"
-  },
-  {
-   "sort": "2026-11-11 17:11:50",
-   "time": "17:11",
-   "tag": "伤病",
-   "text": "独行侠@森林狼 伤病：独行侠 Tarik Biberovic 列入伤病名单，缺阵（右HeelBursitis）",
-   "source": "NBA 官方伤病报告"
-  },
-  {
-   "sort": "2026-11-11 17:11:50",
-   "time": "17:11",
-   "tag": "伤病",
-   "text": "雷霆@开拓者 伤病：雷霆 Cason Wallace 列入伤病名单，缺阵（左肩手术）",
-   "source": "NBA 官方伤病报告"
-  },
-  {
-   "sort": "2026-11-11 17:11:50",
-   "time": "17:11",
-   "tag": "主力伤病",
-   "text": "勇士@火箭 伤病：勇士 Will Richard 由出战成疑改为可出战（左拇指尺侧副韧带撕裂）",
-   "source": "NBA 官方伤病报告"
-  },
-  {
-   "sort": "2026-11-11 17:11:50",
-   "time": "17:11",
-   "tag": "伤病",
-   "text": "魔术@爵士 伤病：魔术 Tristan da Silva 列入伤病名单，出战成疑（左小腿拉伤）",
-   "source": "NBA 官方伤病报告"
-  },
-  {
-   "sort": "2026-11-11 17:11:50",
-   "time": "17:11",
-   "tag": "伤病",
-   "text": "独行侠@森林狼 伤病：森林狼 Donte DiVincenzo 列入伤病名单，缺阵（右跟腱Tendon修复手术）",
-   "source": "NBA 官方伤病报告"
   },
   {
    "sort": "2026-11-11 16:56:51",
@@ -3354,13 +3214,12 @@
   "皇冠盘口：已读取 4 场",
   "雷速 12 家中位数：已读取",
   "首发名单：暂无",
-  "官方伤病报告已更新到美东下午 2:00",
+  "官方伤病报告已更新到美东下午 5:00",
   "裁判：只有勇士@火箭有名单，其他场次暂无",
   "平博每场都有盘，已算进多家中位数",
   "已开打的比赛：盘口停在开赛前",
   "本赛季 Massey、Sagarin 的命中率：暂无（没有存档）",
   "今晚的对错：比赛结束后才有",
-  "注意 猛龙@76人：各家让分最多差 3.5 分，公司看法不一",
   "马刺@公牛：第六版没有锁定这场，结论沿用第五版",
   "掘金@灰熊：第六版没有锁定这场，结论沿用第五版",
   "湖人@雄鹿：第六版没有锁定这场，结论沿用第五版",
@@ -3393,21 +3252,21 @@
   {
    "name": "实时盘口",
    "file": "monitor/lines.json",
-   "updated": "2026-11-12 11:23 PT",
+   "updated": "2026-11-12 14:22 PT",
    "note": "DraftKings、平博、美盘共识，含开盘和变盘",
    "exists": true
   },
   {
    "name": "实时官方伤病",
    "file": "monitor/injuries.json",
-   "updated": "2026-11-12 11:23 PT",
+   "updated": "2026-11-12 14:22 PT",
    "note": "NBA 官方伤病报告",
    "exists": true
   },
   {
    "name": "盘口和伤病变动提醒",
    "file": "monitor/alerts.json",
-   "updated": "2026-11-12 11:23 PT",
+   "updated": "2026-11-12 14:22 PT",
    "note": "盘口变动超过 1 分、伤病状态变化",
    "exists": true
   },
