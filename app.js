@@ -444,7 +444,7 @@
     if (s.name === "STATUS_HALFTIME") return "中场休息";
     var per = s.period > 4 ? (s.period === 5 ? "加时" : "第" + (s.period - 4) + "个加时") : "第" + s.period + "节";
     if (s.name === "STATUS_END_PERIOD") return per + "结束";
-    return per + " 剩 " + s.clock;
+    return per + " 剩 " + (String(s.clock).indexOf(":") < 0 ? s.clock + " 秒" : s.clock);
   }
   function parseSB(d) {
     var out = {};

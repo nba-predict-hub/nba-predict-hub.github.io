@@ -175,7 +175,7 @@
     h += chart(g);
     h += '<ol class="pbp-list">' + list.slice(0, P.showN).map(function (r) {
       var t = P.teams[r.team], side = t ? t.side : "";
-      return '<li class="k-' + r.kind + (side ? " s-" + side : "") + (freshIds[r.id] && fresh.length < 40 ? " new" : "") + (r.made ? " made" : "") + '"><span class="pt">' + esc(perCn(r.per)) + "<br>" + esc(r.clock) + '</span><span class="tx">' + esc(r.txt) + '</span><span class="sc">' + esc(scoreTxt(r)) + "</span></li>";
+      return '<li class="k-' + r.kind + (side ? " s-" + side : "") + (freshIds[r.id] && fresh.length < 40 ? " new" : "") + (r.made ? " made" : "") + '"><span class="pt">' + esc(perCn(r.per)) + "<br>" + esc(String(r.clock).indexOf(":") < 0 ? r.clock + "秒" : r.clock) + '</span><span class="tx">' + esc(r.txt) + '</span><span class="sc">' + esc(scoreTxt(r)) + "</span></li>";
     }).join("") + "</ol>";
     if (list.length > P.showN) h += '<button class="more" id="pbpMore">再看 30 条（共 ' + list.length + " 条）</button>";
     b.innerHTML = h;
