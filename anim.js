@@ -63,7 +63,10 @@
 
   /* ---- 记录 → 动作 ---- */
   function shortTxt(r) { return String(r.txt || "").replace(/（.*?）/g, "").replace(/\s+\+\d+$/, "").trim(); }
-  function enqueue(r) { A.q.push(r); }
+  function enqueue(r) {
+    A.q.push(r);
+    while (A.q.length > 2) apply(A.q.shift()); // 积压就跳过旧的（只更新场上人员/球权），始终贴近最新
+  }
   function actText(r) {
     var tm = P.teams[r.team], a = P.ath[r.who], txt = String(r.txt || "").replace(/（(.*?)）/g, function (m0, x) { return /罚/.test(x) ? m0 : ""; }).trim();
     if (a && tm && /^(shot|ft|reb|to|foul)$/.test(r.kind)) return tm.cn + " " + (a.jersey ? a.jersey + "号 " : "") + txt;
@@ -91,7 +94,7 @@
     A.cur = c; A.lastR = r; A.barAct = actText(r);
     retarget();
   }
-  function speed() { return A.q.length > 3 ? Math.min(8, 1 + A.q.length / 2) : 1; }
+  function speed() { return A.q.length > 1 ? 2 : 1; }
 
   // 用 ESPN 实时“在场”字段校正场上五人（每队正好 5 人才用）
   function syncActive() {
@@ -141,7 +144,12 @@
       A.barAct = "终场 " + (aw ? gm.away_cn + " " + gs.as + ":" + gs.hs + " " + gm.home_cn : gm.home_cn + " " + gs.hs + ":" + gs.as + " " + gm.away_cn);
     } else if (gs && (gs.name === "STATUS_END_PERIOD" || gs.name === "STATUS_HALFTIME")) {
       if (!c && !A.q.length) A.barAct = window.statusCn ? statusCn(gs) : (gs.name === "STATUS_HALFTIME" ? "中场休息" : "本节结束");
-    } else if (!c && !A.q.length && A.endT && now - A.endT > 3000 && A.poss && P.teams[A.poss]) A.barAct = P.teams[A.poss].cn + " 持有球权";
+    } else if (!c && !A.q.length) {
+      var lt = P.plays[P.plays.length - 1];
+      if (lt && lt !== A.lastR && lt.kind !== "other") { A.lastR = lt; A.barAct = actText(lt); A.endT = now; } // 永远显示最新一条
+      else if (lt && /^(reb|to|jump)$/.test(lt.kind) && A.endT && now - A.endT > 3000 && A.poss && P.teams[A.poss]) A.barAct = P.teams[A.poss].cn + " 持球";
+    }
+    A.freeze = !c && (function () { var lt = P.plays[P.plays.length - 1]; return !!lt && (lt.kind === "timeout" || lt.kind === "end"); })();
     if (window.NBA_BAR) NBA_BAR.set(A.barAct || "直播中", barSub(A.lastR));
     // 动作对目标点的覆盖
     var ov = {}, r = c && c.r;
@@ -158,7 +166,7 @@
     var list = [];
     for (var id in A.sp) {
       var s = A.sp[id], tg = ov[id] || { X: s.tx, Y: s.ty };
-      var jx = (ov[id] ? 0 : Math.sin(t * 1.3 + s.ph) * 1.2), jy = (ov[id] ? 0 : Math.cos(t * 1.1 + s.ph) * 0.9); // 无动作时轻微跑动
+      var jx = (ov[id] || A.freeze ? 0 : Math.sin(t * 1.3 + s.ph) * 1.2), jy = (ov[id] || A.freeze ? 0 : Math.cos(t * 1.1 + s.ph) * 0.9); // 无动作时轻微跑动；暂停/节末静止
       var f = Math.min(1, dt * (ov[id] ? 7 : 2.2) * sp);
       s.X += (tg.X + jx - s.X) * f; s.Y += (tg.Y + jy - s.Y) * f;
       if (s.out && s.Y > 52.5) { delete A.sp[id]; continue; }
@@ -168,7 +176,7 @@
     list.sort(function (a, b) { return a.Y - b.Y; });
     list.forEach(function (s) {
       var tm = P.teams[s.team] || {}, a = P.ath[s.id] || {}, X = px(s.X), Y = py(s.Y), act = r && (r.who === s.id || r.assist === s.id || r.blocker === s.id || r.stealer === s.id || r.inId === s.id);
-      var R = act ? 17 : 11, bob = Math.abs(Math.sin(t * 6 + s.ph)) * 2;
+      var R = act ? 17 : 11, bob = A.freeze ? 0 : Math.abs(Math.sin(t * 6 + s.ph)) * 2;
       cx.save();
       cx.globalAlpha = s.out ? 0.3 : act ? 1 : 0.45;
       cx.fillStyle = "rgba(0,0,0,.35)"; cx.beginPath(); cx.ellipse(X, Y + R + 2, R * 0.8, 4, 0, 0, 6.283); cx.fill();
