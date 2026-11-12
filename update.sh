@@ -10,6 +10,12 @@ if [ ! -f "$STAMP" ] || [ $(( $(date +%s) - $(stat -c %Y "$STAMP") )) -ge 1800 ]
   touch "$STAMP"
   timeout 120 python3 leisu_ids.py || echo "leisu_ids.py 失败（忽略）" >&2
 fi
+# 球员中文名：每天最多跑一次（增量），失败不影响其他导出
+NSTAMP=.names_last_run
+if [ -f player_names_zh.py ] && { [ ! -f "$NSTAMP" ] || [ $(( $(date +%s) - $(stat -c %Y "$NSTAMP") )) -ge 86400 ]; }; then
+  touch "$NSTAMP"
+  timeout 600 python3 player_names_zh.py >/dev/null 2>&1 || echo "player_names_zh.py 失败（忽略）" >&2
+fi
 if [ -d .git ]; then
   git add data.json leisu_ids.json
   [ -f player_names_zh.json ] && git add player_names_zh.json

@@ -1,0 +1,3116 @@
+{
+  "1966": {
+    "en": "LeBron James",
+    "zh": "勒布朗·詹姆斯",
+    "zh_short": "詹姆斯",
+    "source": "虎扑"
+  },
+  "3195": {
+    "en": "Mike Conley",
+    "zh": "迈克·康利",
+    "zh_short": "康利",
+    "source": "虎扑"
+  },
+  "3202": {
+    "en": "Kevin Durant",
+    "zh": "凯文·杜兰特",
+    "zh_short": "杜兰特",
+    "source": "虎扑"
+  },
+  "3213": {
+    "en": "Al Horford",
+    "zh": "艾尔·霍福德",
+    "zh_short": "霍福德",
+    "source": "虎扑"
+  },
+  "3442": {
+    "en": "DeAndre Jordan",
+    "zh": "德安德烈·乔丹",
+    "zh_short": "乔丹",
+    "source": "虎扑"
+  },
+  "3448": {
+    "en": "Brook Lopez",
+    "zh": "布鲁克·洛佩斯",
+    "zh_short": "洛佩斯",
+    "source": "虎扑"
+  },
+  "3975": {
+    "en": "Stephen Curry",
+    "zh": "斯蒂芬·库里",
+    "zh_short": "库里",
+    "source": "虎扑"
+  },
+  "3978": {
+    "en": "DeMar DeRozan",
+    "zh": "德马尔·德罗赞",
+    "zh_short": "德罗赞",
+    "source": "虎扑"
+  },
+  "3992": {
+    "en": "James Harden",
+    "zh": "詹姆斯·哈登",
+    "zh_short": "哈登",
+    "source": "虎扑"
+  },
+  "3995": {
+    "en": "Jrue Holiday",
+    "zh": "朱·霍勒迪",
+    "zh_short": "霍勒迪",
+    "source": "虎扑"
+  },
+  "4251": {
+    "en": "Paul George",
+    "zh": "保罗·乔治",
+    "zh_short": "乔治",
+    "source": "虎扑"
+  },
+  "6430": {
+    "en": "Jimmy Butler III",
+    "zh": "吉米·巴特勒",
+    "zh_short": "巴特勒",
+    "source": "虎扑"
+  },
+  "6440": {
+    "en": "Tobias Harris",
+    "zh": "托拜厄斯·哈里斯",
+    "zh_short": "哈里斯",
+    "source": "虎扑"
+  },
+  "6442": {
+    "en": "Kyrie Irving",
+    "zh": "凯里·欧文",
+    "zh_short": "欧文",
+    "source": "虎扑"
+  },
+  "6450": {
+    "en": "Kawhi Leonard",
+    "zh": "科怀·伦纳德",
+    "zh_short": "伦纳德",
+    "source": "虎扑"
+  },
+  "6475": {
+    "en": "Klay Thompson",
+    "zh": "克莱·汤普森",
+    "zh_short": "汤普森",
+    "source": "虎扑"
+  },
+  "6478": {
+    "en": "Nikola Vucevic",
+    "zh": "尼古拉·武切维奇",
+    "zh_short": "武切维奇",
+    "source": "虎扑"
+  },
+  "6578": {
+    "en": "Harrison Barnes",
+    "zh": "哈里森·巴恩斯",
+    "zh_short": "巴恩斯",
+    "source": "虎扑"
+  },
+  "6580": {
+    "en": "Bradley Beal",
+    "zh": "布拉德利·比尔",
+    "zh_short": "比尔",
+    "source": "虎扑"
+  },
+  "6583": {
+    "en": "Anthony Davis",
+    "zh": "安东尼·戴维斯",
+    "zh_short": "戴维斯",
+    "source": "虎扑"
+  },
+  "6585": {
+    "en": "Andre Drummond",
+    "zh": "安德烈·德拉蒙德",
+    "zh_short": "德拉蒙德",
+    "source": "虎扑"
+  },
+  "6589": {
+    "en": "Draymond Green",
+    "zh": "德雷蒙德·格林",
+    "zh_short": "格林",
+    "source": "虎扑"
+  },
+  "6606": {
+    "en": "Damian Lillard",
+    "zh": "达米安·利拉德",
+    "zh_short": "利拉德",
+    "source": "虎扑"
+  },
+  "6609": {
+    "en": "Khris Middleton",
+    "zh": "克里斯·米德尔顿",
+    "zh_short": "米德尔顿",
+    "source": "虎扑"
+  },
+  "2490149": {
+    "en": "CJ McCollum",
+    "zh": "CJ·麦科勒姆",
+    "zh_short": "麦科勒姆",
+    "source": "虎扑"
+  },
+  "2528210": {
+    "en": "Tim Hardaway Jr.",
+    "zh": "小蒂姆·哈达威",
+    "zh_short": "哈达威",
+    "source": "虎扑"
+  },
+  "2528426": {
+    "en": "Jordan Clarkson",
+    "zh": "乔丹·克拉克森",
+    "zh_short": "克拉克森",
+    "source": "虎扑"
+  },
+  "2530530": {
+    "en": "T.J. McConnell",
+    "zh": "TJ·麦康奈尔",
+    "zh_short": "麦康奈尔",
+    "source": "虎扑"
+  },
+  "2578185": {
+    "en": "Dorian Finney-Smith",
+    "zh": "多里安·芬尼·史密斯",
+    "zh_short": "史密斯",
+    "source": "虎扑"
+  },
+  "2580365": {
+    "en": "Larry Nance Jr.",
+    "zh": "小拉里·南斯",
+    "zh_short": "南斯",
+    "source": "虎扑"
+  },
+  "2581018": {
+    "en": "Kentavious Caldwell-Pope",
+    "zh": "肯塔维厄斯·考德威尔·波普",
+    "zh_short": "波普",
+    "source": "虎扑"
+  },
+  "2581184": {
+    "en": "Anthony Gill",
+    "zh": "安东尼·吉尔",
+    "zh_short": "吉尔",
+    "source": "虎扑"
+  },
+  "2583632": {
+    "en": "Royce O'Neale",
+    "zh": "罗伊斯·奥尼尔",
+    "zh_short": "奥尼尔",
+    "source": "虎扑"
+  },
+  "2595516": {
+    "en": "Norman Powell",
+    "zh": "诺曼·鲍威尔",
+    "zh_short": "鲍威尔",
+    "source": "虎扑"
+  },
+  "2596112": {
+    "en": "Javonte Green",
+    "zh": "贾文特·格林",
+    "zh_short": "格林",
+    "source": "虎扑"
+  },
+  "2990962": {
+    "en": "Taurean Prince",
+    "zh": "托里恩·普林斯",
+    "zh_short": "普林斯",
+    "source": "虎扑"
+  },
+  "2990969": {
+    "en": "Georges Niang",
+    "zh": "乔治·尼昂",
+    "zh_short": "尼昂",
+    "source": "虎扑"
+  },
+  "2990984": {
+    "en": "Buddy Hield",
+    "zh": "巴迪·希尔德",
+    "zh_short": "希尔德",
+    "source": "虎扑"
+  },
+  "2990992": {
+    "en": "Marcus Smart",
+    "zh": "马库斯·斯马特",
+    "zh_short": "斯马特",
+    "source": "虎扑"
+  },
+  "2991043": {
+    "en": "Caris LeVert",
+    "zh": "卡里斯·勒韦尔",
+    "zh_short": "勒韦尔",
+    "source": "虎扑"
+  },
+  "2991070": {
+    "en": "Jerami Grant",
+    "zh": "杰拉米·格兰特",
+    "zh_short": "格兰特",
+    "source": "虎扑"
+  },
+  "2991139": {
+    "en": "Kris Dunn",
+    "zh": "克里斯·邓恩",
+    "zh_short": "邓恩",
+    "source": "虎扑"
+  },
+  "2991230": {
+    "en": "Fred VanVleet",
+    "zh": "弗雷德·范弗利特",
+    "zh_short": "范弗利特",
+    "source": "虎扑"
+  },
+  "2991235": {
+    "en": "Steven Adams",
+    "zh": "史蒂文·亚当斯",
+    "zh_short": "亚当斯",
+    "source": "虎扑"
+  },
+  "2991350": {
+    "en": "Alex Caruso",
+    "zh": "亚历克斯·卡鲁索",
+    "zh_short": "卡鲁索",
+    "source": "虎扑"
+  },
+  "2993874": {
+    "en": "Kyle Anderson",
+    "zh": "凯尔·安德森",
+    "zh_short": "安德森",
+    "source": "虎扑"
+  },
+  "2995706": {
+    "en": "Mario Hezonja",
+    "zh": "马里奥·海佐尼亚",
+    "zh_short": "海佐尼亚",
+    "source": "虎扑"
+  },
+  "3032976": {
+    "en": "Rudy Gobert",
+    "zh": "鲁迪·戈贝尔",
+    "zh_short": "戈贝尔",
+    "source": "虎扑"
+  },
+  "3032977": {
+    "en": "Giannis Antetokounmpo",
+    "zh": "扬尼斯·阿德托昆博",
+    "zh_short": "阿德托昆博",
+    "source": "虎扑"
+  },
+  "3032979": {
+    "en": "Dennis Schroder",
+    "zh": "丹尼斯·施罗德",
+    "zh_short": "施罗德",
+    "source": "虎扑"
+  },
+  "3037789": {
+    "en": "Bogdan Bogdanovic",
+    "zh": "波格丹·波格丹诺维奇",
+    "zh_short": "波格丹诺维奇",
+    "source": "虎扑"
+  },
+  "3059318": {
+    "en": "Joel Embiid",
+    "zh": "乔尔·恩比德",
+    "zh_short": "恩比德",
+    "source": "虎扑"
+  },
+  "3059319": {
+    "en": "Andrew Wiggins",
+    "zh": "安德鲁·威金斯",
+    "zh_short": "威金斯",
+    "source": "虎扑"
+  },
+  "3062679": {
+    "en": "Josh Hart",
+    "zh": "约什·哈特",
+    "zh_short": "哈特",
+    "source": "虎扑"
+  },
+  "3064290": {
+    "en": "Aaron Gordon",
+    "zh": "阿龙·戈登",
+    "zh_short": "戈登",
+    "source": "虎扑"
+  },
+  "3064440": {
+    "en": "Zach LaVine",
+    "zh": "扎克·拉文",
+    "zh_short": "拉文",
+    "source": "虎扑"
+  },
+  "3064482": {
+    "en": "Bobby Portis",
+    "zh": "博比·波蒂斯",
+    "zh_short": "波蒂斯",
+    "source": "虎扑"
+  },
+  "3064514": {
+    "en": "Julius Randle",
+    "zh": "朱利叶斯·兰德尔",
+    "zh_short": "兰德尔",
+    "source": "虎扑"
+  },
+  "3064560": {
+    "en": "Luke Kornet",
+    "zh": "卢克·科内特",
+    "zh_short": "科内特",
+    "source": "虎扑"
+  },
+  "3078576": {
+    "en": "Derrick White",
+    "zh": "德里克·怀特",
+    "zh_short": "怀特",
+    "source": "虎扑"
+  },
+  "3102529": {
+    "en": "Clint Capela",
+    "zh": "克林特·卡佩拉",
+    "zh_short": "卡佩拉",
+    "source": "虎扑"
+  },
+  "3102530": {
+    "en": "Jusuf Nurkic",
+    "zh": "优素福·努尔基奇",
+    "zh_short": "努尔基奇",
+    "source": "虎扑"
+  },
+  "3102531": {
+    "en": "Kristaps Porzingis",
+    "zh": "克里斯塔普斯·波尔津吉斯",
+    "zh_short": "波尔津吉斯",
+    "source": "虎扑"
+  },
+  "3112335": {
+    "en": "Nikola Jokic",
+    "zh": "尼古拉·约基奇",
+    "zh_short": "约基奇",
+    "source": "虎扑"
+  },
+  "3133602": {
+    "en": "Svi Mykhailiuk",
+    "zh": "斯维亚托斯拉夫·米哈伊柳克",
+    "zh_short": "米哈伊柳克",
+    "source": "虎扑"
+  },
+  "3133603": {
+    "en": "Kelly Oubre Jr.",
+    "zh": "凯利·乌布雷",
+    "zh_short": "乌布雷",
+    "source": "虎扑"
+  },
+  "3133626": {
+    "en": "Kenrich Williams",
+    "zh": "肯里奇·威廉姆斯",
+    "zh_short": "肯里奇·威廉姆斯",
+    "source": "虎扑"
+  },
+  "3133628": {
+    "en": "Myles Turner",
+    "zh": "迈尔斯·特纳",
+    "zh_short": "特纳",
+    "source": "虎扑"
+  },
+  "3133635": {
+    "en": "Jevon Carter",
+    "zh": "杰文·卡特",
+    "zh_short": "杰文·卡特",
+    "source": "虎扑"
+  },
+  "3134903": {
+    "en": "Gary Payton II",
+    "zh": "加里·佩顿二世",
+    "zh_short": "佩顿二世",
+    "source": "虎扑"
+  },
+  "3134907": {
+    "en": "Kyle Kuzma",
+    "zh": "凯尔·库兹马",
+    "zh_short": "库兹马",
+    "source": "虎扑"
+  },
+  "3134908": {
+    "en": "Jakob Poeltl",
+    "zh": "雅各布·珀尔特尔",
+    "zh_short": "珀尔特尔",
+    "source": "虎扑"
+  },
+  "3134916": {
+    "en": "Jordan McLaughlin",
+    "zh": "乔丹·麦克劳克林",
+    "zh_short": "麦克劳克林",
+    "source": "虎扑"
+  },
+  "3135045": {
+    "en": "Grayson Allen",
+    "zh": "格雷森·阿伦",
+    "zh_short": "阿伦",
+    "source": "虎扑"
+  },
+  "3135046": {
+    "en": "Tyus Jones",
+    "zh": "泰厄斯·琼斯",
+    "zh_short": "泰厄斯·琼斯",
+    "source": "虎扑"
+  },
+  "3136193": {
+    "en": "Devin Booker",
+    "zh": "德文·布克",
+    "zh_short": "布克",
+    "source": "虎扑"
+  },
+  "3136195": {
+    "en": "Karl-Anthony Towns",
+    "zh": "卡尔·安东尼·唐斯",
+    "zh_short": "唐斯",
+    "source": "虎扑"
+  },
+  "3136196": {
+    "en": "Trey Lyles",
+    "zh": "特雷·莱尔斯",
+    "zh_short": "莱尔斯",
+    "source": "虎扑"
+  },
+  "3136777": {
+    "en": "Jae'Sean Tate",
+    "zh": "杰肖恩·泰特",
+    "zh_short": "泰特",
+    "source": "虎扑"
+  },
+  "3138160": {
+    "en": "Caleb Martin",
+    "zh": "凯莱布·马丁",
+    "zh_short": "马丁",
+    "source": "虎扑"
+  },
+  "3138196": {
+    "en": "Cameron Johnson",
+    "zh": "卡梅伦·约翰逊",
+    "zh_short": "约翰逊",
+    "source": "虎扑"
+  },
+  "3146557": {
+    "en": "Jock Landale",
+    "zh": "乔克·兰代尔",
+    "zh_short": "兰代尔",
+    "source": "虎扑"
+  },
+  "3147657": {
+    "en": "Mikal Bridges",
+    "zh": "米卡尔·布里奇斯",
+    "zh_short": "布里奇斯",
+    "source": "虎扑"
+  },
+  "3149673": {
+    "en": "Pascal Siakam",
+    "zh": "帕斯卡尔·西亚卡姆",
+    "zh_short": "西亚卡姆",
+    "source": "虎扑"
+  },
+  "3150844": {
+    "en": "Moritz Wagner",
+    "zh": "莫里茨·瓦格纳",
+    "zh_short": "瓦格纳",
+    "source": "虎扑"
+  },
+  "3155526": {
+    "en": "Dillon Brooks",
+    "zh": "狄龙·布鲁克斯",
+    "zh_short": "布鲁克斯",
+    "source": "虎扑"
+  },
+  "3155535": {
+    "en": "Kevon Looney",
+    "zh": "凯文·卢尼",
+    "zh_short": "卢尼",
+    "source": "虎扑"
+  },
+  "3155942": {
+    "en": "Domantas Sabonis",
+    "zh": "多曼塔斯·萨博尼斯",
+    "zh_short": "萨博尼斯",
+    "source": "虎扑"
+  },
+  "3157465": {
+    "en": "Duncan Robinson",
+    "zh": "邓肯·罗宾逊",
+    "zh_short": "罗宾逊",
+    "source": "虎扑"
+  },
+  "3899664": {
+    "en": "Simone Fontecchio",
+    "zh": "西莫内·丰泰基奥",
+    "zh_short": "丰泰基奥",
+    "source": "虎扑"
+  },
+  "3904625": {
+    "en": "Tacko Fall",
+    "zh": "塔科·法尔",
+    "zh_short": "法尔",
+    "source": "虎扑"
+  },
+  "3907387": {
+    "en": "Ben Simmons",
+    "zh": "本·西蒙斯",
+    "zh_short": "西蒙斯",
+    "source": "虎扑"
+  },
+  "3907497": {
+    "en": "Dejounte Murray",
+    "zh": "德章泰·默里",
+    "zh_short": "默里",
+    "source": "虎扑"
+  },
+  "3907498": {
+    "en": "Matisse Thybulle",
+    "zh": "马蒂斯·赛布尔",
+    "zh_short": "赛布尔",
+    "source": "虎扑"
+  },
+  "3907823": {
+    "en": "Terance Mann",
+    "zh": "特伦斯·曼",
+    "zh_short": "曼",
+    "source": "虎扑"
+  },
+  "3908809": {
+    "en": "Donovan Mitchell",
+    "zh": "多诺万·米切尔",
+    "zh_short": "米切尔",
+    "source": "虎扑"
+  },
+  "3908845": {
+    "en": "John Collins",
+    "zh": "约翰·科林斯",
+    "zh_short": "科林斯",
+    "source": "虎扑"
+  },
+  "3912848": {
+    "en": "Dean Wade",
+    "zh": "迪恩·韦德",
+    "zh_short": "韦德",
+    "source": "虎扑"
+  },
+  "3913174": {
+    "en": "Luke Kennard",
+    "zh": "卢克·肯纳德",
+    "zh_short": "肯纳德",
+    "source": "虎扑"
+  },
+  "3913176": {
+    "en": "Brandon Ingram",
+    "zh": "布兰登·英格拉姆",
+    "zh_short": "英格拉姆",
+    "source": "虎扑"
+  },
+  "3914044": {
+    "en": "Landry Shamet",
+    "zh": "兰德里·沙梅特",
+    "zh_short": "沙梅特",
+    "source": "虎扑"
+  },
+  "3917376": {
+    "en": "Jaylen Brown",
+    "zh": "杰伦·布朗",
+    "zh_short": "布朗",
+    "source": "虎扑"
+  },
+  "3934672": {
+    "en": "Jalen Brunson",
+    "zh": "杰伦·布伦森",
+    "zh_short": "布伦森",
+    "source": "虎扑"
+  },
+  "3934673": {
+    "en": "Donte DiVincenzo",
+    "zh": "唐特·迪温琴佐",
+    "zh_short": "迪温琴佐",
+    "source": "虎扑"
+  },
+  "3934719": {
+    "en": "OG Anunoby",
+    "zh": "OG·阿奴诺比",
+    "zh_short": "阿奴诺比",
+    "source": "虎扑"
+  },
+  "3934723": {
+    "en": "Thomas Bryant",
+    "zh": "托马斯·布莱恩特",
+    "zh_short": "布莱恩特",
+    "source": "虎扑"
+  },
+  "3936099": {
+    "en": "Derrick Jones Jr.",
+    "zh": "小德里克·琼斯",
+    "zh_short": "琼斯",
+    "source": "虎扑"
+  },
+  "3936299": {
+    "en": "Jamal Murray",
+    "zh": "贾马尔·默里",
+    "zh_short": "默里",
+    "source": "虎扑"
+  },
+  "3945274": {
+    "en": "Luka Doncic",
+    "zh": "卢卡·东契奇",
+    "zh_short": "东契奇",
+    "source": "虎扑"
+  },
+  "4017837": {
+    "en": "Ivica Zubac",
+    "zh": "伊维察·祖巴茨",
+    "zh_short": "祖巴茨",
+    "source": "虎扑"
+  },
+  "4065648": {
+    "en": "Jayson Tatum",
+    "zh": "杰森·塔特姆",
+    "zh_short": "塔特姆",
+    "source": "虎扑"
+  },
+  "4065654": {
+    "en": "Jonathan Isaac",
+    "zh": "乔纳森·艾萨克",
+    "zh_short": "艾萨克",
+    "source": "虎扑"
+  },
+  "4065663": {
+    "en": "Josh Okogie",
+    "zh": "约什·奥科吉",
+    "zh_short": "奥科吉",
+    "source": "虎扑"
+  },
+  "4065673": {
+    "en": "Tony Bradley",
+    "zh": "托尼·布拉德利",
+    "zh_short": "布拉德利",
+    "source": "虎扑"
+  },
+  "4065731": {
+    "en": "Jay Huff",
+    "zh": "杰·胡夫",
+    "zh_short": "胡夫",
+    "source": "虎扑"
+  },
+  "4065732": {
+    "en": "De'Andre Hunter",
+    "zh": "德安德烈·亨特",
+    "zh_short": "亨特",
+    "source": "虎扑"
+  },
+  "4065733": {
+    "en": "Ty Jerome",
+    "zh": "泰·杰罗姆",
+    "zh_short": "杰罗姆",
+    "source": "虎扑"
+  },
+  "4065778": {
+    "en": "Max Strus",
+    "zh": "马克斯·斯特鲁斯",
+    "zh_short": "斯特鲁斯",
+    "source": "虎扑"
+  },
+  "4065804": {
+    "en": "Sam Hauser",
+    "zh": "萨姆·豪瑟",
+    "zh_short": "豪瑟",
+    "source": "虎扑"
+  },
+  "4065813": {
+    "en": "Alpha Diallo",
+    "zh": "阿尔法·迪亚洛",
+    "zh_short": "迪亚洛",
+    "source": "虎扑"
+  },
+  "4066211": {
+    "en": "Robert Williams III",
+    "zh": "罗伯特·威廉姆斯",
+    "zh_short": "威廉姆斯",
+    "source": "虎扑"
+  },
+  "4066218": {
+    "en": "Grant Williams",
+    "zh": "格兰特·威廉姆斯",
+    "zh_short": "威廉姆斯",
+    "source": "虎扑"
+  },
+  "4066259": {
+    "en": "De'Aaron Fox",
+    "zh": "达龙·福克斯",
+    "zh_short": "福克斯",
+    "source": "虎扑"
+  },
+  "4066261": {
+    "en": "Bam Adebayo",
+    "zh": "巴姆·阿德巴约",
+    "zh_short": "阿德巴约",
+    "source": "虎扑"
+  },
+  "4066262": {
+    "en": "Malik Monk",
+    "zh": "马利克·蒙克",
+    "zh_short": "蒙克",
+    "source": "虎扑"
+  },
+  "4066268": {
+    "en": "Duop Reath",
+    "zh": "杜普·里斯",
+    "zh_short": "里斯",
+    "source": "虎扑"
+  },
+  "4066320": {
+    "en": "Desmond Bane",
+    "zh": "德斯蒙德·贝恩",
+    "zh_short": "贝恩",
+    "source": "虎扑"
+  },
+  "4066328": {
+    "en": "Jarrett Allen",
+    "zh": "贾勒特·阿伦",
+    "zh_short": "阿伦",
+    "source": "虎扑"
+  },
+  "4066336": {
+    "en": "Lauri Markkanen",
+    "zh": "劳里·马尔卡宁",
+    "zh_short": "马尔卡宁",
+    "source": "虎扑"
+  },
+  "4066354": {
+    "en": "Payton Pritchard",
+    "zh": "佩顿·普里查德",
+    "zh_short": "普里查德",
+    "source": "虎扑"
+  },
+  "4066372": {
+    "en": "Kevin Huerter",
+    "zh": "凯文·赫尔特",
+    "zh_short": "赫尔特",
+    "source": "虎扑"
+  },
+  "4066383": {
+    "en": "Miles Bridges",
+    "zh": "迈尔斯·布里奇斯",
+    "zh_short": "布里奇斯",
+    "source": "虎扑"
+  },
+  "4066399": {
+    "en": "Micah Potter",
+    "zh": "米卡·波特",
+    "zh_short": "波特",
+    "source": "虎扑"
+  },
+  "4066436": {
+    "en": "De'Anthony Melton",
+    "zh": "丹东尼·梅尔顿",
+    "zh_short": "梅尔顿",
+    "source": "虎扑"
+  },
+  "4066457": {
+    "en": "Austin Reaves",
+    "zh": "奥斯汀·里夫斯",
+    "zh_short": "里夫斯",
+    "source": "虎扑"
+  },
+  "4066648": {
+    "en": "Rui Hachimura",
+    "zh": "八村垒",
+    "zh_short": "八村垒",
+    "source": "虎扑"
+  },
+  "4066650": {
+    "en": "Zach Collins",
+    "zh": "扎克·科林斯",
+    "zh_short": "科林斯",
+    "source": "虎扑"
+  },
+  "4066757": {
+    "en": "Sam Merrill",
+    "zh": "萨姆·梅里尔",
+    "zh_short": "梅里尔",
+    "source": "虎扑"
+  },
+  "4066993": {
+    "en": "Dru Smith",
+    "zh": "德鲁·史密斯",
+    "zh_short": "史密斯",
+    "source": "虎扑"
+  },
+  "4222252": {
+    "en": "Isaiah Hartenstein",
+    "zh": "以赛亚·哈尔滕施泰因",
+    "zh_short": "哈尔滕施泰因",
+    "source": "虎扑"
+  },
+  "4277811": {
+    "en": "Collin Sexton",
+    "zh": "科林·塞克斯顿",
+    "zh_short": "塞克斯顿",
+    "source": "虎扑"
+  },
+  "4277813": {
+    "en": "Herbert Jones",
+    "zh": "赫伯特·琼斯",
+    "zh_short": "琼斯",
+    "source": "虎扑"
+  },
+  "4277843": {
+    "en": "Gary Trent Jr.",
+    "zh": "小加里·特伦特",
+    "zh_short": "特伦特",
+    "source": "虎扑"
+  },
+  "4277847": {
+    "en": "Wendell Carter Jr.",
+    "zh": "温德尔·卡特",
+    "zh_short": "温德尔·卡特",
+    "source": "虎扑"
+  },
+  "4277848": {
+    "en": "Marvin Bagley III",
+    "zh": "马文·巴格利",
+    "zh_short": "巴格利",
+    "source": "虎扑"
+  },
+  "4277869": {
+    "en": "Jose Alvarado",
+    "zh": "约瑟·阿尔瓦拉多",
+    "zh_short": "阿尔瓦拉多",
+    "source": "虎扑"
+  },
+  "4277905": {
+    "en": "Trae Young",
+    "zh": "特雷·杨",
+    "zh_short": "杨",
+    "source": "虎扑"
+  },
+  "4277919": {
+    "en": "Mo Bamba",
+    "zh": "穆罕默德·班巴",
+    "zh_short": "班巴",
+    "source": "虎扑"
+  },
+  "4277922": {
+    "en": "Jericho Sims",
+    "zh": "杰里科·西姆斯",
+    "zh_short": "西姆斯",
+    "source": "虎扑"
+  },
+  "4277951": {
+    "en": "Luka Garza",
+    "zh": "卢卡·加尔扎",
+    "zh_short": "加尔扎",
+    "source": "虎扑"
+  },
+  "4277956": {
+    "en": "Jordan Poole",
+    "zh": "乔丹·普尔",
+    "zh_short": "普尔",
+    "source": "虎扑"
+  },
+  "4277961": {
+    "en": "Jaren Jackson Jr.",
+    "zh": "小贾伦·杰克逊",
+    "zh_short": "杰克逊",
+    "source": "虎扑"
+  },
+  "4278039": {
+    "en": "Nickeil Alexander-Walker",
+    "zh": "尼基尔·亚历山大·沃克",
+    "zh_short": "沃克",
+    "source": "虎扑"
+  },
+  "4278049": {
+    "en": "Daniel Gafford",
+    "zh": "丹尼尔·加福德",
+    "zh_short": "加福德",
+    "source": "虎扑"
+  },
+  "4278053": {
+    "en": "Davion Mitchell",
+    "zh": "戴维恩·米切尔",
+    "zh_short": "米切尔",
+    "source": "虎扑"
+  },
+  "4278067": {
+    "en": "Nic Claxton",
+    "zh": "尼古拉斯·克拉克斯顿",
+    "zh_short": "克拉克斯顿",
+    "source": "虎扑"
+  },
+  "4278073": {
+    "en": "Shai Gilgeous-Alexander",
+    "zh": "谢伊·吉尔杰斯·亚历山大",
+    "zh_short": "亚历山大",
+    "source": "虎扑"
+  },
+  "4278076": {
+    "en": "Nick Richards",
+    "zh": "尼克·理查兹",
+    "zh_short": "理查兹",
+    "source": "虎扑"
+  },
+  "4278077": {
+    "en": "Jarred Vanderbilt",
+    "zh": "贾里德·范德比尔特",
+    "zh_short": "范德比尔特",
+    "source": "虎扑"
+  },
+  "4278078": {
+    "en": "P.J. Washington",
+    "zh": "PJ·华盛顿",
+    "zh_short": "华盛顿",
+    "source": "虎扑"
+  },
+  "4278104": {
+    "en": "Michael Porter Jr.",
+    "zh": "小迈克尔·波特",
+    "zh_short": "波特",
+    "source": "虎扑"
+  },
+  "4278129": {
+    "en": "Deandre Ayton",
+    "zh": "德安德烈·艾顿",
+    "zh_short": "艾顿",
+    "source": "虎扑"
+  },
+  "4278355": {
+    "en": "Obi Toppin",
+    "zh": "奥比·托平",
+    "zh_short": "托平",
+    "source": "虎扑"
+  },
+  "4278402": {
+    "en": "Jordan Goodwin",
+    "zh": "乔丹·古德温",
+    "zh_short": "古德温",
+    "source": "虎扑"
+  },
+  "4278562": {
+    "en": "Paul Reed",
+    "zh": "保罗·里德",
+    "zh_short": "里德",
+    "source": "虎扑"
+  },
+  "4278572": {
+    "en": "Jamal Cain",
+    "zh": "贾马尔·凯恩",
+    "zh_short": "凯恩",
+    "source": "虎扑"
+  },
+  "4278580": {
+    "en": "Sandro Mamukelashvili",
+    "zh": "桑德罗·马穆凯拉什维利",
+    "zh_short": "马穆凯拉什维利",
+    "source": "虎扑"
+  },
+  "4278585": {
+    "en": "Collin Gillespie",
+    "zh": "科林·吉莱斯皮",
+    "zh_short": "吉莱斯皮",
+    "source": "虎扑"
+  },
+  "4278594": {
+    "en": "Naji Marshall",
+    "zh": "纳吉·马绍尔",
+    "zh_short": "马绍尔",
+    "source": "虎扑"
+  },
+  "4279318": {
+    "en": "Daeqwon Plowden",
+    "zh": "戴奎翁·普劳登",
+    "zh_short": "普劳登",
+    "source": "虎扑"
+  },
+  "4279888": {
+    "en": "Ja Morant",
+    "zh": "贾·莫兰特",
+    "zh_short": "莫兰特",
+    "source": "虎扑"
+  },
+  "4280151": {
+    "en": "Corey Kispert",
+    "zh": "科里·基斯珀特",
+    "zh_short": "基斯珀特",
+    "source": "虎扑"
+  },
+  "4280245": {
+    "en": "Jamaree Bouyea",
+    "zh": "贾马雷·布耶",
+    "zh_short": "布耶",
+    "source": "虎扑"
+  },
+  "4348700": {
+    "en": "Goga Bitadze",
+    "zh": "戈加·比塔泽",
+    "zh_short": "比塔泽",
+    "source": "虎扑"
+  },
+  "4351851": {
+    "en": "Anfernee Simons",
+    "zh": "安芬尼·西蒙斯",
+    "zh_short": "西蒙斯",
+    "source": "虎扑"
+  },
+  "4351852": {
+    "en": "Mitchell Robinson",
+    "zh": "米切尔·罗宾逊",
+    "zh_short": "罗宾逊",
+    "source": "虎扑"
+  },
+  "4395625": {
+    "en": "RJ Barrett",
+    "zh": "RJ·巴雷特",
+    "zh_short": "巴雷特",
+    "source": "虎扑"
+  },
+  "4395626": {
+    "en": "Tre Jones",
+    "zh": "特雷·琼斯",
+    "zh_short": "琼斯",
+    "source": "虎扑"
+  },
+  "4395628": {
+    "en": "Zion Williamson",
+    "zh": "蔡恩·威廉森",
+    "zh_short": "威廉森",
+    "source": "虎扑"
+  },
+  "4395630": {
+    "en": "Devin Vassell",
+    "zh": "德文·瓦塞尔",
+    "zh_short": "瓦塞尔",
+    "source": "虎扑"
+  },
+  "4395650": {
+    "en": "Leaky Black",
+    "zh": "里基·布莱克",
+    "zh_short": "布莱克",
+    "source": "虎扑"
+  },
+  "4395651": {
+    "en": "Coby White",
+    "zh": "科比·怀特",
+    "zh_short": "怀特",
+    "source": "虎扑"
+  },
+  "4395702": {
+    "en": "Isaiah Joe",
+    "zh": "以赛亚·乔",
+    "zh_short": "乔",
+    "source": "虎扑"
+  },
+  "4395712": {
+    "en": "Andrew Nembhard",
+    "zh": "安德鲁·内姆布哈德",
+    "zh_short": "内姆布哈德",
+    "source": "虎扑"
+  },
+  "4395723": {
+    "en": "Keldon Johnson",
+    "zh": "凯尔登·约翰逊",
+    "zh_short": "约翰逊",
+    "source": "虎扑"
+  },
+  "4395724": {
+    "en": "Immanuel Quickley",
+    "zh": "伊曼纽尔·奎克利",
+    "zh_short": "奎克利",
+    "source": "虎扑"
+  },
+  "4395725": {
+    "en": "Tyler Herro",
+    "zh": "泰勒·希罗",
+    "zh_short": "希罗",
+    "source": "虎扑"
+  },
+  "4396818": {
+    "en": "Jordan Miller",
+    "zh": "乔丹·米勒",
+    "zh_short": "乔丹·米勒",
+    "source": "虎扑"
+  },
+  "4396907": {
+    "en": "Darius Garland",
+    "zh": "达里厄斯·加兰",
+    "zh_short": "加兰",
+    "source": "虎扑"
+  },
+  "4396909": {
+    "en": "Aaron Nesmith",
+    "zh": "阿龙·内史密斯",
+    "zh_short": "内史密斯",
+    "source": "虎扑"
+  },
+  "4396971": {
+    "en": "Naz Reid",
+    "zh": "纳兹·里德",
+    "zh_short": "里德",
+    "source": "虎扑"
+  },
+  "4396993": {
+    "en": "Tyrese Haliburton",
+    "zh": "泰雷斯·哈利伯顿",
+    "zh_short": "哈利伯顿",
+    "source": "虎扑"
+  },
+  "4397002": {
+    "en": "Ayo Dosunmu",
+    "zh": "阿约·多森姆",
+    "zh_short": "多森姆",
+    "source": "虎扑"
+  },
+  "4397014": {
+    "en": "Quentin Grimes",
+    "zh": "昆廷·格兰姆斯",
+    "zh_short": "格兰姆斯",
+    "source": "虎扑"
+  },
+  "4397020": {
+    "en": "Luguentz Dort",
+    "zh": "吕冈茨·多尔特",
+    "zh_short": "多尔特",
+    "source": "虎扑"
+  },
+  "4397040": {
+    "en": "Brandon Williams",
+    "zh": "布兰登·威廉姆斯",
+    "zh_short": "威廉姆斯",
+    "source": "虎扑"
+  },
+  "4397077": {
+    "en": "Jaxson Hayes",
+    "zh": "贾克森·海斯",
+    "zh_short": "海斯",
+    "source": "虎扑"
+  },
+  "4397114": {
+    "en": "Cormac Ryan",
+    "zh": "科马克·瑞安",
+    "zh_short": "瑞安",
+    "source": "虎扑"
+  },
+  "4397136": {
+    "en": "Saddiq Bey",
+    "zh": "萨迪克·贝",
+    "zh_short": "贝",
+    "source": "虎扑"
+  },
+  "4397183": {
+    "en": "Aaron Wiggins",
+    "zh": "阿龙·威金斯",
+    "zh_short": "威金斯",
+    "source": "虎扑"
+  },
+  "4397189": {
+    "en": "Jalen Smith",
+    "zh": "杰伦·史密斯",
+    "zh_short": "史密斯",
+    "source": "虎扑"
+  },
+  "4397204": {
+    "en": "Colin Castleton",
+    "zh": "科林·卡斯尔顿",
+    "zh_short": "卡斯尔顿",
+    "source": "虎扑"
+  },
+  "4397233": {
+    "en": "Pete Nance",
+    "zh": "皮特·南斯",
+    "zh_short": "南斯",
+    "source": "虎扑"
+  },
+  "4397251": {
+    "en": "Ron Harper Jr.",
+    "zh": "罗恩·哈珀",
+    "zh_short": "哈珀",
+    "source": "虎扑"
+  },
+  "4397424": {
+    "en": "Neemias Queta",
+    "zh": "内米亚斯·克塔",
+    "zh_short": "克塔",
+    "source": "虎扑"
+  },
+  "4397449": {
+    "en": "Elijah Harkless",
+    "zh": "伊莱贾·哈克利斯",
+    "zh_short": "哈克利斯",
+    "source": "虎扑"
+  },
+  "4397475": {
+    "en": "AJ Green",
+    "zh": "AJ·格林",
+    "zh_short": "格林",
+    "source": "虎扑"
+  },
+  "4397688": {
+    "en": "Trey Murphy III",
+    "zh": "特雷·墨菲",
+    "zh_short": "墨菲",
+    "source": "虎扑"
+  },
+  "4397784": {
+    "en": "Malachi Smith",
+    "zh": "马拉奇·史密斯",
+    "zh_short": "史密斯",
+    "source": "虎扑"
+  },
+  "4397882": {
+    "en": "Tolu Smith",
+    "zh": "托卢·史密斯三世",
+    "zh_short": "史密斯三世",
+    "source": "虎扑"
+  },
+  "4397886": {
+    "en": "Charles Bassey",
+    "zh": "查尔斯·巴锡",
+    "zh_short": "巴锡",
+    "source": "虎扑"
+  },
+  "4398207": {
+    "en": "Jalen Slawson",
+    "zh": "杰伦·斯劳森",
+    "zh_short": "斯劳森",
+    "source": "虎扑"
+  },
+  "4398390": {
+    "en": "Jalen Pickett",
+    "zh": "杰伦·皮克特",
+    "zh_short": "皮克特",
+    "source": "虎扑"
+  },
+  "4411057": {
+    "en": "Kevin McCullar Jr.",
+    "zh": "凯文·麦卡勒",
+    "zh_short": "麦卡勒",
+    "source": "虎扑"
+  },
+  "4431671": {
+    "en": "Jaden McDaniels",
+    "zh": "杰登·麦克丹尼尔斯",
+    "zh_short": "麦克丹尼尔斯",
+    "source": "虎扑"
+  },
+  "4431675": {
+    "en": "Trendon Watford",
+    "zh": "特伦登·沃特福特",
+    "zh_short": "沃特福特",
+    "source": "虎扑"
+  },
+  "4431678": {
+    "en": "Tyrese Maxey",
+    "zh": "泰雷斯·马克西",
+    "zh_short": "马克西",
+    "source": "虎扑"
+  },
+  "4431679": {
+    "en": "Precious Achiuwa",
+    "zh": "普雷舍斯·阿丘瓦",
+    "zh_short": "阿丘瓦",
+    "source": "虎扑"
+  },
+  "4431680": {
+    "en": "Onyeka Okongwu",
+    "zh": "奥涅卡·奥孔古",
+    "zh_short": "奥孔古",
+    "source": "虎扑"
+  },
+  "4431684": {
+    "en": "Trayce Jackson-Davis",
+    "zh": "特雷斯·杰克逊·戴维斯",
+    "zh_short": "戴维斯",
+    "source": "虎扑"
+  },
+  "4431687": {
+    "en": "Patrick Williams",
+    "zh": "帕特里克·威廉姆斯",
+    "zh_short": "威廉姆斯",
+    "source": "虎扑"
+  },
+  "4431690": {
+    "en": "Zeke Nnaji",
+    "zh": "齐克·纳吉",
+    "zh_short": "纳吉",
+    "source": "虎扑"
+  },
+  "4431695": {
+    "en": "Drew Timme",
+    "zh": "德鲁·蒂米",
+    "zh_short": "蒂米",
+    "source": "虎扑"
+  },
+  "4431714": {
+    "en": "Jalen Wilson",
+    "zh": "杰伦·威尔逊",
+    "zh_short": "威尔逊",
+    "source": "虎扑"
+  },
+  "4431736": {
+    "en": "Toumani Camara",
+    "zh": "图马尼·卡马拉",
+    "zh_short": "卡马拉",
+    "source": "虎扑"
+  },
+  "4431752": {
+    "en": "Kobe Brown",
+    "zh": "科比·布朗",
+    "zh_short": "布朗",
+    "source": "虎扑"
+  },
+  "4431767": {
+    "en": "Christian Braun",
+    "zh": "克里斯琴·布朗",
+    "zh_short": "布朗",
+    "source": "虎扑"
+  },
+  "4431772": {
+    "en": "Myron Gardner",
+    "zh": "迈伦·加德纳",
+    "zh_short": "加德纳",
+    "source": "虎扑"
+  },
+  "4431785": {
+    "en": "Scotty Pippen Jr.",
+    "zh": "小斯科蒂·皮彭",
+    "zh_short": "皮彭",
+    "source": "虎扑"
+  },
+  "4431786": {
+    "en": "Keshad Johnson",
+    "zh": "凯沙德·约翰逊",
+    "zh_short": "约翰逊",
+    "source": "虎扑"
+  },
+  "4431823": {
+    "en": "Miles McBride",
+    "zh": "迈尔斯·麦克布莱德",
+    "zh_short": "麦克布莱德",
+    "source": "虎扑"
+  },
+  "4431893": {
+    "en": "Jamison Battle",
+    "zh": "杰米森·巴特尔",
+    "zh_short": "巴特尔",
+    "source": "虎扑"
+  },
+  "4431941": {
+    "en": "RayJ Dennis",
+    "zh": "雷伊·丹尼斯",
+    "zh_short": "丹尼斯",
+    "source": "虎扑"
+  },
+  "4432107": {
+    "en": "Marcus Sasser",
+    "zh": "马库斯·萨瑟",
+    "zh_short": "萨瑟",
+    "source": "虎扑"
+  },
+  "4432158": {
+    "en": "Evan Mobley",
+    "zh": "埃文·莫布利",
+    "zh_short": "莫布利",
+    "source": "虎扑"
+  },
+  "4432165": {
+    "en": "Jalen Suggs",
+    "zh": "杰伦·萨格斯",
+    "zh_short": "萨格斯",
+    "source": "虎扑"
+  },
+  "4432166": {
+    "en": "Cade Cunningham",
+    "zh": "凯德·坎宁安",
+    "zh_short": "坎宁安",
+    "source": "虎扑"
+  },
+  "4432170": {
+    "en": "Isaiah Jackson",
+    "zh": "以赛亚·杰克逊",
+    "zh_short": "杰克逊",
+    "source": "虎扑"
+  },
+  "4432171": {
+    "en": "Moses Moody",
+    "zh": "摩西·穆迪",
+    "zh_short": "穆迪",
+    "source": "虎扑"
+  },
+  "4432181": {
+    "en": "Julian Strawther",
+    "zh": "朱利安·斯特劳瑟",
+    "zh_short": "斯特劳瑟",
+    "source": "虎扑"
+  },
+  "4432185": {
+    "en": "Micah Peavy",
+    "zh": "迈卡·皮维",
+    "zh_short": "皮维",
+    "source": "虎扑"
+  },
+  "4432187": {
+    "en": "Reece Beekman",
+    "zh": "里斯·比克曼",
+    "zh_short": "比克曼",
+    "source": "虎扑"
+  },
+  "4432194": {
+    "en": "Day'Ron Sharpe",
+    "zh": "戴罗恩·夏普",
+    "zh_short": "夏普",
+    "source": "虎扑"
+  },
+  "4432241": {
+    "en": "Jamal Shead",
+    "zh": "贾马尔·谢德",
+    "zh_short": "谢德",
+    "source": "虎扑"
+  },
+  "4432247": {
+    "en": "Jaylen Clark",
+    "zh": "杰伦·克拉克",
+    "zh_short": "克拉克",
+    "source": "虎扑"
+  },
+  "4432446": {
+    "en": "Jabari Walker",
+    "zh": "贾巴里·沃克",
+    "zh_short": "沃克",
+    "source": "虎扑"
+  },
+  "4432573": {
+    "en": "Paolo Banchero",
+    "zh": "保罗·班切罗",
+    "zh_short": "班切罗",
+    "source": "虎扑"
+  },
+  "4432582": {
+    "en": "Max Christie",
+    "zh": "马克斯·克里斯蒂",
+    "zh_short": "克里斯蒂",
+    "source": "虎扑"
+  },
+  "4432586": {
+    "en": "Nate Bittle",
+    "zh": "内特·比特",
+    "zh_short": "比特",
+    "source": "虎扑"
+  },
+  "4432639": {
+    "en": "Jabari Smith Jr.",
+    "zh": "小贾巴里·史密斯",
+    "zh_short": "史密斯",
+    "source": "虎扑"
+  },
+  "4432737": {
+    "en": "Jaden Bradley",
+    "zh": "杰登·布拉德利",
+    "zh_short": "布拉德利",
+    "source": "虎扑"
+  },
+  "4432808": {
+    "en": "James Wiseman",
+    "zh": "詹姆斯·怀斯曼",
+    "zh_short": "怀斯曼",
+    "source": "虎扑"
+  },
+  "4432810": {
+    "en": "Isaiah Stewart",
+    "zh": "以赛亚·斯图尔特",
+    "zh_short": "斯图尔特",
+    "source": "虎扑"
+  },
+  "4432811": {
+    "en": "Josh Green",
+    "zh": "约什·格林",
+    "zh_short": "格林",
+    "source": "虎扑"
+  },
+  "4432816": {
+    "en": "LaMelo Ball",
+    "zh": "拉梅洛·鲍尔",
+    "zh_short": "鲍尔",
+    "source": "虎扑"
+  },
+  "4432819": {
+    "en": "Tre Mann",
+    "zh": "特雷·曼",
+    "zh_short": "曼",
+    "source": "虎扑"
+  },
+  "4432822": {
+    "en": "Isaac Okoro",
+    "zh": "艾萨克·奥科罗",
+    "zh_short": "奥科罗",
+    "source": "虎扑"
+  },
+  "4432823": {
+    "en": "Jaylin Williams",
+    "zh": "杰林·威廉姆斯",
+    "zh_short": "杰林·威廉姆斯",
+    "source": "虎扑"
+  },
+  "4432827": {
+    "en": "Oscar Tshiebwe",
+    "zh": "奥斯卡·希布韦",
+    "zh_short": "希布韦",
+    "source": "虎扑"
+  },
+  "4432847": {
+    "en": "Terrence Shannon Jr.",
+    "zh": "小特伦斯·香农",
+    "zh_short": "香农",
+    "source": "虎扑"
+  },
+  "4432848": {
+    "en": "Jaime Jaquez Jr.",
+    "zh": "小海梅·哈克斯",
+    "zh_short": "哈克斯",
+    "source": "虎扑"
+  },
+  "4432907": {
+    "en": "Justin Champagnie",
+    "zh": "贾斯汀·尚帕尼",
+    "zh_short": "尚帕尼",
+    "source": "虎扑"
+  },
+  "4433076": {
+    "en": "Ben Sheppard",
+    "zh": "本·谢泼德",
+    "zh_short": "谢泼德",
+    "source": "虎扑"
+  },
+  "4433083": {
+    "en": "Cam Spencer",
+    "zh": "卡梅隆·斯宾塞",
+    "zh_short": "斯宾塞",
+    "source": "虎扑"
+  },
+  "4433134": {
+    "en": "Scottie Barnes",
+    "zh": "斯科蒂·巴恩斯",
+    "zh_short": "巴恩斯",
+    "source": "虎扑"
+  },
+  "4433136": {
+    "en": "Walker Kessler",
+    "zh": "沃克·凯斯勒",
+    "zh_short": "凯斯勒",
+    "source": "虎扑"
+  },
+  "4433137": {
+    "en": "Ziaire Williams",
+    "zh": "宰伊尔·威廉姆斯",
+    "zh_short": "威廉姆斯",
+    "source": "虎扑"
+  },
+  "4433144": {
+    "en": "Caleb Love",
+    "zh": "凯莱布·乐福",
+    "zh_short": "乐福",
+    "source": "虎扑"
+  },
+  "4433149": {
+    "en": "LJ Cryer",
+    "zh": "LJ·克赖尔",
+    "zh_short": "克赖尔",
+    "source": "虎扑"
+  },
+  "4433174": {
+    "en": "Dylan Cardwell",
+    "zh": "迪伦·卡德韦尔",
+    "zh_short": "卡德韦尔",
+    "source": "虎扑"
+  },
+  "4433188": {
+    "en": "Devin Carter",
+    "zh": "德文·卡特",
+    "zh_short": "卡特",
+    "source": "虎扑"
+  },
+  "4433192": {
+    "en": "Tari Eason",
+    "zh": "塔里·伊森",
+    "zh_short": "伊森",
+    "source": "虎扑"
+  },
+  "4433225": {
+    "en": "Tyler Kolek",
+    "zh": "泰勒·科勒克",
+    "zh_short": "科勒克",
+    "source": "虎扑"
+  },
+  "4433247": {
+    "en": "Jonathan Kuminga",
+    "zh": "乔纳森·库明加",
+    "zh_short": "库明加",
+    "source": "虎扑"
+  },
+  "4433249": {
+    "en": "Moussa Diabate",
+    "zh": "穆萨·迪亚巴特",
+    "zh_short": "迪亚巴特",
+    "source": "虎扑"
+  },
+  "4433255": {
+    "en": "Chet Holmgren",
+    "zh": "切特·霍姆格伦",
+    "zh_short": "霍姆格伦",
+    "source": "虎扑"
+  },
+  "4433268": {
+    "en": "Trey Alexander",
+    "zh": "特雷·亚历山大",
+    "zh_short": "亚历山大",
+    "source": "虎扑"
+  },
+  "4433287": {
+    "en": "Brandon Miller",
+    "zh": "布兰登·米勒",
+    "zh_short": "米勒",
+    "source": "虎扑"
+  },
+  "4433599": {
+    "en": "Arthur Kaluma",
+    "zh": "亚瑟·卡鲁玛",
+    "zh_short": "卡鲁玛",
+    "source": "虎扑"
+  },
+  "4433607": {
+    "en": "DaRon Holmes II",
+    "zh": "达隆·霍姆斯二世",
+    "zh_short": "霍姆斯二世",
+    "source": "虎扑"
+  },
+  "4433618": {
+    "en": "Harrison Ingram",
+    "zh": "哈里森·英格拉姆",
+    "zh_short": "英格拉姆",
+    "source": "虎扑"
+  },
+  "4433621": {
+    "en": "Jalen Duren",
+    "zh": "杰伦·杜伦",
+    "zh_short": "杜伦",
+    "source": "虎扑"
+  },
+  "4433627": {
+    "en": "Keyonte George",
+    "zh": "基扬特·乔治",
+    "zh_short": "乔治",
+    "source": "虎扑"
+  },
+  "4433629": {
+    "en": "Ryan Nembhard",
+    "zh": "瑞安·内姆布哈德",
+    "zh_short": "内姆布哈德",
+    "source": "虎扑"
+  },
+  "4437244": {
+    "en": "Jalen Green",
+    "zh": "杰伦·格林",
+    "zh_short": "格林",
+    "source": "虎扑"
+  },
+  "4565698": {
+    "en": "Bryce Hopkins",
+    "zh": "布莱斯·霍普金斯",
+    "zh_short": "霍普金斯",
+    "source": "虎扑"
+  },
+  "4566434": {
+    "en": "Franz Wagner",
+    "zh": "弗朗茨·瓦格纳",
+    "zh_short": "瓦格纳",
+    "source": "虎扑"
+  },
+  "4576060": {
+    "en": "Ryan Kalkbrenner",
+    "zh": "瑞安·卡尔克布伦纳",
+    "zh_short": "卡尔克布伦纳",
+    "source": "虎扑"
+  },
+  "4576086": {
+    "en": "Bryce McGowens",
+    "zh": "布赖斯·麦高文斯",
+    "zh_short": "麦高文斯",
+    "source": "虎扑"
+  },
+  "4576087": {
+    "en": "Peyton Watson",
+    "zh": "佩顿·沃特森",
+    "zh_short": "沃特森",
+    "source": "虎扑"
+  },
+  "4578893": {
+    "en": "Vit Krejci",
+    "zh": "维特·克雷伊奇",
+    "zh_short": "克雷伊奇",
+    "source": "虎扑"
+  },
+  "4585618": {
+    "en": "Keshon Gilbert",
+    "zh": "凯雄·吉尔伯特",
+    "zh_short": "吉尔伯特",
+    "source": "虎扑"
+  },
+  "4591725": {
+    "en": "Ryan Rollins",
+    "zh": "莱恩·罗林斯",
+    "zh_short": "罗林斯",
+    "source": "虎扑"
+  },
+  "4592427": {
+    "en": "Spencer Jones",
+    "zh": "斯宾塞·琼斯",
+    "zh_short": "斯宾塞·琼斯",
+    "source": "虎扑"
+  },
+  "4592435": {
+    "en": "Branden Carlson",
+    "zh": "布兰登·卡尔森",
+    "zh_short": "卡尔森",
+    "source": "虎扑"
+  },
+  "4592479": {
+    "en": "Julian Champagnie",
+    "zh": "朱利安·尚彭尼",
+    "zh_short": "尚彭尼",
+    "source": "虎扑"
+  },
+  "4592492": {
+    "en": "Bones Hyland",
+    "zh": "纳肖恩·海兰德",
+    "zh_short": "海兰德",
+    "source": "虎扑"
+  },
+  "4592691": {
+    "en": "Jake LaRavia",
+    "zh": "杰克·拉拉维亚",
+    "zh_short": "拉拉维亚",
+    "source": "虎扑"
+  },
+  "4592714": {
+    "en": "Pat Spencer",
+    "zh": "帕特·斯潘塞",
+    "zh_short": "斯潘塞",
+    "source": "虎扑"
+  },
+  "4592829": {
+    "en": "Quenton Jackson",
+    "zh": "昆顿·杰克逊",
+    "zh_short": "杰克逊",
+    "source": "虎扑"
+  },
+  "4592857": {
+    "en": "Isaiah Crawford",
+    "zh": "以赛亚·克劳福德",
+    "zh_short": "克劳福德",
+    "source": "虎扑"
+  },
+  "4592979": {
+    "en": "Zyon Pullin",
+    "zh": "锡恩·普林",
+    "zh_short": "普林",
+    "source": "虎扑"
+  },
+  "4593016": {
+    "en": "Quinten Post",
+    "zh": "昆腾·波斯特",
+    "zh_short": "波斯特",
+    "source": "虎扑"
+  },
+  "4593034": {
+    "en": "Alex Morales",
+    "zh": "亚历克斯·莫拉莱斯",
+    "zh_short": "莫拉莱斯",
+    "source": "虎扑"
+  },
+  "4593043": {
+    "en": "John Tonje",
+    "zh": "约翰·汤杰",
+    "zh_short": "汤杰",
+    "source": "虎扑"
+  },
+  "4593125": {
+    "en": "Santi Aldama",
+    "zh": "桑迪·阿尔达马",
+    "zh_short": "阿尔达马",
+    "source": "虎扑"
+  },
+  "4593803": {
+    "en": "Jalen Williams",
+    "zh": "杰伦·威廉姆斯",
+    "zh_short": "杰伦·威廉姆斯",
+    "source": "虎扑"
+  },
+  "4593841": {
+    "en": "Baylor Scheierman",
+    "zh": "贝勒·沙伊尔曼",
+    "zh_short": "沙伊尔曼",
+    "source": "虎扑"
+  },
+  "4594268": {
+    "en": "Anthony Edwards",
+    "zh": "安东尼·爱德华兹",
+    "zh_short": "爱德华兹",
+    "source": "虎扑"
+  },
+  "4594326": {
+    "en": "Kris Murray",
+    "zh": "克里斯·默里",
+    "zh_short": "默里",
+    "source": "虎扑"
+  },
+  "4594327": {
+    "en": "Keegan Murray",
+    "zh": "基根·穆雷",
+    "zh_short": "穆雷",
+    "source": "虎扑"
+  },
+  "4595400": {
+    "en": "Olivier-Maxence Prosper",
+    "zh": "奥利维耶·马克桑斯·普罗斯珀",
+    "zh_short": "普罗斯珀",
+    "source": "虎扑"
+  },
+  "4600663": {
+    "en": "Zach Edey",
+    "zh": "扎克·埃迪",
+    "zh_short": "埃迪",
+    "source": "虎扑"
+  },
+  "4601023": {
+    "en": "Oso Ighodaro",
+    "zh": "奥索·伊戈达罗",
+    "zh_short": "伊戈达罗",
+    "source": "虎扑"
+  },
+  "4601025": {
+    "en": "Pelle Larsson",
+    "zh": "尼科拉·久里西奇",
+    "zh_short": "久里西奇",
+    "source": "虎扑"
+  },
+  "4602025": {
+    "en": "Sion James",
+    "zh": "西翁·詹姆斯",
+    "zh_short": "詹姆斯",
+    "source": "虎扑"
+  },
+  "4606840": {
+    "en": "Jamir Watkins",
+    "zh": "贾米尔·沃特金斯",
+    "zh_short": "沃特金斯",
+    "source": "虎扑"
+  },
+  "4683021": {
+    "en": "Deni Avdija",
+    "zh": "德尼·阿夫迪亚",
+    "zh_short": "阿夫迪亚",
+    "source": "虎扑"
+  },
+  "4683634": {
+    "en": "Bennedict Mathurin",
+    "zh": "本尼迪克特·马瑟林",
+    "zh_short": "马瑟林",
+    "source": "虎扑"
+  },
+  "4683678": {
+    "en": "Scoot Henderson",
+    "zh": "斯库特·亨德森",
+    "zh_short": "亨德森",
+    "source": "虎扑"
+  },
+  "4683688": {
+    "en": "Dereck Lively II",
+    "zh": "德雷克·莱夫利二世",
+    "zh_short": "莱夫利二世",
+    "source": "虎扑"
+  },
+  "4683689": {
+    "en": "Jordan Walsh",
+    "zh": "乔丹·沃尔什",
+    "zh_short": "沃尔什",
+    "source": "虎扑"
+  },
+  "4683692": {
+    "en": "Cason Wallace",
+    "zh": "卡森·华莱士",
+    "zh_short": "华莱士",
+    "source": "虎扑"
+  },
+  "4683730": {
+    "en": "Jaden Akins",
+    "zh": "杰登·埃金斯",
+    "zh_short": "埃金斯",
+    "source": "虎扑"
+  },
+  "4683736": {
+    "en": "Kobe Bufkin",
+    "zh": "科比·巴夫金",
+    "zh_short": "巴夫金",
+    "source": "虎扑"
+  },
+  "4683742": {
+    "en": "Julian Reese",
+    "zh": "朱利安·里斯",
+    "zh_short": "里斯",
+    "source": "虎扑"
+  },
+  "4683747": {
+    "en": "Jaylon Tyson",
+    "zh": "杰隆·泰森",
+    "zh_short": "泰森",
+    "source": "虎扑"
+  },
+  "4683750": {
+    "en": "Jordan Hawkins",
+    "zh": "乔丹·霍金斯",
+    "zh_short": "霍金斯",
+    "source": "虎扑"
+  },
+  "4683766": {
+    "en": "Isaiah Collier",
+    "zh": "以赛亚·科利尔",
+    "zh_short": "科利尔",
+    "source": "虎扑"
+  },
+  "4683771": {
+    "en": "Ronald Holland II",
+    "zh": "罗恩·霍兰二世",
+    "zh_short": "霍兰二世",
+    "source": "虎扑"
+  },
+  "4683774": {
+    "en": "Bronny James",
+    "zh": "布朗尼·詹姆斯",
+    "zh_short": "詹姆斯",
+    "source": "虎扑"
+  },
+  "4683778": {
+    "en": "Jared McCain",
+    "zh": "贾里德·麦凯恩",
+    "zh_short": "麦凯恩",
+    "source": "虎扑"
+  },
+  "4683860": {
+    "en": "Quadir Copeland",
+    "zh": "奎迪尔·科普兰",
+    "zh_short": "科普兰",
+    "source": "虎扑"
+  },
+  "4683934": {
+    "en": "Jahmai Mashack",
+    "zh": "贾迈·马沙克",
+    "zh_short": "马沙克",
+    "source": "虎扑"
+  },
+  "4683935": {
+    "en": "Blake Wesley",
+    "zh": "布雷克·韦斯利",
+    "zh_short": "韦斯利",
+    "source": "虎扑"
+  },
+  "4684208": {
+    "en": "Brooks Barnhizer",
+    "zh": "布鲁克斯·巴恩海泽",
+    "zh_short": "巴恩海泽",
+    "source": "虎扑"
+  },
+  "4684269": {
+    "en": "Kylan Boswell",
+    "zh": "凯兰·博斯韦尔",
+    "zh_short": "博斯韦尔",
+    "source": "虎扑"
+  },
+  "4684272": {
+    "en": "Ja'Kobe Walter",
+    "zh": "贾科比·沃尔特",
+    "zh_short": "沃尔特",
+    "source": "虎扑"
+  },
+  "4684740": {
+    "en": "Amen Thompson",
+    "zh": "阿门·汤普森",
+    "zh_short": "汤普森",
+    "source": "虎扑"
+  },
+  "4684742": {
+    "en": "Ausar Thompson",
+    "zh": "奥萨尔·汤普森",
+    "zh_short": "汤普森",
+    "source": "虎扑"
+  },
+  "4684793": {
+    "en": "Kyle Filipowski",
+    "zh": "凯尔·菲利波夫斯基",
+    "zh_short": "菲利波夫斯基",
+    "source": "虎扑"
+  },
+  "4684806": {
+    "en": "Taylor Hendricks",
+    "zh": "泰勒·亨德里克斯",
+    "zh_short": "亨德里克斯",
+    "source": "虎扑"
+  },
+  "4687718": {
+    "en": "Josh Minott",
+    "zh": "约什·米诺特",
+    "zh_short": "米诺特",
+    "source": "虎扑"
+  },
+  "4697268": {
+    "en": "Kam Jones",
+    "zh": "卡姆·琼斯",
+    "zh_short": "琼斯",
+    "source": "虎扑"
+  },
+  "4698719": {
+    "en": "Trevon Brazile",
+    "zh": "特雷冯·布拉齐尔",
+    "zh_short": "布拉齐尔",
+    "source": "虎扑"
+  },
+  "4700818": {
+    "en": "Vladislav Goldin",
+    "zh": "弗拉季斯拉夫·戈尔金",
+    "zh_short": "戈尔金",
+    "source": "虎扑"
+  },
+  "4701208": {
+    "en": "Moussa Cisse",
+    "zh": "穆萨·西塞",
+    "zh_short": "西塞",
+    "source": "虎扑"
+  },
+  "4701225": {
+    "en": "PJ Hall",
+    "zh": "P·J·霍尔",
+    "zh_short": "霍尔",
+    "source": "虎扑"
+  },
+  "4701230": {
+    "en": "Jalen Johnson",
+    "zh": "杰伦·约翰逊",
+    "zh_short": "约翰逊",
+    "source": "虎扑"
+  },
+  "4701232": {
+    "en": "Mark Williams",
+    "zh": "马克·威廉姆斯",
+    "zh_short": "威廉姆斯",
+    "source": "虎扑"
+  },
+  "4701233": {
+    "en": "Craig Porter Jr.",
+    "zh": "小克雷格·波特",
+    "zh_short": "波特",
+    "source": "虎扑"
+  },
+  "4702134": {
+    "en": "Norchad Omier",
+    "zh": "诺恰德·奥米尔",
+    "zh_short": "奥米尔",
+    "source": "虎扑"
+  },
+  "4702177": {
+    "en": "Keon Ellis",
+    "zh": "基恩·埃利斯",
+    "zh_short": "埃利斯",
+    "source": "虎扑"
+  },
+  "4702352": {
+    "en": "Kobe Sanders",
+    "zh": "科比·桑德斯",
+    "zh_short": "桑德斯",
+    "source": "虎扑"
+  },
+  "4702382": {
+    "en": "Tristan da Silva",
+    "zh": "特里斯坦·达·席尔瓦",
+    "zh_short": "席尔瓦",
+    "source": "虎扑"
+  },
+  "4702384": {
+    "en": "Nique Clifford",
+    "zh": "尼克·克利福德",
+    "zh_short": "克利福德",
+    "source": "虎扑"
+  },
+  "4702656": {
+    "en": "Alijah Martin",
+    "zh": "阿利贾·马丁",
+    "zh_short": "马丁",
+    "source": "虎扑"
+  },
+  "4702670": {
+    "en": "Grant Nelson",
+    "zh": "格兰特·尼尔森",
+    "zh_short": "尼尔森",
+    "source": "虎扑"
+  },
+  "4702745": {
+    "en": "Amari Williams",
+    "zh": "阿马里·威廉姆斯",
+    "zh_short": "威廉姆斯",
+    "source": "虎扑"
+  },
+  "4702972": {
+    "en": "Chris Manon",
+    "zh": "克里斯·马尼翁",
+    "zh_short": "马尼翁",
+    "source": "虎扑"
+  },
+  "4703115": {
+    "en": "Jaron Pierre Jr.",
+    "zh": "贾伦·皮埃尔",
+    "zh_short": "皮埃尔",
+    "source": "虎扑"
+  },
+  "4703396": {
+    "en": "Graham Ike",
+    "zh": "格雷厄姆·艾克",
+    "zh_short": "艾克",
+    "source": "虎扑"
+  },
+  "4703889": {
+    "en": "Jayson Kent",
+    "zh": "杰森·肯特",
+    "zh_short": "肯特",
+    "source": "虎扑"
+  },
+  "4706557": {
+    "en": "Chris Youngblood",
+    "zh": "克里斯·扬布拉德",
+    "zh_short": "扬布拉德",
+    "source": "虎扑"
+  },
+  "4709131": {
+    "en": "Sean Pedulla",
+    "zh": "肖恩·佩杜拉",
+    "zh_short": "佩杜拉",
+    "source": "虎扑"
+  },
+  "4709138": {
+    "en": "Brandin Podziemski",
+    "zh": "布兰丁·波杰姆斯基",
+    "zh_short": "波杰姆斯基",
+    "source": "虎扑"
+  },
+  "4711272": {
+    "en": "Reed Sheppard",
+    "zh": "里德·谢泼德",
+    "zh_short": "谢泼德",
+    "source": "虎扑"
+  },
+  "4711294": {
+    "en": "Matas Buzelis",
+    "zh": "马塔斯·布泽利斯",
+    "zh_short": "布泽利斯",
+    "source": "虎扑"
+  },
+  "4711297": {
+    "en": "Justin Edwards",
+    "zh": "贾斯汀·爱德华兹",
+    "zh_short": "爱德华兹",
+    "source": "虎扑"
+  },
+  "4712849": {
+    "en": "Anthony Black",
+    "zh": "安东尼·布莱克",
+    "zh_short": "布莱克",
+    "source": "虎扑"
+  },
+  "4712862": {
+    "en": "Malik Dia",
+    "zh": "马利克·迪亚",
+    "zh_short": "迪亚",
+    "source": "虎扑"
+  },
+  "4712863": {
+    "en": "Mouhamed Gueye",
+    "zh": "穆罕穆德·盖伊",
+    "zh_short": "盖伊",
+    "source": "虎扑"
+  },
+  "4712896": {
+    "en": "Noah Clowney",
+    "zh": "诺厄·克洛尼",
+    "zh_short": "克洛尼",
+    "source": "虎扑"
+  },
+  "4713010": {
+    "en": "David Jones Garcia",
+    "zh": "大卫·琼斯",
+    "zh_short": "琼斯",
+    "source": "虎扑"
+  },
+  "4781746": {
+    "en": "Javon Small",
+    "zh": "贾文·斯莫尔",
+    "zh_short": "斯莫尔",
+    "source": "虎扑"
+  },
+  "4837356": {
+    "en": "Tre Donaldson",
+    "zh": "特雷·唐纳森",
+    "zh_short": "唐纳森",
+    "source": "虎扑"
+  },
+  "4838721": {
+    "en": "Tyler Nickel",
+    "zh": "泰勒·尼克尔",
+    "zh_short": "尼克尔",
+    "source": "虎扑"
+  },
+  "4845363": {
+    "en": "Cam Christie",
+    "zh": "卡姆·克里斯蒂",
+    "zh_short": "克里斯蒂",
+    "source": "虎扑"
+  },
+  "4845367": {
+    "en": "Stephon Castle",
+    "zh": "斯蒂芬·卡斯尔",
+    "zh_short": "卡斯尔",
+    "source": "虎扑"
+  },
+  "4845374": {
+    "en": "Bub Carrington",
+    "zh": "卡尔顿·卡林顿",
+    "zh_short": "卡林顿",
+    "source": "虎扑"
+  },
+  "4848625": {
+    "en": "Dailyn Swain",
+    "zh": "戴林·斯温",
+    "zh_short": "斯温",
+    "source": "虎扑"
+  },
+  "4868423": {
+    "en": "Jaden Hardy",
+    "zh": "杰登·哈迪",
+    "zh_short": "哈迪",
+    "source": "虎扑"
+  },
+  "4869342": {
+    "en": "Dyson Daniels",
+    "zh": "戴森·丹尼尔斯",
+    "zh_short": "丹尼尔斯",
+    "source": "虎扑"
+  },
+  "4869780": {
+    "en": "Derik Queen",
+    "zh": "德里克·奎因",
+    "zh_short": "奎因",
+    "source": "虎扑"
+  },
+  "4870562": {
+    "en": "Dominick Barlow",
+    "zh": "多米尼克·巴洛",
+    "zh_short": "巴洛",
+    "source": "虎扑"
+  },
+  "4870564": {
+    "en": "Joshua Jefferson",
+    "zh": "约书亚·杰斐逊",
+    "zh_short": "杰斐逊",
+    "source": "虎扑"
+  },
+  "4871141": {
+    "en": "Ariel Hukporti",
+    "zh": "阿里尔·胡克波尔蒂",
+    "zh_short": "胡克波尔蒂",
+    "source": "虎扑"
+  },
+  "4871144": {
+    "en": "Alperen Sengun",
+    "zh": "阿尔佩伦·申京",
+    "zh_short": "申京",
+    "source": "虎扑"
+  },
+  "4871145": {
+    "en": "Josh Giddey",
+    "zh": "约什·吉迪",
+    "zh_short": "吉迪",
+    "source": "虎扑"
+  },
+  "4873090": {
+    "en": "Labaron Philon Jr.",
+    "zh": "拉巴伦·菲隆二世",
+    "zh_short": "菲隆二世",
+    "source": "虎扑"
+  },
+  "4873138": {
+    "en": "Ace Bailey",
+    "zh": "埃斯·贝利",
+    "zh_short": "贝利",
+    "source": "虎扑"
+  },
+  "4873153": {
+    "en": "Morez Johnson Jr.",
+    "zh": "小莫雷兹·约翰逊",
+    "zh_short": "约翰逊",
+    "source": "虎扑"
+  },
+  "4873201": {
+    "en": "Asa Newell",
+    "zh": "阿萨·纽厄尔",
+    "zh_short": "纽厄尔",
+    "source": "虎扑"
+  },
+  "4888725": {
+    "en": "Ryan Dunn",
+    "zh": "瑞安·邓恩",
+    "zh_short": "邓恩",
+    "source": "虎扑"
+  },
+  "4895758": {
+    "en": "Cody Williams",
+    "zh": "科迪·威廉姆斯",
+    "zh_short": "威廉姆斯",
+    "source": "虎扑"
+  },
+  "4896372": {
+    "en": "Walter Clayton Jr.",
+    "zh": "沃尔特·克莱顿",
+    "zh_short": "克莱顿",
+    "source": "虎扑"
+  },
+  "4897262": {
+    "en": "Will Richard",
+    "zh": "威尔·理查德",
+    "zh_short": "理查德",
+    "source": "虎扑"
+  },
+  "4897449": {
+    "en": "Malevy Leons",
+    "zh": "马莱维·莱昂斯",
+    "zh_short": "莱昂斯",
+    "source": "虎扑"
+  },
+  "4897943": {
+    "en": "Dalton Knecht",
+    "zh": "道尔顿·克内克特",
+    "zh_short": "克内克特",
+    "source": "虎扑"
+  },
+  "4898010": {
+    "en": "Jaylin Sellers",
+    "zh": "杰林·塞勒斯",
+    "zh_short": "塞勒斯",
+    "source": "虎扑"
+  },
+  "4898371": {
+    "en": "Maxime Raynaud",
+    "zh": "马克西姆·雷诺",
+    "zh_short": "雷诺",
+    "source": "虎扑"
+  },
+  "4900671": {
+    "en": "Ajay Mitchell",
+    "zh": "阿杰·米切尔",
+    "zh_short": "米切尔",
+    "source": "虎扑"
+  },
+  "4903027": {
+    "en": "Cedric Coward",
+    "zh": "塞德里克·考沃德",
+    "zh_short": "考沃德",
+    "source": "虎扑"
+  },
+  "4914336": {
+    "en": "Shaedon Sharpe",
+    "zh": "谢登·夏普",
+    "zh_short": "夏普",
+    "source": "虎扑"
+  },
+  "4917149": {
+    "en": "Alex Karaban",
+    "zh": "亚历克斯·卡拉班",
+    "zh_short": "卡拉班",
+    "source": "虎扑"
+  },
+  "4997526": {
+    "en": "Ousmane Dieng",
+    "zh": "乌斯曼·迪昂",
+    "zh_short": "迪昂",
+    "source": "虎扑"
+  },
+  "4997528": {
+    "en": "Nikola Jovic",
+    "zh": "尼科拉·约维奇",
+    "zh_short": "约维奇",
+    "source": "虎扑"
+  },
+  "4997536": {
+    "en": "Gui Santos",
+    "zh": "桂·桑托斯",
+    "zh_short": "桑托斯",
+    "source": "虎扑"
+  },
+  "4997537": {
+    "en": "Tristan Vukcevic",
+    "zh": "特里斯坦·武克切维奇",
+    "zh_short": "武克切维奇",
+    "source": "虎扑"
+  },
+  "4997538": {
+    "en": "Karlo Matkovic",
+    "zh": "马尔科·托多洛维奇",
+    "zh_short": "托多洛维奇",
+    "source": "虎扑"
+  },
+  "5023693": {
+    "en": "Tyrese Proctor",
+    "zh": "泰瑞斯·普洛克特",
+    "zh_short": "普洛克特",
+    "source": "虎扑"
+  },
+  "5037871": {
+    "en": "Dylan Harper",
+    "zh": "迪伦·哈珀",
+    "zh_short": "哈珀",
+    "source": "虎扑"
+  },
+  "5037873": {
+    "en": "Drake Powell",
+    "zh": "德雷克·鲍威尔",
+    "zh_short": "鲍威尔",
+    "source": "虎扑"
+  },
+  "5037878": {
+    "en": "Ugonna Onyenso",
+    "zh": "乌戈纳·奥尼恩索",
+    "zh_short": "奥尼恩索",
+    "source": "虎扑"
+  },
+  "5041935": {
+    "en": "Cameron Boozer",
+    "zh": "卡梅隆·布泽尔",
+    "zh_short": "布泽尔",
+    "source": "虎扑"
+  },
+  "5041939": {
+    "en": "Cooper Flagg",
+    "zh": "库珀·弗拉格",
+    "zh_short": "弗拉格",
+    "source": "虎扑"
+  },
+  "5041951": {
+    "en": "Meleek Thomas",
+    "zh": "米利克·托马斯",
+    "zh_short": "托马斯",
+    "source": "虎扑"
+  },
+  "5041953": {
+    "en": "Koa Peat",
+    "zh": "科阿·皮特",
+    "zh_short": "皮特",
+    "source": "虎扑"
+  },
+  "5041955": {
+    "en": "Darryn Peterson",
+    "zh": "达林·彼得森",
+    "zh_short": "彼得森",
+    "source": "虎扑"
+  },
+  "5044385": {
+    "en": "Leonard Miller",
+    "zh": "伦纳德·米勒",
+    "zh_short": "米勒",
+    "source": "虎扑"
+  },
+  "5060631": {
+    "en": "Adou Thiero",
+    "zh": "阿杜·蒂耶罗",
+    "zh_short": "蒂耶罗",
+    "source": "虎扑"
+  },
+  "5060701": {
+    "en": "Christian Anderson",
+    "zh": "克里斯蒂安·安德森二世",
+    "zh_short": "安德森二世",
+    "source": "虎扑"
+  },
+  "5061568": {
+    "en": "Carter Bryant",
+    "zh": "卡特·布莱恩特",
+    "zh_short": "布莱恩特",
+    "source": "虎扑"
+  },
+  "5061575": {
+    "en": "Kon Knueppel",
+    "zh": "康·克尼普尔",
+    "zh_short": "克尼普尔",
+    "source": "虎扑"
+  },
+  "5061589": {
+    "en": "Yves Missi",
+    "zh": "伊夫·蜜西",
+    "zh_short": "蜜西",
+    "source": "虎扑"
+  },
+  "5061603": {
+    "en": "Thomas Sorber",
+    "zh": "托马斯·索伯",
+    "zh_short": "索伯",
+    "source": "虎扑"
+  },
+  "5075626": {
+    "en": "Baba Miller",
+    "zh": "巴巴·米勒",
+    "zh_short": "巴巴·米勒",
+    "source": "虎扑"
+  },
+  "5081727": {
+    "en": "Sidy Cissoko",
+    "zh": "西迪·西索科",
+    "zh_short": "西索科",
+    "source": "虎扑"
+  },
+  "5082206": {
+    "en": "Brayden Burries",
+    "zh": "布雷登·伯里斯",
+    "zh_short": "伯里斯",
+    "source": "虎扑"
+  },
+  "5093267": {
+    "en": "Collin Murray-Boyles",
+    "zh": "科林·默里·博伊尔斯",
+    "zh_short": "博伊尔斯",
+    "source": "虎扑"
+  },
+  "5095151": {
+    "en": "Caleb Wilson",
+    "zh": "凯勒布·威尔逊",
+    "zh_short": "威尔逊",
+    "source": "虎扑"
+  },
+  "5099752": {
+    "en": "Rayan Rupert",
+    "zh": "拉扬·吕佩尔",
+    "zh_short": "吕佩尔",
+    "source": "虎扑"
+  },
+  "5101761": {
+    "en": "Mikel Brown Jr.",
+    "zh": "米克尔·布朗二世",
+    "zh_short": "布朗二世",
+    "source": "虎扑"
+  },
+  "5101845": {
+    "en": "Jayden Quaintance",
+    "zh": "杰登·奎因坦斯",
+    "zh_short": "奎因坦斯",
+    "source": "虎扑"
+  },
+  "5104155": {
+    "en": "Bilal Coulibaly",
+    "zh": "比拉尔·库利巴利",
+    "zh_short": "库利巴利",
+    "source": "虎扑"
+  },
+  "5104157": {
+    "en": "Victor Wembanyama",
+    "zh": "维克托·文班亚马",
+    "zh_short": "文班亚马",
+    "source": "虎扑"
+  },
+  "5105337": {
+    "en": "Maliq Brown",
+    "zh": "马利克·布朗",
+    "zh_short": "布朗",
+    "source": "虎扑"
+  },
+  "5105462": {
+    "en": "Richie Saunders",
+    "zh": "里奇·桑德斯",
+    "zh_short": "桑德斯",
+    "source": "虎扑"
+  },
+  "5105550": {
+    "en": "GG Jackson",
+    "zh": "格雷格·杰克逊二世",
+    "zh_short": "杰克逊二世",
+    "source": "虎扑"
+  },
+  "5105553": {
+    "en": "Julian Phillips",
+    "zh": "朱利安·菲利普斯",
+    "zh_short": "菲利普斯",
+    "source": "虎扑"
+  },
+  "5105555": {
+    "en": "Tobe Awaka",
+    "zh": "托比·阿瓦卡",
+    "zh_short": "阿瓦卡",
+    "source": "虎扑"
+  },
+  "5105565": {
+    "en": "Donovan Clingan",
+    "zh": "多诺万·克林根",
+    "zh_short": "克林根",
+    "source": "虎扑"
+  },
+  "5105571": {
+    "en": "Henri Veesaar",
+    "zh": "亨利·维萨尔",
+    "zh_short": "维萨尔",
+    "source": "虎扑"
+  },
+  "5105592": {
+    "en": "Cam Whitmore",
+    "zh": "卡姆·惠特莫尔",
+    "zh_short": "惠特莫尔",
+    "source": "虎扑"
+  },
+  "5105623": {
+    "en": "Kel'el Ware",
+    "zh": "凯莱尔·韦尔",
+    "zh_short": "韦尔",
+    "source": "虎扑"
+  },
+  "5105626": {
+    "en": "Tyler Bilodeau",
+    "zh": "泰勒·比洛多",
+    "zh_short": "比洛多",
+    "source": "虎扑"
+  },
+  "5105637": {
+    "en": "Adem Bona",
+    "zh": "阿德姆·博纳",
+    "zh_short": "博纳",
+    "source": "虎扑"
+  },
+  "5105800": {
+    "en": "Josh Dix",
+    "zh": "约什·迪克斯",
+    "zh_short": "迪克斯",
+    "source": "虎扑"
+  },
+  "5105806": {
+    "en": "Jett Howard",
+    "zh": "杰特·霍华德",
+    "zh_short": "霍华德",
+    "source": "虎扑"
+  },
+  "5105809": {
+    "en": "Tarris Reed Jr.",
+    "zh": "小塔里斯·里德",
+    "zh_short": "里德",
+    "source": "虎扑"
+  },
+  "5105817": {
+    "en": "Carson Cooper",
+    "zh": "卡森·库珀",
+    "zh_short": "库珀",
+    "source": "虎扑"
+  },
+  "5105832": {
+    "en": "Nick Martinelli",
+    "zh": "尼克·马丁内利",
+    "zh_short": "马丁内利",
+    "source": "虎扑"
+  },
+  "5105837": {
+    "en": "Bruce Thornton",
+    "zh": "布鲁斯·桑顿",
+    "zh_short": "桑顿",
+    "source": "虎扑"
+  },
+  "5105839": {
+    "en": "Brice Sensabaugh",
+    "zh": "布赖斯·森萨博",
+    "zh_short": "森萨博",
+    "source": "虎扑"
+  },
+  "5105841": {
+    "en": "Felix Okpara",
+    "zh": "费利克斯·奥克帕拉",
+    "zh_short": "奥克帕拉",
+    "source": "虎扑"
+  },
+  "5105854": {
+    "en": "Braden Smith",
+    "zh": "布雷登·史密斯",
+    "zh_short": "史密斯",
+    "source": "虎扑"
+  },
+  "5105977": {
+    "en": "Rasheer Fleming",
+    "zh": "拉希尔·弗莱明",
+    "zh_short": "弗莱明",
+    "source": "虎扑"
+  },
+  "5106040": {
+    "en": "Tobi Lawal",
+    "zh": "托比·拉瓦尔",
+    "zh_short": "拉瓦尔",
+    "source": "虎扑"
+  },
+  "5106058": {
+    "en": "Emanuel Sharp",
+    "zh": "伊曼纽尔·夏普",
+    "zh_short": "夏普",
+    "source": "虎扑"
+  },
+  "5106060": {
+    "en": "Jarace Walker",
+    "zh": "贾雷斯·沃克",
+    "zh_short": "沃克",
+    "source": "虎扑"
+  },
+  "5106258": {
+    "en": "Gradey Dick",
+    "zh": "格雷迪·迪克",
+    "zh_short": "迪克",
+    "source": "虎扑"
+  },
+  "5106261": {
+    "en": "Ernest Udeh Jr.",
+    "zh": "小厄内斯特·乌德",
+    "zh_short": "乌德",
+    "source": "虎扑"
+  },
+  "5106262": {
+    "en": "Zuby Ejiofor",
+    "zh": "祖比·埃乔弗",
+    "zh_short": "埃乔弗",
+    "source": "虎扑"
+  },
+  "5106283": {
+    "en": "Dillon Mitchell",
+    "zh": "狄龙·米切尔",
+    "zh_short": "米切尔",
+    "source": "虎扑"
+  },
+  "5107157": {
+    "en": "Ryan Conwell",
+    "zh": "瑞安·康威尔",
+    "zh_short": "康威尔",
+    "source": "虎扑"
+  },
+  "5107173": {
+    "en": "Danny Wolf",
+    "zh": "丹尼·沃尔夫",
+    "zh_short": "沃尔夫",
+    "source": "虎扑"
+  },
+  "5107199": {
+    "en": "Daniss Jenkins",
+    "zh": "丹尼斯·詹金斯",
+    "zh_short": "詹金斯",
+    "source": "虎扑"
+  },
+  "5107251": {
+    "en": "Izaiyah Nelson",
+    "zh": "伊扎亚·尼尔森",
+    "zh_short": "尼尔森",
+    "source": "虎扑"
+  },
+  "5107818": {
+    "en": "Isaac Jones",
+    "zh": "艾萨克·琼斯",
+    "zh_short": "琼斯",
+    "source": "虎扑"
+  },
+  "5107897": {
+    "en": "Jonathan Mogbo",
+    "zh": "乔纳森·莫格博",
+    "zh_short": "莫格博",
+    "source": "虎扑"
+  },
+  "5107968": {
+    "en": "Ja'Kobi Gillespie",
+    "zh": "雅科比·吉莱斯皮",
+    "zh_short": "吉莱斯皮",
+    "source": "虎扑"
+  },
+  "5108024": {
+    "en": "Yanic Konan Niederhauser",
+    "zh": "亚尼克·科南·尼德豪泽",
+    "zh_short": "尼德豪泽",
+    "source": "虎扑"
+  },
+  "5112087": {
+    "en": "Jaylen Wells",
+    "zh": "杰伦·威尔斯",
+    "zh_short": "威尔斯",
+    "source": "虎扑"
+  },
+  "5113969": {
+    "en": "Cameron Carr",
+    "zh": "卡梅隆·卡尔",
+    "zh_short": "卡尔",
+    "source": "虎扑"
+  },
+  "5124612": {
+    "en": "VJ Edgecombe",
+    "zh": "VJ·埃奇库姆",
+    "zh_short": "埃奇库姆",
+    "source": "虎扑"
+  },
+  "5142620": {
+    "en": "Darius Acuff Jr.",
+    "zh": "小达里厄斯·阿卡夫",
+    "zh_short": "阿卡夫",
+    "source": "虎扑"
+  },
+  "5142621": {
+    "en": "Chris Cenac Jr.",
+    "zh": "克里斯·瑟纳克二世",
+    "zh_short": "瑟纳克二世",
+    "source": "虎扑"
+  },
+  "5142718": {
+    "en": "AJ Dybantsa",
+    "zh": "AJ·迪班萨",
+    "zh_short": "迪班萨",
+    "source": "虎扑"
+  },
+  "5144091": {
+    "en": "Jeremiah Fears",
+    "zh": "杰里迈亚·费尔斯",
+    "zh_short": "费尔斯",
+    "source": "虎扑"
+  },
+  "5144126": {
+    "en": "Will Riley",
+    "zh": "威尔·莱利",
+    "zh_short": "莱利",
+    "source": "虎扑"
+  },
+  "5148538": {
+    "en": "Tarik Biberovic",
+    "zh": "塔里克·比贝罗维奇",
+    "zh_short": "比贝罗维奇",
+    "source": "虎扑"
+  },
+  "5149077": {
+    "en": "Kingston Flemings",
+    "zh": "金斯顿·弗莱明斯",
+    "zh_short": "弗莱明斯",
+    "source": "虎扑"
+  },
+  "5149115": {
+    "en": "Allen Graves",
+    "zh": "艾伦·格雷夫斯",
+    "zh_short": "格雷夫斯",
+    "source": "虎扑"
+  },
+  "5157066": {
+    "en": "Johnny Furphy",
+    "zh": "约翰尼·弗菲",
+    "zh_short": "弗菲",
+    "source": "虎扑"
+  },
+  "5157587": {
+    "en": "Rocco Zikarsky",
+    "zh": "罗科·齐卡尔斯基",
+    "zh_short": "齐卡尔斯基",
+    "source": "虎扑"
+  },
+  "5159925": {
+    "en": "Nikola Topic",
+    "zh": "尼古拉·托皮奇",
+    "zh_short": "托皮奇",
+    "source": "虎扑"
+  },
+  "5160992": {
+    "en": "Alex Sarr",
+    "zh": "亚历克斯·萨尔",
+    "zh_short": "萨尔",
+    "source": "虎扑"
+  },
+  "5164559": {
+    "en": "Nate Ament",
+    "zh": "内特·阿门特",
+    "zh_short": "阿门特",
+    "source": "虎扑"
+  },
+  "5170947": {
+    "en": "AJ Johnson",
+    "zh": "AJ·约翰逊",
+    "zh_short": "约翰逊",
+    "source": "虎扑"
+  },
+  "5174563": {
+    "en": "Kyshawn George",
+    "zh": "凯肖恩·乔治",
+    "zh_short": "乔治",
+    "source": "虎扑"
+  },
+  "5174655": {
+    "en": "Chaney Johnson",
+    "zh": "钱尼·约翰逊",
+    "zh_short": "约翰逊",
+    "source": "虎扑"
+  },
+  "5174983": {
+    "en": "Aday Mara",
+    "zh": "阿代·马拉",
+    "zh_short": "马拉",
+    "source": "虎扑"
+  },
+  "5175643": {
+    "en": "Egor Demin",
+    "zh": "叶戈尔·杰明",
+    "zh_short": "杰明",
+    "source": "虎扑"
+  },
+  "5175647": {
+    "en": "Hugo Gonzalez",
+    "zh": "雨果·冈萨雷斯",
+    "zh_short": "冈萨雷斯",
+    "source": "虎扑"
+  },
+  "5175737": {
+    "en": "Yaxel Lendeborg",
+    "zh": "亚克塞尔·伦德博格",
+    "zh_short": "伦德博格",
+    "source": "虎扑"
+  },
+  "5176517": {
+    "en": "Michael Ajayi",
+    "zh": "迈克尔·阿贾伊",
+    "zh_short": "阿贾伊",
+    "source": "虎扑"
+  },
+  "5177362": {
+    "en": "Riley Minix",
+    "zh": "莱利·米尼克斯",
+    "zh_short": "米尼克斯",
+    "source": "虎扑"
+  },
+  "5203685": {
+    "en": "Khaman Maluach",
+    "zh": "卡曼·马卢阿奇",
+    "zh_short": "马卢阿奇",
+    "source": "虎扑"
+  },
+  "5211175": {
+    "en": "Zaccharie Risacher",
+    "zh": "扎卡里·里萨切尔",
+    "zh_short": "里萨切尔",
+    "source": "虎扑"
+  },
+  "5211176": {
+    "en": "Tidjane Salaun",
+    "zh": "提贾尼·萨隆",
+    "zh_short": "萨隆",
+    "source": "虎扑"
+  },
+  "5211983": {
+    "en": "Pacome Dadiet",
+    "zh": "帕科姆·达迪耶",
+    "zh_short": "达迪耶",
+    "source": "虎扑"
+  },
+  "5214637": {
+    "en": "Noah Penda",
+    "zh": "诺阿·庞达",
+    "zh_short": "庞达",
+    "source": "虎扑"
+  },
+  "5214640": {
+    "en": "Kasparas Jakucionis",
+    "zh": "卡斯帕拉斯·亚库契奥尼斯",
+    "zh_short": "亚库契奥尼斯",
+    "source": "虎扑"
+  },
+  "5214989": {
+    "en": "Bogoljub Markovic",
+    "zh": "博戈柳布·马尔科维奇",
+    "zh_short": "马尔科维奇",
+    "source": "虎扑"
+  },
+  "5217746": {
+    "en": "Yang Hansen",
+    "zh": "杨瀚森",
+    "zh_short": "杨瀚森",
+    "source": "虎扑"
+  },
+  "5231919": {
+    "en": "Karim Lopez",
+    "zh": "卡里姆·洛佩兹",
+    "zh_short": "洛佩兹",
+    "source": "虎扑"
+  },
+  "5238230": {
+    "en": "Tre Johnson",
+    "zh": "特雷·约翰逊",
+    "zh_short": "约翰逊",
+    "source": "虎扑"
+  },
+  "5239561": {
+    "en": "Jase Richardson",
+    "zh": "杰斯·理查德森",
+    "zh_short": "理查德森",
+    "source": "虎扑"
+  },
+  "5239590": {
+    "en": "Liam McNeeley",
+    "zh": "利亚姆·麦克尼利",
+    "zh_short": "麦克尼利",
+    "source": "虎扑"
+  },
+  "5241364": {
+    "en": "Bennett Stirtz",
+    "zh": "本内特·斯特茨",
+    "zh_short": "斯特茨",
+    "source": "虎扑"
+  },
+  "5242496": {
+    "en": "Noa Essengue",
+    "zh": "诺阿·埃森格",
+    "zh_short": "埃森格",
+    "source": "虎扑"
+  },
+  "5242502": {
+    "en": "Ben Saraf",
+    "zh": "本·萨拉夫",
+    "zh_short": "萨拉夫",
+    "source": "虎扑"
+  },
+  "5254165": {
+    "en": "Keaton Wagler",
+    "zh": "基顿·瓦格勒",
+    "zh_short": "瓦格勒",
+    "source": "虎扑"
+  },
+  "5258459": {
+    "en": "Ebuka Okorie",
+    "zh": "埃布卡·奥科里",
+    "zh_short": "奥科里",
+    "source": "虎扑"
+  },
+  "5279129": {
+    "en": "Sergio de Larrea",
+    "zh": "塞尔吉奥·德·拉雷亚",
+    "zh_short": "拉雷亚",
+    "source": "虎扑"
+  },
+  "5279130": {
+    "en": "Nolan Traore",
+    "zh": "诺兰·特拉奥雷",
+    "zh_short": "特拉奥雷",
+    "source": "虎扑"
+  },
+  "5279133": {
+    "en": "Joan Beringer",
+    "zh": "若昂·贝兰热",
+    "zh_short": "贝兰热",
+    "source": "虎扑"
+  },
+  "5281370": {
+    "en": "Hannes Steinbach",
+    "zh": "汉内斯·施泰因巴赫",
+    "zh_short": "施泰因巴赫",
+    "source": "虎扑"
+  },
+  "5289900": {
+    "en": "Mohamed Diawara",
+    "zh": "穆罕默德·迪亚瓦拉",
+    "zh_short": "迪亚瓦拉",
+    "source": "虎扑"
+  }
+}
