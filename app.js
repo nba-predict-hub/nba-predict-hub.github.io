@@ -171,6 +171,7 @@
     var h = '<div class="vs"><div class="team h"><div class="ab">主场</div><div class="nm">' + esc(g.home_cn) + '</div></div>';
     h += '<div class="mid lvmid" data-lvmid="' + esc(g.espn_id) + '"><b>VS</b>' + esc(g.tip_pt || "") + "</div>";
     h += '<div class="team a"><div class="ab">客场</div><div class="nm">' + esc(g.away_cn) + "</div></div></div>";
+    h += '<div class="lsslot" data-lsslot></div>';
     if (v8For(g)) h += '<div class="verdicts">' + v8Block(g) + '</div><p class="note">其他模型没有预测这场，只有第八版早锁。</p><p class="note lvwarn" id="lvWarn"></p>';
     else h += '<div class="nomodel">本场模型未预测</div><p class="note lvwarn" id="lvWarn"></p>';
     $("hero").innerHTML = h; paintLive(false);
@@ -180,6 +181,7 @@
     h += '<div class="vs"><div class="team h"><div class="ab">主场</div><div class="nm">' + esc(g.home_cn) + '</div><div class="ab">' + esc(g.records[g.home] || "") + "</div></div>";
     h += '<div class="mid lvmid" data-lvmid="' + esc(g.espn_id) + '"><b>VS</b>' + esc(String(g.tip_pt || "时间待定").replace(/ PT$/, "")) + "</div>";
     h += '<div class="team a"><div class="ab">客场</div><div class="nm">' + esc(g.away_cn) + '</div><div class="ab">' + esc(g.records[g.away] || "") + "</div></div></div>";
+    h += '<div class="lsslot" data-lsslot></div>';
     h += '<div class="verdicts">';
     var v8 = v8For(g);
     if (v8) {
@@ -223,16 +225,12 @@
     for (var i = 0; i < keys.length; i++) { var v = leisuIds[keys[i]]; if (v && /^\d+$/.test(String(v))) return String(v); }
     return null;
   }
+  // 只放一个小按钮（不嵌入雷速页面）
   function renderLeisu(g) {
-    var card = $("leisuCard"), id = leisuId(g);
-    if (!id) { card.hidden = true; $("leisu").innerHTML = ""; return; }
-    card.hidden = false;
-    var url = "https://m.leisu.com/live/lanqiu/detail-" + id, box = $("leisu");
-    if (box.getAttribute("data-id") === id) return; // 同一场不重载，避免刷新打断动画
-    box.setAttribute("data-id", id);
-    box.innerHTML = '<div class="lsframe"><iframe src="' + url + '" title="雷速动画直播" loading="lazy" referrerpolicy="no-referrer"></iframe></div>' +
-      '<a class="lsbtn" href="' + url + '" target="_blank" rel="noopener">在雷速打开动画直播 ↗</a>' +
-      '<p class="note">画面来自雷速网站，本站只是嵌入他们的页面；如果上面空白，点按钮在新窗口看。</p>';
+    var slot = document.querySelector("[data-lsslot]"); if (!slot) return;
+    var id = leisuId(g);
+    var html = id ? '<a class="lsbtn" href="https://m.leisu.com/live/lanqiu/detail-' + id + '" target="_blank" rel="noopener">在雷速打开动画直播 ↗</a>' : '<span class="lsbtn off">雷速暂无</span>';
+    if (slot._h !== html) { slot._h = html; slot.innerHTML = html; }
   }
 
   /* ---------- 全息球场 ---------- */

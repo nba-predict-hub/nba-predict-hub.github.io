@@ -246,3 +246,7 @@ main.day-mode > *:not(#dateBar):not(#dayView):not(footer){display:none!important
 .res{display:inline-block;font-size:12px;font-weight:900;padding:1px 8px;border-radius:999px;margin-left:4px}
 .res.rW{background:rgba(47,227,154,.2);color:#2fe39a}.res.rL{background:rgba(255,59,92,.2);color:#ff6b84}.res.rP{background:#2a3350;color:#aab3cc}
 .calc{font-size:11px;color:var(--dim);margin-left:4px}
+/* 雷速：只留小按钮 */
+.lsslot{height:36px;display:flex;justify-content:center;align-items:center;margin:2px 0 8px}
+.lsbtn{display:inline-block!important;margin:0!important;padding:7px 14px!important;font-size:13px;border-radius:999px!important;line-height:1.3}
+.lsbtn.off{background:#1b2440!important;color:var(--dim)!important;font-weight:600}
