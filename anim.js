@@ -95,6 +95,7 @@
 
   // 用 ESPN 实时“在场”字段校正场上五人（每队正好 5 人才用）
   function syncActive() {
+    var gm = window.NBA && NBA.game(), gs = gm && window.liveFor ? liveFor(gm) : null; if (gs && gs.state === "post") return;
     var five = {}; for (var id in P.ath) if (P.ath[id].active) (five[P.ath[id].team] = five[P.ath[id].team] || []).push(id);
     for (var t in five) {
       if (five[t].length !== 5) continue;
@@ -133,7 +134,14 @@
       A.endT = now; A.cur = null; c = null; retarget();
     }
     // 球场下方大字：当前动作；空闲几秒后显示谁持球
-    if (!c && !A.q.length && A.endT && now - A.endT > 3000 && A.poss && P.teams[A.poss]) A.barAct = P.teams[A.poss].cn + " 持有球权";
+    var gm = window.NBA && NBA.game(), gs = gm && window.liveFor ? liveFor(gm) : null;
+    if (gs && gs.state === "post") { // 终场：清空小人，不显示球权
+      A.q = []; A.cur = null; c = null; A.sp = {}; A.lineup = {}; A.poss = null;
+      var aw = gs.as > gs.hs;
+      A.barAct = "终场 " + (aw ? gm.away_cn + " " + gs.as + ":" + gs.hs + " " + gm.home_cn : gm.home_cn + " " + gs.hs + ":" + gs.as + " " + gm.away_cn);
+    } else if (gs && (gs.name === "STATUS_END_PERIOD" || gs.name === "STATUS_HALFTIME")) {
+      if (!c && !A.q.length) A.barAct = window.statusCn ? statusCn(gs) : (gs.name === "STATUS_HALFTIME" ? "中场休息" : "本节结束");
+    } else if (!c && !A.q.length && A.endT && now - A.endT > 3000 && A.poss && P.teams[A.poss]) A.barAct = P.teams[A.poss].cn + " 持有球权";
     if (window.NBA_BAR) NBA_BAR.set(A.barAct || "直播中", barSub(A.lastR));
     // 动作对目标点的覆盖
     var ov = {}, r = c && c.r;

@@ -354,7 +354,9 @@
     if (window.PBP && window.PBP.isOn && window.PBP.isOn(g)) return; // 直播时由动画接管
     var s = liveFor(g);
     if (!s || s.state === "pre") setBar(preSentence(g), s ? scoreLine(g, s) : String(g.tip_pt || "").replace(/ PT$/, ""));
-    else setBar(s.state === "post" ? "比赛已结束" : "直播数据读取中…", scoreLine(g, s));
+    else if (s.state === "post") setBar("终场 " + (s.as > s.hs ? g.away_cn + " " + s.as + ":" + s.hs + " " + g.home_cn : g.home_cn + " " + s.hs + ":" + s.as + " " + g.away_cn), scoreLine(g, s));
+    else if (s.name === "STATUS_END_PERIOD" || s.name === "STATUS_HALFTIME") setBar(statusCn(s), scoreLine(g, s));
+    else setBar("直播数据读取中…", scoreLine(g, s));
   }
   window.NBA_BAR = { set: setBar, scoreLine: scoreLine };
 
@@ -709,7 +711,7 @@
     var h = "";
     for (var i = -10; i <= 7; i++) {
       var p = ptParts(new Date(now + i * 86400000 + 0));
-      h += '<button class="dchip' + (p.key === dayState.sel ? " on" : "") + (i === 0 ? " today" : "") + '" data-day="' + p.key + '" data-iso="' + p.iso + '"><b>' + p.m + "月" + p.d + "日</b><span>" + (i === 0 ? "今天" : WEEK[p.w]) + "</span></button>";
+      h += '<button class="dchip' + (p.key === dayState.sel ? " on" : "") + (i === 0 ? " today" : "") + '" data-day="' + p.key + '" data-iso="' + p.iso + '"><b>' + p.m + "/" + p.d + "</b><span>" + (i === 0 ? "今天" : WEEK[p.w]) + "</span></button>";
     }
     bar.innerHTML = h; bar._done = true;
     bar.querySelectorAll(".dchip").forEach(function (b) { b.onclick = function () { selectDay(b.getAttribute("data-day"), b.getAttribute("data-iso")); }; });

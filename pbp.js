@@ -198,10 +198,14 @@
       else if (a.fouls === 5) items.push({ key: id + ":f5", cls: "yel", id: id, txt: who + " 已经 5 次犯规", src: "ESPN 技术统计" });
       var i = P.inj.byId[id];
       if (i && tip && Date.parse(i.date || 0) >= tip - 30 * 60000) { // 只看开赛后的伤病消息
-        var c = i.shortComment || ""; // 只看新闻标题句（事实），不看长评里的分析推测
-        if (!/(exited|left|won't return|will not return|not return|to return|returned to|back in the game|injur)/i.test(c) || /ruled out for/i.test(c)) continue;
-        var w = /(will not|won't|not) return/i.test(c) ? ["red", "受伤，不会回场"] : /(questionable|doubtful) to return/i.test(c) ? ["yel", "受伤，能否回场待定"] : /(has |have )?return(ed)? to (the )?(game|action)/i.test(c) ? ["", "受伤后已回场"] : ["yel", "受伤离场，暂无官方回场消息"];
-        items.push({ key: id + ":inj:" + w[1], cls: w[0], id: id, txt: who + " " + w[1], src: "ESPN 伤病消息" });
+        var c = (i.shortComment || "") + " " + (i.longComment || ""); // 标题和正文都读
+        if (a.dnp) continue; // 本场没上场的不算伤退
+        var red = /will not return|won't return|ruled out for the remainder|ruled out/i.test(c), yel = /questionable to return/i.test(c);
+        if (!red && !yel && !/(exited|left the (game|court)|injur)/i.test(c)) continue;
+        var w = red ? ["red", "不会回场"] : yel ? ["yel", "能否回场待定"] : ["yel", "受伤离场，暂无官方回场消息"];
+        var rep = /([A-Z][A-Za-z.'\-]+(?: [A-Z][A-Za-z.'\-]+)+) of .{1,60}? reports/.exec(c);
+        var tm = ""; try { tm = new Intl.DateTimeFormat("zh-CN", { timeZone: "America/Los_Angeles", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(i.date)); } catch (x) {}
+        items.push({ key: id + ":inj:" + w[1], cls: w[0], id: id, txt: who + " " + w[1], src: "来源 ESPN" + (rep ? "（" + rep[1] + "）" : "") + (tm ? " · " + tm + " 太平洋时间" : "") });
       }
     }
     P.plays.forEach(function (r) { // 逐回合文字里明确写了受伤的
