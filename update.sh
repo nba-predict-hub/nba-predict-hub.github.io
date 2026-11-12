@@ -26,6 +26,7 @@ if [ -d .git ]; then
   git add data.json leisu_ids.json
   [ -f player_names_zh.json ] && git add player_names_zh.json
   [ -f nba_ids.json ] && git add nba_ids.json
+  [ -f ingame_status.json ] && git add ingame_status.json
   if ! git diff --cached --quiet; then
     git commit -m "data: $(date '+%Y-%m-%d %H:%M %Z')" && git push
   fi

@@ -194,7 +194,7 @@
       render(g, fresh);
       P.listeners.forEach(function (f) { f("plays", fresh, P.firstLoad !== gid); });
       var tipIso = ((((d.header || {}).competitions || [])[0]) || {}).date;
-      loadInj().then(function () { if (gid === P.gid) { renderStatus(g, tipIso); renderLineup(g); } });
+      Promise.all([loadInj(), loadIgs()]).then(function () { if (gid === P.gid) { renderStatus(g, tipIso); renderLineup(g); } });
       P.firstLoad = gid;
     }).catch(function () { P.fail = true; P.fastMs = P.fastMs < 3000 ? 3000 : 5000; if (gid === P.gid) render(g, []); }).then(function () {
       P.busy = false;
@@ -216,14 +216,39 @@
   }
   P.nbaIds = {};
   fetch("nba_ids.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : {}; }).then(function (j) { P.nbaIds = j || {}; }).catch(function () {});
-  function statusItems(tipIso) {
-    var items = [], tip = tipIso ? Date.parse(tipIso) : 0;
+  /* 同事维护的场内伤退消息 ingame_status.json（同站读取，每 30 秒；没有就忽略） */
+  P.igs = {}; P.igsT = 0;
+  function loadIgs() {
+    if (Date.now() - P.igsT < 30000) return Promise.resolve();
+    P.igsT = Date.now();
+    return fetch("ingame_status.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : {}; }).then(function (j) { j = j || {}; P.igs = j.games || j; }).catch(function () {});
+  }
+  function igsFor(gid) {
+    var m = P.igs[String(gid)] || {}, out = [];
+    for (var k in m) {
+      var v = m[k] || {}, id = null;
+      if (P.ath[k]) id = k; else if (P.byName[k]) id = P.byName[k]; else if (v.espn_player_id && P.ath[v.espn_player_id]) id = String(v.espn_player_id);
+      else for (var a in P.ath) { var z = P.zh[a]; if (z && (z.zh === k || z.zh_short === k)) { id = a; break; } }
+      out.push({ id: id, name: k, v: v });
+    }
+    return out;
+  }
+  function statusItems(tipIso, gid) {
+    var items = [], tip = tipIso ? Date.parse(tipIso) : 0, cover = {};
+    igsFor(gid).forEach(function (e) {
+      var st = String(e.v.status || "").toLowerCase(), def = { out: ["red", "不会回场"], questionable: ["yel", "能否回场待定"], returned: ["grn", "已回场"] }[st];
+      if (!def) return;
+      var who = e.id ? (P.teams[P.ath[e.id].team] || {}).cn + " " + nm(e.id) : e.name;
+      var url = /^https?:\/\//.test(e.v.url || "") ? e.v.url : "";
+      items.push({ key: (e.id || e.name) + ":igs:" + st, cls: def[0], id: e.id, txt: who + " " + (e.v.cn_text || def[1]), src: "来源 " + (e.v.source || "未注明") + (e.v.time_pt ? " · " + e.v.time_pt + " 太平洋时间" : ""), url: url });
+      if (e.id) cover[e.id] = 1;
+    });
     for (var id in P.ath) {
       var a = P.ath[id], who = (P.teams[a.team] || {}).cn + " " + nm(id);
       if (a.ejected) items.push({ key: id + ":ej", cls: "red", id: id, txt: who + " 被驱逐出场", src: "ESPN 技术统计" });
       else if (a.fouls >= 6) items.push({ key: id + ":f6", cls: "red", id: id, txt: who + " 6 犯离场", src: "ESPN 技术统计" });
       else if (a.fouls === 5) items.push({ key: id + ":f5", cls: "yel", id: id, txt: who + " 已经 5 次犯规", src: "ESPN 技术统计" });
-      var i = P.inj.byId[id];
+      var i = cover[id] ? null : P.inj.byId[id];
       if (i && tip && Date.parse(i.date || 0) >= tip - 30 * 60000) { // 只看开赛后的伤病消息
         var c = (i.shortComment || "") + " " + (i.longComment || ""); // 标题和正文都读
         if (a.dnp) continue; // 本场没上场的不算伤退
@@ -238,7 +263,7 @@
     P.plays.forEach(function (r) { // 逐回合文字里明确写了受伤的
       if (/injur/i.test(r.raw || "") && r.who) items.push({ key: r.id + ":pi", cls: "yel", id: r.who, txt: ((P.teams[r.team] || {}).cn || "") + " " + (nm(r.who) || "") + " 受伤（比赛记录）", src: "ESPN 逐回合记录" });
     });
-    var rank = { red: 0, yel: 1, "": 2 };
+    var rank = { red: 0, yel: 1, grn: 2, "": 3 };
     return items.sort(function (x, y) { return rank[x.cls] - rank[y.cls]; });
   }
   function head(id) {
@@ -248,7 +273,7 @@
   P.lastStatus = {};
   function renderStatus(g, tipIso) {
     var box = $("status"); if (!box) return;
-    var items = statusItems(tipIso), h = "";
+    var items = statusItems(tipIso, g.espn_id), h = "";
     // 场上五人：ESPN 技术统计里的“在场”字段，每队正好 5 人才显示
     var five = {}; for (var id in P.ath) if (P.ath[id].active) (five[P.ath[id].team] = five[P.ath[id].team] || []).push(id);
     var teams = Object.keys(P.teams).sort(function (x, y) { return P.teams[x].side === "h" ? 1 : -1; });
@@ -259,7 +284,7 @@
         (ids.length === 5 ? ids.map(function (id) { var a = P.ath[id]; return '<span class="st-p' + (a.fouls >= 5 ? " f5" : "") + '">' + head(id) + "<b>" + esc(nm(id)) + "</b><i>" + (a.fouls != null ? a.fouls + "犯" : "") + "</i></span>"; }).join("") : '<span class="dim">暂无（ESPN 没给出完整在场名单）</span>') + "</div>";
     });
     h += '</div><div class="st-src">在场名单：ESPN 技术统计实时字段</div>';
-    h += '<ul class="st-list">' + (items.length ? items.map(function (x) { return '<li class="' + x.cls + '">' + head(x.id) + "<span>" + esc(x.txt) + "</span><small>" + esc(x.src) + "</small></li>"; }).join("") : '<li class="none">暂无伤病、犯规麻烦或驱逐（伤病回场情况暂无官方消息）</li>') + "</ul>";
+    h += '<ul class="st-list">' + (items.length ? items.map(function (x) { return '<li class="' + x.cls + '">' + head(x.id) + "<span>" + esc(x.txt) + "</span><small>" + (x.url ? '<a href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(x.src) + "</a>" : esc(x.src)) + "</small></li>"; }).join("") : '<li class="none">暂无伤病、犯规麻烦或驱逐（伤病回场情况暂无官方消息）</li>') + "</ul>";
     if (box._h !== h) { box._h = h; box.innerHTML = h; }
     // 新出现的状况：通知解说
     var fresh = items.filter(function (x) { return !P.lastStatus[x.key]; });

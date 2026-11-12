@@ -322,4 +322,5 @@ main.live-mode .st-list{order:-1;flex:0 0 auto;max-height:64px;border-top:0;bord
 .lu-h{font-weight:900;font-size:14px;margin:6px 0 4px}.lu-h small{font-weight:400;font-size:11px;color:var(--dim);margin-left:6px}
 .lu-list{flex:none;overflow:visible}
 .st-list li.org span{color:#ff9f43;font-weight:800}
-#scoreAt{display:inline-block;min-width:9.5em;text-align:right;font-variant-numeric:tabular-nums}
+#scoreAt{display:inline-block;min-width:13em;text-align:right;font-variant-numeric:tabular-nums}
+.st-list li.grn span{color:var(--green);font-weight:800}.st-list li small a{color:var(--cyan)}
