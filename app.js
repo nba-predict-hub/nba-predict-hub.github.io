@@ -1352,6 +1352,10 @@
     var main = $("app"), old = NAV.pg;
     if (!keep) NAV.y[old] = window.scrollY;
     NAV.pg = pg; main.setAttribute("data-pg", pg);
+    if (!keep && old !== pg) { // 切换转场：一道青色扫描光从上往下扫过（只动 transform/opacity，约 0.3 秒，不挡点击、不动滚动）
+      var fx = $("scanFx"); if (!fx) { fx = document.createElement("div"); fx.id = "scanFx"; fx.setAttribute("aria-hidden", "true"); document.body.appendChild(fx); }
+      fx.classList.remove("go"); void fx.offsetWidth; fx.classList.add("go");
+    }
     if (pg !== "gl" && dayState.sel !== dayState.today) selectDay(dayState.today, ptParts(new Date()).iso); // 其他页面都只看今天
     if (pg === "lv") { var lv = null; (live.events || []).forEach(function (e) { if (!lv && e.state === "in") lv = e; }); if (lv && state.sel !== lv.id) { var tb = document.querySelector('#gameTabs .tab[data-id="' + lv.id + '"]'); if (tb) tb.click(); } }
     if (pg === "pr") drawPre();
