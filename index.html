@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070b18">
+<title>NBA 智能预测 · 今日结论</title>
+<meta name="description" content="NBA 智能预测系统：只展示真实模型输出，缺的数据明确标缺。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%227%22 fill=%22%2333e1ff%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="loader" aria-live="polite">
+  <div class="ld-core">
+    <div class="ld-ring"></div><div class="ld-ring r2"></div>
+    <div class="ld-ai">AI</div>
+  </div>
+  <div class="ld-title">AI 正在读取数据<span class="dots"></span></div>
+  <div class="ld-bar"><i id="ldBar"></i></div>
+  <ul id="ldList"></ul>
+</div>
+
+<header class="top">
+  <div class="brand"><span class="logo">◆</span> NBA 智能预测 <small>PRE-MATCH AI</small></div>
+  <div class="meta">
+    <span id="genAt">数据时间 —</span>
+    <span class="live"><i></i><b id="countdown">60</b> 秒后自动刷新</span>
+  </div>
+</header>
+
+<main id="app">
+  <nav id="gameTabs" class="tabs" aria-label="今日比赛"></nav>
+
+  <section id="hero" class="card hero"></section>
+
+  <section class="card">
+    <h2><em>01</em> 全息球场 <small>COURT</small></h2>
+    <p class="say">左边是主队（蓝），右边是客队（红），发光那边就是模型站的方向。</p>
+    <div class="court-wrap"><canvas id="court" width="720" height="400"></canvas></div>
+  </section>
+
+  <section class="card">
+    <h2><em>02</em> 天平判决 <small>VERDICT</small></h2>
+    <p class="say">模型和盘口差得越多，天平越歪；差距很小就只是轻轻一偏。</p>
+    <div id="scale"></div>
+  </section>
+
+  <section class="card">
+    <h2><em>03</em> 多家公司赔率和变盘 <small>ODDS</small></h2>
+    <p class="say">主盘口取多家中位数；皇冠单独列出（只在皇冠下注）。</p>
+    <div id="odds"></div>
+  </section>
+
+  <section class="card">
+    <h2><em>04</em> 模型与市场差距 <small>EDGE</small></h2>
+    <p class="say">每个点是一家模型算出的“主队该赢几分”，竖线是市场盘口。点在线的哪边，就站哪队。</p>
+    <div id="edge"></div>
+  </section>
+
+  <section class="card">
+    <h2><em>05</em> 情报流 <small>INTEL</small></h2>
+    <p class="say">按时间倒序；只收官方或可靠来源，没有的标“缺”。</p>
+    <ol id="feed" class="feed"></ol>
+  </section>
+
+  <section class="card">
+    <h2><em>06</em> 影响因素 <small>FACTORS</small></h2>
+    <p class="say">各家模型站哪边、战绩、伤停人数一览。</p>
+    <div id="factors"></div>
+  </section>
+
+  <section class="card">
+    <h2><em>07</em> 缺阵名单 <small>INJURIES</small></h2>
+    <p class="say"><b class="red">红色</b>=官方报缺阵，<b class="yel">黄色</b>=出战成疑；只认 NBA 官方伤病报告。</p>
+    <div id="inj"></div>
+  </section>
+
+  <section class="card">
+    <h2><em>08</em> 历史命中率 <small>HIT RATE</small></h2>
+    <p class="say">只看方向猜对的比例（胜-负-走）。条形图从 30% 画到 70%，中间白线 = 50%（抛硬币）。</p>
+    <div id="hist"></div>
+  </section>
+
+  <section class="card">
+    <h2><em>09</em> 缺的数据与来源 <small>DATA</small></h2>
+    <div id="missing"></div>
+  </section>
+
+  <footer class="foot">
+    只展示真实模型输出与公开数据，不构成投注建议。页面不收集任何个人信息。<br>
+    <span id="footGen"></span>
+  </footer>
+</main>
+<div id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>

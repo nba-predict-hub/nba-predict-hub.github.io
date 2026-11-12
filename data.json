@@ -1,0 +1,3570 @@
+{
+ "generated_at": "2026-11-11 17:17:57 PT",
+ "generated_at_iso": "2026-11-11T17:17:57.445807-08:00",
+ "game_date": "2026-11-11",
+ "last_lock": "2026-11-11 17:17:17 PT",
+ "featured": "401909974",
+ "model_version": {
+  "version": 6,
+  "version_cn": "第六版",
+  "versions_in_ledger": [
+   4,
+   5,
+   6
+  ],
+  "main_spread_model": "v6_selected=S6",
+  "main_spread_label": "第六版 冻结规则选定 S6",
+  "spread_line_type": "dk_current",
+  "main_total_model": "v6_selected=T6",
+  "main_total_label": "第六版 冻结规则选定 T6",
+  "total_line_type": "dk_current",
+  "record_spread": {
+   "w": 0,
+   "l": 0,
+   "p": 0,
+   "graded": 0,
+   "pct": null
+  },
+  "record_total": {
+   "w": 0,
+   "l": 0,
+   "p": 0,
+   "graded": 0,
+   "pct": null
+  },
+  "rule": "自动取台账里版本号最大的模型；同版本内按 stack > fusion > 融合 > selected 选主结论",
+  "note": null
+ },
+ "games": [
+  {
+   "espn_id": "401909969",
+   "away": "SAS",
+   "home": "CHI",
+   "away_cn": "马刺",
+   "home_cn": "公牛",
+   "away_name": "San Antonio Spurs",
+   "home_name": "Chicago Bulls",
+   "tip_pt": "11-11 17:00 PT",
+   "venue": "United Center",
+   "broadcast": "DAZN SAS",
+   "records": {
+    "SAS": "9-2",
+    "CHI": "1-8"
+   },
+   "records_note": "ESPN 记分板，2026-11-11 07:52 PT 抓取",
+   "game_status": "in",
+   "game_status_cn": "进行中",
+   "spread": {
+    "model": "v5_cand_stack",
+    "model_label": "第五版 融合版（球员模型 + ESPN）",
+    "lock_time": "2026-11-11 16:56:51 PT",
+    "pick_team": "SAS",
+    "pick_cn": "马刺",
+    "pick_text": "马刺 -15.5",
+    "line_home": -15.5,
+    "pred_home_margin": -18.3,
+    "edge": 2.8,
+    "band": "mid",
+    "band_cn": "中",
+    "line_source": "DraftKings 现盘（经 ESPN，锁定时抓取）",
+    "result": null
+   },
+   "total": {
+    "model": "v5_cand_stack_t",
+    "model_label": "第五版 融合版（球员模型 + ESPN）",
+    "lock_time": "2026-11-11 16:56:51 PT",
+    "pick": "UNDER",
+    "pick_cn": "小分",
+    "line_total": 236.5,
+    "pred_total": 232.17,
+    "edge": 4.33,
+    "band": "mid",
+    "band_cn": "中",
+    "pick_text": "小 236.5",
+    "line_source": "DraftKings 现盘（经 ESPN，锁定时抓取）",
+    "result": null
+   },
+   "market": {
+    "books": [
+     {
+      "book": "DraftKings",
+      "via": "ESPN 接口（锁定时）",
+      "time": "2026-11-11 16:56:51 PT",
+      "open_home": -14.5,
+      "cur_home": -15.5,
+      "total_open": 237.5,
+      "total_cur": 236.5,
+      "in_median": true
+     },
+     {
+      "book": "美盘共识（ThePredictionTracker）",
+      "via": "TPT nbapreds.csv",
+      "time": "2026-11-11 16:35 PT",
+      "open_home": -12.5,
+      "cur_home": -15.5,
+      "total_open": null,
+      "total_cur": null,
+      "in_median": true
+     }
+    ],
+    "median_home": -15.5,
+    "median_text": "马刺 -15.5",
+    "median_n": 2,
+    "median_total": 236.5,
+    "median_total_n": 1,
+    "spread_range": 0.0,
+    "source": "比赛已开赛，盘口停在赛前锁定/快照时",
+    "median_books": [
+     "DraftKings",
+     "美盘共识（ThePredictionTracker）"
+    ],
+    "median_total_books": [
+     "DraftKings"
+    ],
+    "crown": null,
+    "crown_note": "缺：皇冠盘口需在雷速网页用浏览器读取，本系统没有存档",
+    "leisu": null,
+    "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
+   },
+   "comps": [
+    {
+     "name": "第五版 融合版（球员模型 + ESPN）",
+     "pred_home_margin": -18.3,
+     "source": "live_ledger v5_cand_stack（锁定 2026-11-11 16:56:51 PT）",
+     "official": true,
+     "lean": "SAS",
+     "lean_cn": "马刺"
+    },
+    {
+     "name": "第五版 自建球员模型",
+     "pred_home_margin": -15.52,
+     "source": "live_ledger v5_cand_player（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "SAS",
+     "lean_cn": "马刺"
+    },
+    {
+     "name": "第五版 冻结规则选定（ESPN FPI）",
+     "pred_home_margin": -16.23,
+     "source": "live_ledger v5_selected=ESPN_FPI（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "SAS",
+     "lean_cn": "马刺"
+    },
+    {
+     "name": "第四版 冻结版（ESPN）",
+     "pred_home_margin": -16.0,
+     "source": "live_ledger v4_frozen_espn(no_late_inj_yet)（锁定 2026-11-11 16:45:46 PT）",
+     "official": false,
+     "lean": "SAS",
+     "lean_cn": "马刺"
+    },
+    {
+     "name": "Massey",
+     "pred_home_margin": -14.04,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "CHI",
+     "lean_cn": "公牛"
+    },
+    {
+     "name": "Sagarin",
+     "pred_home_margin": -15.88,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "SAS",
+     "lean_cn": "马刺"
+    },
+    {
+     "name": "TPT 全部电脑平均",
+     "pred_home_margin": -13.21,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "CHI",
+     "lean_cn": "公牛"
+    }
+   ],
+   "alt_pick": {
+    "label": "第五版 冻结规则选定（ESPN FPI）",
+    "pick_text": "马刺 -15.5",
+    "edge": 0.73,
+    "band_cn": "低"
+   },
+   "version": 5,
+   "version_cn": "第五版",
+   "version_record": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "graded": 0,
+    "pct": null
+   },
+   "version_record_total": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "graded": 0,
+    "pct": null
+   },
+   "lean_count": {
+    "SAS": 5,
+    "CHI": 2
+   },
+   "total_comps": [
+    {
+     "name": "第五版 融合版（球员模型 + ESPN）",
+     "pred_total": 232.17,
+     "official": true
+    },
+    {
+     "name": "第五版 自建球员模型",
+     "pred_total": 232.23,
+     "official": false
+    },
+    {
+     "name": "第五版 冻结规则选定（ESPN 总分）",
+     "pred_total": 237.06,
+     "official": false
+    }
+   ],
+   "injuries": {
+    "report": "11-11 08:00 PM ET（17:00 PT）",
+    "players": [
+     {
+      "team": "SAS",
+      "team_cn": "马刺",
+      "name": "Maliq Brown",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "发展联盟双向合同",
+      "reason_raw": "G League - Two-Way",
+      "nba_id": "1643576",
+      "g_league": true
+     },
+     {
+      "team": "SAS",
+      "team_cn": "马刺",
+      "name": "Ja'Kobi Gillespie",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "发展联盟双向合同",
+      "reason_raw": "G League - Two-Way",
+      "nba_id": "1643551",
+      "g_league": true
+     },
+     {
+      "team": "SAS",
+      "team_cn": "马刺",
+      "name": "Tobias Harris",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "左小腿拉伤",
+      "reason_raw": "Injury/Illness - Left Calf Strain",
+      "nba_id": "202699",
+      "g_league": false
+     },
+     {
+      "team": "SAS",
+      "team_cn": "马刺",
+      "name": "Jayden Quaintance",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右膝手术",
+      "reason_raw": "Injury/Illness - Right Knee Surgery",
+      "nba_id": "1643519",
+      "g_league": false
+     },
+     {
+      "team": "SAS",
+      "team_cn": "马刺",
+      "name": "Devin Vassell",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "左内收肌紧绷",
+      "reason_raw": "Injury/Illness - Left Adductor Tightness",
+      "nba_id": "1630170",
+      "g_league": false
+     },
+     {
+      "team": "CHI",
+      "team_cn": "公牛",
+      "name": "Tobe Awaka",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "下背紧绷",
+      "reason_raw": "Injury/Illness - Low Back Tightness",
+      "nba_id": "1643591",
+      "g_league": false
+     },
+     {
+      "team": "CHI",
+      "team_cn": "公牛",
+      "name": "Zach Collins",
+      "status": "Available",
+      "status_cn": "可出战",
+      "cls": "available",
+      "reason": "-",
+      "reason_raw": "-",
+      "nba_id": "1628380",
+      "g_league": false
+     },
+     {
+      "team": "CHI",
+      "team_cn": "公牛",
+      "name": "Norman Powell",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "下背痉挛",
+      "reason_raw": "Injury/Illness - Low Back Spasms",
+      "nba_id": "1626181",
+      "g_league": false
+     },
+     {
+      "team": "CHI",
+      "team_cn": "公牛",
+      "name": "Jaylin Sellers",
+      "status": "Available",
+      "status_cn": "可出战",
+      "cls": "available",
+      "reason": "-",
+      "reason_raw": "-",
+      "nba_id": "1643637",
+      "g_league": false
+     },
+     {
+      "team": "CHI",
+      "team_cn": "公牛",
+      "name": "Dailyn Swain",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右椎间盘刺激",
+      "reason_raw": "Injury/Illness - Right Disc Irritation",
+      "nba_id": "1643517",
+      "g_league": false
+     },
+     {
+      "team": "CHI",
+      "team_cn": "公牛",
+      "name": "Caleb Wilson",
+      "status": "Available",
+      "status_cn": "可出战",
+      "cls": "available",
+      "reason": "-",
+      "reason_raw": "-",
+      "nba_id": null,
+      "g_league": false
+     }
+    ],
+    "not_submitted": [],
+    "changes": [
+     {
+      "report": "11-10 08:00 PM ET",
+      "pt": "11-10 17:00 PT",
+      "items": [
+       "马刺 Maliq Brown：未列 → 缺阵",
+       "马刺 Ja'Kobi Gillespie：未列 → 缺阵",
+       "马刺 Tobias Harris：未列 → 缺阵",
+       "马刺 Jayden Quaintance：未列 → 缺阵",
+       "马刺 Devin Vassell：未列 → 出战成疑"
+      ]
+     },
+     {
+      "report": "11-11 08:00 PM ET",
+      "pt": "11-11 17:00 PT",
+      "items": [
+       "公牛 Tobe Awaka：出战成疑 → 缺阵",
+       "公牛 Zach Collins：出战成疑 → 可出战",
+       "公牛 Norman Powell：出战成疑 → 缺阵",
+       "公牛 Jaylin Sellers：缺阵 → 可出战",
+       "公牛 Dailyn Swain：未列 → 缺阵",
+       "公牛 Caleb Wilson：未列 → 可出战",
+       "马刺 Devin Vassell：出战成疑 → 缺阵"
+      ]
+     }
+    ]
+   },
+   "extra": null
+  },
+  {
+   "espn_id": "401909970",
+   "away": "DEN",
+   "home": "MEM",
+   "away_cn": "掘金",
+   "home_cn": "灰熊",
+   "away_name": "Denver Nuggets",
+   "home_name": "Memphis Grizzlies",
+   "tip_pt": "11-11 17:00 PT",
+   "venue": "FedExForum",
+   "broadcast": null,
+   "records": {
+    "DEN": "5-4",
+    "MEM": "7-3"
+   },
+   "records_note": "ESPN 记分板，2026-11-11 07:52 PT 抓取",
+   "game_status": "in",
+   "game_status_cn": "进行中",
+   "spread": {
+    "model": "v5_cand_stack",
+    "model_label": "第五版 融合版（球员模型 + ESPN）",
+    "lock_time": "2026-11-11 16:56:51 PT",
+    "pick_team": "MEM",
+    "pick_cn": "灰熊",
+    "pick_text": "灰熊 +3.5",
+    "line_home": -3.5,
+    "pred_home_margin": -1.08,
+    "edge": 2.42,
+    "band": "mid",
+    "band_cn": "中",
+    "line_source": "DraftKings 现盘（经 ESPN，锁定时抓取）",
+    "result": null
+   },
+   "total": {
+    "model": "v5_cand_stack_t",
+    "model_label": "第五版 融合版（球员模型 + ESPN）",
+    "lock_time": "2026-11-11 16:56:51 PT",
+    "pick": "OVER",
+    "pick_cn": "大分",
+    "line_total": 230.5,
+    "pred_total": 232.24,
+    "edge": 1.74,
+    "band": "low",
+    "band_cn": "低",
+    "pick_text": "大 230.5",
+    "line_source": "DraftKings 现盘（经 ESPN，锁定时抓取）",
+    "result": null
+   },
+   "market": {
+    "books": [
+     {
+      "book": "DraftKings",
+      "via": "ESPN 接口（锁定时）",
+      "time": "2026-11-11 16:56:51 PT",
+      "open_home": -4.5,
+      "cur_home": -3.5,
+      "total_open": 228.5,
+      "total_cur": 230.5,
+      "in_median": true
+     },
+     {
+      "book": "美盘共识（ThePredictionTracker）",
+      "via": "TPT nbapreds.csv",
+      "time": "2026-11-11 16:35 PT",
+      "open_home": -1.5,
+      "cur_home": -3.5,
+      "total_open": null,
+      "total_cur": null,
+      "in_median": true
+     }
+    ],
+    "median_home": -3.5,
+    "median_text": "掘金 -3.5",
+    "median_n": 2,
+    "median_total": 230.5,
+    "median_total_n": 1,
+    "spread_range": 0.0,
+    "source": "比赛已开赛，盘口停在赛前锁定/快照时",
+    "median_books": [
+     "DraftKings",
+     "美盘共识（ThePredictionTracker）"
+    ],
+    "median_total_books": [
+     "DraftKings"
+    ],
+    "crown": null,
+    "crown_note": "缺：皇冠盘口需在雷速网页用浏览器读取，本系统没有存档",
+    "leisu": null,
+    "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
+   },
+   "comps": [
+    {
+     "name": "第五版 融合版（球员模型 + ESPN）",
+     "pred_home_margin": -1.08,
+     "source": "live_ledger v5_cand_stack（锁定 2026-11-11 16:56:51 PT）",
+     "official": true,
+     "lean": "MEM",
+     "lean_cn": "灰熊"
+    },
+    {
+     "name": "第五版 自建球员模型",
+     "pred_home_margin": 3.09,
+     "source": "live_ledger v5_cand_player（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "MEM",
+     "lean_cn": "灰熊"
+    },
+    {
+     "name": "第五版 冻结规则选定（ESPN FPI）",
+     "pred_home_margin": -2.86,
+     "source": "live_ledger v5_selected=ESPN_FPI（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "MEM",
+     "lean_cn": "灰熊"
+    },
+    {
+     "name": "第四版 冻结版（ESPN）",
+     "pred_home_margin": -2.86,
+     "source": "live_ledger v4_frozen_espn(no_late_inj_yet)（锁定 2026-11-11 16:45:46 PT）",
+     "official": false,
+     "lean": "MEM",
+     "lean_cn": "灰熊"
+    },
+    {
+     "name": "Massey",
+     "pred_home_margin": -1.24,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "MEM",
+     "lean_cn": "灰熊"
+    },
+    {
+     "name": "Sagarin",
+     "pred_home_margin": -0.72,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "MEM",
+     "lean_cn": "灰熊"
+    },
+    {
+     "name": "TPT 全部电脑平均",
+     "pred_home_margin": -0.56,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "MEM",
+     "lean_cn": "灰熊"
+    }
+   ],
+   "alt_pick": {
+    "label": "第五版 冻结规则选定（ESPN FPI）",
+    "pick_text": "灰熊 +3.5",
+    "edge": 0.64,
+    "band_cn": "低"
+   },
+   "version": 5,
+   "version_cn": "第五版",
+   "version_record": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "graded": 0,
+    "pct": null
+   },
+   "version_record_total": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "graded": 0,
+    "pct": null
+   },
+   "lean_count": {
+    "DEN": 0,
+    "MEM": 7
+   },
+   "total_comps": [
+    {
+     "name": "第五版 融合版（球员模型 + ESPN）",
+     "pred_total": 232.24,
+     "official": true
+    },
+    {
+     "name": "第五版 自建球员模型",
+     "pred_total": 234.14,
+     "official": false
+    },
+    {
+     "name": "第五版 冻结规则选定（ESPN 总分）",
+     "pred_total": 232.52,
+     "official": false
+    }
+   ],
+   "injuries": {
+    "report": "11-11 08:00 PM ET（17:00 PT）",
+    "players": [
+     {
+      "team": "DEN",
+      "team_cn": "掘金",
+      "name": "Julian Strawther",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "左膝扭伤",
+      "reason_raw": "Injury/Illness - Left Knee Sprain",
+      "nba_id": "1631124",
+      "g_league": false
+     },
+     {
+      "team": "MEM",
+      "team_cn": "灰熊",
+      "name": "Karim Lopez",
+      "status": "Available",
+      "status_cn": "可出战",
+      "cls": "available",
+      "reason": "下放发展联盟",
+      "reason_raw": "G League - On Assignment",
+      "nba_id": "1643510",
+      "g_league": true
+     },
+     {
+      "team": "MEM",
+      "team_cn": "灰熊",
+      "name": "Jahmai Mashack",
+      "status": "Available",
+      "status_cn": "可出战",
+      "cls": "available",
+      "reason": "发展联盟双向合同",
+      "reason_raw": "G League - Two-Way",
+      "nba_id": "1642942",
+      "g_league": true
+     },
+     {
+      "team": "MEM",
+      "team_cn": "灰熊",
+      "name": "Scotty Pippen Jr.",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "腰椎间盘突出",
+      "reason_raw": "Injury/Illness - Lumbar Disc Herniation",
+      "nba_id": "1630590",
+      "g_league": false
+     },
+     {
+      "team": "MEM",
+      "team_cn": "灰熊",
+      "name": "Quinten Post",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "脑震荡观察",
+      "reason_raw": "Injury/Illness - Concussion Protocol",
+      "nba_id": "1642366",
+      "g_league": false
+     },
+     {
+      "team": "MEM",
+      "team_cn": "灰熊",
+      "name": "Richie Saunders",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右膝手术",
+      "reason_raw": "Injury/Illness - Right Knee Surgery",
+      "nba_id": "1643563",
+      "g_league": false
+     },
+     {
+      "team": "MEM",
+      "team_cn": "灰熊",
+      "name": "Isaiah Stewart",
+      "status": "Available",
+      "status_cn": "可出战",
+      "cls": "available",
+      "reason": "右膝骨挫伤",
+      "reason_raw": "Injury/Illness - Right Knee Bone Bruise",
+      "nba_id": "1630191",
+      "g_league": false
+     }
+    ],
+    "not_submitted": [],
+    "changes": [
+     {
+      "report": "11-10 08:00 PM ET",
+      "pt": "11-10 17:00 PT",
+      "items": [
+       "掘金 Julian Strawther：未列 → 缺阵",
+       "灰熊 Karim Lopez：未列 → 缺阵",
+       "灰熊 Jahmai Mashack：未列 → 出战成疑",
+       "灰熊 Scotty Pippen Jr.：未列 → 缺阵",
+       "灰熊 Quinten Post：未列 → 缺阵",
+       "灰熊 Richie Saunders：未列 → 缺阵",
+       "灰熊 Isaiah Stewart：未列 → 出战成疑"
+      ]
+     },
+     {
+      "report": "11-11 08:00 PM ET",
+      "pt": "11-11 17:00 PT",
+      "items": [
+       "灰熊 Karim Lopez：缺阵 → 可出战",
+       "灰熊 Jahmai Mashack：出战成疑 → 可出战",
+       "灰熊 Isaiah Stewart：出战成疑 → 可出战"
+      ]
+     }
+    ]
+   },
+   "extra": null
+  },
+  {
+   "espn_id": "401909971",
+   "away": "LAL",
+   "home": "MIL",
+   "away_cn": "湖人",
+   "home_cn": "雄鹿",
+   "away_name": "Los Angeles Lakers",
+   "home_name": "Milwaukee Bucks",
+   "tip_pt": "11-11 17:00 PT",
+   "venue": "Fiserv Forum",
+   "broadcast": "Spectrum Sports Net、Spectrum Sports Net +、MyMi、Bucks App",
+   "records": {
+    "LAL": "10-2",
+    "MIL": "1-10"
+   },
+   "records_note": "ESPN 记分板，2026-11-11 07:52 PT 抓取",
+   "game_status": "in",
+   "game_status_cn": "进行中",
+   "spread": {
+    "model": "v5_cand_stack",
+    "model_label": "第五版 融合版（球员模型 + ESPN）",
+    "lock_time": "2026-11-11 16:56:51 PT",
+    "pick_team": "LAL",
+    "pick_cn": "湖人",
+    "pick_text": "湖人 -14.5",
+    "line_home": -14.5,
+    "pred_home_margin": -16.1,
+    "edge": 1.6,
+    "band": "mid",
+    "band_cn": "中",
+    "line_source": "DraftKings 现盘（经 ESPN，锁定时抓取）",
+    "result": null
+   },
+   "total": {
+    "model": "v5_cand_stack_t",
+    "model_label": "第五版 融合版（球员模型 + ESPN）",
+    "lock_time": "2026-11-11 16:56:51 PT",
+    "pick": "UNDER",
+    "pick_cn": "小分",
+    "line_total": 230.5,
+    "pred_total": 228.13,
+    "edge": 2.37,
+    "band": "low",
+    "band_cn": "低",
+    "pick_text": "小 230.5",
+    "line_source": "DraftKings 现盘（经 ESPN，锁定时抓取）",
+    "result": null
+   },
+   "market": {
+    "books": [
+     {
+      "book": "DraftKings",
+      "via": "ESPN 接口（锁定时）",
+      "time": "2026-11-11 16:56:51 PT",
+      "open_home": -10.5,
+      "cur_home": -14.5,
+      "total_open": 233.5,
+      "total_cur": 230.5,
+      "in_median": true
+     },
+     {
+      "book": "美盘共识（ThePredictionTracker）",
+      "via": "TPT nbapreds.csv",
+      "time": "2026-11-11 16:35 PT",
+      "open_home": -11.5,
+      "cur_home": -14.5,
+      "total_open": null,
+      "total_cur": null,
+      "in_median": true
+     }
+    ],
+    "median_home": -14.5,
+    "median_text": "湖人 -14.5",
+    "median_n": 2,
+    "median_total": 230.5,
+    "median_total_n": 1,
+    "spread_range": 0.0,
+    "source": "比赛已开赛，盘口停在赛前锁定/快照时",
+    "median_books": [
+     "DraftKings",
+     "美盘共识（ThePredictionTracker）"
+    ],
+    "median_total_books": [
+     "DraftKings"
+    ],
+    "crown": null,
+    "crown_note": "缺：皇冠盘口需在雷速网页用浏览器读取，本系统没有存档",
+    "leisu": null,
+    "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
+   },
+   "comps": [
+    {
+     "name": "第五版 融合版（球员模型 + ESPN）",
+     "pred_home_margin": -16.1,
+     "source": "live_ledger v5_cand_stack（锁定 2026-11-11 16:56:51 PT）",
+     "official": true,
+     "lean": "LAL",
+     "lean_cn": "湖人"
+    },
+    {
+     "name": "第五版 自建球员模型",
+     "pred_home_margin": -13.8,
+     "source": "live_ledger v5_cand_player（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "MIL",
+     "lean_cn": "雄鹿"
+    },
+    {
+     "name": "第五版 冻结规则选定（ESPN FPI）",
+     "pred_home_margin": -14.13,
+     "source": "live_ledger v5_selected=ESPN_FPI（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "MIL",
+     "lean_cn": "雄鹿"
+    },
+    {
+     "name": "第四版 冻结版（ESPN）",
+     "pred_home_margin": -14.13,
+     "source": "live_ledger v4_frozen_espn(no_late_inj_yet)（锁定 2026-11-11 16:45:46 PT）",
+     "official": false,
+     "lean": "MIL",
+     "lean_cn": "雄鹿"
+    },
+    {
+     "name": "Massey",
+     "pred_home_margin": -13.25,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "MIL",
+     "lean_cn": "雄鹿"
+    },
+    {
+     "name": "Sagarin",
+     "pred_home_margin": -12.55,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "MIL",
+     "lean_cn": "雄鹿"
+    },
+    {
+     "name": "TPT 全部电脑平均",
+     "pred_home_margin": -11.07,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "MIL",
+     "lean_cn": "雄鹿"
+    }
+   ],
+   "alt_pick": {
+    "label": "第五版 冻结规则选定（ESPN FPI）",
+    "pick_text": "雄鹿 +14.5",
+    "edge": 0.37,
+    "band_cn": "低"
+   },
+   "version": 5,
+   "version_cn": "第五版",
+   "version_record": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "graded": 0,
+    "pct": null
+   },
+   "version_record_total": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "graded": 0,
+    "pct": null
+   },
+   "lean_count": {
+    "LAL": 1,
+    "MIL": 6
+   },
+   "total_comps": [
+    {
+     "name": "第五版 融合版（球员模型 + ESPN）",
+     "pred_total": 228.13,
+     "official": true
+    },
+    {
+     "name": "第五版 自建球员模型",
+     "pred_total": 228.6,
+     "official": false
+    },
+    {
+     "name": "第五版 冻结规则选定（ESPN 总分）",
+     "pred_total": 230.86,
+     "official": false
+    }
+   ],
+   "injuries": {
+    "report": "11-11 08:00 PM ET（17:00 PT）",
+    "players": [
+     {
+      "team": "LAL",
+      "team_cn": "湖人",
+      "name": "Quentin Grimes",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右手指扭伤",
+      "reason_raw": "Injury/Illness - Right Finger Sprain",
+      "nba_id": "1629656",
+      "g_league": false
+     },
+     {
+      "team": "LAL",
+      "team_cn": "湖人",
+      "name": "Walker Kessler",
+      "status": "Available",
+      "status_cn": "可出战",
+      "cls": "available",
+      "reason": "左手指夹板",
+      "reason_raw": "Injury/Illness - Left Finger Splint",
+      "nba_id": "1631117",
+      "g_league": false
+     },
+     {
+      "team": "MIL",
+      "team_cn": "雄鹿",
+      "name": "Tyler Herro",
+      "status": "Available",
+      "status_cn": "可出战",
+      "cls": "available",
+      "reason": "右膝挫伤",
+      "reason_raw": "Injury/Illness - Right Knee Contusion",
+      "nba_id": "1629639",
+      "g_league": false
+     },
+     {
+      "team": "MIL",
+      "team_cn": "雄鹿",
+      "name": "Myles Turner",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "休息",
+      "reason_raw": "Rest",
+      "nba_id": null,
+      "g_league": false
+     }
+    ],
+    "not_submitted": [],
+    "changes": [
+     {
+      "report": "11-10 08:00 PM ET",
+      "pt": "11-10 17:00 PT",
+      "items": [
+       "湖人 Quentin Grimes：未列 → 出战成疑",
+       "湖人 Walker Kessler：未列 → 可出战"
+      ]
+     },
+     {
+      "report": "11-11 08:00 PM ET",
+      "pt": "11-11 17:00 PT",
+      "items": [
+       "湖人 Quentin Grimes：出战成疑 → 缺阵",
+       "雄鹿 Tyler Herro：未列 → 可出战",
+       "雄鹿 Myles Turner：未列 → 缺阵"
+      ]
+     }
+    ]
+   },
+   "extra": null
+  },
+  {
+   "espn_id": "401909972",
+   "away": "BKN",
+   "home": "NOP",
+   "away_cn": "篮网",
+   "home_cn": "鹈鹕",
+   "away_name": "Brooklyn Nets",
+   "home_name": "New Orleans Pelicans",
+   "tip_pt": "11-11 17:00 PT",
+   "venue": "Smoothie King Center",
+   "broadcast": "DAZN (YES)、GCSEN、Pelicans.com",
+   "records": {
+    "BKN": "2-8",
+    "NOP": "4-7"
+   },
+   "records_note": "ESPN 记分板，2026-11-11 07:52 PT 抓取",
+   "game_status": "in",
+   "game_status_cn": "进行中",
+   "spread": {
+    "model": "v5_cand_stack",
+    "model_label": "第五版 融合版（球员模型 + ESPN）",
+    "lock_time": "2026-11-11 16:56:51 PT",
+    "pick_team": "NOP",
+    "pick_cn": "鹈鹕",
+    "pick_text": "鹈鹕 -2.5",
+    "line_home": 2.5,
+    "pred_home_margin": 3.3,
+    "edge": 0.8,
+    "band": "low",
+    "band_cn": "低",
+    "line_source": "DraftKings 现盘（经 ESPN，锁定时抓取）",
+    "result": null
+   },
+   "total": {
+    "model": "v5_cand_stack_t",
+    "model_label": "第五版 融合版（球员模型 + ESPN）",
+    "lock_time": "2026-11-11 16:56:51 PT",
+    "pick": "OVER",
+    "pick_cn": "大分",
+    "line_total": 228.5,
+    "pred_total": 232.46,
+    "edge": 3.96,
+    "band": "mid",
+    "band_cn": "中",
+    "pick_text": "大 228.5",
+    "line_source": "DraftKings 现盘（经 ESPN，锁定时抓取）",
+    "result": null
+   },
+   "market": {
+    "books": [
+     {
+      "book": "DraftKings",
+      "via": "ESPN 接口（锁定时）",
+      "time": "2026-11-11 16:56:51 PT",
+      "open_home": 4.5,
+      "cur_home": 2.5,
+      "total_open": 230.5,
+      "total_cur": 228.5,
+      "in_median": true
+     },
+     {
+      "book": "美盘共识（ThePredictionTracker）",
+      "via": "TPT nbapreds.csv",
+      "time": "2026-11-11 16:35 PT",
+      "open_home": 4.5,
+      "cur_home": 3.5,
+      "total_open": null,
+      "total_cur": null,
+      "in_median": true
+     }
+    ],
+    "median_home": 3.0,
+    "median_text": "鹈鹕 -3",
+    "median_n": 2,
+    "median_total": 228.5,
+    "median_total_n": 1,
+    "spread_range": 1.0,
+    "source": "比赛已开赛，盘口停在赛前锁定/快照时",
+    "median_books": [
+     "DraftKings",
+     "美盘共识（ThePredictionTracker）"
+    ],
+    "median_total_books": [
+     "DraftKings"
+    ],
+    "crown": null,
+    "crown_note": "缺：皇冠盘口需在雷速网页用浏览器读取，本系统没有存档",
+    "leisu": null,
+    "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
+   },
+   "comps": [
+    {
+     "name": "第五版 融合版（球员模型 + ESPN）",
+     "pred_home_margin": 3.3,
+     "source": "live_ledger v5_cand_stack（锁定 2026-11-11 16:56:51 PT）",
+     "official": true,
+     "lean": "NOP",
+     "lean_cn": "鹈鹕"
+    },
+    {
+     "name": "第五版 自建球员模型",
+     "pred_home_margin": 4.3,
+     "source": "live_ledger v5_cand_player（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "NOP",
+     "lean_cn": "鹈鹕"
+    },
+    {
+     "name": "第五版 冻结规则选定（ESPN FPI）",
+     "pred_home_margin": 2.62,
+     "source": "live_ledger v5_selected=ESPN_FPI（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "BKN",
+     "lean_cn": "篮网"
+    },
+    {
+     "name": "第四版 冻结版（ESPN）",
+     "pred_home_margin": 2.61,
+     "source": "live_ledger v4_frozen_espn(no_late_inj_yet)（锁定 2026-11-11 16:45:46 PT）",
+     "official": false,
+     "lean": "BKN",
+     "lean_cn": "篮网"
+    },
+    {
+     "name": "Massey",
+     "pred_home_margin": 6.19,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "NOP",
+     "lean_cn": "鹈鹕"
+    },
+    {
+     "name": "Sagarin",
+     "pred_home_margin": 4.12,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "NOP",
+     "lean_cn": "鹈鹕"
+    },
+    {
+     "name": "TPT 全部电脑平均",
+     "pred_home_margin": 4.55,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "NOP",
+     "lean_cn": "鹈鹕"
+    }
+   ],
+   "alt_pick": {
+    "label": "第五版 冻结规则选定（ESPN FPI）",
+    "pick_text": "鹈鹕 -2.5",
+    "edge": 0.12,
+    "band_cn": "低"
+   },
+   "version": 5,
+   "version_cn": "第五版",
+   "version_record": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "graded": 0,
+    "pct": null
+   },
+   "version_record_total": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "graded": 0,
+    "pct": null
+   },
+   "lean_count": {
+    "BKN": 2,
+    "NOP": 5
+   },
+   "total_comps": [
+    {
+     "name": "第五版 融合版（球员模型 + ESPN）",
+     "pred_total": 232.46,
+     "official": true
+    },
+    {
+     "name": "第五版 自建球员模型",
+     "pred_total": 234.3,
+     "official": false
+    },
+    {
+     "name": "第五版 冻结规则选定（ESPN 总分）",
+     "pred_total": 232.95,
+     "official": false
+    }
+   ],
+   "injuries": {
+    "report": "11-11 08:00 PM ET（17:00 PT）",
+    "players": [
+     {
+      "team": "BKN",
+      "team_cn": "篮网",
+      "name": "Tyler Bilodeau",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "发展联盟双向合同",
+      "reason_raw": "G League - Two-Way",
+      "nba_id": "1643548",
+      "g_league": true
+     },
+     {
+      "team": "BKN",
+      "team_cn": "篮网",
+      "name": "Mikel Brown Jr.",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "生病",
+      "reason_raw": "Injury/Illness - Illness",
+      "nba_id": "1643414",
+      "g_league": false
+     },
+     {
+      "team": "BKN",
+      "team_cn": "篮网",
+      "name": "Egor Demin",
+      "status": "Available",
+      "status_cn": "可出战",
+      "cls": "available",
+      "reason": "右骨挫伤",
+      "reason_raw": "Injury/Illness - Right Bone Bruise",
+      "nba_id": "1642856",
+      "g_league": false
+     },
+     {
+      "team": "BKN",
+      "team_cn": "篮网",
+      "name": "Joshua Jefferson",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "下放发展联盟",
+      "reason_raw": "G League - On Assignment",
+      "nba_id": "1643538",
+      "g_league": true
+     },
+     {
+      "team": "BKN",
+      "team_cn": "篮网",
+      "name": "Grant Nelson",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "发展联盟双向合同",
+      "reason_raw": "G League - Two-Way",
+      "nba_id": "1641761",
+      "g_league": true
+     },
+     {
+      "team": "BKN",
+      "team_cn": "篮网",
+      "name": "Ben Saraf",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "下放发展联盟",
+      "reason_raw": "G League - On Assignment",
+      "nba_id": "1642879",
+      "g_league": true
+     },
+     {
+      "team": "BKN",
+      "team_cn": "篮网",
+      "name": "Nolan Traore",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右小腿紧绷/酸痛",
+      "reason_raw": "Injury/Illness - Right Calf Tightness / Soreness",
+      "nba_id": "1642849",
+      "g_league": false
+     },
+     {
+      "team": "NOP",
+      "team_cn": "鹈鹕",
+      "name": "Malik Dia",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "发展联盟双向合同",
+      "reason_raw": "G League - Two-Way",
+      "nba_id": "1643738",
+      "g_league": true
+     },
+     {
+      "team": "NOP",
+      "team_cn": "鹈鹕",
+      "name": "Bennedict Mathurin",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右拇指扭伤",
+      "reason_raw": "Injury/Illness - Right Thumb Sprain",
+      "nba_id": null,
+      "g_league": false
+     },
+     {
+      "team": "NOP",
+      "team_cn": "鹈鹕",
+      "name": "Yves Missi",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "左膝挫伤/骨挫伤",
+      "reason_raw": "Injury/Illness - Left Knee Contusion / Bone Bruise",
+      "nba_id": "1642274",
+      "g_league": false
+     },
+     {
+      "team": "NOP",
+      "team_cn": "鹈鹕",
+      "name": "Trey Murphy III",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "双侧髌腱病",
+      "reason_raw": "Injury/Illness - Bilateral Patellar Tendinopathy",
+      "nba_id": "1630530",
+      "g_league": false
+     },
+     {
+      "team": "NOP",
+      "team_cn": "鹈鹕",
+      "name": "Jaron Pierre Jr.",
+      "status": "Available",
+      "status_cn": "可出战",
+      "cls": "available",
+      "reason": "发展联盟双向合同",
+      "reason_raw": "G League - Two-Way",
+      "nba_id": "1643555",
+      "g_league": true
+     },
+     {
+      "team": "NOP",
+      "team_cn": "鹈鹕",
+      "name": "Trendon Watford",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右踝扭伤",
+      "reason_raw": "Injury/Illness - Right Ankle Sprain",
+      "nba_id": "1630570",
+      "g_league": false
+     }
+    ],
+    "not_submitted": [],
+    "changes": [
+     {
+      "report": "11-10 08:00 PM ET",
+      "pt": "11-10 17:00 PT",
+      "items": [
+       "篮网 Tyler Bilodeau：未列 → 缺阵",
+       "篮网 Egor Demin：未列 → 大概率出战",
+       "篮网 Joshua Jefferson：未列 → 缺阵",
+       "篮网 Grant Nelson：未列 → 缺阵",
+       "篮网 Ben Saraf：未列 → 缺阵",
+       "篮网 Nolan Traore：未列 → 出战成疑"
+      ]
+     },
+     {
+      "report": "11-11 11:00 AM ET",
+      "pt": "11-11 08:00 PT",
+      "items": [
+       "篮网 Mikel Brown Jr.：未列 → 出战成疑"
+      ]
+     },
+     {
+      "report": "11-11 08:00 PM ET",
+      "pt": "11-11 17:00 PT",
+      "items": [
+       "篮网 Mikel Brown Jr.：出战成疑 → 缺阵",
+       "篮网 Egor Demin：大概率出战 → 可出战",
+       "篮网 Nolan Traore：出战成疑 → 缺阵",
+       "鹈鹕 Malik Dia：大概率缺阵 → 缺阵",
+       "鹈鹕 Bennedict Mathurin：未列 → 缺阵",
+       "鹈鹕 Trey Murphy III：大概率出战 → 缺阵",
+       "鹈鹕 Jaron Pierre Jr.：大概率缺阵 → 可出战"
+      ]
+     }
+    ]
+   },
+   "extra": null
+  },
+  {
+   "espn_id": "401909973",
+   "away": "ORL",
+   "home": "UTA",
+   "away_cn": "魔术",
+   "home_cn": "爵士",
+   "away_name": "Orlando Magic",
+   "home_name": "Utah Jazz",
+   "tip_pt": "11-11 18:00 PT",
+   "venue": "Delta Center",
+   "broadcast": "KJZZ-TV、Jazz+",
+   "records": {
+    "ORL": "3-7",
+    "UTA": "1-10"
+   },
+   "records_note": "ESPN 记分板，2026-11-11 07:52 PT 抓取",
+   "game_status": "pre",
+   "game_status_cn": "未开赛",
+   "spread": {
+    "model": "v6_selected=S6",
+    "model_label": "第六版 冻结规则选定 S6",
+    "lock_time": "2026-11-11 17:17:17 PT",
+    "pick_team": "ORL",
+    "pick_cn": "魔术",
+    "pick_text": "魔术 -3.5",
+    "line_home": -3.5,
+    "pred_home_margin": -5.83,
+    "edge": 2.33,
+    "band": "mid",
+    "band_cn": "中",
+    "line_source": "DraftKings 现盘（经 ESPN，锁定时抓取）",
+    "result": null
+   },
+   "total": {
+    "model": "v6_selected=T6",
+    "model_label": "第六版 冻结规则选定 T6",
+    "lock_time": "2026-11-11 17:17:17 PT",
+    "pick": "OVER",
+    "pick_cn": "大分",
+    "line_total": 215.5,
+    "pred_total": 228.87,
+    "edge": 13.37,
+    "band": "high",
+    "band_cn": "高",
+    "pick_text": "大 215.5",
+    "line_source": "DraftKings 现盘（经 ESPN，锁定时抓取）",
+    "result": null
+   },
+   "market": {
+    "books": [
+     {
+      "book": "DraftKings",
+      "via": "ESPN core 接口",
+      "time": "2026-11-11 17:14:44 PT",
+      "open_home": -4.5,
+      "cur_home": -3.5,
+      "total_open": 218.5,
+      "total_cur": 215.5,
+      "in_median": true
+     },
+     {
+      "book": "DraftKings（记分板接口）",
+      "via": "ESPN 记分板",
+      "time": "2026-11-11 17:14:44 PT",
+      "open_home": null,
+      "cur_home": -4.5,
+      "total_open": null,
+      "total_cur": 214.5,
+      "in_median": false,
+      "note": "与上面同一家 DraftKings，中位数只算一次（用 core 接口）"
+     },
+     {
+      "book": "平博 Pinnacle",
+      "via": "平博公开接口",
+      "time": "2026-11-11 17:14:44 PT",
+      "open_home": null,
+      "cur_home": -4.0,
+      "total_open": null,
+      "total_cur": 214.5,
+      "in_median": true,
+      "note": ""
+     },
+     {
+      "book": "美盘共识（ThePredictionTracker）",
+      "via": "TPT nbapreds.csv",
+      "time": "2026-11-11 17:14:44 PT",
+      "open_home": -4.5,
+      "cur_home": -4.5,
+      "total_open": null,
+      "total_cur": null,
+      "in_median": true,
+      "note": "大小分缺"
+     }
+    ],
+    "median_home": -4.0,
+    "median_text": "魔术 -4",
+    "median_n": 3,
+    "median_total": 215.0,
+    "median_total_n": 2,
+    "spread_range": 1.0,
+    "source": "monitor/lines.json（2026-11-11 17:14:44 PT）",
+    "median_books": [
+     "DraftKings",
+     "平博 Pinnacle",
+     "美盘共识（ThePredictionTracker）"
+    ],
+    "median_total_books": [
+     "DraftKings",
+     "平博 Pinnacle"
+    ],
+    "crown": null,
+    "crown_note": "缺：皇冠盘口需在雷速网页用浏览器读取，本系统没有存档",
+    "leisu": null,
+    "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
+   },
+   "comps": [
+    {
+     "name": "第六版 冻结规则选定 S6",
+     "pred_home_margin": -5.83,
+     "source": "live_ledger v6_selected=S6（锁定 2026-11-11 17:17:17 PT）",
+     "official": true,
+     "lean": "ORL",
+     "lean_cn": "魔术"
+    },
+    {
+     "name": "第六版 候选 R_close",
+     "pred_home_margin": -3.24,
+     "source": "live_ledger v6_cand_R_close（锁定 2026-11-11 17:17:17 PT）",
+     "official": false,
+     "lean": "UTA",
+     "lean_cn": "爵士"
+    },
+    {
+     "name": "第六版 候选 R_open",
+     "pred_home_margin": -4.28,
+     "source": "live_ledger v6_cand_R_open（锁定 2026-11-11 17:17:17 PT）",
+     "official": false,
+     "lean": "ORL",
+     "lean_cn": "魔术"
+    },
+    {
+     "name": "第五版 冻结规则选定（ESPN FPI）",
+     "pred_home_margin": -4.37,
+     "source": "live_ledger v5_selected=ESPN_FPI（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "ORL",
+     "lean_cn": "魔术"
+    },
+    {
+     "name": "第五版 融合版（球员模型 + ESPN）",
+     "pred_home_margin": -4.9,
+     "source": "live_ledger v5_cand_stack（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "ORL",
+     "lean_cn": "魔术"
+    },
+    {
+     "name": "第五版 自建球员模型",
+     "pred_home_margin": -3.5,
+     "source": "live_ledger v5_cand_player（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "UTA",
+     "lean_cn": "爵士"
+    },
+    {
+     "name": "第四版 冻结版（ESPN）",
+     "pred_home_margin": -4.37,
+     "source": "live_ledger v4_frozen_espn(no_late_inj_yet)（锁定 2026-11-11 16:45:46 PT）",
+     "official": false,
+     "lean": "ORL",
+     "lean_cn": "魔术"
+    },
+    {
+     "name": "Massey",
+     "pred_home_margin": -2.28,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "UTA",
+     "lean_cn": "爵士"
+    },
+    {
+     "name": "Sagarin",
+     "pred_home_margin": -0.99,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "UTA",
+     "lean_cn": "爵士"
+    },
+    {
+     "name": "TPT 全部电脑平均",
+     "pred_home_margin": -1.79,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "UTA",
+     "lean_cn": "爵士"
+    }
+   ],
+   "alt_pick": null,
+   "version": 6,
+   "version_cn": "第六版",
+   "version_record": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "graded": 0,
+    "pct": null
+   },
+   "version_record_total": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "graded": 0,
+    "pct": null
+   },
+   "lean_count": {
+    "ORL": 5,
+    "UTA": 5
+   },
+   "total_comps": [
+    {
+     "name": "第六版 冻结规则选定 T6",
+     "pred_total": 228.87,
+     "official": true
+    },
+    {
+     "name": "第六版 候选 RT_close",
+     "pred_total": 214.87,
+     "official": false
+    },
+    {
+     "name": "第六版 候选 RT_open",
+     "pred_total": 222.16,
+     "official": false
+    }
+   ],
+   "injuries": {
+    "report": "11-11 08:00 PM ET（17:00 PT）",
+    "players": [
+     {
+      "team": "ORL",
+      "team_cn": "魔术",
+      "name": "Paolo Banchero",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右高位踝扭伤",
+      "reason_raw": "Injury/Illness - Right High Ankle Sprain",
+      "nba_id": "1631094",
+      "g_league": false
+     },
+     {
+      "team": "ORL",
+      "team_cn": "魔术",
+      "name": "Jamal Cain",
+      "status": "Questionable",
+      "status_cn": "出战成疑",
+      "cls": "questionable",
+      "reason": "左肩挫伤",
+      "reason_raw": "Injury/Illness - Left Shoulder Contusion",
+      "nba_id": null,
+      "g_league": false
+     },
+     {
+      "team": "ORL",
+      "team_cn": "魔术",
+      "name": "Tristan da Silva",
+      "status": "Questionable",
+      "status_cn": "出战成疑",
+      "cls": "questionable",
+      "reason": "左小腿拉伤",
+      "reason_raw": "Injury/Illness - Left Calf Strain",
+      "nba_id": "1641783",
+      "g_league": false
+     },
+     {
+      "team": "ORL",
+      "team_cn": "魔术",
+      "name": "Jonathan Isaac",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "左膝伤病管理",
+      "reason_raw": "Injury/Illness - Left Knee Injury Management",
+      "nba_id": "1628371",
+      "g_league": false
+     },
+     {
+      "team": "ORL",
+      "team_cn": "魔术",
+      "name": "Izaiyah Nelson",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "左踝伤恢复",
+      "reason_raw": "Injury/Illness - Left Ankle Injury Recovery",
+      "nba_id": "1643593",
+      "g_league": false
+     },
+     {
+      "team": "ORL",
+      "team_cn": "魔术",
+      "name": "Noah Penda",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右部分撕裂腘绳肌",
+      "reason_raw": "Injury/Illness - Right Partially Torn Hamstring",
+      "nba_id": "1642869",
+      "g_league": false
+     },
+     {
+      "team": "ORL",
+      "team_cn": "魔术",
+      "name": "Jalen Suggs",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右膝挫伤/骨挫伤",
+      "reason_raw": "Injury/Illness - Right Knee Contusion / Bone Bruise",
+      "nba_id": "1630591",
+      "g_league": false
+     },
+     {
+      "team": "UTA",
+      "team_cn": "爵士",
+      "name": "Trey Alexander",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "发展联盟双向合同",
+      "reason_raw": "G League - Two-Way",
+      "nba_id": "1641725",
+      "g_league": true
+     },
+     {
+      "team": "UTA",
+      "team_cn": "爵士",
+      "name": "Keyonte George",
+      "status": "Questionable",
+      "status_cn": "出战成疑",
+      "cls": "questionable",
+      "reason": "右踝扭伤",
+      "reason_raw": "Injury/Illness - Right Ankle Sprain",
+      "nba_id": "1641718",
+      "g_league": false
+     },
+     {
+      "team": "UTA",
+      "team_cn": "爵士",
+      "name": "Jaren Jackson Jr.",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右内侧副韧带撕裂",
+      "reason_raw": "Injury/Illness - Right MCL Tear",
+      "nba_id": "1628991",
+      "g_league": false
+     },
+     {
+      "team": "UTA",
+      "team_cn": "爵士",
+      "name": "Lauri Markkanen",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右手骨折",
+      "reason_raw": "Injury/Illness - Right Hand Fracture",
+      "nba_id": "1628374",
+      "g_league": false
+     },
+     {
+      "team": "UTA",
+      "team_cn": "爵士",
+      "name": "Jusuf Nurkic",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右第二跖板撕裂",
+      "reason_raw": "Injury/Illness - Right 2nd Plantar Plate Tear",
+      "nba_id": "203994",
+      "g_league": false
+     }
+    ],
+    "not_submitted": [],
+    "changes": [
+     {
+      "report": "11-11 08:00 PM ET",
+      "pt": "11-11 17:00 PT",
+      "items": [
+       "魔术 Paolo Banchero：未列 → 缺阵",
+       "魔术 Jamal Cain：未列 → 出战成疑",
+       "魔术 Jonathan Isaac：未列 → 缺阵",
+       "魔术 Izaiyah Nelson：未列 → 缺阵",
+       "魔术 Noah Penda：未列 → 缺阵",
+       "魔术 Jalen Suggs：未列 → 缺阵",
+       "魔术 Tristan da Silva：未列 → 出战成疑",
+       "爵士 Trey Alexander：未列 → 缺阵",
+       "爵士 Keyonte George：未列 → 出战成疑",
+       "爵士 Jaren Jackson Jr.：未列 → 缺阵",
+       "爵士 Lauri Markkanen：未列 → 缺阵",
+       "爵士 Jusuf Nurkic：未列 → 缺阵"
+      ]
+     }
+    ]
+   },
+   "extra": null
+  },
+  {
+   "espn_id": "401909974",
+   "away": "GSW",
+   "home": "HOU",
+   "away_cn": "勇士",
+   "home_cn": "火箭",
+   "away_name": "Golden State Warriors",
+   "home_name": "Houston Rockets",
+   "tip_pt": "11-11 18:30 PT",
+   "venue": "Toyota Center (Houston)",
+   "broadcast": "ESPN",
+   "records": {
+    "GSW": "8-3",
+    "HOU": "8-3"
+   },
+   "records_note": "ESPN 记分板，2026-11-11 07:52 PT 抓取",
+   "game_status": "pre",
+   "game_status_cn": "未开赛",
+   "spread": {
+    "model": "v6_selected=S6",
+    "model_label": "第六版 冻结规则选定 S6",
+    "lock_time": "2026-11-11 17:17:17 PT",
+    "pick_team": "GSW",
+    "pick_cn": "勇士",
+    "pick_text": "勇士 +6.5",
+    "line_home": 6.5,
+    "pred_home_margin": 5.35,
+    "edge": 1.15,
+    "band": "low",
+    "band_cn": "低",
+    "line_source": "DraftKings 现盘（经 ESPN，锁定时抓取）",
+    "result": null
+   },
+   "total": {
+    "model": "v6_selected=T6",
+    "model_label": "第六版 冻结规则选定 T6",
+    "lock_time": "2026-11-11 17:17:17 PT",
+    "pick": "UNDER",
+    "pick_cn": "小分",
+    "line_total": 219.5,
+    "pred_total": 219.38,
+    "edge": 0.12,
+    "band": "low",
+    "band_cn": "低",
+    "pick_text": "小 219.5",
+    "line_source": "DraftKings 现盘（经 ESPN，锁定时抓取）",
+    "result": null
+   },
+   "market": {
+    "books": [
+     {
+      "book": "DraftKings",
+      "via": "ESPN core 接口",
+      "time": "2026-11-11 17:14:44 PT",
+      "open_home": 5.5,
+      "cur_home": 6.5,
+      "total_open": 222.5,
+      "total_cur": 219.5,
+      "in_median": true
+     },
+     {
+      "book": "DraftKings（记分板接口）",
+      "via": "ESPN 记分板",
+      "time": "2026-11-11 17:14:44 PT",
+      "open_home": null,
+      "cur_home": 6.5,
+      "total_open": null,
+      "total_cur": 219.5,
+      "in_median": false,
+      "note": "与上面同一家 DraftKings，中位数只算一次（用 core 接口）"
+     },
+     {
+      "book": "平博 Pinnacle",
+      "via": "平博公开接口",
+      "time": "2026-11-11 17:14:44 PT",
+      "open_home": null,
+      "cur_home": 6.5,
+      "total_open": null,
+      "total_cur": 219.5,
+      "in_median": true,
+      "note": ""
+     },
+     {
+      "book": "美盘共识（ThePredictionTracker）",
+      "via": "TPT nbapreds.csv",
+      "time": "2026-11-11 17:14:44 PT",
+      "open_home": 5.5,
+      "cur_home": 6.5,
+      "total_open": null,
+      "total_cur": null,
+      "in_median": true,
+      "note": "大小分缺"
+     }
+    ],
+    "median_home": 6.5,
+    "median_text": "火箭 -6.5",
+    "median_n": 3,
+    "median_total": 219.5,
+    "median_total_n": 2,
+    "spread_range": 0.0,
+    "source": "monitor/lines.json（2026-11-11 17:14:44 PT）",
+    "median_books": [
+     "DraftKings",
+     "平博 Pinnacle",
+     "美盘共识（ThePredictionTracker）"
+    ],
+    "median_total_books": [
+     "DraftKings",
+     "平博 Pinnacle"
+    ],
+    "crown": null,
+    "crown_note": "缺：皇冠盘口需在雷速网页用浏览器读取，本系统没有存档",
+    "leisu": null,
+    "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
+   },
+   "comps": [
+    {
+     "name": "第六版 冻结规则选定 S6",
+     "pred_home_margin": 5.35,
+     "source": "live_ledger v6_selected=S6（锁定 2026-11-11 17:17:17 PT）",
+     "official": true,
+     "lean": "GSW",
+     "lean_cn": "勇士"
+    },
+    {
+     "name": "第六版 候选 R_close",
+     "pred_home_margin": 7.07,
+     "source": "live_ledger v6_cand_R_close（锁定 2026-11-11 17:17:17 PT）",
+     "official": false,
+     "lean": "HOU",
+     "lean_cn": "火箭"
+    },
+    {
+     "name": "第六版 候选 R_open",
+     "pred_home_margin": 6.0,
+     "source": "live_ledger v6_cand_R_open（锁定 2026-11-11 17:17:17 PT）",
+     "official": false,
+     "lean": "GSW",
+     "lean_cn": "勇士"
+    },
+    {
+     "name": "第五版 冻结规则选定（ESPN FPI）",
+     "pred_home_margin": 5.64,
+     "source": "live_ledger v5_selected=ESPN_FPI（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "GSW",
+     "lean_cn": "勇士"
+    },
+    {
+     "name": "第五版 融合版（球员模型 + ESPN）",
+     "pred_home_margin": 4.85,
+     "source": "live_ledger v5_cand_stack（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "GSW",
+     "lean_cn": "勇士"
+    },
+    {
+     "name": "第五版 自建球员模型",
+     "pred_home_margin": 2.89,
+     "source": "live_ledger v5_cand_player（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "GSW",
+     "lean_cn": "勇士"
+    },
+    {
+     "name": "第四版 冻结版（ESPN）",
+     "pred_home_margin": 5.64,
+     "source": "live_ledger v4_frozen_espn(no_late_inj_yet)（锁定 2026-11-11 16:45:46 PT）",
+     "official": false,
+     "lean": "GSW",
+     "lean_cn": "勇士"
+    },
+    {
+     "name": "Massey",
+     "pred_home_margin": 5.07,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "GSW",
+     "lean_cn": "勇士"
+    },
+    {
+     "name": "Sagarin",
+     "pred_home_margin": 3.77,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "GSW",
+     "lean_cn": "勇士"
+    },
+    {
+     "name": "TPT 全部电脑平均",
+     "pred_home_margin": 5.35,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "GSW",
+     "lean_cn": "勇士"
+    }
+   ],
+   "alt_pick": null,
+   "version": 6,
+   "version_cn": "第六版",
+   "version_record": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "graded": 0,
+    "pct": null
+   },
+   "version_record_total": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "graded": 0,
+    "pct": null
+   },
+   "lean_count": {
+    "GSW": 9,
+    "HOU": 1
+   },
+   "total_comps": [
+    {
+     "name": "第六版 冻结规则选定 T6",
+     "pred_total": 219.38,
+     "official": true
+    },
+    {
+     "name": "第六版 候选 RT_close",
+     "pred_total": 218.28,
+     "official": false
+    },
+    {
+     "name": "第六版 候选 RT_open",
+     "pred_total": 220.61,
+     "official": false
+    }
+   ],
+   "injuries": {
+    "report": "11-11 08:00 PM ET（17:00 PT）",
+    "players": [
+     {
+      "team": "GSW",
+      "team_cn": "勇士",
+      "name": "Jimmy Butler III",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右前十字韧带修复手术",
+      "reason_raw": "Injury/Illness - Right ACL Repair / Surgery",
+      "nba_id": "202710",
+      "g_league": false
+     },
+     {
+      "team": "GSW",
+      "team_cn": "勇士",
+      "name": "Moses Moody",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "左髌腱修复手术",
+      "reason_raw": "Injury/Illness - Left Patellar Tendon Repair / Surgery",
+      "nba_id": "1630541",
+      "g_league": false
+     },
+     {
+      "team": "GSW",
+      "team_cn": "勇士",
+      "name": "Gary Payton II",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "左膝发炎",
+      "reason_raw": "Injury/Illness - Left Knee Inflammation",
+      "nba_id": "1627780",
+      "g_league": false
+     },
+     {
+      "team": "GSW",
+      "team_cn": "勇士",
+      "name": "Kristaps Porzingis",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "不随队",
+      "reason_raw": "Not With Team",
+      "nba_id": "204001",
+      "g_league": false
+     },
+     {
+      "team": "GSW",
+      "team_cn": "勇士",
+      "name": "Will Richard",
+      "status": "Available",
+      "status_cn": "可出战",
+      "cls": "available",
+      "reason": "左拇指尺侧副韧带撕裂",
+      "reason_raw": "Injury/Illness - Left Thumb UCL Tear",
+      "nba_id": "1642954",
+      "g_league": false
+     },
+     {
+      "team": "GSW",
+      "team_cn": "勇士",
+      "name": "Brandon Williams",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "左腘绳肌拉伤",
+      "reason_raw": "Injury/Illness - Left Hamstring Strain",
+      "nba_id": "1630314",
+      "g_league": false
+     },
+     {
+      "team": "HOU",
+      "team_cn": "火箭",
+      "name": "Steven Adams",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右比目鱼肌拉伤",
+      "reason_raw": "Injury/Illness - Right Soleus Strain",
+      "nba_id": "203500",
+      "g_league": false
+     },
+     {
+      "team": "HOU",
+      "team_cn": "火箭",
+      "name": "Clint Capela",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右踝扭伤",
+      "reason_raw": "Injury/Illness - Right Ankle Sprain",
+      "nba_id": "203991",
+      "g_league": false
+     },
+     {
+      "team": "HOU",
+      "team_cn": "火箭",
+      "name": "Quadir Copeland",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "发展联盟双向合同",
+      "reason_raw": "G League - Two-Way",
+      "nba_id": "1643595",
+      "g_league": true
+     },
+     {
+      "team": "HOU",
+      "team_cn": "火箭",
+      "name": "Julian Phillips",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "发展联盟双向合同",
+      "reason_raw": "G League - Two-Way",
+      "nba_id": "1641763",
+      "g_league": true
+     }
+    ],
+    "not_submitted": [],
+    "changes": [
+     {
+      "report": "11-11 08:00 PM ET",
+      "pt": "11-11 17:00 PT",
+      "items": [
+       "勇士 Will Richard：出战成疑 → 可出战"
+      ]
+     }
+    ]
+   },
+   "extra": {
+    "report_file": "GSW_at_HOU_20261111_v2.md",
+    "report_time": "约 2026-11-11 08:19 PT",
+    "headline": [
+     "让分：勇士 +6.5。若只有平博 -6.0，同样是 勇士 +6。",
+     "大小分：大 220.5。",
+     "把握：让分按冻结规则为高把握（五源里 4 家同向看淡火箭让分）；相对 -6.5 的差距只有约 1.55 分。大小分按规则也是高把握（预测 227.8 对 220.5），但大小分回测整体 49%、验证集 8-17，实际不宜当成高把握。"
+    ],
+    "five_sources": [
+     {
+      "source": "Massey",
+      "pred": "5.07",
+      "vs_line": "勇士",
+      "from": "ThePredictionTracker nbapreds.csv，更新 2026-11-11 07:02 PT（原文 9:02:15 AM CST）"
+     },
+     {
+      "source": "Sagarin",
+      "pred": "3.77",
+      "vs_line": "勇士",
+      "from": "同上"
+     },
+     {
+      "source": "ESPN FPI",
+      "pred": "5.64",
+      "vs_line": "勇士",
+      "from": "同上字段 lineespn"
+     },
+     {
+      "source": "自建 shrink_eff",
+      "pred": "2.60",
+      "vs_line": "勇士",
+      "from": "NBA Stats 球队 Advanced，截止日期 2026-11-09（赛前缓存；11/10 美东双方未赛）"
+     },
+     {
+      "source": "球员 BPM 阵容",
+      "pred": "7.67",
+      "vs_line": "火箭",
+      "from": "上场时间见下；只扣官方 Out"
+     },
+     {
+      "source": "等权第二版",
+      "pred": "4.95",
+      "vs_line": "勇士",
+      "from": "五源平均"
+     }
+    ],
+    "efficiency": [
+     "勇士 11 场 8-3，进攻效率 119.0，防守效率 110.3，净效率 +8.7，节奏 100.05",
+     "火箭 11 场 8-3，118.5 / 109.0 / +9.4，节奏 97.5",
+     "联盟（回合加权）：进攻效率 112.52，节奏 100.25",
+     "勇士主场 138-87 胜鹈鹕（event 401909959）",
+     "火箭主场 110-100 胜掘金（event 401909957）"
+    ],
+    "referees": "NBA 官方裁判页：Mitchell Ervin（#27）、Eric Lewis（#42）、Brandon Adair（#67）。对本场总分的历史倾向：缺。",
+    "total_note": "第二版预测总分 227.8（效率盘 227.1 + 伤病对攻防的小幅修正 +0.6）。对 220.5 是大分，差 7.3 分。节奏上火箭偏慢（97.5）、两队进攻都强，效率盘自然偏高。没有已出版的电脑大小分可对照（TPT 今日表无总分栏）。裁判历史倾向缺。",
+    "game_info": [
+     "时间：2026-11-11 18:30 PT（ESPN：Wed, November 11th at 9:30 PM EST；开球约 2026-11-12 02:30Z）",
+     "场地：Toyota Center（Houston, TX）（ESPN 记分板 / gameInfo）",
+     "转播：ESPN 全国转播（ESPN broadcasts）",
+     "状态：Scheduled，未开赛"
+    ],
+    "note": "这份是早上 08:19 PT 的第二版报告（当时对 DK -6.5）；页面顶部结论以 16:56 PT 第五版锁定为准。"
+   }
+  },
+  {
+   "espn_id": "401909975",
+   "away": "OKC",
+   "home": "POR",
+   "away_cn": "雷霆",
+   "home_cn": "开拓者",
+   "away_name": "Oklahoma City Thunder",
+   "home_name": "Portland Trail Blazers",
+   "tip_pt": "11-11 19:00 PT",
+   "venue": "Moda Center",
+   "broadcast": "KUNP 16、BlazerVision、KSBI、Thunder App",
+   "records": {
+    "OKC": "8-3",
+    "POR": "7-3"
+   },
+   "records_note": "ESPN 记分板，2026-11-11 07:52 PT 抓取",
+   "game_status": "pre",
+   "game_status_cn": "未开赛",
+   "spread": {
+    "model": "v6_selected=S6",
+    "model_label": "第六版 冻结规则选定 S6",
+    "lock_time": "2026-11-11 17:17:17 PT",
+    "pick_team": "OKC",
+    "pick_cn": "雷霆",
+    "pick_text": "雷霆 +2.5",
+    "line_home": 2.5,
+    "pred_home_margin": 1.46,
+    "edge": 1.04,
+    "band": "low",
+    "band_cn": "低",
+    "line_source": "DraftKings 现盘（经 ESPN，锁定时抓取）",
+    "result": null
+   },
+   "total": {
+    "model": "v6_selected=T6",
+    "model_label": "第六版 冻结规则选定 T6",
+    "lock_time": "2026-11-11 17:17:17 PT",
+    "pick": "UNDER",
+    "pick_cn": "小分",
+    "line_total": 224.5,
+    "pred_total": 222.34,
+    "edge": 2.16,
+    "band": "low",
+    "band_cn": "低",
+    "pick_text": "小 224.5",
+    "line_source": "DraftKings 现盘（经 ESPN，锁定时抓取）",
+    "result": null
+   },
+   "market": {
+    "books": [
+     {
+      "book": "DraftKings",
+      "via": "ESPN core 接口",
+      "time": "2026-11-11 17:14:44 PT",
+      "open_home": -2.5,
+      "cur_home": 2.5,
+      "total_open": 224.5,
+      "total_cur": 224.5,
+      "in_median": true
+     },
+     {
+      "book": "DraftKings（记分板接口）",
+      "via": "ESPN 记分板",
+      "time": "2026-11-11 17:14:44 PT",
+      "open_home": null,
+      "cur_home": 2.5,
+      "total_open": null,
+      "total_cur": 224.5,
+      "in_median": false,
+      "note": "与上面同一家 DraftKings，中位数只算一次（用 core 接口）"
+     },
+     {
+      "book": "平博 Pinnacle",
+      "via": "平博公开接口",
+      "time": "2026-11-11 17:14:44 PT",
+      "open_home": null,
+      "cur_home": 2.5,
+      "total_open": null,
+      "total_cur": 224.0,
+      "in_median": true,
+      "note": ""
+     },
+     {
+      "book": "美盘共识（ThePredictionTracker）",
+      "via": "TPT nbapreds.csv",
+      "time": "2026-11-11 17:14:44 PT",
+      "open_home": -1.0,
+      "cur_home": -1.5,
+      "total_open": null,
+      "total_cur": null,
+      "in_median": true,
+      "note": "大小分缺"
+     }
+    ],
+    "median_home": 2.5,
+    "median_text": "开拓者 -2.5",
+    "median_n": 3,
+    "median_total": 224.25,
+    "median_total_n": 2,
+    "spread_range": 4.0,
+    "source": "monitor/lines.json（2026-11-11 17:14:44 PT）",
+    "median_books": [
+     "DraftKings",
+     "平博 Pinnacle",
+     "美盘共识（ThePredictionTracker）"
+    ],
+    "median_total_books": [
+     "DraftKings",
+     "平博 Pinnacle"
+    ],
+    "crown": null,
+    "crown_note": "缺：皇冠盘口需在雷速网页用浏览器读取，本系统没有存档",
+    "leisu": null,
+    "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
+   },
+   "comps": [
+    {
+     "name": "第六版 冻结规则选定 S6",
+     "pred_home_margin": 1.46,
+     "source": "live_ledger v6_selected=S6（锁定 2026-11-11 17:17:17 PT）",
+     "official": true,
+     "lean": "OKC",
+     "lean_cn": "雷霆"
+    },
+    {
+     "name": "第六版 候选 R_close",
+     "pred_home_margin": 2.86,
+     "source": "live_ledger v6_cand_R_close（锁定 2026-11-11 17:17:17 PT）",
+     "official": false,
+     "lean": "POR",
+     "lean_cn": "开拓者"
+    },
+    {
+     "name": "第六版 候选 R_open",
+     "pred_home_margin": -0.71,
+     "source": "live_ledger v6_cand_R_open（锁定 2026-11-11 17:17:17 PT）",
+     "official": false,
+     "lean": "OKC",
+     "lean_cn": "雷霆"
+    },
+    {
+     "name": "第五版 冻结规则选定（ESPN FPI）",
+     "pred_home_margin": 1.2,
+     "source": "live_ledger v5_selected=ESPN_FPI（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "OKC",
+     "lean_cn": "雷霆"
+    },
+    {
+     "name": "第五版 融合版（球员模型 + ESPN）",
+     "pred_home_margin": 0.72,
+     "source": "live_ledger v5_cand_stack（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "OKC",
+     "lean_cn": "雷霆"
+    },
+    {
+     "name": "第五版 自建球员模型",
+     "pred_home_margin": 0.54,
+     "source": "live_ledger v5_cand_player（锁定 2026-11-11 16:56:51 PT）",
+     "official": false,
+     "lean": "OKC",
+     "lean_cn": "雷霆"
+    },
+    {
+     "name": "第四版 冻结版（ESPN）",
+     "pred_home_margin": -1.62,
+     "source": "live_ledger v4_frozen_espn(no_late_inj_yet)（锁定 2026-11-11 16:45:46 PT）",
+     "official": false,
+     "lean": "OKC",
+     "lean_cn": "雷霆"
+    },
+    {
+     "name": "Massey",
+     "pred_home_margin": -2.06,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "OKC",
+     "lean_cn": "雷霆"
+    },
+    {
+     "name": "Sagarin",
+     "pred_home_margin": -1.02,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "OKC",
+     "lean_cn": "雷霆"
+    },
+    {
+     "name": "TPT 全部电脑平均",
+     "pred_home_margin": -0.76,
+     "source": "TPT 快照 2026-11-11 16:35 PT",
+     "official": false,
+     "lean": "OKC",
+     "lean_cn": "雷霆"
+    }
+   ],
+   "alt_pick": null,
+   "version": 6,
+   "version_cn": "第六版",
+   "version_record": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "graded": 0,
+    "pct": null
+   },
+   "version_record_total": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "graded": 0,
+    "pct": null
+   },
+   "lean_count": {
+    "OKC": 9,
+    "POR": 1
+   },
+   "total_comps": [
+    {
+     "name": "第六版 冻结规则选定 T6",
+     "pred_total": 222.34,
+     "official": true
+    },
+    {
+     "name": "第六版 候选 RT_close",
+     "pred_total": 224.89,
+     "official": false
+    },
+    {
+     "name": "第六版 候选 RT_open",
+     "pred_total": 220.3,
+     "official": false
+    }
+   ],
+   "injuries": {
+    "report": "11-11 08:00 PM ET（17:00 PT）",
+    "players": [
+     {
+      "team": "OKC",
+      "team_cn": "雷霆",
+      "name": "Chet Holmgren",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右膝/伤恢复",
+      "reason_raw": "Injury/Illness - Right Knee/ Injury Recovery",
+      "nba_id": "1631096",
+      "g_league": false
+     },
+     {
+      "team": "OKC",
+      "team_cn": "雷霆",
+      "name": "Ajay Mitchell",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "左踝扭伤",
+      "reason_raw": "Injury/Illness - Left Ankle Sprain",
+      "nba_id": "1642349",
+      "g_league": false
+     },
+     {
+      "team": "OKC",
+      "team_cn": "雷霆",
+      "name": "Thomas Sorber",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右膝手术",
+      "reason_raw": "Injury/Illness - Right Knee Surgery",
+      "nba_id": "1642850",
+      "g_league": false
+     },
+     {
+      "team": "OKC",
+      "team_cn": "雷霆",
+      "name": "Nikola Topic",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "下放发展联盟",
+      "reason_raw": "G League - On Assignment",
+      "nba_id": "1642260",
+      "g_league": true
+     },
+     {
+      "team": "OKC",
+      "team_cn": "雷霆",
+      "name": "Cason Wallace",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "左肩手术",
+      "reason_raw": "Injury/Illness - Left Shoulder Surgery",
+      "nba_id": "1641717",
+      "g_league": false
+     },
+     {
+      "team": "OKC",
+      "team_cn": "雷霆",
+      "name": "Jalen Williams",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "左踝手术",
+      "reason_raw": "Injury/Illness - Left Ankle Surgery",
+      "nba_id": "1631114",
+      "g_league": false
+     },
+     {
+      "team": "OKC",
+      "team_cn": "雷霆",
+      "name": "Jaylin Williams",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "下背痉挛",
+      "reason_raw": "Injury/Illness - Low Back Spasms",
+      "nba_id": "1631119",
+      "g_league": false
+     },
+     {
+      "team": "POR",
+      "team_cn": "开拓者",
+      "name": "Vit Krejci",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "左踝骨折",
+      "reason_raw": "Injury/Illness - Left Ankle Fracture",
+      "nba_id": "1630249",
+      "g_league": false
+     },
+     {
+      "team": "POR",
+      "team_cn": "开拓者",
+      "name": "Ja Morant",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "左腘绳肌拉伤",
+      "reason_raw": "Injury/Illness - Left Hamstring Strain",
+      "nba_id": "1629630",
+      "g_league": false
+     },
+     {
+      "team": "POR",
+      "team_cn": "开拓者",
+      "name": "Shaedon Sharpe",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右半月板手术",
+      "reason_raw": "Injury/Illness - Right Meniscus Surgery",
+      "nba_id": "1631101",
+      "g_league": false
+     },
+     {
+      "team": "POR",
+      "team_cn": "开拓者",
+      "name": "Chris Youngblood",
+      "status": "Out",
+      "status_cn": "缺阵",
+      "cls": "out",
+      "reason": "右骨挫伤",
+      "reason_raw": "Injury/Illness - Right Bone Bruise",
+      "nba_id": "1642959",
+      "g_league": false
+     }
+    ],
+    "not_submitted": [],
+    "changes": [
+     {
+      "report": "11-11 08:00 PM ET",
+      "pt": "11-11 17:00 PT",
+      "items": [
+       "雷霆 Chet Holmgren：未列 → 缺阵",
+       "雷霆 Ajay Mitchell：未列 → 缺阵",
+       "雷霆 Thomas Sorber：未列 → 缺阵",
+       "雷霆 Nikola Topic：未列 → 缺阵",
+       "雷霆 Cason Wallace：未列 → 缺阵",
+       "雷霆 Jalen Williams：未列 → 缺阵",
+       "雷霆 Jaylin Williams：未列 → 缺阵",
+       "开拓者 Vit Krejci：未列 → 缺阵",
+       "开拓者 Ja Morant：未列 → 缺阵",
+       "开拓者 Shaedon Sharpe：未列 → 缺阵",
+       "开拓者 Chris Youngblood：未列 → 缺阵"
+      ]
+     }
+    ]
+   },
+   "extra": null
+  }
+ ],
+ "unlocked_games": [
+  {
+   "espn_id": "401909966",
+   "teams": "步行者、奇才",
+   "tip_pt": "11-11 16:00 PT"
+  },
+  {
+   "espn_id": "401909967",
+   "teams": "尼克斯、骑士",
+   "tip_pt": "11-11 16:00 PT"
+  },
+  {
+   "espn_id": "401909968",
+   "teams": "猛龙、凯尔特人",
+   "tip_pt": "11-11 16:00 PT"
+  }
+ ],
+ "feed": [
+  {
+   "time": "2026-11-11 17:17:17 PT",
+   "tag": "模型锁定",
+   "text": "赛前锁定 3 场：v6_cand_RT_close、v6_cand_RT_open、v6_cand_R_close、v6_cand_R_open、v6_selected=S6、v6_selected=T6",
+   "source": "live_ledger.csv"
+  },
+  {
+   "time": "2026-11-11 17:14:44 PT",
+   "tag": "监控",
+   "text": "盘口监控刷新：espn_core_odds pregame games with odds 4; failed 12；pinnacle pregame markets 6; skipped live 7；tpt spread rows 10; totals 缺",
+   "source": "monitor/lines.json"
+  },
+  {
+   "time": "2026-11-11 17:12:56 PT",
+   "tag": "模型锁定",
+   "text": "赛前锁定 3 场：v6_cand_RT_close、v6_cand_RT_open、v6_cand_R_close、v6_cand_R_open、v6_selected=S6、v6_selected=T6",
+   "source": "live_ledger.csv"
+  },
+  {
+   "time": "2026-11-11 17:12:03 PT",
+   "tag": "高把握差距",
+   "text": "高把握场次 ORL@UTA total 214.5 → 215.5",
+   "source": "monitor/alerts.json · espn_core_draftkings · 盘口快照 2026-11-11 17:12:01 PT"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "UTA Jackson Jr., Jaren 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（右内侧副韧带撕裂）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "OKC Williams, Jalen 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（左踝手术）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动·主力",
+   "text": "NOP Murphy III, Trey Probable → Out（双侧髌腱病）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动·主力",
+   "text": "SAS Vassell, Devin Questionable → Out（左内收肌紧绷）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "MIL Herro, Tyler 缺 → Available（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（右膝挫伤）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "POR Sharpe, Shaedon 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（右半月板手术）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "OKC Williams, Jaylin 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（下背痉挛）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "ORL Cain, Jamal 缺 → Questionable（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（左肩挫伤）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "ORL Nelson, Izaiyah 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（左踝伤恢复）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "UTA Markkanen, Lauri 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（右手骨折）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "MIL Turner, Myles 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（休息）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动·主力",
+   "text": "LAL Grimes, Quentin Questionable → Out（右手指扭伤）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "OKC Holmgren, Chet 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（右膝/伤恢复）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "POR Krejci, Vit 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（左踝骨折）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动·主力",
+   "text": "CHI Powell, Norman Questionable → Out（下背痉挛）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "OKC Sorber, Thomas 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（右膝手术）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "ORL Suggs, Jalen 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（右膝挫伤/骨挫伤）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动·主力",
+   "text": "CHI Collins, Zach Questionable → Available（-）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动·主力",
+   "text": "CHI Sellers, Jaylin Out → Available（-）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "ORL Penda, Noah 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（右部分撕裂腘绳肌）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "UTA Nurkic, Jusuf 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（右第二跖板撕裂）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动·主力",
+   "text": "CHI Swain, Dailyn 缺 → Out（右椎间盘刺激）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动·主力",
+   "text": "BKN Brown Jr., Mikel Questionable → Out（生病）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "OKC Mitchell, Ajay 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（左踝扭伤）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动·主力",
+   "text": "CHI Wilson, Caleb 缺 → Available（-）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "UTA George, Keyonte 缺 → Questionable（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（右踝扭伤）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "POR Morant, Ja 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（左腘绳肌拉伤）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动·主力",
+   "text": "NOP Mathurin, Bennedict 缺 → Out（右拇指扭伤）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "POR Youngblood, Chris 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（右骨挫伤）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动·主力",
+   "text": "MEM Stewart, Isaiah Questionable → Available（右膝骨挫伤）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动·主力",
+   "text": "CHI Awaka, Tobe Questionable → Out（下背紧绷）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动·主力",
+   "text": "BKN Demin, Egor Probable → Available（右骨挫伤）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动·主力",
+   "text": "BKN Traore, Nolan Questionable → Out（右小腿紧绷/酸痛）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "ORL Isaac, Jonathan 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（左膝伤病管理）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "ORL Banchero, Paolo 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（右高位踝扭伤）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "OKC Wallace, Cason 缺 → Out（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（左肩手术）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动·主力",
+   "text": "GSW Richard, Will Questionable → Available（左拇指尺侧副韧带撕裂）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:11:50 PT",
+   "tag": "伤病变动",
+   "text": "ORL da Silva, Tristan 缺 → Questionable（球队此前尚未提交或未出现在上一份官方报告，不算盘中伤病突变）（左小腿拉伤）",
+   "source": "monitor/alerts.json · nba_official_pdf · 报告 2026-11-11_08_00PM_ET"
+  },
+  {
+   "time": "2026-11-11 17:00 PT",
+   "tag": "官方伤病",
+   "text": "官方伤病报告 08:00 PM ET：今日已锁定场次 有 44 处状态变化",
+   "source": "monitor/injuries.json（2026-11-11_08_00PM_ET）"
+  },
+  {
+   "time": "2026-11-11 16:56:51 PT",
+   "tag": "模型锁定",
+   "text": "赛前锁定 7 场：v5_cand_player、v5_cand_player_t、v5_cand_stack、v5_cand_stack_t、v5_selected=ESPN_FPI、v5_selected=ESPN_total",
+   "source": "live_ledger.csv"
+  },
+  {
+   "time": "2026-11-11 16:45:46 PT",
+   "tag": "模型锁定",
+   "text": "赛前锁定 7 场：massey、sagarin、v4_frozen_espn(no_late_inj_yet)",
+   "source": "live_ledger.csv"
+  },
+  {
+   "time": "2026-11-11 16:35 PT",
+   "tag": "电脑分",
+   "text": "ThePredictionTracker 快照：10 场 Massey / Sagarin / ESPN FPI 与美盘初盘、现盘",
+   "source": "nbapreds_20261111_1635.csv"
+  },
+  {
+   "time": "2026-11-11 08:19 PT",
+   "tag": "ESPN 胜率",
+   "text": "勇士@火箭：ESPN 赛前页 Matchup Predictor：火箭胜率 67.2% / 勇士 32.8%（这是胜负概率，不是让分）。来源：ESPN summary event 401909974。",
+   "source": "GSW_at_HOU_20261111_v2.md"
+  },
+  {
+   "time": "2026-11-11 08:19 PT",
+   "tag": "变盘",
+   "text": "勇士@火箭：盘口信号：美盘从 5.5 走到 6.5，是往火箭一侧的热度，不跟随（开发集跟随约 47%）。平博主盘 -6.0 比 DK -6.5 浅半档，方向不变。伤病名单较 11/10 夜间官方报告无变化，未见明显「伤病公布后盘口滞后」。",
+   "source": "GSW_at_HOU_20261111_v2.md"
+  },
+  {
+   "time": "2026-11-11 08:19 PT",
+   "tag": "伤病分歧",
+   "text": "勇士@火箭：分歧：ESPN 本场伤病栏写成 Out。以 NBA 官方报告为准，主预测不扣他。若他最终缺阵，球员盘会从 7.67 降到约 7.19，第二版约 4.85，方向不变。",
+   "source": "GSW_at_HOU_20261111_v2.md"
+  },
+  {
+   "time": "2026-11-11 08:19 PT",
+   "tag": "裁判",
+   "text": "勇士@火箭：NBA 官方裁判页：Mitchell Ervin（#27）、Eric Lewis（#42）、Brandon Adair（#67）。对本场总分的历史倾向：缺。",
+   "source": "GSW_at_HOU_20261111_v2.md"
+  },
+  {
+   "time": "2026-11-11 08:00 PT",
+   "tag": "官方伤病",
+   "text": "官方伤病报告 11:00 AM ET：今日已锁定场次 有 1 处状态变化：篮网@鹈鹕 Mikel Brown Jr. 未列→出战成疑",
+   "source": "Injury-Report_2026-11-11_11_00AM.txt"
+  },
+  {
+   "time": "2026-11-11 07:00 PT",
+   "tag": "官方伤病",
+   "text": "官方伤病报告 10:00 AM ET：今日已锁定场次 与上一版相比无变化",
+   "source": "Injury-Report_2026-11-11_10_00AM.txt"
+  },
+  {
+   "time": "2026-11-11 06:00 PT",
+   "tag": "官方伤病",
+   "text": "官方伤病报告 09:00 AM ET：今日已锁定场次 与上一版相比无变化",
+   "source": "Injury-Report_2026-11-11_09_00AM.txt"
+  },
+  {
+   "time": "2026-11-11 05:30 PT",
+   "tag": "官方伤病",
+   "text": "官方伤病报告 08:30 AM ET：今日已锁定场次 与上一版相比无变化",
+   "source": "Injury-Report_2026-11-11_08_30AM.txt"
+  },
+  {
+   "time": "2026-11-11 05:00 PT",
+   "tag": "官方伤病",
+   "text": "官方伤病报告 08:00 AM ET：今日已锁定场次 与上一版相比无变化",
+   "source": "Injury-Report_2026-11-11_08_00AM.txt"
+  },
+  {
+   "time": "2026-11-10 20:30 PT",
+   "tag": "官方伤病",
+   "text": "官方伤病报告 11:30 PM ET：今日已锁定场次 与上一版相比无变化",
+   "source": "Injury-Report_2026-11-10_11_30PM.txt"
+  },
+  {
+   "time": "2026-11-10 20:00 PT",
+   "tag": "官方伤病",
+   "text": "官方伤病报告 11:00 PM ET：今日已锁定场次 与上一版相比无变化",
+   "source": "Injury-Report_2026-11-10_11_00PM.txt"
+  },
+  {
+   "time": "2026-11-10 17:30 PT",
+   "tag": "官方伤病",
+   "text": "官方伤病报告 08:30 PM ET：今日已锁定场次 与上一版相比无变化",
+   "source": "Injury-Report_2026-11-10_08_30PM.txt"
+  },
+  {
+   "time": "2026-11-10 17:00 PT",
+   "tag": "官方伤病",
+   "text": "官方伤病报告 08:00 PM ET：今日已锁定场次 有 20 处状态变化",
+   "source": "Injury-Report_2026-11-10_08_00PM.txt"
+  },
+  {
+   "time": "2026-11-10 14:30 PT",
+   "tag": "官方伤病",
+   "text": "官方伤病报告 05:30 PM ET：今日已锁定 7 场共列出 19 人",
+   "source": "Injury-Report_2026-11-10_05_30PM.txt"
+  }
+ ],
+ "history": {
+  "groups": [
+   {
+    "title": "第六版 · 让分 · 本季样本外",
+    "desc": "160 场，本季样本外，对 DraftKings 初盘",
+    "rows": [
+     {
+      "label": "第六版 S6（主结论）",
+      "w": 83,
+      "l": 77,
+      "p": 0,
+      "pct": 51.9,
+      "note": ""
+     },
+     {
+      "label": "ESPN FPI",
+      "w": 84,
+      "l": 76,
+      "p": 0,
+      "pct": 52.5,
+      "note": ""
+     },
+     {
+      "label": "第五版融合 stack",
+      "w": 86,
+      "l": 74,
+      "p": 0,
+      "pct": 53.8,
+      "note": ""
+     }
+    ]
+   },
+   {
+    "title": "第六版 · 让分 · 上季整季留出",
+    "desc": "1163 场，2025-26 整季留出，对美盘初盘",
+    "rows": [
+     {
+      "label": "第六版 S6（主结论）",
+      "w": 599,
+      "l": 546,
+      "p": 18,
+      "pct": 52.3,
+      "note": ""
+     },
+     {
+      "label": "ESPN FPI",
+      "w": 584,
+      "l": 561,
+      "p": 18,
+      "pct": 51.0,
+      "note": ""
+     },
+     {
+      "label": "第五版融合 stack",
+      "w": 599,
+      "l": 546,
+      "p": 18,
+      "pct": 52.3,
+      "note": ""
+     },
+     {
+      "label": "Massey",
+      "w": 564,
+      "l": 581,
+      "p": 18,
+      "pct": 49.3,
+      "note": ""
+     },
+     {
+      "label": "Sagarin",
+      "w": 572,
+      "l": 573,
+      "p": 18,
+      "pct": 50.0,
+      "note": ""
+     }
+    ]
+   },
+   {
+    "title": "第六版 · 大小分 · 本季样本外",
+    "desc": "160 场，本季样本外，对 DraftKings 初盘",
+    "rows": [
+     {
+      "label": "第六版 T6（主结论）",
+      "w": 85,
+      "l": 75,
+      "p": 0,
+      "pct": 53.1,
+      "note": ""
+     },
+     {
+      "label": "ESPN 总分",
+      "w": 85,
+      "l": 75,
+      "p": 0,
+      "pct": 53.1,
+      "note": ""
+     },
+     {
+      "label": "第五版融合 stack_t",
+      "w": 76,
+      "l": 84,
+      "p": 0,
+      "pct": 47.5,
+      "note": ""
+     }
+    ]
+   },
+   {
+    "title": "第六版 · 大小分 · 上季整季留出",
+    "desc": "1312 场，2025-26 整季留出，对美盘初盘",
+    "rows": [
+     {
+      "label": "第六版 T6（主结论）",
+      "w": 673,
+      "l": 639,
+      "p": 0,
+      "pct": 51.3,
+      "note": ""
+     },
+     {
+      "label": "ESPN 总分",
+      "w": 698,
+      "l": 614,
+      "p": 0,
+      "pct": 53.2,
+      "note": ""
+     },
+     {
+      "label": "第五版融合 stack_t",
+      "w": 636,
+      "l": 676,
+      "p": 0,
+      "pct": 48.5,
+      "note": ""
+     }
+    ]
+   },
+   {
+    "title": "第五版 · 本季样本外 · 让分",
+    "desc": "2026-10-20 至 11-10 共 160 场，对 DraftKings 初盘",
+    "rows": [
+     {
+      "label": "冻结选定 ESPN FPI",
+      "w": 84,
+      "l": 76,
+      "p": 0,
+      "pct": 52.5,
+      "note": ""
+     },
+     {
+      "label": "融合版 stack",
+      "w": 86,
+      "l": 74,
+      "p": 0,
+      "pct": 53.8,
+      "note": ""
+     },
+     {
+      "label": "自建球员模型",
+      "w": 79,
+      "l": 81,
+      "p": 0,
+      "pct": 49.4,
+      "note": ""
+     },
+     {
+      "label": "第四版",
+      "w": 80,
+      "l": 80,
+      "p": 0,
+      "pct": 50.0,
+      "note": ""
+     },
+     {
+      "label": "Massey",
+      "w": null,
+      "l": null,
+      "p": null,
+      "pct": null,
+      "note": "缺：本季没有赛前存档"
+     },
+     {
+      "label": "Sagarin",
+      "w": null,
+      "l": null,
+      "p": null,
+      "pct": null,
+      "note": "缺：本季没有赛前存档"
+     }
+    ]
+   },
+   {
+    "title": "第五版 · 本季样本外 · 只看高把握",
+    "desc": "各模型与初盘差 ≥3 分的场次",
+    "rows": [
+     {
+      "label": "冻结选定 ESPN FPI（高把握）",
+      "w": 17,
+      "l": 15,
+      "p": 0,
+      "pct": 53.1,
+      "note": ""
+     },
+     {
+      "label": "融合版 stack（高把握）",
+      "w": 23,
+      "l": 12,
+      "p": 0,
+      "pct": 65.7,
+      "note": ""
+     },
+     {
+      "label": "自建球员模型（高把握）",
+      "w": 26,
+      "l": 25,
+      "p": 0,
+      "pct": 51.0,
+      "note": ""
+     },
+     {
+      "label": "第四版（高把握）",
+      "w": 25,
+      "l": 22,
+      "p": 0,
+      "pct": 53.2,
+      "note": ""
+     }
+    ]
+   },
+   {
+    "title": "第五版 · 上季整季留出 · 让分",
+    "desc": "2025-26 整季 1296 场，对美盘初盘，含 Massey / Sagarin",
+    "rows": [
+     {
+      "label": "融合版 stack",
+      "w": 677,
+      "l": 600,
+      "p": 19,
+      "pct": 53.0,
+      "note": ""
+     },
+     {
+      "label": "第四版",
+      "w": 673,
+      "l": 604,
+      "p": 19,
+      "pct": 52.7,
+      "note": ""
+     },
+     {
+      "label": "自建球员模型",
+      "w": 659,
+      "l": 618,
+      "p": 19,
+      "pct": 51.6,
+      "note": ""
+     },
+     {
+      "label": "冻结选定 ESPN FPI",
+      "w": 657,
+      "l": 620,
+      "p": 19,
+      "pct": 51.4,
+      "note": ""
+     },
+     {
+      "label": "Sagarin",
+      "w": 649,
+      "l": 628,
+      "p": 19,
+      "pct": 50.8,
+      "note": ""
+     },
+     {
+      "label": "Massey",
+      "w": 643,
+      "l": 634,
+      "p": 19,
+      "pct": 50.4,
+      "note": ""
+     }
+    ]
+   },
+   {
+    "title": "第五版 · 本季样本外 · 大小分",
+    "desc": "160 场，对 DraftKings 初盘",
+    "rows": [
+     {
+      "label": "冻结选定 ESPN 总分",
+      "w": 85,
+      "l": 75,
+      "p": 0,
+      "pct": 53.1,
+      "note": ""
+     },
+     {
+      "label": "融合版 stack_t",
+      "w": 76,
+      "l": 84,
+      "p": 0,
+      "pct": 47.5,
+      "note": ""
+     },
+     {
+      "label": "自建球员总分",
+      "w": 74,
+      "l": 86,
+      "p": 0,
+      "pct": 46.2,
+      "note": ""
+     }
+    ]
+   },
+   {
+    "title": "第二版独立验证集 · 让分",
+    "desc": "25 场，样本很小，只作参考",
+    "rows": [
+     {
+      "label": "V2官方(等权五源)",
+      "w": 12,
+      "l": 13,
+      "p": 0,
+      "pct": 48.0,
+      "note": ""
+     },
+     {
+      "label": "V1自建(shrink_eff)",
+      "w": 12,
+      "l": 13,
+      "p": 0,
+      "pct": 48.0,
+      "note": ""
+     },
+     {
+      "label": "Massey",
+      "w": 12,
+      "l": 13,
+      "p": 0,
+      "pct": 48.0,
+      "note": ""
+     },
+     {
+      "label": "Sagarin",
+      "w": 13,
+      "l": 12,
+      "p": 0,
+      "pct": 52.0,
+      "note": ""
+     },
+     {
+      "label": "ESPN FPI",
+      "w": 15,
+      "l": 10,
+      "p": 0,
+      "pct": 60.0,
+      "note": ""
+     },
+     {
+      "label": "V2球员盘",
+      "w": 14,
+      "l": 11,
+      "p": 0,
+      "pct": 56.0,
+      "note": ""
+     },
+     {
+      "label": "V2滚动Ridge",
+      "w": 14,
+      "l": 11,
+      "p": 0,
+      "pct": 56.0,
+      "note": ""
+     }
+    ]
+   },
+   {
+    "title": "对收盘 · 让分",
+    "desc": "2025-26 整季对收盘线：所有模型都在五成上下",
+    "rows": [
+     {
+      "label": "第三版 Ridge",
+      "w": 627,
+      "l": 668,
+      "p": 20,
+      "pct": 48.4,
+      "note": ""
+     },
+     {
+      "label": "ESPN FPI",
+      "w": 650,
+      "l": 645,
+      "p": 20,
+      "pct": 50.2,
+      "note": ""
+     },
+     {
+      "label": "Massey",
+      "w": 630,
+      "l": 665,
+      "p": 20,
+      "pct": 48.6,
+      "note": ""
+     },
+     {
+      "label": "Sagarin",
+      "w": 620,
+      "l": 675,
+      "p": 20,
+      "pct": 47.9,
+      "note": ""
+     }
+    ]
+   }
+  ],
+  "live": {
+   "graded_rows": 0,
+   "w": 0,
+   "l": 0,
+   "pct": null,
+   "note": "账本里还没有赛后对错（今晚比赛结束后才会填）"
+  },
+  "is_first": false,
+  "is_first_note": "第五版报告结论：冻结规则选出的是 ESPN 本身，自建模型没有赢过 ESPN；所有模型对收盘都在五成左右。"
+ },
+ "missing": [
+  "皇冠盘口：全部场次缺（需在雷速网页用浏览器读取）",
+  "雷速 12 家中位数：缺（只能走浏览器）",
+  "官方首发：缺（报告没有列首发）",
+  "最新官方伤病报告版本：11-11 08:00 PM ET；之后的版本要等下一轮监控",
+  "裁判：只有勇士@火箭有名单，其余场次缺；裁判历史倾向全部缺",
+  "平博：未开赛场次全部有盘，已计入多家中位数",
+  "已开赛场次：盘口停在赛前锁定时（监控不收滚球盘）",
+  "本季 Massey / Sagarin 历史对比：缺（没有赛前存档）",
+  "今晚赛后对错：比赛结束后才有",
+  "马刺@公牛：第六版没有锁定这场，结论沿用第五版",
+  "掘金@灰熊：第六版没有锁定这场，结论沿用第五版",
+  "湖人@雄鹿：第六版没有锁定这场，结论沿用第五版",
+  "篮网@鹈鹕：第六版没有锁定这场，结论沿用第五版",
+  "注意 雷霆@开拓者：各家现盘最多相差 4 分（DraftKings、平博 Pinnacle、美盘共识（ThePredictionTracker）），公司分歧大",
+  "盘口监控：ESPN core / 记分板目前只返回 DraftKings，FanDuel/Caesars/ESPN BET 缺"
+ ],
+ "sources": [
+  {
+   "name": "赛前锁定账本 live_ledger.csv",
+   "file": "out/live_ledger.csv",
+   "updated": "2026-11-11 17:17 PT",
+   "note": "每场赛前锁定的方向/盘口/把握度；赛后填对错",
+   "exists": true
+  },
+  {
+   "name": "ESPN 记分板",
+   "file": "raw/espn_scoreboard.json",
+   "updated": "2026-11-11 07:52 PT",
+   "note": "开球时间、场馆、战绩、转播",
+   "exists": true
+  },
+  {
+   "name": "ThePredictionTracker 快照",
+   "file": "raw/tpt_daily/nbapreds_20261111_1635.csv",
+   "updated": "2026-11-11 16:34 PT",
+   "note": "快照时间 2026-11-11 16:35 PT；Massey/Sagarin/ESPN FPI 等电脑分与美盘初盘/现盘",
+   "exists": true
+  },
+  {
+   "name": "盘口监控 lines.json",
+   "file": "monitor/lines.json",
+   "updated": "2026-11-11 17:14 PT",
+   "note": "监控更新 2026-11-11 17:14:44 PT；DraftKings（ESPN）/ 平博 / TPT 共识，含初盘与变盘",
+   "exists": true
+  },
+  {
+   "name": "伤病监控 injuries.json",
+   "file": "monitor/injuries.json",
+   "updated": "2026-11-11 17:14 PT",
+   "note": "监控更新 2026-11-11 17:14:45 PT；NBA 官方伤病报告（监控抓取）",
+   "exists": true
+  },
+  {
+   "name": "变动事件 alerts.json",
+   "file": "monitor/alerts.json",
+   "updated": "2026-11-11 17:14 PT",
+   "note": "监控更新 2026-11-11 17:14:46 PT；盘口变动 >1 分、伤病状态变化",
+   "exists": true
+  },
+  {
+   "name": "NBA 官方伤病报告",
+   "file": "raw/inj/monitor/injuries.json（2026-11-11_08_00PM_ET）",
+   "updated": null,
+   "note": "最新一版 11-11 08:00 PM ET（17:00 PT）",
+   "exists": false
+  },
+  {
+   "name": "球员 NBA ID（官方伤病报告整理表）",
+   "file": "raw/inj_reports/injury_report_2027_new.csv",
+   "updated": "2026-11-11 16:49 PT",
+   "note": "person_id 字段 = NBA 官方 personId，用于官方头像",
+   "exists": true
+  },
+  {
+   "name": "勇士@火箭 第二版赛前报告",
+   "file": "out/GSW_at_HOU_20261111_v2.md",
+   "updated": "2026-11-11 08:22 PT",
+   "note": "约 08:19 PT 采集",
+   "exists": true
+  },
+  {
+   "name": "勇士@火箭 演示报告",
+   "file": "out/GSW_at_HOU_20261111.md",
+   "updated": "2026-11-11 08:02 PT",
+   "note": "约 08:02 PT 采集",
+   "exists": true
+  },
+  {
+   "name": "勇士@火箭 盘口缓存",
+   "file": "cache/GSW_at_HOU.json",
+   "updated": "2026-11-11 08:02 PT",
+   "note": "平博/DraftKings/Covers，08:02 PT",
+   "exists": true
+  },
+  {
+   "name": "第六版回测指标",
+   "file": "v6/v6_metrics.json",
+   "updated": "2026-11-11 17:11 PT",
+   "note": "",
+   "exists": true
+  },
+  {
+   "name": "第五版回测指标",
+   "file": "v5/v5_metrics.json",
+   "updated": "2026-11-11 16:56 PT",
+   "note": "",
+   "exists": true
+  },
+  {
+   "name": "第二版回测指标",
+   "file": "out/v2_metrics.json",
+   "updated": "2026-11-11 08:17 PT",
+   "note": "",
+   "exists": true
+  },
+  {
+   "name": "第三版回测指标",
+   "file": "out/v3_metrics.json",
+   "updated": "2026-11-11 08:30 PT",
+   "note": "",
+   "exists": true
+  },
+  {
+   "name": "selected_model_v5.json",
+   "file": "out/selected_model_v5.json",
+   "updated": "2026-11-11 16:57 PT",
+   "note": "",
+   "exists": true
+  },
+  {
+   "name": "v4_metrics.json",
+   "file": "out/v4_metrics.json",
+   "updated": "2026-11-11 08:37 PT",
+   "note": "",
+   "exists": true
+  },
+  {
+   "name": "v5_report.md",
+   "file": "out/v5_report.md",
+   "updated": "2026-11-11 16:57 PT",
+   "note": "",
+   "exists": true
+  },
+  {
+   "name": "v4_report.md",
+   "file": "out/v4_report.md",
+   "updated": "2026-11-11 08:38 PT",
+   "note": "",
+   "exists": true
+  },
+  {
+   "name": "v3_report.md",
+   "file": "out/v3_report.md",
+   "updated": "2026-11-11 08:32 PT",
+   "note": "",
+   "exists": true
+  },
+  {
+   "name": "v2_report.md",
+   "file": "out/v2_report.md",
+   "updated": "2026-11-11 08:22 PT",
+   "note": "",
+   "exists": true
+  }
+ ],
+ "rules": [
+  "只用赛前锁定的数据，不用赛后信息",
+  "伤病只认 NBA 官方报告",
+  "主盘口用多家中位数，皇冠单独列",
+  "只看方向命中率"
+ ]
+}
