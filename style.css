@@ -229,3 +229,20 @@ html{overflow-anchor:auto}
 .court-bar{height:104px;justify-content:flex-start;padding:8px 10px}
 .cb-act{display:flex!important;align-items:center;justify-content:center;height:52px;line-height:1.25;overflow:hidden;-webkit-line-clamp:unset;word-break:break-word;overflow-wrap:anywhere}
 .cb-sub{margin-top:6px}
+/* 日期栏 */
+.datebar{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+.datebar::-webkit-scrollbar{display:none}
+.dchip{flex:0 0 auto;width:64px;height:50px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--txt);font-family:inherit;cursor:pointer;scroll-snap-align:center;padding:4px 0}
+.dchip b{display:block;font-size:14px;font-variant-numeric:tabular-nums}.dchip span{font-size:11px;color:var(--dim)}
+.dchip.today span{color:var(--cyan);font-weight:700}
+.dchip.on{border-color:var(--cyan);background:#10213b;box-shadow:0 0 12px rgba(51,225,255,.35)}
+main.day-mode > *:not(#dateBar):not(#dayView):not(footer){display:none!important}
+.daylist{list-style:none;margin:0;padding:0}
+.daylist li{padding:10px 4px;border-bottom:1px solid #18213b}
+.tm2{display:flex;justify-content:space-between;gap:8px;font-weight:800}
+.st2{font-weight:600;color:var(--dim);font-size:13px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.st2 .fs{color:#fff;font-size:16px}
+.lk{font-size:14px;margin-top:4px}.lk.sm{font-size:13px;color:#cfd8ee}.lk small{color:var(--dim)}
+.res{display:inline-block;font-size:12px;font-weight:900;padding:1px 8px;border-radius:999px;margin-left:4px}
+.res.rW{background:rgba(47,227,154,.2);color:#2fe39a}.res.rL{background:rgba(255,59,92,.2);color:#ff6b84}.res.rP{background:#2a3350;color:#aab3cc}
+.calc{font-size:11px;color:var(--dim);margin-left:4px}

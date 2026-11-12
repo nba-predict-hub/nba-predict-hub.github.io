@@ -133,6 +133,8 @@
   function renderAll(first) { keepScroll(function () { renderAll0(first); }); }
   function renderAll0(first) {
     var d = state.data;
+    renderDateBar();
+    if (dayState.sel && dayState.sel !== dayState.today && dayState.cache[dayState.sel]) drawDay(dayState.sel, dayState.iso, dayState.cache[dayState.sel].events);
     $("genAt").textContent = "更新于 " + String(d.generated_at || "").slice(11, 16) + " · 最新锁定 " + (d.last_lock ? String(d.last_lock).slice(11, 16) : "暂无");
     $("footGen").textContent = "数据更新于 " + String(d.generated_at || "").slice(0, 16) + "（太平洋时间）";
     if (!state.sel || !allGames().some(function (g) { return g.espn_id === state.sel; })) state.sel = d.featured || ((d.games || [])[0] || {}).espn_id;
@@ -621,6 +623,84 @@
   window.NBA = { game: function () { return state.data ? game() : null; } };
   window.LIVE = live; window.liveFor = liveFor; window.statusCn = statusCn;
   document.addEventListener("visibilitychange", function () { if (!document.hidden) pollScores(); });
+
+  /* ---------- 日期栏（雷速式）：点哪天看哪天；今天显示完整页面，其他日子显示当天赛果/赛程 ---------- */
+  var WEEK = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+  var dayState = { sel: null, today: null, cache: {} };
+  function ptParts(dt) {
+    var f = new Intl.DateTimeFormat("en-US", { timeZone: "America/Los_Angeles", year: "numeric", month: "2-digit", day: "2-digit", weekday: "short" }).formatToParts(dt), o = {};
+    f.forEach(function (p) { o[p.type] = p.value; });
+    return { y: +o.year, m: +o.month, d: +o.day, key: o.year + o.month + o.day, iso: o.year + "-" + o.month + "-" + o.day, w: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(o.weekday) };
+  }
+  function renderDateBar() {
+    var bar = $("dateBar"); if (!bar || bar._done) return;
+    var now = Date.now(), t = ptParts(new Date(now)); dayState.today = t.key; if (!dayState.sel) dayState.sel = t.key;
+    var h = "";
+    for (var i = -10; i <= 7; i++) {
+      var p = ptParts(new Date(now + i * 86400000 + 0));
+      h += '<button class="dchip' + (p.key === dayState.sel ? " on" : "") + (i === 0 ? " today" : "") + '" data-day="' + p.key + '" data-iso="' + p.iso + '"><b>' + p.m + "月" + p.d + "日</b><span>" + (i === 0 ? "今天" : WEEK[p.w]) + "</span></button>";
+    }
+    bar.innerHTML = h; bar._done = true;
+    bar.querySelectorAll(".dchip").forEach(function (b) { b.onclick = function () { selectDay(b.getAttribute("data-day"), b.getAttribute("data-iso")); }; });
+    var on = bar.querySelector(".dchip.on"); if (on) bar.scrollLeft = on.offsetLeft - bar.clientWidth / 2 + on.offsetWidth / 2;
+  }
+  function selectDay(key, iso) {
+    dayState.sel = key; dayState.iso = iso;
+    $("dateBar").querySelectorAll(".dchip").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-day") === key); });
+    var main = $("app"), dv = $("dayView");
+    if (key === dayState.today) { main.classList.remove("day-mode"); dv.hidden = true; return; }
+    main.classList.add("day-mode"); dv.hidden = false;
+    var c = dayState.cache[key];
+    if (c) drawDay(key, iso, c.events);
+    else dv.innerHTML = '<p class="note">读取中…</p>';
+    var stale = !c || (key >= dayState.today && Date.now() - c.t > 300000);
+    if (stale) fetch(SB_URL + "?dates=" + key + "&t=" + Date.now(), { cache: "no-store" }).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
+      var evs = []; var nb = parseSB(d); for (var k in nb) if (k === nb[k].id) evs.push(nb[k]);
+      dayState.cache[key] = { t: Date.now(), events: evs };
+      if (dayState.sel === key) drawDay(key, iso, evs);
+    }).catch(function () { if (dayState.sel === key && !c) dv.innerHTML = '<p class="note">赛程读取失败，稍后再点一次</p>'; });
+  }
+  function judge(lock, s, kind) {
+    // 先用台账 result；没填且已终场，就用终场比分对照锁定线算（只在页面上算，不写回）
+    if (!lock) return null;
+    if (lock.result === "W" || lock.result === "L" || lock.result === "P") return { r: lock.result, calc: false };
+    if (!s || s.state !== "post" || s.hs == null) return null;
+    var x;
+    if (kind === "total") { if (lock.line_total == null) return null; x = (s.hs + s.as - lock.line_total) * (lock.pick === "UNDER" ? -1 : 1); }
+    else if (lock.kind === "pick_line") { if (lock.pick_line == null) return null; x = (lock.pick === s.hab ? s.hs - s.as : s.as - s.hs) + lock.pick_line; }
+    else { if (lock.line_home == null) return null; var mg = s.hs - s.as; x = lock.pick === s.hab ? mg - lock.line_home : lock.line_home - mg; }
+    return { r: x > 0 ? "W" : x < 0 ? "L" : "P", calc: true };
+  }
+  function resChip(j) {
+    if (!j) return "";
+    var t = { W: "对", L: "错", P: "走盘" }[j.r];
+    return '<span class="res r' + j.r + '">' + t + "</span>" + (j.calc ? '<small class="calc">按终场比分算</small>' : "");
+  }
+  window.DAY = { draw: function (k, i, e) { drawDay(k, i, e); }, st: dayState };
+  function drawDay(key, iso, evs) {
+    var dv = $("dayView"), locks = ((state.data || {}).locks_by_date || {})[iso] || {}, past = key < dayState.today;
+    var p = { m: +key.slice(4, 6), d: +key.slice(6, 8) };
+    var h = '<h2>' + p.m + "月" + p.d + "日 " + (past ? "赛果" : "赛程") + ' <small class="dim">（太平洋时间）</small></h2>';
+    if (!evs.length) h += '<p class="note">这天没有 NBA 比赛。</p>';
+    var nW = 0, nL = 0;
+    h += '<ul class="daylist">' + evs.map(function (s) {
+      var L = locks[s.id] || null;
+      if (!L) for (var k in locks) if (locks[k].away === s.aab && locks[k].home === s.hab) L = locks[k];
+      var an = TEAM_CN[s.aab] || s.aab, hn = TEAM_CN[s.hab] || s.hab;
+      var st = s.state === "post" ? '<b class="fs">' + s.as + " : " + s.hs + "</b> 终场" : s.state === "in" ? '<b class="fs">' + s.as + " : " + s.hs + "</b> " + esc(statusCn(s)) : esc(s.tip) + " 开赛";
+      var lk = "";
+      if (L && (L.spread || L.total)) {
+        var js = judge(L.spread, s, "spread"), jt = judge(L.total, s, "total");
+        if (js && js.r === "W") nW++; if (js && js.r === "L") nL++;
+        if (L.spread) lk += '<div class="lk">' + (past ? "赛前锁定：" : "模型预测：") + "<b>" + esc(L.spread.pick_text) + "</b> <small>" + esc(L.spread.model_label) + (L.spread.band_cn ? " · 把握度" + esc(L.spread.band_cn) : "") + "</small> " + resChip(js) + "</div>";
+        if (L.total) lk += '<div class="lk sm">大小分：<b>' + esc(L.total.pick_text) + "</b> " + resChip(jt) + "</div>";
+      } else lk = '<div class="lk dim">' + (past || s.state !== "pre" ? "当日未预测" : "暂无预测") + "</div>";
+      return '<li><div class="tm2"><span>' + esc(an) + " @ " + esc(hn) + '</span><span class="st2">' + st + "</span></div>" + lk + "</li>";
+    }).join("") + "</ul>";
+    if (nW + nL) h += '<p class="note">这天让分方向：对 ' + nW + " 场，错 " + nL + " 场（只算赛前锁定的）。</p>";
+    h += '<p class="note">只用开赛前锁定的记录；对错优先用我们账本里的结果，账本还没填时按终场比分对照锁定的盘口算。</p>';
+    dv.innerHTML = h;
+  }
   /* ---------- 拉取与自动刷新 ---------- */
   function load(first) {
     return fetch("data.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) {

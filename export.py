@@ -998,6 +998,87 @@ except Exception as ex:
     print("第八版早锁处理失败（忽略）：", ex, file=sys.stderr)
     V8 = {"by_id": {}, "board": {"has": False, "target": 300}}
 
+# ---- 按日期的赛前锁定记录（日期栏用；只要开赛前锁定的） ----
+def _lock_utc(lt):
+    try:
+        t = datetime.strptime(str(lt).replace(" PT", "").strip()[:19], "%Y-%m-%d %H:%M:%S")
+        return t.replace(tzinfo=PT).astimezone(timezone.utc)
+    except Exception:
+        return None
+
+
+def _tip_utc(t):
+    try:
+        return datetime.strptime(str(t).strip()[:17], "%Y-%m-%dT%H:%MZ").replace(tzinfo=timezone.utc)
+    except Exception:
+        return None
+
+
+def _ver(m):
+    mm = re.search(r"v(\d+)[_=]", m or "")
+    return int(mm.group(1)) if mm else 0
+
+
+LT_PREF = ["dk_current", "dk_open", "tpt_current", "tpt_open"]
+HIST_LOCKS = {}
+try:
+    by_game = {}
+    TIPS = {}
+    for r in ledger:  # 有些行没写开赛时间：用同场其他行的
+        if _tip_utc(r.get("tip_utc")):
+            TIPS[r["espn_id"]] = r["tip_utc"]
+    for r in ledger:
+        lu, tu = _lock_utc(r.get("lock_time")), _tip_utc(r.get("tip_utc") or TIPS.get(r["espn_id"]))
+        if not lu or not tu or lu >= tu:
+            continue  # 锁定时间晚于开赛的不用
+        by_game.setdefault((r["game_date"], r["espn_id"]), []).append(r)
+
+    def choose(rows, market):
+        rs = [r for r in rows if r["market"] == market and r.get("pick")]
+        if not rs:
+            return None
+        top = max(_ver(r["model"]) for r in rs)
+        rs = [r for r in rs if _ver(r["model"]) == top]
+        def score(r):
+            m = r["model"].lower()
+            pref = next((i for i, k in enumerate(MAIN_PREF) if k in m), len(MAIN_PREF))
+            lt = LT_PREF.index(r["line_type"]) if r["line_type"] in LT_PREF else 9
+            return (pref, lt, "" if False else "~" + r["lock_time"])
+        rs.sort(key=lambda r: (score(r)[0], score(r)[1]))
+        best = [r for r in rs if score(r)[:2] == score(rs[0])[:2]]
+        return max(best, key=lambda r: r["lock_time"])
+
+    for (gd, gid), rows in by_game.items():
+        a, h = rows[0]["away"], rows[0]["home"]
+        e = {"espn_id": str(gid), "away": a, "home": h, "tip_utc": rows[0].get("tip_utc")}
+        sp = choose(rows, "spread")
+        if sp:
+            ln = fnum(sp["line_home"])
+            e["spread"] = {"kind": "home_line", "pick": sp["pick"], "pick_cn": cn(sp["pick"]), "pick_text": handicap_text(sp["pick"], sp["pick"] == h, ln),
+                           "line_home": ln, "model_label": model_label(sp["model"]), "band_cn": BAND.get(sp.get("band") or "", ""), "lock_time": sp["lock_time"],
+                           "result": (sp.get("result") or "").strip().upper()[:1] or None}
+        to = choose(rows, "total")
+        if to and fnum(to.get("line_total")) is not None:
+            e["total"] = {"pick": to["pick"], "pick_text": f"{ {'OVER': '大', 'UNDER': '小'}.get(to['pick'], to['pick']) } {fnum(to['line_total']):g}",
+                          "line_total": fnum(to["line_total"]), "model_label": model_label(to["model"]), "lock_time": to["lock_time"],
+                          "result": (to.get("result") or "").strip().upper()[:1] or None}
+        HIST_LOCKS.setdefault(gd, {})[str(gid)] = e
+
+    # 第八版早锁：有就作为该场让分主结论（结果取对账文件）
+    v8res = {x["espn_id"].split(".")[0]: (x["res"] or "").strip().upper()[:1] or None for x in v8_read(V8_SCORES)}
+    for x in v8_read(V8_LEDGER):
+        gid = (x["espn_id"] or "").split(".")[0]
+        if not gid or not x["pick"]:
+            continue
+        lu = _lock_utc(x["lock_time"])
+        pl = fnum(x["pick_line"]); pk = v8_team(x["pick"]); a8, h8 = v8_team(x["away"]), v8_team(x["home"])
+        gd = x["game_date"] or ""
+        e = HIST_LOCKS.setdefault(gd, {}).setdefault(gid, {"espn_id": gid, "away": a8, "home": h8})
+        e["spread"] = {"kind": "pick_line", "pick": pk, "pick_cn": cn(pk), "pick_text": f"{cn(pk)} {pl:+g}" if pl is not None else cn(pk), "pick_line": pl,
+                       "model_label": "第八版早锁", "band_cn": BAND.get(x["band"], ""), "lock_time": x["lock_time"], "result": v8res.get(gid)}
+except Exception as ex:
+    print("历史锁定记录处理失败（忽略）：", ex, file=sys.stderr)
+
 now = datetime.now(PT)
 data = {
     "generated_at": now.strftime("%Y-%m-%d %H:%M:%S PT"),
@@ -1016,6 +1097,7 @@ data = {
     },
     "games": out_games,
     "v8": V8,
+    "locks_by_date": HIST_LOCKS,
     "unlocked_games": unlocked,
     "feed": feed,
     "history": history,
