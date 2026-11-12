@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-11 17:19:02 PT",
- "generated_at_iso": "2026-11-11T17:19:02.247745-08:00",
+ "generated_at": "2026-11-11 17:27:03 PT",
+ "generated_at_iso": "2026-11-11T17:27:03.422638-08:00",
  "game_date": "2026-11-11",
  "last_lock": "2026-11-11 17:17:17 PT",
  "featured": "401909974",
@@ -33,7 +33,7 @@
    "pct": null
   },
   "rule": "自动取台账里版本号最大的模型；同版本内按 stack > fusion > 融合 > selected 选主结论",
-  "note": null
+  "note": "该版本冻结规则文件写的是：{'model': 'S6', 'def': 'walk-forward ridge(alpha=30) on [player model, APM(lambda=30), ESPN FPI, rest diff, b2b flags, travel km diff, tz diff, games-in-4-days "
  },
  "games": [
   {
@@ -3493,7 +3493,7 @@
   {
    "name": "第六版回测指标",
    "file": "v6/v6_metrics.json",
-   "updated": "2026-11-11 17:11 PT",
+   "updated": "2026-11-11 17:20 PT",
    "note": "",
    "exists": true
   },
