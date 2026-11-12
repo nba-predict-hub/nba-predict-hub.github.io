@@ -98,7 +98,7 @@
     if (p.shootingPlay) {
       var made = !!p.scoringPlay || / makes /.test(txt), ft = /free throw/i.test(tt);
       var dist = /(\d+)-foot/.exec(txt), k = shotKind(tt, txt, p.pointsAttempted);
-      r.kind = ft ? "ft" : "shot"; r.made = made; r.three = k === "三分"; r.dunk = /扣/.test(k); r.lay = /上篮|挑篮|补篮/.test(k);
+      r.kind = ft ? "ft" : "shot"; r.made = made; r.shot = ft ? "" : k; r.three = k === "三分"; r.dunk = /扣/.test(k); r.lay = /上篮|挑篮|补篮/.test(k);
       var ftm = /(\d) of (\d)/.exec(tt); if (ft && ftm) { r.ftn = +ftm[1]; r.ftof = +ftm[2]; }
       var blk = /^(.+?) blocks /.exec(txt), ast = /\((.+?) assists\)/.exec(txt);
       if (blk) { r.blocker = P.byName[blk[1].trim()] || parts[1]; }
@@ -113,13 +113,13 @@
       return r;
     }
     if (/turnover/i.test(tt) || /turnover/i.test(txt)) {
-      r.kind = "to"; var st = /\((.+?) steals\)/.exec(txt);
+      r.kind = "to"; var st = /\((.+?) steals\)/.exec(txt); r.totype = pick(TO, tt + " " + txt, "");
       if (st) r.stealer = P.byName[st[1].trim()] || parts[1];
       r.txt = (w || tcn) + " 失误（" + pick(TO, tt + " " + txt, "失误") + "）" + (st ? "，" + nameFromText(st[1]) + " 抢断" : "");
       return r;
     }
     if (/foul/i.test(tt)) {
-      r.kind = "foul"; var dr = /\((.+?) draws the foul\)/.exec(txt);
+      r.kind = "foul"; var dr = /\((.+?) draws the foul\)/.exec(txt); r.ftype = pick(FOUL, tt, "犯规"); if (dr) r.drawer = P.byName[dr[1].trim()] || parts[1];
       r.txt = (w || tcn) + " " + pick(FOUL, tt, "犯规") + (dr ? "（" + nameFromText(dr[1]) + " 造犯规）" : "");
       return r;
     }
