@@ -120,6 +120,26 @@ def main():
     out = {"source": "NBA 官方伤病报告", "url": url, "version": version, "version_pt": dt.astimezone(PT).strftime("%H:%M"),
            "version_et": dt.strftime("%H:%M"), "published_pt": pub.strftime("%Y-%m-%d %H:%M:%S") if pub else "",
            "fetched_pt": seen.strftime("%Y-%m-%d %H:%M:%S"), "games": games}
+    # 和上一版比：同一场比赛、同一球员状态变了才标；没有可比的就不标。重跑同一版时沿用上次的对比结果
+    try:
+        old = json.load(open(OUT))
+    except Exception:
+        old = {}
+    if old.get("version") == version:
+        prev_games, prev_ver = old.get("prev_games") or {}, old.get("prev_version_pt", "")
+    else:
+        prev_games = {gk: {r["team"] + "|" + r["name"]: [r.get("status"), r.get("status_cn")] for r in rows} for gk, rows in (old.get("games") or {}).items()}
+        prev_ver = old.get("version_pt", "")
+    for gk, rows in games.items():
+        pg = prev_games.get(gk)
+        if not pg:
+            continue
+        for r in rows:
+            o2 = pg.get(r["team"] + "|" + r["name"])
+            if o2 and o2[0] and o2[0] != r.get("status"):
+                r["prev_status"], r["prev_status_cn"] = o2[0], o2[1]
+    out["prev_version_pt"] = prev_ver
+    out["prev_games"] = prev_games
     tmp = OUT + ".tmp"; json.dump(out, open(tmp, "w"), ensure_ascii=False, separators=(",", ":")); os.replace(tmp, OUT)
     json.dump({"version": version, "version_dt": dt.isoformat()}, open(STATE, "w"))
     lag = (seen - pub).total_seconds() if pub else None

@@ -29,13 +29,15 @@
     });
   }
   // 球员中文名：同事生成的 player_names_zh.json（键 = ESPN 球员 ID），查不到就用英文姓
-  P.zh = {}; P.zhByEn = {};
+  P.zh = {}; P.zhByEn = {}; P.zhFullByEn = {};
+  // 文本里的英文全名换成虎扑中文全名（只换译名表里有的，没有的保留英文）
+  P.zhText = function (s) { return String(s || "").replace(/[A-Z][A-Za-z.'\-]+(?: (?:(?:da|de|del|der|di|du|la|le|van|von|dos) )?[A-Z][A-Za-z.'\-]+)+/g, function (m) { return P.zhFullByEn[m.toLowerCase()] || m; }); };
   P.loadNames = function () {
     return fetch("player_names_zh.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : {}; }).then(function (j) {
       var m = (j && j.players) || j || {}, by = {};
-      for (var k in m) { var v = m[k]; if (v && typeof v === "object" && (v.zh_short || v.zh)) { if (v.en) by[String(v.en).trim().toLowerCase()] = v.zh_short || v.zh; } else delete m[k]; }
+      for (var k in m) { var v = m[k]; if (v && typeof v === "object" && (v.zh_short || v.zh)) { if (v.en) { by[String(v.en).trim().toLowerCase()] = v.zh_short || v.zh; if (v.zh) P.zhFullByEn[String(v.en).trim().toLowerCase()] = v.zh; } } else delete m[k]; }
       var changed = JSON.stringify(Object.keys(m).length) !== JSON.stringify(Object.keys(P.zh).length);
-      P.zh = m; P.zhByEn = by;
+      P.zh = m; P.zhByEn = by; if (window.NBA_NAMES) try { window.NBA_NAMES(); } catch (e) {}
       if (changed && P.plays.length) { P.plays = P.plays.map(function (r) { var x = tr(r._p); x.el = r.el; return x; }); var g = selGame(); if (g) render(g, null); }
     }).catch(function () {});
   };
@@ -294,8 +296,8 @@
     h += '<div class="st-five">';
     teams.forEach(function (t) {
       var ids = five[t] || [];
-      h += '<div class="st-team"><div class="st-tn" style="color:' + esc(P.teams[t].color) + '">' + esc(P.teams[t].cn) + " 场上五人（非首发）</div>" +
-        (ids.length === 5 ? ids.map(function (id) { var a = P.ath[id]; return '<span class="st-p' + (a.fouls >= 5 ? " f5" : "") + '">' + head(id) + "<b>" + esc(nm(id)) + "</b><i>" + (a.fouls != null ? a.fouls + "犯" : "") + "</i></span>"; }).join("") : '<span class="dim">暂无（ESPN 没给出完整在场名单）</span>') + "</div>";
+      h += '<div class="st-team"><div class="st-tn" style="color:' + esc(P.teams[t].color) + '">' + esc(P.teams[t].cn) + (liveState(g) === "post" ? " 终场时场上五人" : " 当前场上五人") + "</div>" +
+        (ids.length === 5 ? ids.map(function (id) { var a = P.ath[id]; return '<span class="st-p' + (a.fouls >= 5 ? " f5" : "") + '">' + head(id) + "<b>" + esc(nm(id)) + "</b>" + (a.starter ? '<em class="st-fs">首发</em>' : "") + "<i>" + (a.fouls != null ? a.fouls + "犯" : "") + "</i></span>"; }).join("") : '<span class="dim">暂无（ESPN 没给出完整在场名单）</span>') + "</div>";
     });
     h += '</div><div class="st-src">在场名单：ESPN 技术统计实时字段</div>';
     h += '<ul class="st-list">' + (items.length ? items.map(function (x) { return '<li class="' + x.cls + '">' + head(x.id) + "<span>" + esc(x.txt) + "</span><small>" + (x.url ? '<a href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(x.src) + "</a>" : esc(x.src)) + "</small></li>"; }).join("") : '<li class="none">暂无伤病、犯规麻烦或驱逐（伤病回场情况暂无官方消息）</li>') + "</ul>";
@@ -332,7 +334,10 @@
   }
   var POS = { PG: "控卫", SG: "得分后卫", SF: "小前锋", PF: "大前锋", C: "中锋", G: "后卫", F: "前锋" };
   // 中文全名：只用 player_names_zh.json 的虎扑译名；ESPN id 是确定匹配，没有译名显示英文全名
-  function fullName(id, en) { return (id && P.zh[id] && P.zh[id].zh) || en || ""; }
+  function fullName(id, en) {
+    if (id && P.zh[id] && P.zh[id].zh) return P.zh[id].zh;
+    var z = en && P.zhFullByEn[String(en).toLowerCase()]; return z ? z + "（" + en + "）" : (en || ""); // 只按英文名对上：写成 中文名（英文全名）
+  }
   P.fullName = fullName;
   // 首发（直播页和赛前详情共用）：groups = [{cn, side:"a"/"h", ids:[{id, en, pos}]}]
   function stHtml(groups, note) {
@@ -390,6 +395,52 @@
     ids.forEach(function (id) { var z = P.zh[id] && P.zh[id].zh; if (z && zs.indexOf(z) < 0) zs.push(z); });
     return zs.length === 1 ? zs[0] + "（" + q.name + "）" : q.name;
   }
+  /* 回归消息：ESPN 免费伤病数据（浏览器端取）。规则表只翻常见句型，对不上就显示英文原句，绝不猜 */
+  var DAYCN = { monday: "周一", tuesday: "周二", wednesday: "周三", thursday: "周四", friday: "周五", saturday: "周六", sunday: "周日" };
+  function dayOf(s) { var m = /\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)'s\b/.exec(s); return m ? DAYCN[m[1]] : ""; }
+  var CRULES = [
+    [/\b(won't|will not) return\b/, function () { return "本场不会再回场"; }, 1],
+    [/\bnot expected to return\b/, function () { return "预计暂时不会复出"; }, 1],
+    [/questionable to return/, function () { return "能否回场成疑"; }, 0],
+    [/expected to miss the (rest of the )?(\d{4}-\d{2} )?season|out for the (rest of the )?season|season-ending/, function () { return "预计赛季报销"; }, 0],
+    [/out indefinitely/, function () { return "无限期缺阵"; }, 0],
+    [/ruled out/, function (s) { var d = dayOf(s); return d ? "已确定缺席" + d + "的比赛" : "已确定缺席"; }, 0],
+    [/\b(will|is set to) miss\b/, function (s) { var d = dayOf(s); return d ? "将缺席" + d + "的比赛" : "将缺席"; }, 0],
+    [/re-?evaluated (?:by [a-z ]+ )?in (\d+)(?:-to-| to |-)?(\d+)? (week|month|day)s?/, function (s, m) { return "将在 " + m[1] + (m[2] ? "-" + m[2] : "") + " " + { week: "周", month: "个月", day: "天" }[m[3]] + "后重新评估"; }, 0],
+    [/underwent [a-z ,'-]*surgery|had surgery/, function () { return "已接受手术"; }, 0],
+    [/(resumed|returned to) (practicing|practice)|back at practice/, function () { return "已恢复训练"; }, 0],
+    [/full[- ]contact|contact practice/, function () { return "已参加对抗训练"; }, 0],
+    [/\bprobable\b/, function () { return "被列为大概率出战"; }, 0],
+    [/\bdoubtful\b/, function () { return "被列为大概率缺阵"; }, 0],
+    [/\bquestionable\b(?! to return)/, function () { return "被列为出战成疑"; }, 0],
+    [/day-to-day/, function () { return "每日观察"; }, 0],
+    [/(remain|stay) out|remains out/, function () { return "继续缺阵"; }, 0],
+    [/cleared to play|will play\b|is available|will be available|will return|set to return|expected to return|could return|targeting a return|on track to return/, function (s) { var d = dayOf(s); return d ? "预计" + d + "的比赛复出" : "预计复出"; }, 0]
+  ];
+  function trComment(s) {
+    s = String(s || "").toLowerCase(); if (!s) return null;
+    var out = [], negOk = false;
+    for (var i = 0; i < CRULES.length && out.length < 2; i++) { var m = CRULES[i][0].exec(s); if (m) { var t = CRULES[i][1](s, m); if (out.indexOf(t) < 0) out.push(t); if (CRULES[i][2]) negOk = true; } }
+    if (!out.length) return null;
+    if (/\b(not|no|never)\b|n't\b/.test(s) && !negOk) return null; // 有否定词又不是明确的否定句型：不硬翻
+    return out.join("；");
+  }
+  P.trComment = trComment;
+  function md(iso) { var d = new Date(iso); if (isNaN(d)) return ""; try { return new Intl.DateTimeFormat("en-US", { timeZone: "America/Los_Angeles", month: "numeric", day: "numeric" }).format(d); } catch (e) { return (d.getMonth() + 1) + "/" + d.getDate(); } }
+  function retHtml(i) {
+    if (!i) return '<div class="ab4">回归：暂无回归消息</div>';
+    var dt = i.details || {}, src = "ESPN" + (i.date ? " " + md(i.date) : ""), h = "";
+    if (dt.returnDate) { var rd = /^(\d{4})-(\d{2})-(\d{2})/.exec(dt.returnDate); if (rd) h += '<div class="ab4">预计回归：' + (+rd[2]) + "/" + (+rd[3]) + " 前后（" + esc(src) + "）</div>"; }
+    var cm = i.shortComment || i.longComment || "", tc = trComment(cm);
+    if (cm) h += tc ? '<div class="ab4">最新进展：' + esc(tc) + "（" + esc(src) + "）</div>" : '<div class="ab4 en">最新进展（英文原文）：' + esc(cm) + "（" + esc(src) + "）</div>";
+    return h || '<div class="ab4">回归：暂无回归消息</div>';
+  }
+  function espnEntry(eid, name, tid) {
+    if (eid && P.inj.byId && P.inj.byId[eid]) return P.inj.byId[eid];
+    var k = normName(name), hit = null;
+    ((P.inj.byTeam || {})[tid] || []).forEach(function (i) { if (normName((i.athlete || {}).displayName) === k) hit = i; });
+    return hit;
+  }
   /* 缺阵名单（赛中/赛前详情共用）：tl = [{id: ESPN 球队 id, cn, ab, side}]，按队分组 */
   function stCls(st) { st = String(st || "").toLowerCase(); return /out/.test(st) ? "red" : /probable/.test(st) ? "grn" : /doubt|quest|day/.test(st) ? "yel" : ""; }
   function absHtml(away, home, tl, I) {
@@ -399,9 +450,9 @@
     var off = irList ? irList : ((I.players || []).length ? I.players : null);
     var offSrc = irList ? "NBA 官方伤病报告 " + (IR.version_pt || "") + " 版" : (off ? "NBA 官方伤病报告（" + (I.report || "") + "）" : "");
     h += '<div class="lu-h">缺阵名单 <small>' + esc(off ? (irList ? "官方伤病报告 " + (IR.version_pt || "") + " 版" : "官方伤病报告") + " · ESPN 补充" : "来源 ESPN") + "</small></div>";
-    function row(o, cls, img, name, stt, role, info) {
+    function row(o, cls, img, name, stt, role, info, extra) {
       return { o: o, h: '<li class="' + cls + (o < 10 ? " core" : "") + '"><div class="ab1"><span class="lu-hd">' + img + '</span><b>' + esc(name) + '</b><em class="abst">' + esc(stt) + "</em></div>" +
-        (role ? '<div class="ab2">' + role + "</div>" : "") + '<div class="ab3">' + esc(info) + "</div></li>" };
+        (role ? '<div class="ab2">' + role + "</div>" : "") + '<div class="ab3">' + esc(info) + "</div>" + (extra || "") + "</li>" };
     }
     if (off) {
       off.filter(function (q) { return !q.g_league; }).forEach(function (q) {
@@ -409,7 +460,8 @@
         var tid = byAb[q.team]; if (!tid || !rows[tid]) return;
         var cls = stCls(q.status), eid = matchPlayer(q.name, q.team), rr = eid && P.roles[eid] ? RRANK[P.roles[eid].role] : 4;
         var img = q.nba_id ? '<img loading="lazy" alt="" src="https://cdn.nba.com/headshots/nba/latest/260x190/' + esc(q.nba_id) + '.png" onerror="this.remove()">' : (eid ? head(eid) : "");
-        rows[tid].push(row(rr * 10 + (cls === "red" ? 0 : cls === "yel" ? 1 : 2), cls, img, offName(q, eid), q.status_cn || q.status, roleTag(eid), (q.reason_cn || q.reason || "原因未写") + " · 来源 " + offSrc + "（太平洋时间）"));
+        rows[tid].push(row(rr * 10 + (cls === "red" ? 0 : cls === "yel" ? 1 : 2), cls, img, offName(q, eid), q.status_cn || q.status, roleTag(eid), (q.reason_cn || q.reason || "原因未写") + " · 来源 " + offSrc + "（太平洋时间）",
+          (q.prev_status_cn && irList ? '<div class="ab4 chg">较上一版变化：' + esc(q.prev_status_cn) + "→" + esc(q.status_cn || q.status) + "（" + esc(IR.version_pt || "") + " 版）</div>" : "") + retHtml(espnEntry(eid, q.name, tid))));
       });
     }
     tl.forEach(function (x) { // ESPN：没有官方报告时全用；有官方报告时只补官方没列的人
@@ -421,7 +473,7 @@
         var part = dt.type ? (PART[String(dt.type).toLowerCase()] || dt.type) : "", side = dt.side ? (SIDE[String(dt.side).toLowerCase()] || "") : "";
         var rr2 = id && P.roles[id] ? RRANK[P.roles[id].role] : 4;
         rows[t].push(row(rr2 * 10 + (cls === "red" ? 0 : cls === "yel" ? 1 : 2) + 0.5, cls, id ? head(id) : "", fullName(id, at.displayName), s[1], roleTag(id),
-          ((side && part && part.indexOf("生病") < 0 ? side : "") + part || "原因未写") + " · 来源 ESPN" + (i.date ? " · " + ptTime(i.date) + " 太平洋时间" : "")));
+          ((side && part && part.indexOf("生病") < 0 ? side : "") + part || "原因未写") + " · 来源 ESPN" + (i.date ? " · " + md(i.date) + " " + ptTime(i.date) + " 太平洋时间" : ""), retHtml(i)));
       });
     });
     tl.forEach(function (x) {

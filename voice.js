@@ -14,18 +14,35 @@
   paintBtn();
   if (!S) { btn.style.display = "none"; return; }
 
-  function pickVoice() { // 挑最自然的中文语音
-    var vs = S.getVoices() || [], best = null, bs = -1;
-    vs.forEach(function (v) {
-      var sc = 0, n = v.name || "", l = (v.lang || "").replace("_", "-");
-      if (/^zh-CN/i.test(l)) sc += 20; else if (/^zh/i.test(l) || /^cmn/i.test(l)) sc += 8; else return;
-      if (/premium|enhanced|neural|natural|online/i.test(n)) sc += 6;
-      if (/tingting|ting-ting|xiaoxiao|xiaoyi|yunxi|yunjian|lili|meijia|yu-shu|普通话|mandarin/i.test(n)) sc += 3;
-      if (v.localService === false) sc += 1;
-      if (sc > bs) { bs = sc; best = v; }
-    });
-    V.voice = best;
+  // 语音：用户手动选的优先（localStorage 记住）；否则自动挑设备上最好的中文语音
+  try { V.pref = localStorage.getItem("nba_voice_uri") || ""; } catch (e) { V.pref = ""; }
+  function zhVoices() { return (S.getVoices() || []).filter(function (v) { var l = (v.lang || "").replace("_", "-"); return /^zh-CN/i.test(l) || /^cmn/i.test(l) || /^zh/i.test(l); }); }
+  function score(v) {
+    var n = (v.name || "") + " " + (v.voiceURI || ""), l = (v.lang || "").replace("_", "-"), sc = /^zh-CN|^cmn/i.test(l) ? 100 : 50;
+    if (/premium|enhanced|高音质|增强/i.test(n)) sc += 40; else if (/neural|natural/i.test(n)) sc += 30;
+    if (/tingting|ting-ting|lili|meijia|xiaoxiao|xiaoyi|yunxi|yunjian|婷婷|莉莉|美佳/i.test(n)) sc += 10;
+    if (v.localService === false) sc += 1;
+    return sc;
   }
+  function pickVoice() {
+    var vs = zhVoices(), best = null, bs = -1;
+    vs.forEach(function (v) { if (V.pref && v.voiceURI === V.pref) { best = v; bs = 1e9; } var sc = score(v); if (sc > bs) { bs = sc; best = v; } });
+    V.voice = best; paintSel();
+  }
+  // 设置：手动选语音 + 高音质语音提示
+  var gear = document.createElement("button"); gear.className = "vgear"; gear.type = "button"; gear.textContent = "⚙"; gear.title = "解说声音设置";
+  var panel = document.createElement("div"); panel.className = "vpanel"; panel.hidden = true;
+  panel.innerHTML = '<label>解说声音 <select class="vsel"></select></label><p>iPhone 可在设置里下载高音质中文语音，下载后在这里选它。</p>';
+  document.body.appendChild(gear); document.body.appendChild(panel);
+  var sel = panel.querySelector(".vsel");
+  function paintSel() {
+    var vs = zhVoices(); if (!sel) return;
+    var h = '<option value="">自动（设备上最好的中文语音）</option>' + vs.sort(function (a, b) { return score(b) - score(a); }).map(function (v) { return '<option value="' + String(v.voiceURI).replace(/"/g, "&quot;") + '"' + (v.voiceURI === V.pref ? " selected" : "") + ">" + String(v.name).replace(/</g, "&lt;") + "</option>"; }).join("");
+    if (sel._h !== h) { sel._h = h; sel.innerHTML = h; }
+  }
+  gear.addEventListener("click", function (e) { e.stopPropagation(); panel.hidden = !panel.hidden; paintSel(); });
+  panel.addEventListener("click", function (e) { e.stopPropagation(); });
+  sel.addEventListener("change", function () { V.pref = sel.value; try { localStorage.setItem("nba_voice_uri", V.pref); } catch (x) {} pickVoice(); if (V.unlocked && !V.muted) say("换成这个声音解说", true); });
   pickVoice();
   if (S.addEventListener) S.addEventListener("voiceschanged", pickVoice); else S.onvoiceschanged = pickVoice;
 
@@ -33,16 +50,16 @@
   V.q = []; V.busy = false;
   function utter(item) {
     var u = new SpeechSynthesisUtterance(item.t); u.lang = "zh-CN"; if (V.voice) u.voice = V.voice;
-    u.rate = item.hot ? 1.22 : 1.08; u.pitch = item.hot ? 1.18 : 1.0;
+    u.rate = item.clutch ? 1.2 : item.hot ? 1.14 : 1.06; u.pitch = item.clutch ? 1.15 : item.hot ? 1.08 : 1.0; // 关键时刻语速稍快、音调稍高
     u.onend = u.onerror = function () { V.busy = false; next(); };
     V.busy = true; S.speak(u);
     clearTimeout(V.guard); V.guard = setTimeout(function () { V.busy = false; next(); }, 12000); // 有的浏览器不触发 onend
   }
   function next() { if (V.busy || !V.q.length) return; utter(V.q.shift()); }
-  function say(t, flush, hot) {
+  function say(t, flush, hot, clutch) {
     if (!V.unlocked || V.muted || !t) return;
     if (flush) { V.q = []; S.cancel(); V.busy = false; }
-    V.q.push({ t: t, hot: !!hot }); next();
+    V.q.push({ t: t, hot: !!hot, clutch: !!clutch }); next();
   }
   function g() { return window.NBA && NBA.game(); }
   function sc(gm) {
@@ -58,7 +75,19 @@
   }
 
   /* ---- 一条逐回合 → 一句口语（只用 ESPN 字段，不编） ---- */
-  function rnd(a) { return a[Math.floor(Math.random() * a.length)]; }
+  V.lastPick = {};
+  function rnd(a) { // 同一组句式不连续重复
+    var k = a.join("|").length + ":" + a.length, i = Math.floor(Math.random() * a.length);
+    if (a.length > 1 && V.lastPick[k] === i) i = (i + 1 + Math.floor(Math.random() * (a.length - 1))) % a.length;
+    V.lastPick[k] = i; return a[i];
+  }
+  // 一波连续得分：从这条往前数，同一队连续得分、对手 0 分（只用文字直播里的得分事件）
+  function runOf(r) {
+    var i = P.plays.indexOf(r), side = sideOf(r), pts = 0;
+    if (i < 0 || !side) return 0;
+    for (; i >= 0; i--) { var x = P.plays[i]; if (!((x.kind === "shot" || x.kind === "ft") && x.made && x.pts)) continue; if (sideOf(x) !== side) break; pts += x.pts; }
+    return pts;
+  }
   function N(id) { return (id && P.nm && P.nm(id)) || ""; }
   function TM(r) { return (P.teams[r.team] || {}).cn || ""; }
   function clockCn(c) { c = String(c || ""); var m = /^(\d+):(\d+)$/.exec(c); if (m) return (+m[1] ? +m[1] + "分" : "") + (+m[2] ? +m[2] + "秒" : (+m[1] ? "" : "0秒")); return c ? c + "秒" : ""; }
@@ -84,46 +113,52 @@
     if (r.kind === "shot") {
       var k = r.shot && r.shot !== "投篮" ? r.shot : "";
       if (r.made) {
-        if (r.three) out = rnd([n + "三分命中！", n + "外线出手，三分进了！", n + "命中三分！"]);
-        else if (r.dunk) out = rnd([n + (k || "扣篮") + "！", n + "一记" + (k || "扣篮") + "，打进！"]);
-        else out = k ? rnd([n + k + "打进", n + k + "得手", n + k + "命中"]) : rnd([n + "出手命中", n + "得分"]);
+        if (r.three) out = rnd([n + "三分命中！", n + "外线出手，三分！进了！", n + "果断三分，空心入网！", n + "远投三分，命中！", n + "三分线外出手——进了！"]);
+        else if (r.dunk) out = rnd([n + (k || "扣篮") + "！", n + "一记" + (k || "扣篮") + "，砸进去了！", n + "暴力" + (k || "扣篮") + "！", n + "冲到篮下，" + (k || "扣篮") + "得手！"]);
+        else out = k ? rnd([n + k + "打进", n + k + "得手", n + k + "命中", n + k + "，两分"]) : rnd([n + "出手命中", n + "得分", n + "拿下两分"]);
         if (r.assist) out = out.replace(/！$/, "") + rnd(["，" + N(r.assist) + "助攻", "，" + N(r.assist) + "送出助攻", "，传球来自" + N(r.assist)]);
         scored = true;
-      } else if (r.blocker) out = rnd([N(r.blocker) + "盖帽！封掉" + n + "的出手", n + (k || "出手") + "被" + N(r.blocker) + "盖了！"]);
-      else out = rnd([n + (k || "出手") + "不中", n + (k || "出手") + "没进", n + (k || "出手") + "偏出"]);
+      } else if (r.blocker) out = rnd([N(r.blocker) + "大帽！封掉" + n + "的出手！", n + (k || "出手") + "被" + N(r.blocker) + "盖了！", N(r.blocker) + "一记火锅！" + n + "被封盖！", "盖帽！" + N(r.blocker) + "把" + n + "的球扇飞！"]);
+      else out = rnd([n + (k || "出手") + "不中", n + (k || "出手") + "没进", n + (k || "出手") + "偏出", n + (k || "出手") + "，弹框而出"]);
     } else if (r.kind === "ft") {
       var nth = r.ftof > 1 ? (r.ftof === 2 ? "两罚" : r.ftof + "罚") + "第" + "一二三"[r.ftn - 1] + "罚" : "罚球";
       out = n + nth + (r.made ? rnd(["命中", "稳稳罚进"]) : rnd(["不中", "没罚进"]));
       scored = r.made && (!r.ftof || r.ftn === r.ftof);
     } else if (r.kind === "reb") {
       if (!r.who) out = tm + "拿到篮板";
-      else out = r.off ? rnd([n + "抢下前场篮板！", n + "进攻篮板，二次机会"]) : rnd([n + "抢下篮板", n + "后场篮板", "篮板被" + n + "拿到"]);
+      else out = r.off ? rnd([n + "抢下前场篮板！", n + "进攻篮板，二次机会", n + "冲抢前场板得手"]) : rnd([n + "抢下篮板", n + "后场篮板", "篮板被" + n + "拿到", n + "护住篮板"]);
     } else if (r.kind === "to") {
       if (r.stealer) out = rnd([N(r.stealer) + "抢断！" + n + "失误", n + "的球被" + N(r.stealer) + "断了"]);
       else out = (n || tm) + rnd(["失误", "出现失误"]) + (r.totype && r.totype !== "失误" ? "，" + r.totype : "");
     } else if (r.kind === "foul") {
       out = (n || tm) + (r.ftype || "犯规") + (r.drawer ? rnd(["，" + N(r.drawer) + "造成犯规", "，犯在" + N(r.drawer) + "身上"]) : "");
     } else if (r.kind === "sub") {
-      out = rnd([tm + "换人，" + N(r.inId) + "换下" + N(r.outId), N(r.inId) + "替换" + N(r.outId) + "上场"]);
+      out = rnd([tm + "换人，" + N(r.inId) + "换下" + N(r.outId), N(r.inId) + "替换" + N(r.outId) + "上场", N(r.inId) + "上，" + N(r.outId) + "下"]);
     } else if (r.kind === "timeout") {
       out = String(r.txt || "暂停") + "，" + sc(gm);
     } else if (r.kind === "end") {
-      out = String(r.txt || "") + "，" + sc(gm);
+      var fs = window.liveFor && liveFor(gm);
+      if (/比赛结束/.test(r.txt || "") && fs && fs.as != null && fs.hs !== fs.as) { var w = fs.hs > fs.as; out = "比赛结束！终场比分 " + gm.away_cn + " " + fs.as + " 比 " + fs.hs + " " + gm.home_cn + "，" + (w ? gm.home_cn : gm.away_cn) + "赢下 " + Math.abs(fs.hs - fs.as) + " 分"; }
+      else out = String(r.txt || "") + "，" + sc(gm);
     } else if (r.kind === "jump" || r.kind === "review") out = String(r.txt || "");
     if (!out || /^\s*[，,]/.test(out)) return null;
     V.n = (V.n || 0) + 1;
-    if (scored) { var lp = leadPhrase(r, gm, prev); out = J(out, lp.t); hot = hot || lp.hot; }
+    if ((r.made && (r.three || r.dunk)) || r.blocker) hot = true;
+    if (scored) {
+      var lp = leadPhrase(r, gm, prev); out = J(out, lp.t); hot = hot || lp.hot;
+      var run = runOf(r); if (run >= 6) { out = J(out, rnd([tm + "打出一波 " + run + "–0 的小高潮", tm + "一波 " + run + "–0！", "这一波 " + tm + " " + run + "–0"])); hot = true; }
+    }
     else if (V.n % 4 === 0 && r.h != null && r.kind !== "end" && r.kind !== "timeout") out = J(out, sc(gm) || (gm.away_cn + " " + r.a + " 比 " + r.h + " " + gm.home_cn));
     if (V.n % 9 === 0 && r.clock) out = perCn(r.per) + "还剩" + clockCn(r.clock) + "，" + out;
-    if (clutch && (scored || r.kind === "to" || r.kind === "foul")) { hot = true; if (Math.random() < 0.6) out = "关键时刻！" + out; }
-    return { t: out, hot: hot };
+    if (clutch && (scored || r.kind === "to" || r.kind === "foul")) { hot = true; if (Math.random() < 0.6) out = rnd(["关键时刻！", "生死时刻！", "最后两分钟！"]) + out; }
+    return { t: out, hot: hot, clutch: clutch };
   }
   function build(list, gm) {
     var outl = [];
     list.forEach(function (r) { var x = line(r, gm, V.prev); if (r.h != null) V.prev = { h: r.h, a: r.a }; if (x) outl.push(x); });
     return outl;
   }
-  V.preview = function (n) { var gm = g(); V.n = 0; V.prev = null; return build(P.plays.slice(-n), gm).map(function (x) { return (x.hot ? "[激动] " : "") + x.t; }); };
+  V.preview = function (n) { var gm = g(); V.n = 0; V.prev = null; return build(P.plays.slice(-n), gm).map(function (x) { return (x.clutch ? "[关键] " : x.hot ? "[激动] " : "") + x.t; }); };
 
   P.listeners.push(function (ev, a, first) {
     var gm = g(); if (!gm || !V.unlocked) return;
@@ -135,9 +170,9 @@
     if (lines.length + V.q.length > 2) { // 积压：合并成一句，始终贴着直播
       var pa = 0, ph = 0; a.forEach(function (r) { if ((r.kind === "shot" || r.kind === "ft") && r.made) { if (sideOf(r) === "h") ph += r.pts || 0; else pa += r.pts || 0; } });
       var last = lines[lines.length - 1];
-      var sum = (pa || ph ? "刚才几个回合，" + gm.away_cn + "得 " + pa + " 分，" + gm.home_cn + "得 " + ph + " 分。" : "") + (last ? last.t + "。" : "") + "现在" + sc(gm);
+      var sum = (pa || ph ? "刚才几个回合，" + gm.away_cn + "得 " + pa + " 分，" + gm.home_cn + "得 " + ph + " 分。" : "") + (last ? last.t + "。" : "") + (last && / 比 |领先|平/.test(last.t) ? "" : "现在" + sc(gm));
       say(sum, true, last && last.hot);
-    } else lines.forEach(function (x) { say(x.t, false, x.hot); });
+    } else if (lines.length) { var x = lines[lines.length - 1]; if (V.unlocked && !V.muted) { V.q = []; say(x.t, false, x.hot, x.clutch); } } // 不排队：等待中的旧句子作废，只留最新一句
   });
 
   function keepAwake() { // 屏幕常亮（支持的浏览器才有效）

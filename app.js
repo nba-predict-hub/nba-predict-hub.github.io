@@ -450,11 +450,12 @@
   }
 
   /* ---------- 情报流 ---------- */
+  window.NBA_NAMES = function () { if (!state.data) return; safe("动态", function () { renderFeed(); }, "feed"); var g = game(); if (g) safe("伤病", function () { renderInj(g); }, "inj"); };
   function renderFeed() {
     var f = state.data.feed || [], show = 8;
     function draw(n) {
       $("feed").innerHTML = f.slice(0, n).map(function (it) {
-        return '<li class="t-' + esc(it.tag) + '"><span class="tg">' + esc(it.tag) + '</span><div><b class="tm">' + esc(it.time) + "</b> " + esc(it.text) + "</div>" + (it.source ? '<div class="src">来源：' + esc(it.source) + "</div>" : "") + "</li>";
+        return '<li class="t-' + esc(it.tag) + '"><span class="tg">' + esc(it.tag) + '</span><div><b class="tm">' + esc(it.time) + "</b> " + esc(window.PBP && PBP.zhText ? PBP.zhText(it.text) : it.text) + "</div>" + (it.source ? '<div class="src">来源：' + esc(it.source) + "</div>" : "") + "</li>";
       }).join("") + (f.length > n ? '<li style="list-style:none"><button class="more" id="feedMore">展开全部 ' + f.length + " 条</button></li>" : "");
       var b = $("feedMore"); if (b) b.onclick = function () { draw(f.length); };
     }
@@ -505,7 +506,7 @@
   var ORDER = { Out: 0, Doubtful: 1, Questionable: 2, Probable: 3, Available: 4 };
   function plCard(p) {
     var img = p.nba_id ? '<img loading="lazy" alt="' + esc(p.name) + '" src="https://cdn.nba.com/headshots/nba/latest/1040x760/' + encodeURIComponent(p.nba_id) + '.png" onerror="this.parentNode.textContent=\'头像加载失败\'">' : "无头像";
-    return '<div class="pl ' + esc(p.cls) + '"><div class="ph">' + img + '</div><div><div class="n">' + esc((window.PBP && PBP.zhName && PBP.zhName(p.name)) || p.name) + '<span class="st ' + esc(p.cls) + '">' + esc(p.status_cn) + '</span></div><div class="rs" title="' + esc(p.reason_raw) + '">' + esc(p.reason || p.reason_raw || "原因未写") + "</div></div></div>";
+    return '<div class="pl ' + esc(p.cls) + '"><div class="ph">' + img + '</div><div><div class="n">' + esc((window.PBP && PBP.zhFullByEn && PBP.zhFullByEn[String(p.name || "").toLowerCase()]) || p.name) + '<span class="st ' + esc(p.cls) + '">' + esc(p.status_cn) + '</span></div><div class="rs" title="' + esc(p.reason_raw) + '">' + esc(p.reason || p.reason_raw || "原因未写") + "</div></div></div>";
   }
   function renderInj(g) {
     var I = g.injuries || {}, ps = (I.players || []).slice().sort(function (a, b) { return ORDER[a.status] - ORDER[b.status]; });
