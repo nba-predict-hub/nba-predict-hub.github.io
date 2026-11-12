@@ -153,6 +153,7 @@
       r.kind = "review"; r.crit = true;
       r.txt = (tcn ? tcn + " " : "") + "教练挑战" + (/overturned/i.test(lo) ? "成功，改判" : /upheld|stands|supports/i.test(lo) ? "失败，维持原判" : /replay ?center/i.test(lo) ? "，联盟回放中心复核中" : ""); return r; }
     if (/review/i.test(lo)) { r.kind = "review"; r.crit = true; r.txt = "裁判主动看录像回放" + (/overturned/i.test(lo) ? "，改判" : /supports|stands/i.test(lo) ? "，维持原判" : ""); return r; }
+    if (/no violation/i.test(tt)) { r.kind = "review"; r.txt = ((w || tcn) ? (w || tcn) + " " : "") + "无违例"; return r; }
     var vio = /kicked ball/i.test(lo) ? "踢球违例" : /defensive goaltending/i.test(lo) ? "防守干扰球" : /goaltending/i.test(lo) ? "干扰球" : /delay/i.test(lo) ? "延误比赛违例" : /^lane$/i.test(tt) || /lane violation/i.test(lo) ? "罚球违例" : /violation/i.test(lo) ? pick(TO, lo, "违例") : "";
     if (vio) { r.kind = "foul"; r.viol = r.crit = true; r.ftype = vio; r.txt = ((w || tcn) ? (w || tcn) + " " : "") + vio; return r; }
     if (/no shot/i.test(tt)) { r.kind = "other"; r.txt = (w || tcn) + " 出手（未计入投篮）"; return r; }
