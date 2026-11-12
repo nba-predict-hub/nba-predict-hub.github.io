@@ -925,28 +925,27 @@
     }).join("") + "</div>";
   }
   function startersHtml(s) {
-    var tip = Date.parse(s.date || "") || 0;
-    if (!tip || tip - Date.now() > 3600000) return Promise.resolve('<p class="note">首发未公布（开赛前 1 小时起每 30 秒自动查看）</p>');
+    var P = window.PBP || {}, tip = Date.parse(s.date || "") || 0;
+    var empty = function () { return P.stHtml ? P.stHtml([{ cn: TEAM_CN[s.aab] || s.aab, side: "a", ids: [] }, { cn: TEAM_CN[s.hab] || s.hab, side: "h", ids: [] }], "开赛前 1 小时起每 30 秒自动查看") : '<p class="note">首发未公布</p>'; };
+    if (!tip || tip - Date.now() > 3600000) return Promise.resolve(empty());
     return getJSON("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=" + s.id).then(function (j) {
-      var h = "", any = false, P = window.PBP || {};
+      var any = false, groups = [];
       (((j.boxscore || {}).players) || []).forEach(function (t) {
-        var ab = nbaAb((t.team || {}).abbreviation), st = [];
-        ((((t.statistics || [])[0] || {}).athletes) || []).forEach(function (a) { if (a.starter) st.push(a); });
-        if (st.length) any = true;
-        h += '<div class="pd-row"><b>' + esc(TEAM_CN[ab] || ab) + "</b>" + (st.length ? st.map(function (a) {
-          var id = String((a.athlete || {}).id || ""), z = (P.zh && P.zh[id] && (P.zh[id].zh_short || P.zh[id].zh)) || (a.athlete || {}).displayName || "";
-          return '<span class="pd-p">' + esc(z) + (P.roleTag ? P.roleTag(id) : "") + "</span>";
-        }).join("") : " 首发未公布") + "</div>";
+        var ab = nbaAb((t.team || {}).abbreviation), ids = [];
+        ((((t.statistics || [])[0] || {}).athletes) || []).forEach(function (a) { if (a.starter) { var at = a.athlete || {}; ids.push({ id: String(at.id || ""), en: at.displayName || "", pos: (at.position || {}).abbreviation || "" }); } });
+        if (ids.length) any = true;
+        groups.push({ cn: TEAM_CN[ab] || ab, side: ab === s.hab ? "h" : "a", ids: ids });
       });
-      return any ? '<p class="note">官方首发 · 来源 ESPN 技术统计 · ' + esc(ptTime(new Date().toISOString())) + " 获取</p>" + h : '<p class="note">首发未公布</p>';
-    }, function () { return '<p class="note">首发未公布</p>'; });
+      groups.sort(function (x, y) { return x.side === "h" ? 1 : -1; });
+      return any && P.stHtml ? P.stHtml(groups, "官方首发（ESPN starter 字段）· " + ptTime(new Date().toISOString()) + " 获取") : empty();
+    }, empty);
   }
   function preDetail(s, d) {
     clearTimeout(pre.timer);
     var an = TEAM_CN[s.aab] || s.aab, hn = TEAM_CN[s.hab] || s.hab, P = window.PBP || {};
     var dt = ""; try { dt = new Intl.DateTimeFormat("zh-CN", { timeZone: "America/Los_Angeles", month: "numeric", day: "numeric", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(s.date)); } catch (e) {}
     if (!d.innerHTML) d.innerHTML = '<p class="note">读取中…</p>';
-    var tl = [{ id: s.aid, cn: an, ab: s.aab }, { id: s.hid, cn: hn, ab: s.hab }];
+    var tl = [{ id: s.aid, cn: an, ab: s.aab, side: "a" }, { id: s.hid, cn: hn, ab: s.hab, side: "h" }];
     Promise.all([P.prep ? P.prep() : null, loadOdds(), loadSched(s.aid), loadSched(s.hid), startersHtml(s)]).then(function (r) {
       if (dayState.open !== s.id) return;
       var O = r[1] || {}, og = (O.games || {})[s.id], h = "";
@@ -959,8 +958,7 @@
       } else h += '<div class="pd-row">多家中位数：暂无</div>';
       var cr = null; (O.crown || []).forEach(function (c) { if (c.game === an + "@" + hn) cr = c; });
       h += cr ? '<div class="pd-row">皇冠：让分 ' + esc(cr.crown_spread_now || "暂无") + " · 总分 " + esc(cr.crown_total_now || "暂无") + "<br><small>读取于 " + esc(cr.read_at || "") + "</small></div>" : '<div class="pd-row">皇冠：暂无</div>';
-      h += '<div class="pd-h">首发</div>' + r[4];
-      h += '<div class="pd-h">预计缺阵和伤病</div>' + (P.absHtml ? P.absHtml(s.aab, s.hab, tl, {}) : '<p class="note">暂无</p>');
+      h += '<div class="lu-blk">' + r[4] + (P.absHtml ? P.absHtml(s.aab, s.hab, tl, {}) : '<p class="note">缺阵名单暂无</p>') + "</div>";
       h += '<div class="pd-h">各队分量 <small>来源 ESPN 本赛季场均</small></div>' + rolesHtml(s.aab, an) + rolesHtml(s.hab, hn);
       var at = (r[2] && r[2].at) || (r[3] && r[3].at) || "";
       h += '<div class="pd-h">近况 <small>来源 ESPN 球队赛程 · ' + esc(at) + " 获取</small></div>" + formHtml(an, r[2]) + formHtml(hn, r[3]);

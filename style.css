@@ -358,3 +358,26 @@ main.live-mode>#liveTop{box-shadow:0 6px 10px rgba(7,11,24,.9)}
 main.live-mode>#liveTop+*{margin-top:8px}
 main.live-mode>section,main.live-mode>div{scroll-margin-top:200px}
 main.live-mode>#liveTop{background:#070b18!important}
+/* 首发 · 缺阵（直播页和赛前详情共用）：按队分组，手机宽度不出框 */
+#lineup,.lu-blk{min-width:0;max-width:100%;overflow-wrap:anywhere;word-break:break-word}
+#lineupCard{height:auto!important;overflow:hidden}
+.lu-tm{margin:6px 0 10px;min-width:0}
+.lu-tt{font-weight:900;font-size:14px;padding:4px 0;border-bottom:1px solid #18213b;margin-bottom:4px}
+.lu-tt small{font-weight:400;font-size:11px;color:var(--dim);margin-left:4px}
+.lu-none{margin:4px 0;font-size:13px;color:var(--dim)}
+.lu-st,.lu-ab{list-style:none;margin:0;padding:0;min-width:0}
+.lu-st li{display:grid;grid-template-columns:38px minmax(0,1fr);column-gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid #121a33;min-height:34px}
+.lu-st .lu-hd{grid-row:span 2}
+.lu-st .lu-nm{font-size:14px;min-width:0}.lu-st .lu-rl{grid-column:2;font-size:11px;line-height:1.3}
+.lu-pos{font-style:normal;font-size:11px;color:var(--dim);margin-left:6px;white-space:nowrap}
+.lu-hd{width:38px;height:28px;display:block}.lu-hd img{width:38px;height:28px;object-fit:cover;border-radius:6px;background:#0a1122;display:block}
+.lu-ab li{padding:6px 0;border-bottom:1px solid #121a33;min-width:0}
+.lu-ab .ab1{display:flex;align-items:center;gap:6px;min-width:0;flex-wrap:wrap}
+.lu-ab .ab1 b{font-size:14px;min-width:0}
+.lu-ab li.core .ab1 b{font-weight:900}
+.abst{font-style:normal;font-size:12px;font-weight:800;padding:0 6px;border-radius:999px;background:#1a2442;color:#cfd8ee;white-space:nowrap}
+.lu-ab li.red .abst{background:rgba(255,59,92,.2);color:#ff6b84}.lu-ab li.yel .abst{background:rgba(255,197,61,.18);color:var(--yel)}.lu-ab li.grn .abst{background:rgba(47,227,154,.18);color:#2fe39a}
+.lu-ab .ab2{margin:2px 0 0 44px;font-size:11px;line-height:1.4}
+.lu-ab .ab2 .role{margin-left:0}
+.lu-ab .ab3{margin:2px 0 0 44px;font-size:11px;line-height:1.4;color:var(--dim);text-align:left}
+.lu-ab .ab1 .lu-hd:empty{width:38px;height:28px}
