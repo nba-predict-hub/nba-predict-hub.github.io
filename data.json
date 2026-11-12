@@ -1,14 +1,13 @@
 {
- "generated_at": "2026-11-11 19:15:58 PT",
- "generated_at_iso": "2026-11-11T19:15:58.090147-08:00",
+ "generated_at": "2026-11-12 07:23:32 PT",
+ "generated_at_iso": "2026-11-12T07:23:32.481888-08:00",
  "game_date": "2026-11-11",
- "last_lock": "2026-11-11 17:17:17 PT",
+ "last_lock": "2026-11-12 07:16:54 PT",
  "featured": "401909974",
  "model_version": {
   "version": 6,
   "version_cn": "第六版",
   "versions_in_ledger": [
-   4,
    5,
    6
   ],
@@ -19,23 +18,656 @@
   "main_total_label": "第六版",
   "total_line_type": "dk_current",
   "record_spread": {
-   "w": 0,
-   "l": 0,
+   "w": 1,
+   "l": 2,
    "p": 0,
-   "graded": 0,
-   "pct": null
+   "graded": 3,
+   "pct": 33.3
   },
   "record_total": {
-   "w": 0,
-   "l": 0,
+   "w": 1,
+   "l": 2,
    "p": 0,
-   "graded": 0,
-   "pct": null
+   "graded": 3,
+   "pct": 33.3
   },
   "rule": "主结论总是用最新一版模型（现在是第六版）",
   "note": null
  },
  "games": [
+  {
+   "espn_id": "401909976",
+   "away": "TOR",
+   "home": "PHI",
+   "away_cn": "猛龙",
+   "home_cn": "76人",
+   "away_name": "Toronto Raptors",
+   "home_name": "Philadelphia 76ers",
+   "tip_pt": null,
+   "venue": null,
+   "broadcast": null,
+   "records": {
+    "TOR": null,
+    "PHI": null
+   },
+   "records_note": "ESPN",
+   "game_status": "pre",
+   "game_status_cn": "未开赛",
+   "spread": {
+    "model": "v6_selected=S6",
+    "model_label": "第六版",
+    "lock_time": "2026-11-12 07:16:54 PT",
+    "pick_team": "TOR",
+    "pick_cn": "猛龙",
+    "pick_text": "猛龙 +8.5",
+    "line_home": 8.5,
+    "pred_home_margin": 5.76,
+    "edge": 2.74,
+    "band": "mid",
+    "band_cn": "中",
+    "line_source": "DraftKings 锁定时的盘口",
+    "result": null
+   },
+   "total": {
+    "model": "v6_selected=T6",
+    "model_label": "第六版",
+    "lock_time": "2026-11-12 07:16:54 PT",
+    "pick": "OVER",
+    "pick_cn": "大分",
+    "line_total": 222.5,
+    "pred_total": 223.72,
+    "edge": 1.22,
+    "band": "low",
+    "band_cn": "低",
+    "pick_text": "大 222.5",
+    "line_source": "DraftKings 锁定时的盘口",
+    "result": null
+   },
+   "market": {
+    "books": [
+     {
+      "book": "DraftKings",
+      "via": "",
+      "time": "开赛前 07:16",
+      "open_home": 9.5,
+      "cur_home": 8.5,
+      "total_open": 221.5,
+      "total_cur": 222.5,
+      "in_median": true
+     }
+    ],
+    "median_home": 8.5,
+    "median_text": "76人 -8.5",
+    "median_n": 1,
+    "median_total": 222.5,
+    "median_total_n": 1,
+    "spread_range": null,
+    "source": "暂时没有实时盘口，用模型锁定时的盘口",
+    "median_books": [
+     "DraftKings"
+    ],
+    "median_total_books": [
+     "DraftKings"
+    ],
+    "crown": null,
+    "leisu": null,
+    "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
+   },
+   "comps": [
+    {
+     "name": "第六版",
+     "pred_home_margin": 5.76,
+     "source": "我们的模型，07:16 锁定",
+     "official": true,
+     "lean": "TOR",
+     "lean_cn": "猛龙"
+    },
+    {
+     "name": "第六版备选（参考收盘）",
+     "pred_home_margin": 8.2,
+     "source": "我们的模型，07:16 锁定",
+     "official": false,
+     "lean": "TOR",
+     "lean_cn": "猛龙"
+    },
+    {
+     "name": "第六版备选（参考开盘）",
+     "pred_home_margin": 8.69,
+     "source": "我们的模型，07:16 锁定",
+     "official": false,
+     "lean": "PHI",
+     "lean_cn": "76人"
+    }
+   ],
+   "alt_pick": null,
+   "version": 6,
+   "version_cn": "第六版",
+   "version_record": {
+    "w": 1,
+    "l": 2,
+    "p": 0,
+    "graded": 3,
+    "pct": 33.3
+   },
+   "version_record_total": {
+    "w": 1,
+    "l": 2,
+    "p": 0,
+    "graded": 3,
+    "pct": 33.3
+   },
+   "lean_count": {
+    "TOR": 2,
+    "PHI": 1
+   },
+   "total_comps": [
+    {
+     "name": "第六版",
+     "pred_total": 223.72,
+     "official": true
+    },
+    {
+     "name": "第六版备选（参考收盘）",
+     "pred_total": 222.56,
+     "official": false
+    },
+    {
+     "name": "第六版备选（参考开盘）",
+     "pred_total": 220.78,
+     "official": false
+    }
+   ],
+   "injuries": {
+    "report": "美东晚上 10:30（太平洋时间 19:30）",
+    "players": [],
+    "not_submitted": [],
+    "changes": []
+   },
+   "extra": null
+  },
+  {
+   "espn_id": "401909977",
+   "away": "DET",
+   "home": "WAS",
+   "away_cn": "活塞",
+   "home_cn": "奇才",
+   "away_name": "Detroit Pistons",
+   "home_name": "Washington Wizards",
+   "tip_pt": null,
+   "venue": null,
+   "broadcast": null,
+   "records": {
+    "DET": null,
+    "WAS": null
+   },
+   "records_note": "ESPN",
+   "game_status": "pre",
+   "game_status_cn": "未开赛",
+   "spread": {
+    "model": "v6_selected=S6",
+    "model_label": "第六版",
+    "lock_time": "2026-11-12 07:16:54 PT",
+    "pick_team": "DET",
+    "pick_cn": "活塞",
+    "pick_text": "活塞 -10.5",
+    "line_home": -10.5,
+    "pred_home_margin": -10.76,
+    "edge": 0.26,
+    "band": "low",
+    "band_cn": "低",
+    "line_source": "DraftKings 锁定时的盘口",
+    "result": null
+   },
+   "total": {
+    "model": "v6_selected=T6",
+    "model_label": "第六版",
+    "lock_time": "2026-11-12 07:16:54 PT",
+    "pick": "UNDER",
+    "pick_cn": "小分",
+    "line_total": 220.5,
+    "pred_total": 218.8,
+    "edge": 1.7,
+    "band": "low",
+    "band_cn": "低",
+    "pick_text": "小 220.5",
+    "line_source": "DraftKings 锁定时的盘口",
+    "result": null
+   },
+   "market": {
+    "books": [
+     {
+      "book": "DraftKings",
+      "via": "ESPN core 接口",
+      "time": "19:48",
+      "open_home": -9.5,
+      "cur_home": -9.5,
+      "total_open": 220.5,
+      "total_cur": 220.5,
+      "in_median": true
+     },
+     {
+      "book": "平博",
+      "via": "",
+      "time": "19:48",
+      "open_home": null,
+      "cur_home": -10.0,
+      "total_open": null,
+      "total_cur": 220.5,
+      "in_median": false,
+      "note": "平博不是每场都有盘，暂不算进中位数"
+     }
+    ],
+    "median_home": -9.5,
+    "median_text": "活塞 -9.5",
+    "median_n": 1,
+    "median_total": 220.5,
+    "median_total_n": 1,
+    "spread_range": null,
+    "source": "实时盘口，更新于 19:48",
+    "median_books": [
+     "DraftKings"
+    ],
+    "median_total_books": [
+     "DraftKings"
+    ],
+    "crown": null,
+    "leisu": null,
+    "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
+   },
+   "comps": [
+    {
+     "name": "第六版",
+     "pred_home_margin": -10.76,
+     "source": "我们的模型，07:16 锁定",
+     "official": true,
+     "lean": "DET",
+     "lean_cn": "活塞"
+    },
+    {
+     "name": "第六版备选（参考收盘）",
+     "pred_home_margin": -9.94,
+     "source": "我们的模型，07:16 锁定",
+     "official": false,
+     "lean": "DET",
+     "lean_cn": "活塞"
+    },
+    {
+     "name": "第六版备选（参考开盘）",
+     "pred_home_margin": -9.81,
+     "source": "我们的模型，07:16 锁定",
+     "official": false,
+     "lean": "DET",
+     "lean_cn": "活塞"
+    }
+   ],
+   "alt_pick": null,
+   "version": 6,
+   "version_cn": "第六版",
+   "version_record": {
+    "w": 1,
+    "l": 2,
+    "p": 0,
+    "graded": 3,
+    "pct": 33.3
+   },
+   "version_record_total": {
+    "w": 1,
+    "l": 2,
+    "p": 0,
+    "graded": 3,
+    "pct": 33.3
+   },
+   "lean_count": {
+    "DET": 3,
+    "WAS": 0
+   },
+   "total_comps": [
+    {
+     "name": "第六版",
+     "pred_total": 218.8,
+     "official": true
+    },
+    {
+     "name": "第六版备选（参考收盘）",
+     "pred_total": 221.22,
+     "official": false
+    },
+    {
+     "name": "第六版备选（参考开盘）",
+     "pred_total": 220.16,
+     "official": false
+    }
+   ],
+   "injuries": {
+    "report": "美东晚上 10:30（太平洋时间 19:30）",
+    "players": [],
+    "not_submitted": [],
+    "changes": []
+   },
+   "extra": null
+  },
+  {
+   "espn_id": "401909978",
+   "away": "DAL",
+   "home": "MIN",
+   "away_cn": "独行侠",
+   "home_cn": "森林狼",
+   "away_name": "Dallas Mavericks",
+   "home_name": "Minnesota Timberwolves",
+   "tip_pt": null,
+   "venue": null,
+   "broadcast": null,
+   "records": {
+    "DAL": null,
+    "MIN": null
+   },
+   "records_note": "ESPN",
+   "game_status": "pre",
+   "game_status_cn": "未开赛",
+   "spread": {
+    "model": "v6_selected=S6",
+    "model_label": "第六版",
+    "lock_time": "2026-11-12 07:16:54 PT",
+    "pick_team": "MIN",
+    "pick_cn": "森林狼",
+    "pick_text": "森林狼 -5.5",
+    "line_home": 5.5,
+    "pred_home_margin": 7.77,
+    "edge": 2.27,
+    "band": "mid",
+    "band_cn": "中",
+    "line_source": "DraftKings 锁定时的盘口",
+    "result": null
+   },
+   "total": {
+    "model": "v6_selected=T6",
+    "model_label": "第六版",
+    "lock_time": "2026-11-12 07:16:54 PT",
+    "pick": "UNDER",
+    "pick_cn": "小分",
+    "line_total": 225.5,
+    "pred_total": 224.75,
+    "edge": 0.75,
+    "band": "low",
+    "band_cn": "低",
+    "pick_text": "小 225.5",
+    "line_source": "DraftKings 锁定时的盘口",
+    "result": null
+   },
+   "market": {
+    "books": [
+     {
+      "book": "DraftKings",
+      "via": "ESPN core 接口",
+      "time": "19:48",
+      "open_home": 4.5,
+      "cur_home": 5.5,
+      "total_open": 226.5,
+      "total_cur": 226.5,
+      "in_median": true
+     },
+     {
+      "book": "平博",
+      "via": "",
+      "time": "19:48",
+      "open_home": null,
+      "cur_home": 5.0,
+      "total_open": null,
+      "total_cur": 224.5,
+      "in_median": false,
+      "note": "平博不是每场都有盘，暂不算进中位数"
+     }
+    ],
+    "median_home": 5.5,
+    "median_text": "森林狼 -5.5",
+    "median_n": 1,
+    "median_total": 226.5,
+    "median_total_n": 1,
+    "spread_range": null,
+    "source": "实时盘口，更新于 19:48",
+    "median_books": [
+     "DraftKings"
+    ],
+    "median_total_books": [
+     "DraftKings"
+    ],
+    "crown": null,
+    "leisu": null,
+    "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
+   },
+   "comps": [
+    {
+     "name": "第六版",
+     "pred_home_margin": 7.77,
+     "source": "我们的模型，07:16 锁定",
+     "official": true,
+     "lean": "MIN",
+     "lean_cn": "森林狼"
+    },
+    {
+     "name": "第六版备选（参考收盘）",
+     "pred_home_margin": 5.92,
+     "source": "我们的模型，07:16 锁定",
+     "official": false,
+     "lean": "MIN",
+     "lean_cn": "森林狼"
+    },
+    {
+     "name": "第六版备选（参考开盘）",
+     "pred_home_margin": 5.94,
+     "source": "我们的模型，07:16 锁定",
+     "official": false,
+     "lean": "MIN",
+     "lean_cn": "森林狼"
+    }
+   ],
+   "alt_pick": null,
+   "version": 6,
+   "version_cn": "第六版",
+   "version_record": {
+    "w": 1,
+    "l": 2,
+    "p": 0,
+    "graded": 3,
+    "pct": 33.3
+   },
+   "version_record_total": {
+    "w": 1,
+    "l": 2,
+    "p": 0,
+    "graded": 3,
+    "pct": 33.3
+   },
+   "lean_count": {
+    "DAL": 0,
+    "MIN": 3
+   },
+   "total_comps": [
+    {
+     "name": "第六版",
+     "pred_total": 224.75,
+     "official": true
+    },
+    {
+     "name": "第六版备选（参考收盘）",
+     "pred_total": 225.85,
+     "official": false
+    },
+    {
+     "name": "第六版备选（参考开盘）",
+     "pred_total": 225.86,
+     "official": false
+    }
+   ],
+   "injuries": {
+    "report": "美东晚上 10:30（太平洋时间 19:30）",
+    "players": [],
+    "not_submitted": [],
+    "changes": []
+   },
+   "extra": null
+  },
+  {
+   "espn_id": "401909979",
+   "away": "CHA",
+   "home": "PHX",
+   "away_cn": "黄蜂",
+   "home_cn": "太阳",
+   "away_name": "Charlotte Hornets",
+   "home_name": "Phoenix Suns",
+   "tip_pt": null,
+   "venue": null,
+   "broadcast": null,
+   "records": {
+    "CHA": null,
+    "PHX": null
+   },
+   "records_note": "ESPN",
+   "game_status": "pre",
+   "game_status_cn": "未开赛",
+   "spread": {
+    "model": "v6_selected=S6",
+    "model_label": "第六版",
+    "lock_time": "2026-11-12 07:16:54 PT",
+    "pick_team": "PHX",
+    "pick_cn": "太阳",
+    "pick_text": "太阳 -6.5",
+    "line_home": 6.5,
+    "pred_home_margin": 6.75,
+    "edge": 0.25,
+    "band": "low",
+    "band_cn": "低",
+    "line_source": "DraftKings 锁定时的盘口",
+    "result": null
+   },
+   "total": {
+    "model": "v6_selected=T6",
+    "model_label": "第六版",
+    "lock_time": "2026-11-12 07:16:54 PT",
+    "pick": "OVER",
+    "pick_cn": "大分",
+    "line_total": 214.5,
+    "pred_total": 215.71,
+    "edge": 1.21,
+    "band": "low",
+    "band_cn": "低",
+    "pick_text": "大 214.5",
+    "line_source": "DraftKings 锁定时的盘口",
+    "result": null
+   },
+   "market": {
+    "books": [
+     {
+      "book": "DraftKings",
+      "via": "ESPN core 接口",
+      "time": "19:48",
+      "open_home": 7.5,
+      "cur_home": 7.5,
+      "total_open": 213.5,
+      "total_cur": 213.5,
+      "in_median": true
+     },
+     {
+      "book": "平博",
+      "via": "",
+      "time": "19:48",
+      "open_home": null,
+      "cur_home": 7.0,
+      "total_open": null,
+      "total_cur": 214.0,
+      "in_median": false,
+      "note": "平博不是每场都有盘，暂不算进中位数"
+     }
+    ],
+    "median_home": 7.5,
+    "median_text": "太阳 -7.5",
+    "median_n": 1,
+    "median_total": 213.5,
+    "median_total_n": 1,
+    "spread_range": null,
+    "source": "实时盘口，更新于 19:48",
+    "median_books": [
+     "DraftKings"
+    ],
+    "median_total_books": [
+     "DraftKings"
+    ],
+    "crown": null,
+    "leisu": null,
+    "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
+   },
+   "comps": [
+    {
+     "name": "第六版",
+     "pred_home_margin": 6.75,
+     "source": "我们的模型，07:16 锁定",
+     "official": true,
+     "lean": "CHA",
+     "lean_cn": "黄蜂"
+    },
+    {
+     "name": "第六版备选（参考收盘）",
+     "pred_home_margin": 6.68,
+     "source": "我们的模型，07:16 锁定",
+     "official": false,
+     "lean": "CHA",
+     "lean_cn": "黄蜂"
+    },
+    {
+     "name": "第六版备选（参考开盘）",
+     "pred_home_margin": 7.49,
+     "source": "我们的模型，07:16 锁定",
+     "official": false,
+     "lean": "CHA",
+     "lean_cn": "黄蜂"
+    }
+   ],
+   "alt_pick": null,
+   "version": 6,
+   "version_cn": "第六版",
+   "version_record": {
+    "w": 1,
+    "l": 2,
+    "p": 0,
+    "graded": 3,
+    "pct": 33.3
+   },
+   "version_record_total": {
+    "w": 1,
+    "l": 2,
+    "p": 0,
+    "graded": 3,
+    "pct": 33.3
+   },
+   "lean_count": {
+    "CHA": 3,
+    "PHX": 0
+   },
+   "total_comps": [
+    {
+     "name": "第六版",
+     "pred_total": 215.71,
+     "official": true
+    },
+    {
+     "name": "第六版备选（参考收盘）",
+     "pred_total": 214.44,
+     "official": false
+    },
+    {
+     "name": "第六版备选（参考开盘）",
+     "pred_total": 212.4,
+     "official": false
+    }
+   ],
+   "injuries": {
+    "report": "美东晚上 10:30（太平洋时间 19:30）",
+    "players": [],
+    "not_submitted": [],
+    "changes": []
+   },
+   "extra": null
+  },
   {
    "espn_id": "401909969",
    "away": "SAS",
@@ -52,8 +684,8 @@
     "CHI": "1-8"
    },
    "records_note": "ESPN",
-   "game_status": "in",
-   "game_status_cn": "进行中",
+   "game_status": "post",
+   "game_status_cn": "已结束",
    "spread": {
     "model": "v5_cand_stack",
     "model_label": "第五版融合版",
@@ -67,7 +699,7 @@
     "band": "mid",
     "band_cn": "中",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "total": {
     "model": "v5_cand_stack_t",
@@ -82,7 +714,7 @@
     "band_cn": "中",
     "pick_text": "小 236.5",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "market": {
     "books": [
@@ -90,9 +722,9 @@
       "book": "DraftKings",
       "via": "",
       "time": "开赛前 16:56",
-      "open_home": -14.5,
+      "open_home": null,
       "cur_home": -15.5,
-      "total_open": 237.5,
+      "total_open": null,
       "total_cur": 236.5,
       "in_median": true
      },
@@ -135,30 +767,6 @@
      "lean_cn": "马刺"
     },
     {
-     "name": "第五版球员模型",
-     "pred_home_margin": -15.52,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "SAS",
-     "lean_cn": "马刺"
-    },
-    {
-     "name": "第五版原选（ESPN 预测）",
-     "pred_home_margin": -16.23,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "SAS",
-     "lean_cn": "马刺"
-    },
-    {
-     "name": "第四版",
-     "pred_home_margin": -16.0,
-     "source": "我们的模型，16:45 锁定",
-     "official": false,
-     "lean": "SAS",
-     "lean_cn": "马刺"
-    },
-    {
      "name": "Massey 电脑分",
      "pred_home_margin": -14.04,
      "source": "美盘电脑预测，16:35 更新",
@@ -183,30 +791,25 @@
      "lean_cn": "公牛"
     }
    ],
-   "alt_pick": {
-    "label": "第五版原选（ESPN 预测）",
-    "pick_text": "马刺 -15.5",
-    "edge": 0.73,
-    "band_cn": "低"
-   },
+   "alt_pick": null,
    "version": 5,
    "version_cn": "第五版",
    "version_record": {
     "w": 0,
-    "l": 0,
+    "l": 4,
     "p": 0,
-    "graded": 0,
-    "pct": null
+    "graded": 4,
+    "pct": 0.0
    },
    "version_record_total": {
-    "w": 0,
-    "l": 0,
+    "w": 2,
+    "l": 2,
     "p": 0,
-    "graded": 0,
-    "pct": null
+    "graded": 4,
+    "pct": 50.0
    },
    "lean_count": {
-    "SAS": 5,
+    "SAS": 2,
     "CHI": 2
    },
    "total_comps": [
@@ -214,20 +817,10 @@
      "name": "第五版融合版",
      "pred_total": 232.17,
      "official": true
-    },
-    {
-     "name": "第五版球员模型",
-     "pred_total": 232.23,
-     "official": false
-    },
-    {
-     "name": "第五版原选（ESPN 预测）",
-     "pred_total": 237.06,
-     "official": false
     }
    ],
    "injuries": {
-    "report": "美东晚上 9:30（太平洋时间 18:30）",
+    "report": "美东晚上 10:30（太平洋时间 19:30）",
     "players": [
      {
       "team": "SAS",
@@ -376,8 +969,8 @@
       ]
      },
      {
-      "report": "美东晚上 9:30",
-      "pt": "太平洋时间 18:30",
+      "report": "美东晚上 10:30",
+      "pt": "太平洋时间 19:30",
       "items": [
        "公牛 Tobe Awaka：出战成疑→缺阵",
        "公牛 Zach Collins：出战成疑→可出战",
@@ -408,8 +1001,8 @@
     "MEM": "7-3"
    },
    "records_note": "ESPN",
-   "game_status": "in",
-   "game_status_cn": "进行中",
+   "game_status": "post",
+   "game_status_cn": "已结束",
    "spread": {
     "model": "v5_cand_stack",
     "model_label": "第五版融合版",
@@ -423,7 +1016,7 @@
     "band": "mid",
     "band_cn": "中",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "total": {
     "model": "v5_cand_stack_t",
@@ -438,7 +1031,7 @@
     "band_cn": "低",
     "pick_text": "大 230.5",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "W"
    },
    "market": {
     "books": [
@@ -446,9 +1039,9 @@
       "book": "DraftKings",
       "via": "",
       "time": "开赛前 16:56",
-      "open_home": -4.5,
+      "open_home": null,
       "cur_home": -3.5,
-      "total_open": 228.5,
+      "total_open": null,
       "total_cur": 230.5,
       "in_median": true
      },
@@ -491,30 +1084,6 @@
      "lean_cn": "灰熊"
     },
     {
-     "name": "第五版球员模型",
-     "pred_home_margin": 3.09,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "MEM",
-     "lean_cn": "灰熊"
-    },
-    {
-     "name": "第五版原选（ESPN 预测）",
-     "pred_home_margin": -2.86,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "MEM",
-     "lean_cn": "灰熊"
-    },
-    {
-     "name": "第四版",
-     "pred_home_margin": -2.86,
-     "source": "我们的模型，16:45 锁定",
-     "official": false,
-     "lean": "MEM",
-     "lean_cn": "灰熊"
-    },
-    {
      "name": "Massey 电脑分",
      "pred_home_margin": -1.24,
      "source": "美盘电脑预测，16:35 更新",
@@ -539,51 +1108,36 @@
      "lean_cn": "灰熊"
     }
    ],
-   "alt_pick": {
-    "label": "第五版原选（ESPN 预测）",
-    "pick_text": "灰熊 +3.5",
-    "edge": 0.64,
-    "band_cn": "低"
-   },
+   "alt_pick": null,
    "version": 5,
    "version_cn": "第五版",
    "version_record": {
     "w": 0,
-    "l": 0,
+    "l": 4,
     "p": 0,
-    "graded": 0,
-    "pct": null
+    "graded": 4,
+    "pct": 0.0
    },
    "version_record_total": {
-    "w": 0,
-    "l": 0,
+    "w": 2,
+    "l": 2,
     "p": 0,
-    "graded": 0,
-    "pct": null
+    "graded": 4,
+    "pct": 50.0
    },
    "lean_count": {
     "DEN": 0,
-    "MEM": 7
+    "MEM": 4
    },
    "total_comps": [
     {
      "name": "第五版融合版",
      "pred_total": 232.24,
      "official": true
-    },
-    {
-     "name": "第五版球员模型",
-     "pred_total": 234.14,
-     "official": false
-    },
-    {
-     "name": "第五版原选（ESPN 预测）",
-     "pred_total": 232.52,
-     "official": false
     }
    ],
    "injuries": {
-    "report": "美东晚上 9:30（太平洋时间 18:30）",
+    "report": "美东晚上 10:30（太平洋时间 19:30）",
     "players": [
      {
       "team": "DEN",
@@ -686,8 +1240,8 @@
       ]
      },
      {
-      "report": "美东晚上 9:30",
-      "pt": "太平洋时间 18:30",
+      "report": "美东晚上 10:30",
+      "pt": "太平洋时间 19:30",
       "items": [
        "灰熊 Karim Lopez：缺阵→可出战",
        "灰熊 Jahmai Mashack：出战成疑→可出战",
@@ -714,8 +1268,8 @@
     "MIL": "1-10"
    },
    "records_note": "ESPN",
-   "game_status": "in",
-   "game_status_cn": "进行中",
+   "game_status": "post",
+   "game_status_cn": "已结束",
    "spread": {
     "model": "v5_cand_stack",
     "model_label": "第五版融合版",
@@ -729,7 +1283,7 @@
     "band": "mid",
     "band_cn": "中",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "total": {
     "model": "v5_cand_stack_t",
@@ -744,7 +1298,7 @@
     "band_cn": "低",
     "pick_text": "小 230.5",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "market": {
     "books": [
@@ -752,9 +1306,9 @@
       "book": "DraftKings",
       "via": "",
       "time": "开赛前 16:56",
-      "open_home": -10.5,
+      "open_home": null,
       "cur_home": -14.5,
-      "total_open": 233.5,
+      "total_open": null,
       "total_cur": 230.5,
       "in_median": true
      },
@@ -797,30 +1351,6 @@
      "lean_cn": "湖人"
     },
     {
-     "name": "第五版球员模型",
-     "pred_home_margin": -13.8,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "MIL",
-     "lean_cn": "雄鹿"
-    },
-    {
-     "name": "第五版原选（ESPN 预测）",
-     "pred_home_margin": -14.13,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "MIL",
-     "lean_cn": "雄鹿"
-    },
-    {
-     "name": "第四版",
-     "pred_home_margin": -14.13,
-     "source": "我们的模型，16:45 锁定",
-     "official": false,
-     "lean": "MIL",
-     "lean_cn": "雄鹿"
-    },
-    {
      "name": "Massey 电脑分",
      "pred_home_margin": -13.25,
      "source": "美盘电脑预测，16:35 更新",
@@ -845,51 +1375,36 @@
      "lean_cn": "雄鹿"
     }
    ],
-   "alt_pick": {
-    "label": "第五版原选（ESPN 预测）",
-    "pick_text": "雄鹿 +14.5",
-    "edge": 0.37,
-    "band_cn": "低"
-   },
+   "alt_pick": null,
    "version": 5,
    "version_cn": "第五版",
    "version_record": {
     "w": 0,
-    "l": 0,
+    "l": 4,
     "p": 0,
-    "graded": 0,
-    "pct": null
+    "graded": 4,
+    "pct": 0.0
    },
    "version_record_total": {
-    "w": 0,
-    "l": 0,
+    "w": 2,
+    "l": 2,
     "p": 0,
-    "graded": 0,
-    "pct": null
+    "graded": 4,
+    "pct": 50.0
    },
    "lean_count": {
     "LAL": 1,
-    "MIL": 6
+    "MIL": 3
    },
    "total_comps": [
     {
      "name": "第五版融合版",
      "pred_total": 228.13,
      "official": true
-    },
-    {
-     "name": "第五版球员模型",
-     "pred_total": 228.6,
-     "official": false
-    },
-    {
-     "name": "第五版原选（ESPN 预测）",
-     "pred_total": 230.86,
-     "official": false
     }
    ],
    "injuries": {
-    "report": "美东晚上 9:30（太平洋时间 18:30）",
+    "report": "美东晚上 10:30（太平洋时间 19:30）",
     "players": [
      {
       "team": "LAL",
@@ -951,8 +1466,8 @@
       ]
      },
      {
-      "report": "美东晚上 9:30",
-      "pt": "太平洋时间 18:30",
+      "report": "美东晚上 10:30",
+      "pt": "太平洋时间 19:30",
       "items": [
        "湖人 Quentin Grimes：出战成疑→缺阵",
        "雄鹿 Tyler Herro：未列入→可出战",
@@ -979,8 +1494,8 @@
     "NOP": "4-7"
    },
    "records_note": "ESPN",
-   "game_status": "in",
-   "game_status_cn": "进行中",
+   "game_status": "post",
+   "game_status_cn": "已结束",
    "spread": {
     "model": "v5_cand_stack",
     "model_label": "第五版融合版",
@@ -994,7 +1509,7 @@
     "band": "low",
     "band_cn": "低",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "total": {
     "model": "v5_cand_stack_t",
@@ -1009,7 +1524,7 @@
     "band_cn": "中",
     "pick_text": "大 228.5",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "W"
    },
    "market": {
     "books": [
@@ -1017,9 +1532,9 @@
       "book": "DraftKings",
       "via": "",
       "time": "开赛前 16:56",
-      "open_home": 4.5,
+      "open_home": null,
       "cur_home": 2.5,
-      "total_open": 230.5,
+      "total_open": null,
       "total_cur": 228.5,
       "in_median": true
      },
@@ -1062,30 +1577,6 @@
      "lean_cn": "鹈鹕"
     },
     {
-     "name": "第五版球员模型",
-     "pred_home_margin": 4.3,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "NOP",
-     "lean_cn": "鹈鹕"
-    },
-    {
-     "name": "第五版原选（ESPN 预测）",
-     "pred_home_margin": 2.62,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "BKN",
-     "lean_cn": "篮网"
-    },
-    {
-     "name": "第四版",
-     "pred_home_margin": 2.61,
-     "source": "我们的模型，16:45 锁定",
-     "official": false,
-     "lean": "BKN",
-     "lean_cn": "篮网"
-    },
-    {
      "name": "Massey 电脑分",
      "pred_home_margin": 6.19,
      "source": "美盘电脑预测，16:35 更新",
@@ -1110,51 +1601,36 @@
      "lean_cn": "鹈鹕"
     }
    ],
-   "alt_pick": {
-    "label": "第五版原选（ESPN 预测）",
-    "pick_text": "鹈鹕 -2.5",
-    "edge": 0.12,
-    "band_cn": "低"
-   },
+   "alt_pick": null,
    "version": 5,
    "version_cn": "第五版",
    "version_record": {
     "w": 0,
-    "l": 0,
+    "l": 4,
     "p": 0,
-    "graded": 0,
-    "pct": null
+    "graded": 4,
+    "pct": 0.0
    },
    "version_record_total": {
-    "w": 0,
-    "l": 0,
+    "w": 2,
+    "l": 2,
     "p": 0,
-    "graded": 0,
-    "pct": null
+    "graded": 4,
+    "pct": 50.0
    },
    "lean_count": {
-    "BKN": 2,
-    "NOP": 5
+    "BKN": 0,
+    "NOP": 4
    },
    "total_comps": [
     {
      "name": "第五版融合版",
      "pred_total": 232.46,
      "official": true
-    },
-    {
-     "name": "第五版球员模型",
-     "pred_total": 234.3,
-     "official": false
-    },
-    {
-     "name": "第五版原选（ESPN 预测）",
-     "pred_total": 232.95,
-     "official": false
     }
    ],
    "injuries": {
-    "report": "美东晚上 9:30（太平洋时间 18:30）",
+    "report": "美东晚上 10:30（太平洋时间 19:30）",
     "players": [
      {
       "team": "BKN",
@@ -1335,8 +1811,8 @@
       ]
      },
      {
-      "report": "美东晚上 9:30",
-      "pt": "太平洋时间 18:30",
+      "report": "美东晚上 10:30",
+      "pt": "太平洋时间 19:30",
       "items": [
        "篮网 Mikel Brown Jr.：出战成疑→缺阵",
        "篮网 Egor Demin：大概率出战→可出战",
@@ -1382,7 +1858,7 @@
     "band": "mid",
     "band_cn": "中",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "W"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -1397,7 +1873,7 @@
     "band_cn": "高",
     "pick_text": "大 215.5",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "W"
    },
    "market": {
     "books": [
@@ -1405,9 +1881,9 @@
       "book": "DraftKings",
       "via": "",
       "time": "开赛前 17:17",
-      "open_home": -4.5,
+      "open_home": null,
       "cur_home": -3.5,
-      "total_open": 218.5,
+      "total_open": null,
       "total_cur": 215.5,
       "in_median": true
      },
@@ -1458,54 +1934,6 @@
      "lean_cn": "魔术"
     },
     {
-     "name": "第六版备选（参考收盘）",
-     "pred_home_margin": -3.24,
-     "source": "我们的模型，17:17 锁定",
-     "official": false,
-     "lean": "UTA",
-     "lean_cn": "爵士"
-    },
-    {
-     "name": "第六版备选（参考开盘）",
-     "pred_home_margin": -4.28,
-     "source": "我们的模型，17:17 锁定",
-     "official": false,
-     "lean": "ORL",
-     "lean_cn": "魔术"
-    },
-    {
-     "name": "第五版原选（ESPN 预测）",
-     "pred_home_margin": -4.37,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "ORL",
-     "lean_cn": "魔术"
-    },
-    {
-     "name": "第五版融合版",
-     "pred_home_margin": -4.9,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "ORL",
-     "lean_cn": "魔术"
-    },
-    {
-     "name": "第五版球员模型",
-     "pred_home_margin": -3.5,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "UTA",
-     "lean_cn": "爵士"
-    },
-    {
-     "name": "第四版",
-     "pred_home_margin": -4.37,
-     "source": "我们的模型，16:45 锁定",
-     "official": false,
-     "lean": "ORL",
-     "lean_cn": "魔术"
-    },
-    {
      "name": "Massey 电脑分",
      "pred_home_margin": -2.28,
      "source": "美盘电脑预测，16:35 更新",
@@ -1534,42 +1962,32 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 0,
-    "l": 0,
+    "w": 1,
+    "l": 2,
     "p": 0,
-    "graded": 0,
-    "pct": null
+    "graded": 3,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 0,
-    "l": 0,
+    "w": 1,
+    "l": 2,
     "p": 0,
-    "graded": 0,
-    "pct": null
+    "graded": 3,
+    "pct": 33.3
    },
    "lean_count": {
-    "ORL": 5,
-    "UTA": 5
+    "ORL": 1,
+    "UTA": 3
    },
    "total_comps": [
     {
      "name": "第六版",
      "pred_total": 228.87,
      "official": true
-    },
-    {
-     "name": "第六版备选（参考收盘）",
-     "pred_total": 214.87,
-     "official": false
-    },
-    {
-     "name": "第六版备选（参考开盘）",
-     "pred_total": 222.16,
-     "official": false
     }
    ],
    "injuries": {
-    "report": "美东晚上 9:30（太平洋时间 18:30）",
+    "report": "美东晚上 10:30（太平洋时间 19:30）",
     "players": [
      {
       "team": "ORL",
@@ -1719,8 +2137,8 @@
     "not_submitted": [],
     "changes": [
      {
-      "report": "美东晚上 9:30",
-      "pt": "太平洋时间 18:30",
+      "report": "美东晚上 10:30",
+      "pt": "太平洋时间 19:30",
       "items": [
        "魔术 Paolo Banchero：未列入→缺阵",
        "魔术 Jamal Cain：未列入→缺阵",
@@ -1771,7 +2189,7 @@
     "band": "low",
     "band_cn": "低",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -1786,7 +2204,7 @@
     "band_cn": "低",
     "pick_text": "小 219.5",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "market": {
     "books": [
@@ -1794,9 +2212,9 @@
       "book": "DraftKings",
       "via": "",
       "time": "开赛前 17:17",
-      "open_home": 5.5,
+      "open_home": null,
       "cur_home": 6.5,
-      "total_open": 222.5,
+      "total_open": null,
       "total_cur": 219.5,
       "in_median": true
      },
@@ -1847,54 +2265,6 @@
      "lean_cn": "勇士"
     },
     {
-     "name": "第六版备选（参考收盘）",
-     "pred_home_margin": 7.07,
-     "source": "我们的模型，17:17 锁定",
-     "official": false,
-     "lean": "HOU",
-     "lean_cn": "火箭"
-    },
-    {
-     "name": "第六版备选（参考开盘）",
-     "pred_home_margin": 6.0,
-     "source": "我们的模型，17:17 锁定",
-     "official": false,
-     "lean": "GSW",
-     "lean_cn": "勇士"
-    },
-    {
-     "name": "第五版原选（ESPN 预测）",
-     "pred_home_margin": 5.64,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "GSW",
-     "lean_cn": "勇士"
-    },
-    {
-     "name": "第五版融合版",
-     "pred_home_margin": 4.85,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "GSW",
-     "lean_cn": "勇士"
-    },
-    {
-     "name": "第五版球员模型",
-     "pred_home_margin": 2.89,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "GSW",
-     "lean_cn": "勇士"
-    },
-    {
-     "name": "第四版",
-     "pred_home_margin": 5.64,
-     "source": "我们的模型，16:45 锁定",
-     "official": false,
-     "lean": "GSW",
-     "lean_cn": "勇士"
-    },
-    {
      "name": "Massey 电脑分",
      "pred_home_margin": 5.07,
      "source": "美盘电脑预测，16:35 更新",
@@ -1923,42 +2293,32 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 0,
-    "l": 0,
+    "w": 1,
+    "l": 2,
     "p": 0,
-    "graded": 0,
-    "pct": null
+    "graded": 3,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 0,
-    "l": 0,
+    "w": 1,
+    "l": 2,
     "p": 0,
-    "graded": 0,
-    "pct": null
+    "graded": 3,
+    "pct": 33.3
    },
    "lean_count": {
-    "GSW": 9,
-    "HOU": 1
+    "GSW": 4,
+    "HOU": 0
    },
    "total_comps": [
     {
      "name": "第六版",
      "pred_total": 219.38,
      "official": true
-    },
-    {
-     "name": "第六版备选（参考收盘）",
-     "pred_total": 218.28,
-     "official": false
-    },
-    {
-     "name": "第六版备选（参考开盘）",
-     "pred_total": 220.61,
-     "official": false
     }
    ],
    "injuries": {
-    "report": "美东晚上 9:30（太平洋时间 18:30）",
+    "report": "美东晚上 10:30（太平洋时间 19:30）",
     "players": [
      {
       "team": "GSW",
@@ -2084,63 +2444,15 @@
     "not_submitted": [],
     "changes": [
      {
-      "report": "美东晚上 9:30",
-      "pt": "太平洋时间 18:30",
+      "report": "美东晚上 10:30",
+      "pt": "太平洋时间 19:30",
       "items": [
        "勇士 Will Richard：出战成疑→可出战"
       ]
      }
     ]
    },
-   "extra": {
-    "report_time": "早上 8:19",
-    "headline": [
-     "让分：勇士 +6.5。若只有平博 -6.0，同样是 勇士 +6。",
-     "大小分：大 220.5。",
-     "把握：让分按冻结规则为高把握（五源里 4 家同向看淡火箭让分）；相对 -6.5 的差距只有约 1.55 分。大小分按规则也是高把握（预测 227.8 对 220.5），但大小分回测整体 49%、验证集 8-17，实际不宜当成高把握。"
-    ],
-    "five_sources": [
-     {
-      "source": "Massey 电脑分",
-      "pred": "5.07",
-      "vs_line": "勇士"
-     },
-     {
-      "source": "Sagarin 电脑分",
-      "pred": "3.77",
-      "vs_line": "勇士"
-     },
-     {
-      "source": "ESPN 预测",
-      "pred": "5.64",
-      "vs_line": "勇士"
-     },
-     {
-      "source": "自建效率模型",
-      "pred": "2.60",
-      "vs_line": "勇士"
-     },
-     {
-      "source": "球员阵容模型",
-      "pred": "7.67",
-      "vs_line": "火箭"
-     },
-     {
-      "source": "第二版（五家平均）",
-      "pred": "4.95",
-      "vs_line": "勇士"
-     }
-    ],
-    "efficiency": [
-     "勇士 11 场 8-3，进攻效率 119.0，防守效率 110.3，净效率 +8.7，节奏 100.05",
-     "火箭 11 场 8-3，118.5 / 109.0 / +9.4，节奏 97.5",
-     "联盟平均：进攻效率 112.52，节奏 100.25",
-     "勇士主场 138-87 胜鹈鹕",
-     "火箭主场 110-100 胜掘金"
-    ],
-    "referees": "Mitchell Ervin、Eric Lewis、Brandon Adair",
-    "note": "下面是早上 8:19 整理的赛前资料（当时盘口火箭 -6.5），顶部结论以最新锁定为准。"
-   }
+   "extra": null
   },
   {
    "espn_id": "401909975",
@@ -2158,8 +2470,8 @@
     "POR": "7-3"
    },
    "records_note": "ESPN",
-   "game_status": "pre",
-   "game_status_cn": "未开赛",
+   "game_status": "in",
+   "game_status_cn": "进行中",
    "spread": {
     "model": "v6_selected=S6",
     "model_label": "第六版",
@@ -2173,7 +2485,7 @@
     "band": "low",
     "band_cn": "低",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -2188,58 +2500,44 @@
     "band_cn": "低",
     "pick_text": "小 224.5",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "market": {
     "books": [
      {
       "book": "DraftKings",
-      "via": "ESPN core 接口",
-      "time": "18:50",
-      "open_home": -2.5,
+      "via": "",
+      "time": "开赛前 17:17",
+      "open_home": null,
       "cur_home": 2.5,
-      "total_open": 224.5,
+      "total_open": null,
       "total_cur": 224.5,
       "in_median": true
      },
      {
-      "book": "平博",
-      "via": "",
-      "time": "18:50",
-      "open_home": null,
-      "cur_home": 2.5,
-      "total_open": null,
-      "total_cur": 224.0,
-      "in_median": true,
-      "note": ""
-     },
-     {
       "book": "美盘共识",
       "via": "",
-      "time": "18:50",
+      "time": "开赛前 16:35",
       "open_home": -1.0,
       "cur_home": -1.5,
       "total_open": null,
       "total_cur": null,
-      "in_median": true,
-      "note": ""
+      "in_median": true
      }
     ],
-    "median_home": 2.5,
-    "median_text": "开拓者 -2.5",
-    "median_n": 3,
-    "median_total": 224.25,
-    "median_total_n": 2,
+    "median_home": 0.5,
+    "median_text": "开拓者 -0.5",
+    "median_n": 2,
+    "median_total": 224.5,
+    "median_total_n": 1,
     "spread_range": 4.0,
-    "source": "实时盘口，更新于 18:50",
+    "source": "比赛已开打，盘口停在开赛前",
     "median_books": [
      "DraftKings",
-     "平博",
      "美盘共识"
     ],
     "median_total_books": [
-     "DraftKings",
-     "平博"
+     "DraftKings"
     ],
     "crown": {
      "spread_open": "雷霆 -1.5（雷霆水 0.93，开拓者水 0.93）",
@@ -2259,56 +2557,8 @@
      "pred_home_margin": 1.46,
      "source": "我们的模型，17:17 锁定",
      "official": true,
-     "lean": "OKC",
-     "lean_cn": "雷霆"
-    },
-    {
-     "name": "第六版备选（参考收盘）",
-     "pred_home_margin": 2.86,
-     "source": "我们的模型，17:17 锁定",
-     "official": false,
      "lean": "POR",
      "lean_cn": "开拓者"
-    },
-    {
-     "name": "第六版备选（参考开盘）",
-     "pred_home_margin": -0.71,
-     "source": "我们的模型，17:17 锁定",
-     "official": false,
-     "lean": "OKC",
-     "lean_cn": "雷霆"
-    },
-    {
-     "name": "第五版原选（ESPN 预测）",
-     "pred_home_margin": 1.2,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "OKC",
-     "lean_cn": "雷霆"
-    },
-    {
-     "name": "第五版融合版",
-     "pred_home_margin": 0.72,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "OKC",
-     "lean_cn": "雷霆"
-    },
-    {
-     "name": "第五版球员模型",
-     "pred_home_margin": 0.54,
-     "source": "我们的模型，16:56 锁定",
-     "official": false,
-     "lean": "OKC",
-     "lean_cn": "雷霆"
-    },
-    {
-     "name": "第四版",
-     "pred_home_margin": -1.62,
-     "source": "我们的模型，16:45 锁定",
-     "official": false,
-     "lean": "OKC",
-     "lean_cn": "雷霆"
     },
     {
      "name": "Massey 电脑分",
@@ -2339,21 +2589,21 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 0,
-    "l": 0,
+    "w": 1,
+    "l": 2,
     "p": 0,
-    "graded": 0,
-    "pct": null
+    "graded": 3,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 0,
-    "l": 0,
+    "w": 1,
+    "l": 2,
     "p": 0,
-    "graded": 0,
-    "pct": null
+    "graded": 3,
+    "pct": 33.3
    },
    "lean_count": {
-    "OKC": 9,
+    "OKC": 3,
     "POR": 1
    },
    "total_comps": [
@@ -2361,20 +2611,10 @@
      "name": "第六版",
      "pred_total": 222.34,
      "official": true
-    },
-    {
-     "name": "第六版备选（参考收盘）",
-     "pred_total": 224.89,
-     "official": false
-    },
-    {
-     "name": "第六版备选（参考开盘）",
-     "pred_total": 220.3,
-     "official": false
     }
    ],
    "injuries": {
-    "report": "美东晚上 9:30（太平洋时间 18:30）",
+    "report": "美东晚上 10:30（太平洋时间 19:30）",
     "players": [
      {
       "team": "OKC",
@@ -2512,8 +2752,8 @@
     "not_submitted": [],
     "changes": [
      {
-      "report": "美东晚上 9:30",
-      "pt": "太平洋时间 18:30",
+      "report": "美东晚上 10:30",
+      "pt": "太平洋时间 19:30",
       "items": [
        "雷霆 Chet Holmgren：未列入→缺阵",
        "雷霆 Ajay Mitchell：未列入→缺阵",
@@ -2534,7 +2774,96 @@
   }
  ],
  "v8": {
-  "by_id": {},
+  "by_id": {
+   "401909976": {
+    "away": "TOR",
+    "home": "PHI",
+    "pick_team": "TOR",
+    "pick_cn": "猛龙",
+    "pick_text": "猛龙 +8.5",
+    "pick_line": 8.5,
+    "open_home": 9.5,
+    "cur_home": 8.5,
+    "moved": -1.0,
+    "pred_home": 9.36,
+    "edge": 0.14,
+    "band": "low",
+    "band_cn": "低",
+    "lock_time": "2026-11-12 07:21:41 PT",
+    "m9a": {
+     "team": "TOR",
+     "team_cn": "猛龙",
+     "high": false,
+     "same": true
+    }
+   },
+   "401909977": {
+    "away": "DET",
+    "home": "WAS",
+    "pick_team": "DET",
+    "pick_cn": "活塞",
+    "pick_text": "活塞 -10.5",
+    "pick_line": -10.5,
+    "open_home": -9.5,
+    "cur_home": -10.5,
+    "moved": -1.0,
+    "pred_home": -13.57,
+    "edge": 4.07,
+    "band": "high",
+    "band_cn": "高",
+    "lock_time": "2026-11-12 07:21:41 PT",
+    "m9a": {
+     "team": "DET",
+     "team_cn": "活塞",
+     "high": true,
+     "same": true
+    }
+   },
+   "401909978": {
+    "away": "DAL",
+    "home": "MIN",
+    "pick_team": "MIN",
+    "pick_cn": "森林狼",
+    "pick_text": "森林狼 -5.5",
+    "pick_line": -5.5,
+    "open_home": 4.5,
+    "cur_home": 5.5,
+    "moved": 1.0,
+    "pred_home": 5.67,
+    "edge": 1.17,
+    "band": "low",
+    "band_cn": "低",
+    "lock_time": "2026-11-12 07:21:41 PT",
+    "m9a": {
+     "team": "MIN",
+     "team_cn": "森林狼",
+     "high": false,
+     "same": true
+    }
+   },
+   "401909979": {
+    "away": "CHA",
+    "home": "PHX",
+    "pick_team": "CHA",
+    "pick_cn": "黄蜂",
+    "pick_text": "黄蜂 +6.5",
+    "pick_line": 6.5,
+    "open_home": 7.5,
+    "cur_home": 6.5,
+    "moved": -1.0,
+    "pred_home": 6.47,
+    "edge": 1.03,
+    "band": "low",
+    "band_cn": "低",
+    "lock_time": "2026-11-12 07:21:41 PT",
+    "m9a": {
+     "team": "CHA",
+     "team_cn": "黄蜂",
+     "high": false,
+     "same": true
+    }
+   }
+  },
   "board": {
    "has": false,
    "target": 300
@@ -2556,7 +2885,7 @@
      "model_label": "第五版融合版",
      "band_cn": "中",
      "lock_time": "2026-11-11 16:56:51 PT",
-     "result": null
+     "result": "L"
     },
     "total": {
      "pick": "UNDER",
@@ -2564,32 +2893,7 @@
      "line_total": 236.5,
      "model_label": "第五版融合版",
      "lock_time": "2026-11-11 16:56:51 PT",
-     "result": null
-    }
-   },
-   "401909974": {
-    "espn_id": "401909974",
-    "away": "GSW",
-    "home": "HOU",
-    "tip_utc": "2026-11-12T02:30Z",
-    "spread": {
-     "kind": "home_line",
-     "pick": "GSW",
-     "pick_cn": "勇士",
-     "pick_text": "勇士 +6.5",
-     "line_home": 6.5,
-     "model_label": "第六版",
-     "band_cn": "低",
-     "lock_time": "2026-11-11 17:17:17 PT",
-     "result": null
-    },
-    "total": {
-     "pick": "UNDER",
-     "pick_text": "小 219.5",
-     "line_total": 219.5,
-     "model_label": "第六版",
-     "lock_time": "2026-11-11 17:17:17 PT",
-     "result": null
+     "result": "L"
     }
    },
    "401909970": {
@@ -2606,7 +2910,7 @@
      "model_label": "第五版融合版",
      "band_cn": "中",
      "lock_time": "2026-11-11 16:56:51 PT",
-     "result": null
+     "result": "L"
     },
     "total": {
      "pick": "OVER",
@@ -2614,7 +2918,7 @@
      "line_total": 230.5,
      "model_label": "第五版融合版",
      "lock_time": "2026-11-11 16:56:51 PT",
-     "result": null
+     "result": "W"
     }
    },
    "401909971": {
@@ -2631,7 +2935,7 @@
      "model_label": "第五版融合版",
      "band_cn": "中",
      "lock_time": "2026-11-11 16:56:51 PT",
-     "result": null
+     "result": "L"
     },
     "total": {
      "pick": "UNDER",
@@ -2639,7 +2943,7 @@
      "line_total": 230.5,
      "model_label": "第五版融合版",
      "lock_time": "2026-11-11 16:56:51 PT",
-     "result": null
+     "result": "L"
     }
    },
    "401909972": {
@@ -2656,7 +2960,7 @@
      "model_label": "第五版融合版",
      "band_cn": "低",
      "lock_time": "2026-11-11 16:56:51 PT",
-     "result": null
+     "result": "L"
     },
     "total": {
      "pick": "OVER",
@@ -2664,32 +2968,7 @@
      "line_total": 228.5,
      "model_label": "第五版融合版",
      "lock_time": "2026-11-11 16:56:51 PT",
-     "result": null
-    }
-   },
-   "401909975": {
-    "espn_id": "401909975",
-    "away": "OKC",
-    "home": "POR",
-    "tip_utc": "2026-11-12T03:00Z",
-    "spread": {
-     "kind": "home_line",
-     "pick": "OKC",
-     "pick_cn": "雷霆",
-     "pick_text": "雷霆 +2.5",
-     "line_home": 2.5,
-     "model_label": "第六版",
-     "band_cn": "低",
-     "lock_time": "2026-11-11 17:17:17 PT",
-     "result": null
-    },
-    "total": {
-     "pick": "UNDER",
-     "pick_text": "小 224.5",
-     "line_total": 224.5,
-     "model_label": "第六版",
-     "lock_time": "2026-11-11 17:17:17 PT",
-     "result": null
+     "result": "W"
     }
    },
    "401909973": {
@@ -2706,7 +2985,7 @@
      "model_label": "第六版",
      "band_cn": "中",
      "lock_time": "2026-11-11 17:17:17 PT",
-     "result": null
+     "result": "W"
     },
     "total": {
      "pick": "OVER",
@@ -2714,6 +2993,158 @@
      "line_total": 215.5,
      "model_label": "第六版",
      "lock_time": "2026-11-11 17:17:17 PT",
+     "result": "W"
+    }
+   },
+   "401909974": {
+    "espn_id": "401909974",
+    "away": "GSW",
+    "home": "HOU",
+    "tip_utc": "2026-11-12T02:30Z",
+    "spread": {
+     "kind": "home_line",
+     "pick": "GSW",
+     "pick_cn": "勇士",
+     "pick_text": "勇士 +6.5",
+     "line_home": 6.5,
+     "model_label": "第六版",
+     "band_cn": "低",
+     "lock_time": "2026-11-11 17:17:17 PT",
+     "result": "L"
+    },
+    "total": {
+     "pick": "UNDER",
+     "pick_text": "小 219.5",
+     "line_total": 219.5,
+     "model_label": "第六版",
+     "lock_time": "2026-11-11 17:17:17 PT",
+     "result": "L"
+    }
+   },
+   "401909975": {
+    "espn_id": "401909975",
+    "away": "OKC",
+    "home": "POR",
+    "tip_utc": "2026-11-12T03:00Z",
+    "spread": {
+     "kind": "home_line",
+     "pick": "OKC",
+     "pick_cn": "雷霆",
+     "pick_text": "雷霆 +2.5",
+     "line_home": 2.5,
+     "model_label": "第六版",
+     "band_cn": "低",
+     "lock_time": "2026-11-11 17:17:17 PT",
+     "result": "L"
+    },
+    "total": {
+     "pick": "UNDER",
+     "pick_text": "小 224.5",
+     "line_total": 224.5,
+     "model_label": "第六版",
+     "lock_time": "2026-11-11 17:17:17 PT",
+     "result": "L"
+    }
+   }
+  },
+  "2026-11-12": {
+   "401909978": {
+    "espn_id": "401909978",
+    "away": "DAL",
+    "home": "MIN",
+    "tip_utc": "2026-11-13T01:00Z",
+    "spread": {
+     "kind": "pick_line",
+     "pick": "MIN",
+     "pick_cn": "森林狼",
+     "pick_text": "森林狼 -5.5",
+     "pick_line": -5.5,
+     "model_label": "第八版早锁",
+     "band_cn": "低",
+     "lock_time": "2026-11-12 07:21:41 PT",
+     "result": null
+    },
+    "total": {
+     "pick": "UNDER",
+     "pick_text": "小 225.5",
+     "line_total": 225.5,
+     "model_label": "第六版",
+     "lock_time": "2026-11-12 07:16:54 PT",
+     "result": null
+    }
+   },
+   "401909976": {
+    "espn_id": "401909976",
+    "away": "TOR",
+    "home": "PHI",
+    "tip_utc": "2026-11-13T00:00Z",
+    "spread": {
+     "kind": "pick_line",
+     "pick": "TOR",
+     "pick_cn": "猛龙",
+     "pick_text": "猛龙 +8.5",
+     "pick_line": 8.5,
+     "model_label": "第八版早锁",
+     "band_cn": "低",
+     "lock_time": "2026-11-12 07:21:41 PT",
+     "result": null
+    },
+    "total": {
+     "pick": "OVER",
+     "pick_text": "大 222.5",
+     "line_total": 222.5,
+     "model_label": "第六版",
+     "lock_time": "2026-11-12 07:16:54 PT",
+     "result": null
+    }
+   },
+   "401909977": {
+    "espn_id": "401909977",
+    "away": "DET",
+    "home": "WAS",
+    "tip_utc": "2026-11-13T00:00Z",
+    "spread": {
+     "kind": "pick_line",
+     "pick": "DET",
+     "pick_cn": "活塞",
+     "pick_text": "活塞 -10.5",
+     "pick_line": -10.5,
+     "model_label": "第八版早锁",
+     "band_cn": "高",
+     "lock_time": "2026-11-12 07:21:41 PT",
+     "result": null
+    },
+    "total": {
+     "pick": "UNDER",
+     "pick_text": "小 220.5",
+     "line_total": 220.5,
+     "model_label": "第六版",
+     "lock_time": "2026-11-12 07:16:54 PT",
+     "result": null
+    }
+   },
+   "401909979": {
+    "espn_id": "401909979",
+    "away": "CHA",
+    "home": "PHX",
+    "tip_utc": "2026-11-13T02:00Z",
+    "spread": {
+     "kind": "pick_line",
+     "pick": "CHA",
+     "pick_cn": "黄蜂",
+     "pick_text": "黄蜂 +6.5",
+     "pick_line": 6.5,
+     "model_label": "第八版早锁",
+     "band_cn": "低",
+     "lock_time": "2026-11-12 07:21:41 PT",
+     "result": null
+    },
+    "total": {
+     "pick": "OVER",
+     "pick_text": "大 214.5",
+     "line_total": 214.5,
+     "model_label": "第六版",
+     "lock_time": "2026-11-12 07:16:54 PT",
      "result": null
     }
    }
@@ -2738,10 +3169,24 @@
  ],
  "feed": [
   {
-   "sort": "2026-11-11 18:30:00",
-   "time": "18:30",
+   "sort": "2026-11-12 07:16:54",
+   "time": "11月12日 07:16",
+   "tag": "模型锁定",
+   "text": "第六版锁定 4 场：猛龙@76人、活塞@奇才、独行侠@森林狼、黄蜂@太阳",
+   "source": "我们的模型"
+  },
+  {
+   "sort": "2026-11-12 00:00:00",
+   "time": "11月12日 00:00",
+   "tag": "模型锁定",
+   "text": "第六版锁定 1 场：独行侠@森林狼",
+   "source": "我们的模型"
+  },
+  {
+   "sort": "2026-11-11 19:30:00",
+   "time": "19:30",
    "tag": "官方伤病",
-   "text": "官方伤病报告更新（美东晚上 9:30）：今天这几场共有 44 人状态有变，看下方缺阵名单",
+   "text": "官方伤病报告更新（美东晚上 10:30）：今天这几场共有 44 人状态有变，看下方缺阵名单",
    "source": "NBA 官方伤病报告"
   },
   {
@@ -2780,18 +3225,18 @@
    "source": "我们的模型"
   },
   {
-   "sort": "2026-11-11 17:12:56",
-   "time": "17:12",
-   "tag": "模型锁定",
-   "text": "第六版锁定 3 场：魔术@爵士、勇士@火箭、雷霆@开拓者",
-   "source": "我们的模型"
-  },
-  {
    "sort": "2026-11-11 17:12:00",
    "time": "17:12",
    "tag": "变盘",
    "text": "魔术@爵士 大小分线：DraftKings 214.5→215.5。我们仍看大，优势 13.4 分。",
    "source": "DraftKings、平博盘口"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
+   "text": "猛龙@76人 伤病：76人 Joel Embiid 列入伤病名单，出战成疑（右脚足底筋膜伤病管理）",
+   "source": "NBA 官方伤病报告"
   },
   {
    "sort": "2026-11-11 17:11:50",
@@ -2804,7 +3249,21 @@
    "sort": "2026-11-11 17:11:50",
    "time": "17:11",
    "tag": "伤病",
+   "text": "独行侠@森林狼 伤病：森林狼 Joan Beringer 列入伤病名单，可出战（FaceMask）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
    "text": "雷霆@开拓者 伤病：雷霆 Jalen Williams 列入伤病名单，缺阵（左踝手术）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
+   "text": "活塞@奇才 伤病：活塞 Isaiah Joe 列入伤病名单，缺阵（右髋挫伤）",
    "source": "NBA 官方伤病报告"
   },
   {
@@ -2832,6 +3291,20 @@
    "sort": "2026-11-11 17:11:50",
    "time": "17:11",
    "tag": "伤病",
+   "text": "黄蜂@太阳 伤病：太阳 Mark Williams 列入伤病名单，缺阵（左肩手术）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
+   "text": "猛龙@76人 伤病：76人 Adem Bona 列入伤病名单，缺阵（CervicalSpine扭伤）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
    "text": "雷霆@开拓者 伤病：开拓者 Shaedon Sharpe 列入伤病名单，缺阵（右半月板手术）",
    "source": "NBA 官方伤病报告"
   },
@@ -2840,6 +3313,13 @@
    "time": "17:11",
    "tag": "伤病",
    "text": "雷霆@开拓者 伤病：雷霆 Jaylin Williams 列入伤病名单，缺阵（下背痉挛）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
+   "text": "猛龙@76人 伤病：76人 LeBron James 列入伤病名单，出战成疑（下背/Sciatica管理）",
    "source": "NBA 官方伤病报告"
   },
   {
@@ -2860,6 +3340,20 @@
    "sort": "2026-11-11 17:11:50",
    "time": "17:11",
    "tag": "伤病",
+   "text": "黄蜂@太阳 伤病：黄蜂 Kon Knueppel 列入伤病名单，缺阵（左腘绳肌拉伤）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
+   "text": "猛龙@76人 伤病：76人 Ariel Hukporti 列入伤病名单，缺阵（右跟腱TendonRupture/撕裂）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
    "text": "魔术@爵士 伤病：爵士 Lauri Markkanen 列入伤病名单，缺阵（右手骨折）",
    "source": "NBA 官方伤病报告"
   },
@@ -2868,6 +3362,13 @@
    "time": "17:11",
    "tag": "伤病",
    "text": "湖人@雄鹿 伤病：雄鹿 Myles Turner 列入伤病名单，缺阵（休息）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
+   "text": "黄蜂@太阳 伤病：黄蜂 Grant Williams 列入伤病名单，大概率出战（右腘绳肌拉伤）",
    "source": "NBA 官方伤病报告"
   },
   {
@@ -2894,6 +3395,13 @@
   {
    "sort": "2026-11-11 17:11:50",
    "time": "17:11",
+   "tag": "伤病",
+   "text": "独行侠@森林狼 伤病：独行侠 Sergio de Larrea 列入伤病名单，缺阵（右膝扭伤）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
    "tag": "主力伤病",
    "text": "马刺@公牛 伤病：公牛 Norman Powell 由出战成疑改为缺阵（下背痉挛）",
    "source": "NBA 官方伤病报告"
@@ -2903,6 +3411,13 @@
    "time": "17:11",
    "tag": "伤病",
    "text": "雷霆@开拓者 伤病：雷霆 Thomas Sorber 列入伤病名单，缺阵（右膝手术）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
+   "text": "独行侠@森林狼 伤病：森林狼 Anthony Edwards 列入伤病名单，缺阵（右膝Arthroscopy）",
    "source": "NBA 官方伤病报告"
   },
   {
@@ -2950,6 +3465,13 @@
   {
    "sort": "2026-11-11 17:11:50",
    "time": "17:11",
+   "tag": "伤病",
+   "text": "猛龙@76人 伤病：76人 Dominick Barlow 列入伤病名单，缺阵（下背应力反应）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
    "tag": "主力伤病",
    "text": "篮网@鹈鹕 伤病：篮网 Mikel Brown Jr. 由出战成疑改为缺阵（生病）",
    "source": "NBA 官方伤病报告"
@@ -2979,7 +3501,28 @@
    "sort": "2026-11-11 17:11:50",
    "time": "17:11",
    "tag": "伤病",
+   "text": "独行侠@森林狼 伤病：独行侠 Morez Johnson Jr. 列入伤病名单，大概率出战（左Shin/Tibia挫伤）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
    "text": "雷霆@开拓者 伤病：开拓者 Ja Morant 列入伤病名单，缺阵（左腘绳肌拉伤）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
+   "text": "活塞@奇才 伤病：活塞 Jalen Duren 列入伤病名单，缺阵（右腘绳肌拉伤）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
+   "text": "黄蜂@太阳 伤病：黄蜂 Dennis Schroder 列入伤病名单，缺阵（左腘绳肌拉伤）",
    "source": "NBA 官方伤病报告"
   },
   {
@@ -3006,8 +3549,29 @@
   {
    "sort": "2026-11-11 17:11:50",
    "time": "17:11",
+   "tag": "伤病",
+   "text": "黄蜂@太阳 伤病：黄蜂 Moussa Diabate 列入伤病名单，大概率出战（右股四头肌Tendinopathy）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
+   "text": "独行侠@森林狼 伤病：独行侠 Dereck Lively II 列入伤病名单，缺阵（右脚手术）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
    "tag": "主力伤病",
    "text": "马刺@公牛 伤病：公牛 Tobe Awaka 由出战成疑改为缺阵（下背紧绷）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
+   "text": "独行侠@森林狼 伤病：独行侠 Caleb Martin 列入伤病名单，可出战（右拇指夹板）",
    "source": "NBA 官方伤病报告"
   },
   {
@@ -3035,7 +3599,21 @@
    "sort": "2026-11-11 17:11:50",
    "time": "17:11",
    "tag": "伤病",
+   "text": "黄蜂@太阳 伤病：黄蜂 Brandon Miller 列入伤病名单，缺阵（右髋拉伤）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
    "text": "魔术@爵士 伤病：魔术 Paolo Banchero 列入伤病名单，缺阵（右高位踝扭伤）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
+   "text": "独行侠@森林狼 伤病：独行侠 Tarik Biberovic 列入伤病名单，缺阵（右HeelBursitis）",
    "source": "NBA 官方伤病报告"
   },
   {
@@ -3060,17 +3638,17 @@
    "source": "NBA 官方伤病报告"
   },
   {
+   "sort": "2026-11-11 17:11:50",
+   "time": "17:11",
+   "tag": "伤病",
+   "text": "独行侠@森林狼 伤病：森林狼 Donte DiVincenzo 列入伤病名单，缺阵（右跟腱Tendon修复手术）",
+   "source": "NBA 官方伤病报告"
+  },
+  {
    "sort": "2026-11-11 16:56:51",
    "time": "16:56",
    "tag": "模型锁定",
-   "text": "第五版锁定 7 场：马刺@公牛、掘金@灰熊、湖人@雄鹿、篮网@鹈鹕、魔术@爵士、勇士@火箭、雷霆@开拓者",
-   "source": "我们的模型"
-  },
-  {
-   "sort": "2026-11-11 16:45:46",
-   "time": "16:45",
-   "tag": "模型锁定",
-   "text": "第四版和 Massey、Sagarin 电脑分锁定 7 场：马刺@公牛、勇士@火箭、掘金@灰熊、湖人@雄鹿、篮网@鹈鹕、雷霆@开拓者、魔术@爵士",
+   "text": "第五版锁定 4 场：马刺@公牛、掘金@灰熊、湖人@雄鹿、篮网@鹈鹕",
    "source": "我们的模型"
   },
   {
@@ -3079,20 +3657,6 @@
    "tag": "电脑预测",
    "text": "美国电脑预测网站更新（含 Massey、Sagarin、ESPN），共 10 场",
    "source": "美盘电脑预测"
-  },
-  {
-   "sort": "2026-11-11 08:19:00",
-   "time": "08:19",
-   "tag": "胜率",
-   "text": "勇士@火箭 ESPN 胜负预测：火箭 67.2%，勇士 32.8%（这是谁赢的概率，不是让分）",
-   "source": "ESPN"
-  },
-  {
-   "sort": "2026-11-11 08:19:00",
-   "time": "08:19",
-   "tag": "裁判",
-   "text": "勇士@火箭 裁判：Mitchell Ervin、Eric Lewis、Brandon Adair",
-   "source": "NBA 官方"
   },
   {
    "sort": "2026-11-11 08:00:00",
@@ -3471,114 +4035,14 @@
       "note": ""
      }
     ]
-   },
-   {
-    "title": "第二版 · 让分 · 小样本检验",
-    "desc": "只有 25 场，样本很小，只作参考",
-    "rows": [
-     {
-      "label": "第二版（五家平均）",
-      "w": 12,
-      "l": 13,
-      "p": 0,
-      "pct": 48.0,
-      "note": ""
-     },
-     {
-      "label": "第一版",
-      "w": 12,
-      "l": 13,
-      "p": 0,
-      "pct": 48.0,
-      "note": ""
-     },
-     {
-      "label": "Massey 电脑分",
-      "w": 12,
-      "l": 13,
-      "p": 0,
-      "pct": 48.0,
-      "note": ""
-     },
-     {
-      "label": "Sagarin 电脑分",
-      "w": 13,
-      "l": 12,
-      "p": 0,
-      "pct": 52.0,
-      "note": ""
-     },
-     {
-      "label": "ESPN 预测",
-      "w": 15,
-      "l": 10,
-      "p": 0,
-      "pct": 60.0,
-      "note": ""
-     },
-     {
-      "label": "第二版球员模型",
-      "w": 14,
-      "l": 11,
-      "p": 0,
-      "pct": 56.0,
-      "note": ""
-     },
-     {
-      "label": "第二版滚动模型",
-      "w": 14,
-      "l": 11,
-      "p": 0,
-      "pct": 56.0,
-      "note": ""
-     }
-    ]
-   },
-   {
-    "title": "和收盘线比 · 让分",
-    "desc": "上赛季整季和收盘线比：所有模型都在五成上下",
-    "rows": [
-     {
-      "label": "第三版",
-      "w": 627,
-      "l": 668,
-      "p": 20,
-      "pct": 48.4,
-      "note": ""
-     },
-     {
-      "label": "ESPN 预测",
-      "w": 650,
-      "l": 645,
-      "p": 20,
-      "pct": 50.2,
-      "note": ""
-     },
-     {
-      "label": "Massey 电脑分",
-      "w": 630,
-      "l": 665,
-      "p": 20,
-      "pct": 48.6,
-      "note": ""
-     },
-     {
-      "label": "Sagarin 电脑分",
-      "w": 620,
-      "l": 675,
-      "p": 20,
-      "pct": 47.9,
-      "note": ""
-     }
-    ]
    }
   ],
   "live": {
-   "graded_rows": 0,
-   "w": 0,
-   "l": 0,
-   "pct": null,
-   "note": "还没有赛后结果（今晚比赛结束后才会有）"
+   "graded_rows": 14,
+   "w": 4,
+   "l": 10,
+   "pct": 28.6,
+   "note": "已结束的比赛"
   },
   "is_first": false,
   "is_first_note": "说明：和收盘线比，所有模型都在五成左右；和开盘线比略高一些。"
@@ -3587,9 +4051,9 @@
   "皇冠盘口：已读取 3 场",
   "雷速 12 家中位数：已读取",
   "首发名单：暂无",
-  "官方伤病报告已更新到美东晚上 9:30",
+  "官方伤病报告已更新到美东晚上 10:30",
   "裁判：只有勇士@火箭有名单，其他场次暂无",
-  "平博每场都有盘，已算进多家中位数",
+  "平博不是每场都有盘，暂不算进中位数",
   "已开打的比赛：盘口停在开赛前",
   "本赛季 Massey、Sagarin 的命中率：暂无（没有存档）",
   "今晚的对错：比赛结束后才有",
@@ -3604,113 +4068,92 @@
   {
    "name": "我们的赛前锁定记录",
    "file": "out/live_ledger.csv",
-   "updated": "2026-11-11 17:17 PT",
+   "updated": "2026-11-12 07:16 PT",
    "note": "每场开赛前锁定的方向、盘口、把握度，赛后填对错",
    "exists": true
   },
   {
    "name": "ESPN 赛程和战绩",
    "file": "raw/espn_scoreboard.json",
-   "updated": "2026-11-11 07:52 PT",
+   "updated": "2026-11-11 19:17 PT",
    "note": "开球时间、场馆、战绩",
    "exists": true
   },
   {
    "name": "美盘电脑预测",
    "file": "raw/tpt_daily/nbapreds_20261111_1635.csv",
-   "updated": "2026-11-11 16:34 PT",
+   "updated": "2026-11-11 19:17 PT",
    "note": "Massey、Sagarin、ESPN 等电脑预测和美盘开盘/现盘",
    "exists": true
   },
   {
    "name": "实时盘口",
    "file": "monitor/lines.json",
-   "updated": "2026-11-11 18:50 PT",
+   "updated": "2026-11-11 19:48 PT",
    "note": "DraftKings、平博、美盘共识，含开盘和变盘",
    "exists": true
   },
   {
    "name": "实时官方伤病",
    "file": "monitor/injuries.json",
-   "updated": "2026-11-11 18:50 PT",
+   "updated": "2026-11-11 19:48 PT",
    "note": "NBA 官方伤病报告",
    "exists": true
   },
   {
    "name": "盘口和伤病变动提醒",
    "file": "monitor/alerts.json",
-   "updated": "2026-11-11 18:50 PT",
+   "updated": "2026-11-11 19:48 PT",
    "note": "盘口变动超过 1 分、伤病状态变化",
    "exists": true
   },
   {
    "name": "NBA 官方伤病报告",
    "file": "raw/inj",
-   "updated": "2026-11-11 08:19 PT",
+   "updated": "2026-11-11 19:17 PT",
    "note": "只认官方报告",
    "exists": true
   },
   {
    "name": "球员头像编号（NBA 官方）",
    "file": "raw/inj_reports/injury_report_2027_new.csv",
-   "updated": "2026-11-11 16:49 PT",
+   "updated": "2026-11-11 19:17 PT",
    "note": "用于显示 NBA 官网头像",
-   "exists": true
-  },
-  {
-   "name": "勇士@火箭 赛前资料",
-   "file": "out/GSW_at_HOU_20261111_v2.md",
-   "updated": "2026-11-11 08:22 PT",
-   "note": "早上 8:19 整理",
-   "exists": true
-  },
-  {
-   "name": "勇士@火箭 早间资料",
-   "file": "out/GSW_at_HOU_20261111.md",
-   "updated": "2026-11-11 08:02 PT",
-   "note": "早上 8:02 整理",
    "exists": true
   },
   {
    "name": "勇士@火箭 早间盘口",
    "file": "cache/GSW_at_HOU.json",
-   "updated": "2026-11-11 08:02 PT",
+   "updated": "2026-11-11 19:17 PT",
    "note": "早上 8:02 的盘口",
    "exists": true
   },
   {
    "name": "皇冠和雷速盘口（人工读取）",
    "file": "monitor/crown.json",
-   "updated": "2026-11-11 17:43 PT",
+   "updated": "2026-11-11 19:18 PT",
    "note": "",
    "exists": true
   },
   {
    "name": "第六版历史命中率",
    "file": "v6/v6_metrics.json",
-   "updated": "2026-11-11 17:20 PT",
+   "updated": "2026-11-11 19:17 PT",
    "note": "",
    "exists": true
   },
   {
    "name": "第五版历史命中率",
    "file": "v5/v5_metrics.json",
-   "updated": "2026-11-11 16:56 PT",
+   "updated": "2026-11-11 19:17 PT",
    "note": "",
    "exists": true
   },
   {
-   "name": "第二版历史命中率",
-   "file": "out/v2_metrics.json",
-   "updated": "2026-11-11 08:17 PT",
-   "note": "",
-   "exists": true
-  },
-  {
-   "name": "第三版历史命中率",
-   "file": "out/v3_metrics.json",
-   "updated": "2026-11-11 08:30 PT",
-   "note": "",
+   "name": "第八版让分早锁记录",
+   "file": "out/live_ledger_v8_early.csv",
+   "updated": "2026-11-12 07:21 PT",
+   "note": "每场开盘后锁一次，之后不改",
    "exists": true
   }
  ],
