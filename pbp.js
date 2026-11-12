@@ -21,7 +21,9 @@
       var tid = String((tp.team || {}).id);
       ((tp.statistics || [])[0] || {}).athletes && tp.statistics[0].athletes.forEach(function (a) {
         var at = a.athlete || {}, id = String(at.id);
-        P.ath[id] = { id: id, full: at.displayName, name: surname(at.displayName), jersey: at.jersey || "", team: tid, starter: !!a.starter, dnp: !!a.didNotPlay };
+        var keys = tp.statistics[0].keys || [], fi = keys.indexOf("fouls"), pf = fi >= 0 && a.stats && a.stats[fi] != null ? parseInt(a.stats[fi], 10) : null;
+        P.ath[id] = { id: id, full: at.displayName, name: surname(at.displayName), jersey: at.jersey || "", team: tid, starter: !!a.starter, dnp: !!a.didNotPlay,
+          active: !!a.active, ejected: !!a.ejected, fouls: isNaN(pf) ? null : pf, reason: a.reason || "" };
         P.byName[at.displayName] = id;
       });
     });
@@ -166,16 +168,81 @@
       P.active = P.plays.length > 0;
       render(g, fresh);
       P.listeners.forEach(function (f) { f("plays", fresh, P.firstLoad !== gid); });
+      var tipIso = ((((d.header || {}).competitions || [])[0]) || {}).date;
+      loadInj().then(function () { if (gid === P.gid) renderStatus(g, tipIso); });
       P.firstLoad = gid;
     }).catch(function () { P.fail = true; render(g, []); }).then(function () {
-      P.timer = setTimeout(tick, liveState(selGame()) === "in" ? 6000 : 60000);
+      P.timer = setTimeout(tick, liveState(selGame()) === "in" ? (P.fastPoll ? 5000 : 6000) : 60000);
     });
   }
   P._tr = tr; P._load = loadPeople;
+  /* ---- 场上状况：只用 ESPN 明确给出的字段 / 文字，不猜 ---- */
+  P.inj = { t: 0, byId: {} };
+  function loadInj() {
+    if (Date.now() - P.inj.t < 60000) return Promise.resolve();
+    P.inj.t = Date.now();
+    return fetch("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : {}; }).then(function (j) {
+      var by = {};
+      (j.injuries || []).forEach(function (t) { (t.injuries || []).forEach(function (i) { var id = String(((i.athlete || {}).links ? (/id\/(\d+)/.exec(JSON.stringify(i.athlete.links)) || [])[1] : "") || ""); if (id) by[id] = i; }); });
+      P.inj.byId = by;
+    }).catch(function () {});
+  }
+  P.nbaIds = {};
+  fetch("nba_ids.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : {}; }).then(function (j) { P.nbaIds = j || {}; }).catch(function () {});
+  function statusItems(tipIso) {
+    var items = [], tip = tipIso ? Date.parse(tipIso) : 0;
+    for (var id in P.ath) {
+      var a = P.ath[id], who = (P.teams[a.team] || {}).cn + " " + nm(id);
+      if (a.ejected) items.push({ key: id + ":ej", cls: "red", id: id, txt: who + " 被驱逐出场", src: "ESPN 技术统计" });
+      else if (a.fouls >= 6) items.push({ key: id + ":f6", cls: "red", id: id, txt: who + " 6 犯离场", src: "ESPN 技术统计" });
+      else if (a.fouls === 5) items.push({ key: id + ":f5", cls: "yel", id: id, txt: who + " 已经 5 次犯规", src: "ESPN 技术统计" });
+      var i = P.inj.byId[id];
+      if (i && tip && Date.parse(i.date || 0) >= tip - 30 * 60000) { // 只看开赛后的伤病消息
+        var c = i.shortComment || ""; // 只看新闻标题句（事实），不看长评里的分析推测
+        if (!/(exited|left|won't return|will not return|not return|to return|returned to|back in the game|injur)/i.test(c) || /ruled out for/i.test(c)) continue;
+        var w = /(will not|won't|not) return/i.test(c) ? ["red", "受伤，不会回场"] : /(questionable|doubtful) to return/i.test(c) ? ["yel", "受伤，能否回场待定"] : /(has |have )?return(ed)? to (the )?(game|action)/i.test(c) ? ["", "受伤后已回场"] : ["yel", "受伤离场，暂无官方回场消息"];
+        items.push({ key: id + ":inj:" + w[1], cls: w[0], id: id, txt: who + " " + w[1], src: "ESPN 伤病消息" });
+      }
+    }
+    P.plays.forEach(function (r) { // 逐回合文字里明确写了受伤的
+      if (/injur/i.test(r.raw || "") && r.who) items.push({ key: r.id + ":pi", cls: "yel", id: r.who, txt: ((P.teams[r.team] || {}).cn || "") + " " + (nm(r.who) || "") + " 受伤（比赛记录）", src: "ESPN 逐回合记录" });
+    });
+    var rank = { red: 0, yel: 1, "": 2 };
+    return items.sort(function (x, y) { return rank[x.cls] - rank[y.cls]; });
+  }
+  function head(id) {
+    var n = P.nbaIds[id];
+    return n ? '<img loading="lazy" alt="" src="https://cdn.nba.com/headshots/nba/latest/260x190/' + n + '.png" onerror="this.remove()">' : "";
+  }
+  P.lastStatus = {};
+  function renderStatus(g, tipIso) {
+    var box = $("status"); if (!box) return;
+    var items = statusItems(tipIso), h = "";
+    // 场上五人：ESPN 技术统计里的“在场”字段，每队正好 5 人才显示
+    var five = {}; for (var id in P.ath) if (P.ath[id].active) (five[P.ath[id].team] = five[P.ath[id].team] || []).push(id);
+    var teams = Object.keys(P.teams).sort(function (x, y) { return P.teams[x].side === "h" ? 1 : -1; });
+    h += '<div class="st-five">';
+    teams.forEach(function (t) {
+      var ids = five[t] || [];
+      h += '<div class="st-team"><div class="st-tn" style="color:' + esc(P.teams[t].color) + '">' + esc(P.teams[t].cn) + " 场上</div>" +
+        (ids.length === 5 ? ids.map(function (id) { var a = P.ath[id]; return '<span class="st-p' + (a.fouls >= 5 ? " f5" : "") + '">' + head(id) + "<b>" + esc(nm(id)) + "</b><i>" + (a.fouls != null ? a.fouls + "犯" : "") + "</i></span>"; }).join("") : '<span class="dim">暂无（ESPN 没给出完整在场名单）</span>') + "</div>";
+    });
+    h += '</div><div class="st-src">在场名单：ESPN 技术统计实时字段</div>';
+    h += '<ul class="st-list">' + (items.length ? items.map(function (x) { return '<li class="' + x.cls + '">' + head(x.id) + "<span>" + esc(x.txt) + "</span><small>" + esc(x.src) + "</small></li>"; }).join("") : '<li class="none">暂无伤病、犯规麻烦或驱逐（伤病回场情况暂无官方消息）</li>') + "</ul>";
+    if (box._h !== h) { box._h = h; box.innerHTML = h; }
+    // 新出现的状况：通知解说
+    var fresh = items.filter(function (x) { return !P.lastStatus[x.key]; });
+    var first = !P.lastStatus.__gid || P.lastStatus.__gid !== g.espn_id;
+    P.lastStatus = { __gid: g.espn_id }; items.forEach(function (x) { P.lastStatus[x.key] = 1; });
+    if (!first) fresh.forEach(function (x) { P.listeners.forEach(function (f) { f("status", x); }); });
+  }
+  P.renderStatus = renderStatus;
+
   P.kick = function () { P.timer && clearTimeout(P.timer); setTimeout(tick, 50); };
 
   /* ---- 渲染 ---- */
   function renderEmpty(st) {
+    var sb = $("status"); if (sb && sb._h !== "e") { sb._h = "e"; sb.innerHTML = '<p class="note small-miss">开赛后显示场上五人、犯规和伤病情况</p>'; }
     var b = $("pbp"); if (!b) return;
     var t = st === "pre" ? "开赛后开始直播" : "比赛状态读取中…";
     if (b.getAttribute("data-gid") === "empty:" + t) return;

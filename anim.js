@@ -93,9 +93,22 @@
   }
   function speed() { return A.q.length > 3 ? Math.min(8, 1 + A.q.length / 2) : 1; }
 
+  // 用 ESPN 实时“在场”字段校正场上五人（每队正好 5 人才用）
+  function syncActive() {
+    var five = {}; for (var id in P.ath) if (P.ath[id].active) (five[P.ath[id].team] = five[P.ath[id].team] || []).push(id);
+    for (var t in five) {
+      if (five[t].length !== 5) continue;
+      var L = A.lineup[t] || [];
+      L.slice().forEach(function (id) { if (five[t].indexOf(id) < 0) leave(id); });
+      L = A.lineup[t] || (A.lineup[t] = []);
+      five[t].forEach(function (id) { if (L.indexOf(id) < 0) { L.push(id); mk(id); } });
+    }
+    retarget();
+  }
   P.listeners.push(function (ev, fresh, first) {
     if (ev === "reset") { A.sp = {}; A.lineup = {}; A.poss = null; A.per = 0; A.q = []; A.cur = null; A.fx = []; return; }
     if (ev !== "plays") return;
+    setTimeout(syncActive, 0);
     if (first) {
       // 首次载入：静默重放全部记录，算出现在的场上人员和球权，只播放最后一条
       A.sp = {}; A.lineup = {}; A.q = []; A.cur = null; A.per = 0;

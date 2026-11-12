@@ -250,3 +250,20 @@ main.day-mode > *:not(#dateBar):not(#dayView):not(footer){display:none!important
 .lsslot{height:36px;display:flex;justify-content:center;align-items:center;margin:2px 0 8px}
 .lsbtn{display:inline-block!important;margin:0!important;padding:7px 14px!important;font-size:13px;border-radius:999px!important;line-height:1.3}
 .lsbtn.off{background:#1b2440!important;color:var(--dim)!important;font-weight:600}
+/* 场上状况（固定高度） */
+#status{height:300px;overflow:hidden;display:flex;flex-direction:column}
+.st-five{display:grid;grid-template-columns:1fr;gap:6px}
+.st-tn{font-weight:900;font-size:13px;margin-bottom:2px}
+.st-team{display:flex;flex-wrap:wrap;gap:4px;align-items:center;min-height:52px}
+.st-team .st-tn{width:100%}
+.st-p{display:inline-flex;align-items:center;gap:3px;background:#131c35;border:1px solid var(--line);border-radius:999px;padding:2px 7px 2px 2px;font-size:12px;height:26px}
+.st-p img{width:30px;height:22px;object-fit:cover;border-radius:999px;background:#0a1122}
+.st-p i{font-style:normal;color:var(--dim);font-size:10px}
+.st-p.f5{border-color:var(--yel)}
+.st-src{font-size:10px;color:var(--dim);margin:2px 0 4px}
+.st-list{list-style:none;margin:0;padding:0;flex:1;overflow-y:auto;border-top:1px solid #18213b}
+.st-list li{display:flex;align-items:center;gap:6px;padding:6px 2px;font-size:14px;border-bottom:1px solid #18213b}
+.st-list li img{width:34px;height:25px;object-fit:cover;border-radius:6px}
+.st-list li span{flex:1}.st-list li small{font-size:10px;color:var(--dim)}
+.st-list li.red span{color:#ff6b84;font-weight:800}.st-list li.yel span{color:var(--yel);font-weight:700}
+.st-list li.none{color:var(--dim);font-size:13px}
