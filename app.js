@@ -957,7 +957,8 @@
     clearTimeout(live.timer);
     if (live.busy) return; // 上一个请求没回来就不发下一个
     live.busy = true; live.busyAt = Date.now();
-    sbFetch(SB_URL + "?t=" + Date.now(), 5000).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+    var sbT0 = performance.now();
+    sbFetch(SB_URL + "?t=" + Date.now(), 5000).then(function (r) { if (!r.ok) throw new Error(r.status); FR.lat = r.headers.get("x-sw-cache") ? null : Math.round(performance.now() - sbT0); FR.latAt = Date.now(); return r.json(); }) /* 顶部状态栏：最近一次 scoreboard 请求的真实耗时（离线用缓存时不算） */.then(function (d) {
       live.fastMs = 2000; live.okT = Date.now(); stampScore();
       var nb = parseSB(d), prev = {};
       (state.data ? allGames() : []).forEach(function (g) { var s = liveFor(g); if (s) prev[g.espn_id] = s; });
@@ -1250,7 +1251,15 @@
     if (on && !FR.spoke) { FR.spoke = true; var V = window.VOICE; if (V && V.say && V.unlocked && !V.muted) V.say("数据已断开，正在重连", false, true); }
     if (!on) FR.spoke = false;
     if (offT && !on) { bar.innerHTML = "⚠ 数据已旧：现在离线<small>显示的是 " + esc(hms(offT)) + "（太平洋时间）缓存的数据</small>"; bar.hidden = false; }
-    FR.on = on; FR.bad = bad;
+    FR.on = on; FR.bad = bad; hudPaint(on || !!offT);
+  }
+  // 顶部状态栏 HUD：系统指示灯（和防旧逻辑联动）、太平洋时间时钟、最近一次 scoreboard 请求耗时（没有就“—”）
+  function hudPaint(bad) {
+    var h = $("hudBar"); if (!h) return;
+    if (bad !== h._bad) { h._bad = bad; h.classList.toggle("bad", bad); h.querySelector(".hb-sys b").textContent = bad ? "数据异常" : "系统在线"; }
+    h.querySelector(".hb-clk").textContent = hms(Date.now()) + " PT";
+    var lat = FR.lat != null && Date.now() - (FR.latAt || 0) < 120000 && !bad ? FR.lat + " 毫秒" : "—";
+    h.querySelector(".hb-lat b").textContent = lat;
   }
   setInterval(freshCheck, 1000);
   // 回到前台 / 切回页面 / 恢复网络：立刻重查所有数据（节流 5 秒），并给 8 秒宽限，避免刚回来就误报

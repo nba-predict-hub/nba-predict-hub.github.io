@@ -637,3 +637,17 @@ background:linear-gradient(90deg,var(--s1,transparent) 0 6px,transparent 6px 8px
 .pill.中{--s1:#33e1ff;--s2:#33e1ff}.pill.低{--s1:#93a1c2}
 @keyframes batt{50%{opacity:.55}}
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none !important;transition:none !important}.card:before,.gcard:after,.lvmid:after{display:none !important}}
+/* 顶部状态栏 HUD（第一行）：指示灯 / 太平洋时间 / scoreboard 请求耗时 */
+.top{padding-top:calc(6px + env(safe-area-inset-top)) !important}
+.hudbar{order:-1;flex:0 0 100%;display:flex;justify-content:space-between;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:#9fdcff;
+padding:2px 0 6px;margin-bottom:2px;border-bottom:1px solid rgba(51,225,255,.14);background:repeating-linear-gradient(90deg,rgba(51,225,255,.22) 0 1px,transparent 1px 9px) 0 100%/100% 3px no-repeat;white-space:nowrap}
+.hb-sys{display:flex;align-items:center;gap:6px;color:#7dffc4}.hb-sys i{width:7px;height:7px;border-radius:50%;background:#2fe39a;box-shadow:0 0 8px #2fe39a;animation:livedot 1.6s ease-in-out infinite}
+.hudbar.bad .hb-sys{color:#ff8a98}.hudbar.bad .hb-sys i{background:#ff3b5c;box-shadow:0 0 10px #ff3b5c}
+.hb-clk{color:#e9fbff;text-shadow:0 0 8px rgba(51,225,255,.6);font-variant-numeric:tabular-nums}
+.hb-lat b{font-weight:600;color:#e9fbff;font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion:reduce){.hb-sys i{animation:none !important}}
+.top{height:calc(92px + env(safe-area-inset-top)) !important;align-content:center;row-gap:2px !important}
+main.live-mode>#liveTop{top:calc(92px + env(safe-area-inset-top)) !important}
+html{scroll-padding-top:calc(100px + env(safe-area-inset-top))}
+html.lm{scroll-padding-top:calc(228px + env(safe-area-inset-top))}
+.top{flex-wrap:wrap !important}.top>.brand,.top>.meta{min-width:0}
