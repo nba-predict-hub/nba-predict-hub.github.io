@@ -147,8 +147,17 @@
   function selGame() { return window.NBA && window.NBA.game ? window.NBA.game() : null; }
   function liveState(g) { var s = g && window.liveFor ? window.liveFor(g) : null; return s ? s.state : null; }
   function reset(g) { P.preT = 0; P.active = false; P.gid = g ? g.espn_id : null; P.plays = []; P.seen = {}; P.loadedPost = false; P.latestShot = null; P.showN = 30; P.fail = false; P.listeners.forEach(function (f) { f("reset"); }); }
+  // 带超时的请求（不支持 AbortController 的浏览器就不设超时）
+  function tfetch(url, ms) {
+    var ac = window.AbortController ? new AbortController() : null, t = ac ? setTimeout(function () { ac.abort(); }, ms) : 0;
+    return fetch(url, ac ? { cache: "no-store", signal: ac.signal } : { cache: "no-store" }).then(function (r) { clearTimeout(t); return r; }, function (e) { clearTimeout(t); throw e; });
+  }
+  P.tfetch = tfetch;
+  P.fastMs = 2000; P.busy = false; P.again = false;
+  function liveGap() { return document.visibilityState === "visible" ? P.fastMs : 6000; } // 前台 2 秒（出错退到 3→5 秒），后台 6 秒
   function tick() {
     clearTimeout(P.timer);
+    if (P.busy) { P.again = true; return; } // 上一个请求没回来就不发下一个
     var g = selGame();
     if (g && g.espn_id !== P.gid) reset(g);
     var st = liveState(g);
@@ -165,7 +174,9 @@
     }
     if (st === "post" && P.loadedPost) { P.timer = setTimeout(tick, 60000); return; }
     var gid = g.espn_id;
-    fetch(SUM + gid + "&t=" + Date.now(), { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+    P.busy = true;
+    tfetch(SUM + gid + "&t=" + Date.now(), 5000).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+      P.fastMs = 2000;
       if (gid !== P.gid) return;
       loadPeople(d, g);
       var fresh = [];
@@ -180,8 +191,10 @@
       var tipIso = ((((d.header || {}).competitions || [])[0]) || {}).date;
       loadInj().then(function () { if (gid === P.gid) { renderStatus(g, tipIso); renderLineup(g); } });
       P.firstLoad = gid;
-    }).catch(function () { P.fail = true; render(g, []); }).then(function () {
-      P.timer = setTimeout(tick, liveState(selGame()) === "in" ? (P.fastPoll ? 5000 : 6000) : 60000);
+    }).catch(function () { P.fail = true; P.fastMs = P.fastMs < 3000 ? 3000 : 5000; if (gid === P.gid) render(g, []); }).then(function () {
+      P.busy = false;
+      if (P.again) { P.again = false; P.timer = setTimeout(tick, 0); return; }
+      P.timer = setTimeout(tick, liveState(selGame()) === "in" ? liveGap() : 60000);
     });
   }
   P._tr = tr; P._load = loadPeople;

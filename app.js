@@ -693,9 +693,18 @@
     if (w) w.textContent = live.fail ? "比分暂时没刷新到，显示的是 " + (live.okAt || "上次") + " 的比分" : "";
   }
   function anyLive() { for (var k in live.byId) if (live.byId[k].state === "in") return true; return false; }
+  live.fastMs = 2000; live.busy = false;
+  function sbFetch(url, ms) {
+    var ac = window.AbortController ? new AbortController() : null, t = ac ? setTimeout(function () { ac.abort(); }, ms) : 0;
+    return fetch(url, ac ? { cache: "no-store", signal: ac.signal } : { cache: "no-store" }).then(function (r) { clearTimeout(t); return r; }, function (e) { clearTimeout(t); throw e; });
+  }
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible" && state.data && !live.busy) pollScores(); });
   function pollScores() {
     clearTimeout(live.timer);
-    fetch(SB_URL + "?t=" + Date.now(), { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+    if (live.busy) return; // 上一个请求没回来就不发下一个
+    live.busy = true;
+    sbFetch(SB_URL + "?t=" + Date.now(), 5000).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+      live.fastMs = 2000;
       var nb = parseSB(d), prev = {};
       (state.data ? allGames() : []).forEach(function (g) { var s = liveFor(g); if (s) prev[g.espn_id] = s; });
       var oldIds = (live.events || []).map(function (e) { return e.id + e.state; }).join(",");
@@ -704,8 +713,10 @@
       if (state.data && oldIds !== live.events.map(function (e) { return e.id + e.state; }).join(",")) keepScroll(function () { var sl = $("gameTabs").scrollLeft; renderTabs(); $("gameTabs").scrollLeft = sl; var gg = game(); if (gg && (gg.nomodel || !$("hero").innerHTML)) renderGame(); }); live.fail = false; live.okAt = ptTime(new Date().toISOString());
       paintLive(true);
       if (window.PBP) window.PBP.kick();
-    }).catch(function () { live.fail = true; paintLive(false); }).then(function () {
-      live.timer = setTimeout(pollScores, anyLive() ? 6000 : 120000);
+    }).catch(function () { live.fail = true; live.fastMs = live.fastMs < 3000 ? 3000 : 5000; paintLive(false); }).then(function () {
+      live.busy = false;
+      // 有比赛进行中：前台 2 秒（出错退到 3→5 秒，成功后回到 2 秒），后台 6 秒；没有比赛进行中 2 分钟
+      live.timer = setTimeout(pollScores, anyLive() ? (document.visibilityState === "visible" ? live.fastMs : 6000) : 120000);
     });
   }
   window.NBA = { game: function () { return state.data ? game() : null; } };
