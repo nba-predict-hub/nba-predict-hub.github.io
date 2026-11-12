@@ -157,3 +157,24 @@ details{margin-top:10px;font-size:14px}summary{cursor:pointer;color:var(--cyan)}
 @media(max-width:360px){.oc b.big{font-size:16px}}
 .small-miss{font-size:12px;margin:4px 0 8px;opacity:.85}
 .feed .tm{color:var(--cyan);font-size:14px;margin-right:2px}
+/* 实时比分 */
+.lvtab{display:block;font-size:12px;color:var(--dim)}
+.lvtab b{font-size:15px;color:#fff;display:inline-block;position:relative}
+.lvtab.live{color:#ff8a9c}.lvtab.live:before{content:"● ";color:#ff3b5c;animation:blink 1s infinite}
+.lvtab.fin{color:var(--dim)}
+.lvmid{min-width:120px!important}
+.lvst{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:#18223d;color:var(--txt);margin-bottom:4px}
+.lvst.live{background:rgba(255,59,92,.18);color:#ff8a9c;box-shadow:0 0 12px rgba(255,59,92,.35)}
+.lvst.live i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#ff3b5c;margin-right:5px;animation:blink 1s infinite}
+.lvst.fin{background:#1d2a45;color:#cfd8ee}
+.lvsc{display:flex;align-items:center;justify-content:center;gap:6px;font-variant-numeric:tabular-nums}
+.lvsc b{font-size:38px!important;font-weight:900;line-height:1.05;position:relative;display:inline-block}
+.lvsc b.blue{color:#7fb6ff;text-shadow:0 0 14px rgba(47,123,255,.7)}.lvsc b.red{color:#ff8a9c;text-shadow:0 0 14px rgba(255,59,92,.7)}
+.lvsc em{font-style:normal;font-size:26px;color:var(--dim)}
+.lvmid small{display:block;font-size:10px}
+.bump{animation:bump .9s cubic-bezier(.2,1.6,.4,1)}
+@keyframes bump{0%{transform:scale(1);filter:brightness(1)}25%{transform:scale(1.55);filter:brightness(2.2);color:#fff}60%{transform:scale(.92)}100%{transform:scale(1);filter:brightness(1)}}
+.plus{position:absolute;left:50%;top:-6px;transform:translateX(-50%);font-style:normal;font-size:14px;font-weight:900;color:#2fe39a;text-shadow:0 0 8px #2fe39a;animation:plus 1.4s ease-out forwards;pointer-events:none}
+@keyframes plus{0%{opacity:0;transform:translate(-50%,6px)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-26px)}}
+@keyframes blink{50%{opacity:.25}}
+.lvwarn:empty{display:none}

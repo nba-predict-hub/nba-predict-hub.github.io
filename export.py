@@ -471,7 +471,7 @@ def crown_for(a, h, gid):
                 f = fnum(v) if not isinstance(v, (int, float)) else float(v)
                 if f is None:
                     return str(v) if v not in (None, "") else None
-                return f"{cn(h)} {f:+g}" if f else f"{cn(h)} 平手"
+                return f"{v}（未注明哪队）"  # 纯数字不猜方向（雷速正数=客让，和皇冠可能不同）
             def tt(v):
                 f = fnum(v) if not isinstance(v, (int, float)) else float(v)
                 return (f"{f:g}" if f is not None else (str(v) if v not in (None, "") else None))

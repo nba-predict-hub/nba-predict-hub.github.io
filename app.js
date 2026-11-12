@@ -101,11 +101,12 @@
     $("gameTabs").innerHTML = (d.games || []).map(function (g) {
       var p = g.spread ? g.spread.pick_text : "暂无结论";
       return '<button class="tab' + (g.espn_id === state.sel ? " on" : "") + '" data-id="' + esc(g.espn_id) + '"><b>' + esc(g.away_cn) + " @ " + esc(g.home_cn) +
-        "</b><span>" + esc(String(g.tip_pt || "时间待定").replace(/ PT$/, "")) + (g.game_status && g.game_status !== "pre" ? " · " + esc(g.game_status_cn) : "") + " · " + esc(p) + "</span></button>";
+        "</b><span class=\"lvtab\" data-lvtab=\"" + esc(g.espn_id) + "\">" + esc(String(g.tip_pt || "时间待定").replace(/ PT$/, "")) + "</span><span>" + esc(p) + "</span></button>";
     }).join("") + ((d.unlocked_games || []).length ? '<button class="tab" disabled><b class="dim">另 ' + d.unlocked_games.length + ' 场</b><span>锁定时已开赛，无模型结论</span></button>' : "");
+    setTimeout(function () { paintLive(false); }, 0);
     $("gameTabs").querySelectorAll(".tab[data-id]").forEach(function (b) {
       b.onclick = function () {
-        state.sel = b.getAttribute("data-id"); renderTabs(); renderGame();
+        state.sel = b.getAttribute("data-id"); renderTabs(); renderGame(); paintLive(false); if (window.PBP) window.PBP.kick();
         document.querySelectorAll(".card.in").forEach(animateIn);
       };
     });
@@ -117,7 +118,7 @@
   function renderHero(g) {
     var d = state.data, mv = d.model_version || {}, sp = g.spread, to = g.total, h = "";
     h += '<div class="vs"><div class="team h"><div class="ab">主场</div><div class="nm">' + esc(g.home_cn) + '</div><div class="ab">' + esc(g.records[g.home] || "") + "</div></div>";
-    h += '<div class="mid"><b>VS</b>' + esc(String(g.tip_pt || "时间待定").replace(/ PT$/, "")) + "<br>" + esc(g.venue || "") + (g.game_status ? "<br>" + esc(g.game_status_cn) : "") + "</div>";
+    h += '<div class="mid lvmid" data-lvmid="' + esc(g.espn_id) + '"><b>VS</b>' + esc(String(g.tip_pt || "时间待定").replace(/ PT$/, "")) + "</div>";
     h += '<div class="team a"><div class="ab">客场</div><div class="nm">' + esc(g.away_cn) + '</div><div class="ab">' + esc(g.records[g.away] || "") + "</div></div></div>";
     h += '<div class="verdicts">';
     if (sp) {
@@ -140,8 +141,10 @@
     if (g.alt_pick) h += '<br><span class="dim">参考：' + esc(g.alt_pick.label) + " → " + esc(g.alt_pick.pick_text) + "（把握度 " + esc(g.alt_pick.band_cn) + "）</span>";
     if (g.market && g.market.median_text && sp && g.market.median_home !== sp.line_home) h += '<div class="warn">多家中位数是 ' + esc(g.market.median_text) + "，和结论用的 DraftKings 线不同，下注前以你在皇冠看到的线为准。</div>";
     h += "</div>";
+    h += '<p class="note lvwarn" id="lvWarn"></p>';
     $("hero").innerHTML = h;
     runRolls($("hero"));
+    paintLive(false);
   }
 
   /* ---------- 全息球场 ---------- */
@@ -400,6 +403,80 @@
     $("missing").innerHTML = h;
   }
 
+
+  /* ---------- 实时比分（浏览器直接读 ESPN，只用于展示，不写回任何数据） ---------- */
+  var SB_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard";
+  var ESPN2NBA = { GS: "GSW", SA: "SAS", NO: "NOP", NY: "NYK", UTAH: "UTA", WSH: "WAS", PHO: "PHX", BKN: "BKN" };
+  var live = { byId: {}, prev: {}, okAt: null, fail: false, timer: 0 };
+  function nbaAb(x) { return ESPN2NBA[x] || x; }
+  function ptTime(iso) {
+    try { return new Intl.DateTimeFormat("zh-CN", { timeZone: "America/Los_Angeles", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(iso)); } catch (e) { return ""; }
+  }
+  function statusCn(s) {
+    if (!s) return "";
+    if (s.state === "pre") return "未开始 · " + s.tip + " 开赛";
+    if (s.state === "post") return s.period > 4 ? "终场（加时）" : "终场";
+    if (s.name === "STATUS_HALFTIME") return "中场休息";
+    var per = s.period > 4 ? (s.period === 5 ? "加时" : "第" + (s.period - 4) + "个加时") : "第" + s.period + "节";
+    if (s.name === "STATUS_END_PERIOD") return per + "结束";
+    return per + " 剩 " + s.clock;
+  }
+  function parseSB(d) {
+    var out = {};
+    (d.events || []).forEach(function (e) {
+      var c = (e.competitions || [])[0] || {}, st = e.status || {}, ty = st.type || {}, r = { id: String(e.id), state: ty.state, name: ty.name, period: st.period || 0, clock: st.displayClock || "", tip: ptTime(e.date) };
+      (c.competitors || []).forEach(function (t) {
+        var k = t.homeAway === "home" ? "h" : "a";
+        r[k + "ab"] = nbaAb((t.team || {}).abbreviation); r[k + "s"] = t.score == null ? null : +t.score;
+      });
+      out[r.id] = r; out[r.aab + "@" + r.hab] = r;
+    });
+    return out;
+  }
+  function liveFor(g) { return live.byId[g.espn_id] || live.byId[g.away + "@" + g.home] || null; }
+  function bump(el, diff) {
+    if (!el) return;
+    el.classList.remove("bump"); void el.offsetWidth; el.classList.add("bump");
+    var f = document.createElement("i"); f.className = "plus"; f.textContent = "+" + diff; el.appendChild(f);
+    setTimeout(function () { if (f.parentNode) f.parentNode.removeChild(f); }, 1500);
+  }
+  function paintLive(animate) {
+    var d = state.data; if (!d) return;
+    (d.games || []).forEach(function (g) {
+      var s = liveFor(g), key = g.espn_id, pv = live.prev[key];
+      var tab = document.querySelector('[data-lvtab="' + key + '"]'), mid = document.querySelector('[data-lvmid="' + key + '"]');
+      if (!s) return;
+      var started = s.state !== "pre", inp = s.state === "in";
+      if (tab) {
+        tab.className = "lvtab" + (inp ? " live" : s.state === "post" ? " fin" : "");
+        tab.innerHTML = started ? '<b class="sa">' + s.as + '</b> : <b class="sh">' + s.hs + "</b> · " + esc(statusCn(s)) : esc(s.tip + " 开赛");
+      }
+      if (mid) {
+        mid.innerHTML = '<div class="lvst' + (inp ? " live" : s.state === "post" ? " fin" : "") + '">' + (inp ? "<i></i>" : "") + esc(started ? statusCn(s) : s.tip + " 开赛") + "</div>" +
+          (started ? '<div class="lvsc"><b class="sh blue">' + s.hs + '</b><em>:</em><b class="sa red">' + s.as + "</b></div>" : "<b>VS</b><small>太平洋时间</small>");
+      }
+      if (animate && pv && started) {
+        if (s.hs > pv.hs) document.querySelectorAll('[data-lvtab="' + key + '"] .sh, [data-lvmid="' + key + '"] .sh').forEach(function (el) { bump(el, s.hs - pv.hs); });
+        if (s.as > pv.as) document.querySelectorAll('[data-lvtab="' + key + '"] .sa, [data-lvmid="' + key + '"] .sa').forEach(function (el) { bump(el, s.as - pv.as); });
+      }
+    });
+    var w = $("lvWarn");
+    if (w) w.textContent = live.fail ? "比分暂时没刷新到，显示的是 " + (live.okAt || "上次") + " 的比分" : "";
+  }
+  function anyLive() { for (var k in live.byId) if (live.byId[k].state === "in") return true; return false; }
+  function pollScores() {
+    clearTimeout(live.timer);
+    fetch(SB_URL + "?t=" + Date.now(), { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+      var nb = parseSB(d), prev = {};
+      (state.data && state.data.games || []).forEach(function (g) { var s = liveFor(g); if (s) prev[g.espn_id] = s; });
+      live.prev = prev; live.byId = nb; live.fail = false; live.okAt = ptTime(new Date().toISOString());
+      paintLive(true);
+    }).catch(function () { live.fail = true; paintLive(false); }).then(function () {
+      live.timer = setTimeout(pollScores, anyLive() ? 6000 : 120000);
+    });
+  }
+  window.LIVE = live; window.liveFor = liveFor; window.statusCn = statusCn;
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) pollScores(); });
   /* ---------- 拉取与自动刷新 ---------- */
   function load(first) {
     return fetch("data.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) {
@@ -408,7 +485,7 @@
     }).then(function (d) {
       var changed = d.generated_at !== state.gen;
       state.data = d; state.gen = d.generated_at;
-      if (first) return loaderFeed(d).then(function () { renderAll(true); hideLoader(); });
+      if (first) return loaderFeed(d).then(function () { renderAll(true); hideLoader(); pollScores(); });
       if (changed) { renderAll(false); toast("数据已更新 · " + String(d.generated_at || "").slice(11, 16)); }
     }).catch(function (e) {
       if (first) { document.querySelector(".ld-title").textContent = "数据读取失败，60 秒后自动重试"; }
