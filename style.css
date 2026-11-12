@@ -290,3 +290,30 @@ main.day-mode > *:not(#dateBar):not(#dayView):not(footer){display:none!important
 .vhint{position:fixed;top:70px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(47,123,255,.92);color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;box-shadow:0 4px 16px rgba(0,0,0,.4);pointer-events:none;transition:opacity .4s}
 .vhint.gone{opacity:0}
 .vbtn{position:fixed;right:12px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:60;background:#131c35;color:#e9eefc;border:1px solid #2a3a66;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;box-shadow:0 4px 16px rgba(0,0,0,.45)}
+/* 比赛进行中的精简布局：比分条吸顶 + 球场 + 场上状况 一屏看全 */
+.livetop{display:none}
+main.live-mode{display:flex;flex-direction:column}
+main.live-mode>*{order:10}
+main.live-mode>#dateBar{order:0}main.live-mode>#dayView{order:1}main.live-mode>#gameTabs{order:2}
+main.live-mode>#liveTop{order:3;display:block;position:sticky;top:64px;z-index:15;height:118px;margin:0;padding:6px 6px;border-radius:12px;background:rgba(7,11,24,.96);border-bottom:1px solid var(--line);overflow:hidden;font-variant-numeric:tabular-nums}
+main.live-mode>#courtCard{order:4}main.live-mode>#statusCard{order:5}main.live-mode>#hero{order:6}
+main.live-mode>#courtCard,main.live-mode>#statusCard{margin:6px 0;padding:8px}
+main.live-mode>#courtCard h2,main.live-mode>#statusCard h2,main.live-mode #courtCard .one-line{display:none}
+main.live-mode .court-bar{height:66px;margin-top:4px;padding:4px 8px}
+main.live-mode .cb-act{height:36px;font-size:16px}
+main.live-mode .cb-sub{margin-top:2px;font-size:12px}
+main.live-mode #status{height:180px}
+main.live-mode .st-team{min-height:0;gap:3px}
+main.live-mode .st-p{height:22px;font-size:11px;padding:1px 6px 1px 1px}
+main.live-mode .st-p img{width:24px;height:18px}
+main.live-mode .st-tn{font-size:12px;margin:0}
+main.live-mode .st-src{margin:1px 0 2px}
+main.live-mode .st-list li{padding:4px 2px;font-size:13px}
+main.live-mode #gameTabs{padding-bottom:4px}
+.lt1{display:flex;align-items:center;justify-content:center;gap:6px;height:30px;white-space:nowrap}
+.lt1 b{font-size:22px;font-weight:900}.lt1 b.red{color:#ff8a9c}.lt1 b.blue{color:#7fb6ff}.lt1 em{font-style:normal;color:var(--dim)}
+.lt1 .lvst{margin:0 6px 0 0;font-size:11px}
+.lqs{font-size:12px}.lqs th{height:14px;font-size:10px}.lqs td{height:20px}.lqs td.tot{font-size:14px}
+.lt2{font-size:14px;font-weight:900;height:20px;line-height:20px;text-align:center;white-space:nowrap}
+main.live-mode .dchip{height:42px;padding:2px 0}main.live-mode .dchip b{line-height:18px}main.live-mode .dchip span{line-height:14px}
+main.live-mode .st-list{order:-1;flex:0 0 auto;max-height:64px;border-top:0;border-bottom:1px solid #18213b}main.live-mode .st-list li.none{padding:2px}

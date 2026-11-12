@@ -650,6 +650,20 @@
     h += '<div class="lx2 ' + c2 + '">' + esc(l2) + '</div><div class="lx2 ' + c3 + '">' + esc(l3) + "</div>";
     return h;
   }
+  // 比赛进行中：比分条（吸顶）+ 球场 + 场上状况 放最上面；只在状态变化时切换一次
+  function liveLayout() {
+    var g = game(), s = g && liveFor(g), on = !!(s && s.state === "in"), main = $("app"), top = $("liveTop");
+    if (on && top) {
+      var d = s.hs - s.as, np = Math.max(4, (s.als || []).length, (s.hls || []).length), q = "";
+      for (var i = 0; i < np; i++) q += "<th>" + (i < 4 ? i + 1 : (i === 4 ? "OT" : "OT" + (i - 3))) + "</th>";
+      function row(k, cn, cls) { var ls = s[k + "ls"] || [], r = '<tr><td class="tn ' + cls + '">' + esc(cn) + "</td>"; for (var i = 0; i < np; i++) r += "<td>" + (ls[i] != null ? ls[i] : "-") + "</td>"; return r + '<td class="tot">' + s[k + "s"] + "</td></tr>"; }
+      var th = '<div class="lt1"><span class="lvst live"><i></i>' + esc(statusCn(s)) + '</span><b class="red">' + esc(g.away_cn) + " " + s.as + '</b><em>:</em><b class="blue">' + s.hs + " " + esc(g.home_cn) + "</b></div>" +
+        '<table class="lq lqs"><tr><th></th>' + q + "<th>总</th></tr>" + row("a", g.away_cn, "red") + row("h", g.home_cn, "blue") + "</table>" +
+        '<div class="lt2">' + (d === 0 ? "平分" : esc(d > 0 ? g.home_cn : g.away_cn) + "领先 " + Math.abs(d)) + " · 总分 " + (s.hs + s.as) + "</div>";
+      if (top._h !== th) { top._h = th; top.innerHTML = th; }
+    }
+    if (main && main.classList.contains("live-mode") !== on) keepScroll(function () { main.classList.toggle("live-mode", on); });
+  }
   function paintLive(animate) {
     var d = state.data; if (!d) return;
     allGames().forEach(function (g) {
@@ -674,6 +688,7 @@
         if (s.as > pv.as) document.querySelectorAll('[data-lvtab="' + key + '"] .sa, [data-lvmid="' + key + '"] .sa').forEach(function (el) { bump(el, s.as - pv.as); });
       }
     });
+    safe("直播布局", liveLayout);
     var w = $("lvWarn");
     if (w) w.textContent = live.fail ? "比分暂时没刷新到，显示的是 " + (live.okAt || "上次") + " 的比分" : "";
   }
