@@ -301,9 +301,15 @@
   /* ---------- 球场下方大字 ---------- */
   function setBar(act, sub) {
     var a1 = $("cbAct"), s1 = $("cbSub"); if (!a1) return;
-    if (a1.textContent !== act) a1.textContent = act;
+    if (a1.textContent !== act) { a1.textContent = act; fitBar(a1); }
     if (s1.textContent !== sub) s1.textContent = sub;
   }
+  // 动作大字：固定两行高度，放不下就自动缩小字号，保证完整显示且不跳
+  function fitBar(el) {
+    var fs = 18; el.style.fontSize = fs + "px";
+    while (el.scrollHeight > el.clientHeight + 1 && fs > 11) { fs -= 1; el.style.fontSize = fs + "px"; }
+  }
+  window.addEventListener("resize", function () { var e = $("cbAct"); if (e) fitBar(e); });
   function preSentence(g) {
     var v = v8For(g);
     if (v) return "第八版早锁看好" + v.pick_cn + "（" + v.pick_text + "），把握度" + v.band_cn + "；开盘 " + (hcText(g, v.open_home) || "暂无") + "，锁定时 " + (hcText(g, v.cur_home) || "暂无") + "。" + m9aText(v).replace("第九版候选 ", "");

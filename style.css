@@ -225,3 +225,7 @@ html{overflow-anchor:auto}
 .v8empty{font-size:15px;color:var(--txt);margin:4px 0 8px}
 .v8prog{height:10px;border-radius:6px;background:#18223d;overflow:hidden;margin-top:10px}
 .v8prog i{display:block;height:100%;background:linear-gradient(90deg,#ffc53d,#2fe39a)}
+/* 动作大字：固定高度、完整显示（自动缩字号） */
+.court-bar{height:104px;justify-content:flex-start;padding:8px 10px}
+.cb-act{display:flex!important;align-items:center;justify-content:center;height:52px;line-height:1.25;overflow:hidden;-webkit-line-clamp:unset;word-break:break-word;overflow-wrap:anywhere}
+.cb-sub{margin-top:6px}
