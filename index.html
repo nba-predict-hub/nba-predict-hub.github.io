@@ -42,6 +42,12 @@
     <h2><em>01</em> 全息球场</h2>
     <p class="say">左边是主队（蓝），右边是客队（红），发光那边就是模型站的方向。</p>
     <div class="court-wrap"><canvas id="court" width="720" height="400"></canvas></div>
+    <p class="note" id="courtNote">比赛开打后：绿点 = 投进，红叉 = 没进，闪光的是最新一球。左半场画主队的投篮，右半场画客队的投篮（位置按 ESPN 真实坐标）。</p>
+  </section>
+
+  <section class="card">
+    <h2><em>直播</em> 文字直播 · 比分走势</h2>
+    <div id="pbp"><p class="note small-miss">开赛后开始直播</p></div>
   </section>
 
   <section class="card">
@@ -98,5 +104,6 @@
 </main>
 <div id="toast"></div>
 <script src="app.js"></script>
+<script src="pbp.js"></script>
 </body>
 </html>

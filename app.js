@@ -221,6 +221,7 @@
     // 队名
     x.textAlign = "center";
     function team(cx, nm, ab, rec, col, picked) {
+      if (window.PBP && window.PBP.active) return; // 直播时把球场让给投篮点
       x.shadowColor = col; x.shadowBlur = picked ? 26 : 10; x.fillStyle = "#fff";
       x.font = "900 56px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif"; x.fillText(nm, cx, H / 2 + 8);
       x.shadowBlur = 0; x.fillStyle = col; x.font = "700 18px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif"; x.fillText(ab + (rec ? "  " + rec : ""), cx, H / 2 + 40);
@@ -231,6 +232,7 @@
     x.fillStyle = "rgba(233,238,252,.75)"; x.font = "600 15px -apple-system,'PingFang SC',sans-serif";
     var foot = g.spread ? (g.spread.model_label + "：" + (winText(g, g.spread.pred_home_margin) || "") + " ｜ 盘口 " + (hcText(g, g.spread.line_home) || "暂无")) : "暂无模型结论";
     x.fillText(foot, W / 2, H - m - 12);
+    if (window.PBP && window.PBP.draw) window.PBP.draw(x, m, cw, ch, W, H, t, g);
   }
 
   /* ---------- 天平 ---------- */
@@ -494,10 +496,12 @@
       (state.data && state.data.games || []).forEach(function (g) { var s = liveFor(g); if (s) prev[g.espn_id] = s; });
       live.prev = prev; live.byId = nb; live.fail = false; live.okAt = ptTime(new Date().toISOString());
       paintLive(true);
+      if (window.PBP) window.PBP.kick();
     }).catch(function () { live.fail = true; paintLive(false); }).then(function () {
       live.timer = setTimeout(pollScores, anyLive() ? 6000 : 120000);
     });
   }
+  window.NBA = { game: function () { return state.data ? game() : null; } };
   window.LIVE = live; window.liveFor = liveFor; window.statusCn = statusCn;
   document.addEventListener("visibilitychange", function () { if (!document.hidden) pollScores(); });
   /* ---------- 拉取与自动刷新 ---------- */
