@@ -2,7 +2,8 @@
 (function () {
   "use strict";
   var REFRESH = 60;
-  var state = { data: null, sel: null, gen: null, left: REFRESH };
+  var state = { data: null, sel: null, gen: null, left: REFRESH, want: null, booted: false };
+  try { state.want = localStorage.getItem("nba_sel"); } catch (e) {}
   var $ = function (id) { return document.getElementById(id); };
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
@@ -143,9 +144,14 @@
     safe("比赛标签", function () { renderTabs(); }, "gameTabs"); safe("本场", function () { renderGame(); }, "hero");
     safe("动态", function () { renderFeed(); }, "feed"); safe("历史", function () { renderHist(); }, "hist"); safe("缺数据", function () { renderMissing(); }, "missing");
     if (!first) document.querySelectorAll(".card.in").forEach(animateIn);
+    state.booted = true;
   }
   function renderTabs() {
     var d = state.data, gs = allGames(), full = gs !== d.games;
+    if (state.want && gs.some(function (g) { return g.espn_id === state.want; })) { // 恢复上次选中的比赛
+      var ch = state.sel !== state.want; state.sel = state.want; state.want = null;
+      if (ch && state.booted) setTimeout(function () { keepScroll(function () { renderGame(); paintLive(false); }); if (window.PBP) window.PBP.kick(); }, 0);
+    }
     $("gameTabs").innerHTML = gs.map(function (g) {
       var ms = mainSpread(g), p = ms && ms.v8 ? "第八版：" + ms.pick_text : g.nomodel ? "本场模型未预测" : ms ? "模型：" + ms.pick_text : "暂无结论";
       return '<button class="tab' + (g.espn_id === state.sel ? " on" : "") + '" data-id="' + esc(g.espn_id) + '"><b>' + esc(g.away_cn) + " @ " + esc(g.home_cn) +
@@ -155,7 +161,7 @@
     $("gameTabs").querySelectorAll(".tab[data-id]").forEach(function (b) {
       b.onclick = function () {
         var sl = $("gameTabs").scrollLeft;
-        state.sel = b.getAttribute("data-id"); renderTabs(); renderGame(); paintLive(false); $("gameTabs").scrollLeft = sl; if (window.PBP) window.PBP.kick();
+        state.sel = b.getAttribute("data-id"); state.want = null; try { localStorage.setItem("nba_sel", state.sel); } catch (e) {} renderTabs(); renderGame(); paintLive(false); $("gameTabs").scrollLeft = sl; if (window.PBP) window.PBP.kick();
         document.querySelectorAll(".card.in").forEach(animateIn);
       };
     });
@@ -186,6 +192,7 @@
     var h = '<div class="vs"><div class="team h"><div class="ab">主场</div><div class="nm">' + esc(g.home_cn) + '</div></div>';
     h += '<div class="mid lvmid" data-lvmid="' + esc(g.espn_id) + '"><b>VS</b>' + esc(g.tip_pt || "") + "</div>";
     h += '<div class="team a"><div class="ab">客场</div><div class="nm">' + esc(g.away_cn) + "</div></div></div>";
+    h += '<div class="lvx" data-lvx="' + esc(g.espn_id) + '"></div>';
     h += '<div class="lsslot" data-lsslot></div>';
     if (v8For(g)) h += '<div class="verdicts">' + v8Block(g) + '</div><p class="note">其他模型没有预测这场，只有第八版早锁。</p><p class="note lvwarn" id="lvWarn"></p>';
     else h += '<div class="nomodel">本场模型未预测</div><p class="note lvwarn" id="lvWarn"></p>';
@@ -196,6 +203,7 @@
     h += '<div class="vs"><div class="team h"><div class="ab">主场</div><div class="nm">' + esc(g.home_cn) + '</div><div class="ab">' + esc(g.records[g.home] || "") + "</div></div>";
     h += '<div class="mid lvmid" data-lvmid="' + esc(g.espn_id) + '"><b>VS</b>' + esc(String(g.tip_pt || "时间待定").replace(/ PT$/, "")) + "</div>";
     h += '<div class="team a"><div class="ab">客场</div><div class="nm">' + esc(g.away_cn) + '</div><div class="ab">' + esc(g.records[g.away] || "") + "</div></div></div>";
+    h += '<div class="lvx" data-lvx="' + esc(g.espn_id) + '"></div>';
     h += '<div class="lsslot" data-lsslot></div>';
     h += '<div class="verdicts">';
     var v8 = v8For(g);
@@ -378,6 +386,12 @@
   }
 
   /* ---------- 盘口 ---------- */
+  // 皇冠一行：按括号把“盘口（水位）”拆成两行，文字原样；拆不开就整串换行
+  function crRow(k, v) {
+    v = v == null || v === "" ? "—" : String(v);
+    var m = /^([^（(]+)[（(](.+)[)）]\s*$/.exec(v), main = m ? m[1].trim() : v, sub = m ? m[2].replace(/[，,]\s*/g, " · ") : "";
+    return '<div class="crr"><span>' + esc(k) + '</span><div><b>' + esc(main) + "</b>" + (sub ? "<small>" + esc(sub) + "</small>" : "") + "</div></div>";
+  }
   function renderOdds(g) {
     var mk = g.market || {}, h = "";
     function cell(k, v, big) { return '<div class="oc"><span>' + k + "</span><b" + (big ? ' class="big"' : "") + ">" + v + "</b></div>"; }
@@ -386,9 +400,8 @@
       cell("让分", mk.median_text ? esc(mk.median_text) : miss(), true) + cell("大小", mk.median_total != null ? num(mk.median_total, 1) + '<small> ' + mk.median_total_n + " 家</small>" : miss(), true) + "</div></div>";
     var cr = mk.crown && typeof mk.crown === "object" ? mk.crown : null;
     if (cr) {
-      h += '<div class="ob crown"><div class="on">皇冠 <small>你下注的公司' + (cr.read_at ? " · 读取于 " + esc(cr.read_at) : "") + '</small></div><div class="og">' +
-        cell("初盘", esc(cr.spread_open || "—")) + cell("现盘", esc(cr.spread_now || "—"), true) +
-        cell("大小 初→现", esc(cr.total_open || "—") + " → " + esc(cr.total_now || "—")) + "</div>" +
+      h += '<div class="ob crown"><div class="on">皇冠 <small>你下注的公司' + (cr.read_at ? " · 读取于 " + esc(cr.read_at) : "") + '</small></div><div class="crl">' +
+        crRow("初盘", cr.spread_open) + crRow("现盘", cr.spread_now) + crRow("大小 初盘", cr.total_open) + crRow("大小 现盘", cr.total_now) + "</div>" +
         ((cr.leisu_spread || cr.leisu_total) ? '<p class="note">雷速 12 家中位数：让分 ' + esc(cr.leisu_spread || "—") + " · 大小 " + esc(cr.leisu_total || "—") + "</p>" : '<p class="note">雷速 12 家中位数待读取</p>') + "</div>";
     } else {
       h += '<p class="note small-miss">皇冠盘口待读取 · 雷速 12 家中位数待读取</p>';
@@ -580,6 +593,7 @@
       (c.competitors || []).forEach(function (t) {
         var k = t.homeAway === "home" ? "h" : "a";
         r[k + "ab"] = nbaAb((t.team || {}).abbreviation); r[k + "s"] = t.score == null ? null : +t.score;
+        r[k + "ls"] = (t.linescores || []).map(function (x) { var v = x.value != null ? x.value : x.displayValue; return v == null || v === "" ? null : +v; });
       });
       out[r.id] = r; out[r.aab + "@" + r.hab] = r;
     });
@@ -591,6 +605,48 @@
     el.classList.remove("bump"); void el.offsetWidth; el.classList.add("bump");
     var f = document.createElement("i"); f.className = "plus"; f.textContent = "+" + diff; el.appendChild(f);
     setTimeout(function () { if (f.parentNode) f.parentNode.removeChild(f); }, 1500);
+  }
+  /* ---- 比分卡下方：各节比分 + 领先 + 锁定盘口对照（只显示，不写回） ---- */
+  function perName(i) { return i < 4 ? "第" + (i + 1) + "节" : (i === 4 ? "加时" : "加时" + (i - 3)); }
+  function n1(x) { x = Math.round(Math.abs(x) * 10) / 10; return String(x); }
+  function lvxHtml(g, s) {
+    var started = s.state !== "pre", fin = s.state === "post", h = "";
+    var np = Math.max(4, (s.als || []).length, (s.hls || []).length);
+    h += '<table class="lq"><tr><th></th>';
+    for (var i = 0; i < np; i++) h += "<th>" + (i < 4 ? i + 1 : (i === 4 ? "OT" : "OT" + (i - 3))) + "</th>";
+    h += "<th>总</th></tr>";
+    [["a", g.away_cn, "red"], ["h", g.home_cn, "blue"]].forEach(function (t) {
+      var ls = s[t[0] + "ls"] || [];
+      h += '<tr><td class="tn ' + t[2] + '">' + esc(t[1]) + "</td>";
+      for (var i = 0; i < np; i++) h += "<td>" + (started && ls[i] != null ? ls[i] : "-") + "</td>";
+      h += '<td class="tot">' + (started && s[t[0] + "s"] != null ? s[t[0] + "s"] : "-") + "</td></tr>";
+    });
+    h += "</table>";
+    var tot = (s.as || 0) + (s.hs || 0), diff = (s.hs || 0) - (s.as || 0);
+    h += '<div class="lx1">' + (!started ? "开赛后显示领先和盘口对照" : (diff === 0 ? "平分" : (diff > 0 ? g.home_cn : g.away_cn) + (fin ? "赢 " : "领先 ") + Math.abs(diff)) + " · 总分 " + tot) + "</div>";
+    var ms = mainSpread(g), to = g.total, pre = fin ? "最终" : "目前";
+    var l2 = "让分：暂无锁定盘口", l3 = "大小球：暂无锁定盘口", c2 = "", c3 = "";
+    if (ms && ms.pick_team && ms.line_home != null) {
+      var home = ms.pick_team === g.home, hc = home ? -ms.line_home : ms.line_home, pcn = home ? g.home_cn : g.away_cn;
+      var lt = hc === 0 ? "平手盘" : (hc < 0 ? "让 " : "受让 ") + n1(hc);
+      l2 = "我们选 " + pcn + " " + lt;
+      if (started) {
+        var m = (home ? diff : -diff) + hc;
+        l2 += "：" + pre + (m > 0 ? "赢盘（多 " + n1(m) + " 分）" : m < 0 ? "输盘（差 " + n1(m) + " 分）" : "走盘");
+        c2 = m > 0 ? "win" : m < 0 ? "lose" : "";
+      } else l2 += "：开赛后对照";
+    }
+    if (to && to.line_total != null && (to.pick === "OVER" || to.pick === "UNDER")) {
+      var L = to.line_total, over = to.pick === "OVER";
+      l3 = "大小球 我们选" + (over ? "大" : "小") + " " + n1(L);
+      if (!started) l3 += "：开赛后对照";
+      else if (fin) { var r = tot > L ? (over ? "赢" : "输") : tot < L ? (over ? "输" : "赢") : "走盘"; l3 += "：最终 " + tot + " 分，" + (r === "走盘" ? "走盘" : r === "赢" ? "赢盘" : "输盘"); c3 = r === "赢" ? "win" : r === "输" ? "lose" : ""; }
+      else if (tot < L) { l3 += "：目前 " + tot + "，还差 " + n1(L - tot) + " 分到盘口"; c3 = over ? "" : "win"; }
+      else if (tot > L) { l3 += "：目前 " + tot + "，已超过盘口 " + n1(tot - L) + " 分"; c3 = over ? "win" : "lose"; }
+      else l3 += "：目前 " + tot + "，正好在盘口";
+    }
+    h += '<div class="lx2 ' + c2 + '">' + esc(l2) + '</div><div class="lx2 ' + c3 + '">' + esc(l3) + "</div>";
+    return h;
   }
   function paintLive(animate) {
     var d = state.data; if (!d) return;
@@ -609,6 +665,8 @@
           (started ? '<div class="lvsc"><b class="sh blue">' + s.hs + '</b><em>:</em><b class="sa red">' + s.as + "</b></div>" : "<b>VS</b><small>太平洋时间</small>");
         if (mid._h !== mh) { mid._h = mh; mid.innerHTML = mh; }
       }
+      var lx = document.querySelector('[data-lvx="' + key + '"]');
+      if (lx) { var xh = ""; try { xh = lvxHtml(g, s); } catch (e) { xh = '<p class="note">暂时无法显示</p>'; } if (lx._h !== xh) { lx._h = xh; lx.innerHTML = xh; } }
       if (animate && pv && started) {
         if (s.hs > pv.hs) document.querySelectorAll('[data-lvtab="' + key + '"] .sh, [data-lvmid="' + key + '"] .sh').forEach(function (el) { bump(el, s.hs - pv.hs); });
         if (s.as > pv.as) document.querySelectorAll('[data-lvtab="' + key + '"] .sa, [data-lvmid="' + key + '"] .sa').forEach(function (el) { bump(el, s.as - pv.as); });
