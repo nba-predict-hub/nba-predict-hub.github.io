@@ -68,17 +68,18 @@
     else if (/alley oop/.test(s) && /dunk/.test(s)) k = "空接扣篮";
     else if (/alley oop/.test(s)) k = "空接上篮";
     else if (/putback|tip/.test(s) && /dunk/.test(s)) k = "补扣";
-    else if (/dunk/.test(s)) k = "扣篮";
+    else if (/dunk/.test(s)) k = /reverse/.test(s) ? "反身扣篮" : "扣篮";
     else if (/putback|tip shot|tip layup/.test(s)) k = "补篮";
     else if (/finger roll/.test(s)) k = "挑篮";
     else if (/reverse/.test(s) && /layup/.test(s)) k = "反手上篮";
     else if (/layup/.test(s)) k = "上篮";
-    else if (/hook/.test(s)) k = "勾手";
+    else if (/hook/.test(s)) k = /turnaround/.test(s) ? "转身勾手" : "勾手";
     else if (/float/.test(s)) k = "抛投";
-    else if (/fade ?away/.test(s)) k = "后仰跳投";
+    else if (/fade ?away/.test(s)) k = /turnaround/.test(s) ? "转身后仰跳投" : "后仰跳投";
     else if (/step ?back/.test(s)) k = "后撤步跳投";
     else if (/pull ?up/.test(s)) k = "急停跳投";
     else if (/heave/.test(s)) k = "超远投篮";
+    else if (/turnaround/.test(s)) k = "转身跳投";
     else if (/jump|jumper|shot/.test(s)) k = "跳投";
     else k = "投篮";
     if (/bank/.test(s) && k.indexOf("三分") < 0) k = "打板" + k;
@@ -86,9 +87,9 @@
   }
   var TO = [[/bad pass/i, "传球失误"], [/lost ball/i, "丢球"], [/offensive foul/i, "进攻犯规"], [/shot clock/i, "24 秒违例"], [/back ?court/i, "回场违例"], [/travel/i, "走步"],
     [/out of bounds.*step|step out/i, "踩出界"], [/out of bounds/i, "出界"], [/3-second|three second/i, "3 秒违例"], [/double dribble/i, "两次运球"], [/discontinued dribble/i, "运球违例"],
-    [/5-second|five second|inbound/i, "发球违例"], [/8-second/i, "8 秒违例"], [/kicked/i, "踢球违例"], [/palming|carry/i, "翻腕"], [/lane violation/i, "罚球违例"], [/offensive goaltending/i, "进攻干扰球"], [/disc(ontinued?)? dribble/i, "运球违例"], [/illegal assist/i, "非法协助"], [/illegal screen/i, "非法掩护"], [/excess timeout/i, "超额暂停"], [/jump ball/i, "跳球违例"], [/basket from below/i, "下方进球违例"], [/opposite basket/i, "攻错篮筐"]];
+    [/5-second|five second|inbound/i, "发球违例"], [/8-second/i, "8 秒违例"], [/kicked/i, "踢球违例"], [/palming|carry/i, "翻腕"], [/lane violation/i, "罚球违例"], [/offensive goaltending/i, "进攻干扰球"], [/disc(ontinued?)? dribble/i, "运球违例"], [/illegal assist/i, "非法协助"], [/illegal screen/i, "非法掩护"], [/excess timeout/i, "超额暂停"], [/jump ?ball/i, "跳球违例"], [/basket from below/i, "下方进球违例"], [/opposite basket/i, "攻错篮筐"]];
   var FOUL = [[/shooting/i, "投篮犯规"], [/loose ball/i, "争抢犯规"], [/offensive charge|charge/i, "带球撞人"], [/offensive/i, "进攻犯规"], [/transition take|take foul/i, "战术犯规"],
-    [/technical/i, "技术犯规"], [/flagrant.*2|flagrant type 2/i, "二级恶意犯规"], [/flagrant/i, "恶意犯规"], [/away from play/i, "无球犯规"], [/clear path/i, "阻挡快攻犯规"], [/defensive 3|defensive three/i, "防守 3 秒"], [/double personal/i, "双方犯规"], [/personal block/i, "阻挡犯规"], [/inbound/i, "发球犯规"], [/hanging/i, "挂筐技术犯规"], [/flopping/i, "假摔技术犯规"], [/personal/i, "个人犯规"]];
+    [/technical/i, "技术犯规"], [/flagrant.*2|flagrant type 2/i, "二级恶意犯规"], [/flagrant.*1/i, "一级恶意犯规"], [/flagrant/i, "恶意犯规"], [/away from play/i, "无球犯规"], [/clear path/i, "阻挡快攻犯规"], [/defensive 3|defensive three/i, "防守 3 秒"], [/double personal/i, "双方犯规"], [/personal block/i, "阻挡犯规"], [/inbound/i, "发球犯规"], [/hanging/i, "挂筐技术犯规"], [/flopping/i, "假摔技术犯规"], [/personal/i, "个人犯规"]];
   function pick(tbl, s, dflt) { for (var i = 0; i < tbl.length; i++) if (tbl[i][0].test(s)) return tbl[i][1]; return dflt; }
 
   // 返回 {kind, who, whoId, txt, pts, x, y, made, shot, ft, ...}
@@ -116,6 +117,7 @@
     }
     if (/turnover/i.test(tt) || /turnover/i.test(txt)) {
       r.kind = "to"; var st = /\((.+?) steals\)/.exec(txt); r.totype = pick(TO, tt + " " + txt, "");
+      if (/违例|走步|两次运球|翻腕|干扰球|非法协助/.test(r.totype)) { r.viol = true; r.crit = true; } // 违例类失误：语音单独播报
       if (st) r.stealer = P.byName[st[1].trim()] || parts[1];
       r.txt = (w || tcn) + " 失误（" + pick(TO, tt + " " + txt, "失误") + "）" + (st ? "，" + nameFromText(st[1]) + " 抢断" : "");
       return r;
@@ -130,6 +132,7 @@
       r.txt = dm ? tk + "：" + nameFromText(dm[1]) + "、" + nameFromText(dm[2]) : (w || tcn || (/[A-Z][a-z]+ [A-Z]/.test(txt) ? nameFromText(txt.replace(/\s+(defensive|delay|flopping|technical|hanging|taunting)[\s\S]*$/i, "")) : "")) + " " + tk;
       return r;
     }
+    if (/double personal/i.test(tt)) { var dp = /^(.+?) double personal foul(?: \((.+?) draws the foul\))?/i.exec(txt); r.kind = "foul"; r.ftype = "双方犯规"; r.txt = dp && dp[2] ? nameFromText(dp[1]) + "、" + nameFromText(dp[2]) + " 双方犯规" : (w || tcn) + " 双方犯规"; return r; }
     if (/foul|charge/i.test(tt)) {
       r.kind = "foul"; if (/flagrant/i.test(tt)) r.alert = true; var dr = /\((.+?) draws the foul\)/.exec(txt); r.ftype = pick(FOUL, tt, "犯规"); if (dr) r.drawer = P.byName[dr[1].trim()] || parts[1];
       r.txt = (w || tcn) + " " + pick(FOUL, tt, "犯规") + (dr ? "（" + nameFromText(dr[1]) + " 造犯规）" : "");
@@ -141,20 +144,21 @@
       r.txt = "换人：" + (sm ? nameFromText(sm[1]) : nm(r.inId) || "") + " 上，" + (sm ? nameFromText(sm[2]) : nm(r.outId) || "") + " 下" + (tcn ? "（" + tcn + "）" : "");
       return r;
     }
-    if (/timeout/i.test(tt)) { r.kind = "timeout"; r.txt = /official/i.test(tt + txt) ? "官方暂停" : (tcn ? tcn + " 叫暂停" : "暂停"); return r; }
+    if (/timeout/i.test(tt)) { r.kind = "timeout"; r.txt = /official/i.test(tt + txt) ? "官方暂停" : (tcn ? tcn + (/short|20 sec/i.test(tt + txt) ? " 叫短暂停" : " 叫暂停") : "暂停"); return r; }
+    if (/jump ?ball/i.test(tt) && /violation/i.test(txt)) { r.kind = "foul"; r.viol = r.crit = true; r.ftype = "跳球违例"; r.txt = (w || tcn) + " 跳球违例"; return r; }
     if (/jump ?ball/i.test(tt)) { r.kind = "jump"; r.txt = "跳球" + (/gains possession/.test(txt) ? "，" + nameFromText((/\((.+?) gains possession\)/.exec(txt) || [])[1]) + " 拿到球权" : ""); return r; }
     if (/end period/i.test(tt)) { r.kind = "end"; r.txt = perCn(r.per) + "结束"; return r; }
     if (/end game/i.test(tt)) { r.kind = "end"; r.txt = "比赛结束"; return r; }
-    if (/challenge/i.test(lo)) { r.kind = "review"; r.txt = "教练挑战" + (/overturned/i.test(lo) ? "成功，判罚改判" : /upheld|stands/i.test(lo) ? "失败，维持原判" : ""); return r; }
-    if (/review/i.test(lo)) { r.kind = "review"; r.txt = "裁判看录像回放" + (/overturned/i.test(lo) ? "，改判" : /supports|stands/i.test(lo) ? "，维持原判" : ""); return r; }
-    if (/kicked ball/i.test(lo)) { r.kind = "foul"; r.txt = (w || tcn) + " 踢球违例"; return r; }
-    if (/goaltending/i.test(lo)) { r.kind = "foul"; r.txt = (w || tcn) + " 干扰球"; return r; }
-    if (/delay/i.test(lo)) { r.kind = "foul"; r.txt = (w || tcn) + " 延误比赛"; return r; }
-    if (/violation|^lane$/i.test(lo) || /^lane$/i.test(tt)) { r.kind = "foul"; r.txt = (w || tcn) + " " + pick(TO, lo, /lane/i.test(lo) ? "罚球违例" : "违例"); return r; }
+    if (/challenge/i.test(lo)) { // 教练挑战：Overturned=改判（挑战成功）；Stands/Supported=维持原判（挑战失败）；replaycenter=联盟回放中心复核中
+      r.kind = "review"; r.crit = true;
+      r.txt = (tcn ? tcn + " " : "") + "教练挑战" + (/overturned/i.test(lo) ? "成功，改判" : /upheld|stands|supports/i.test(lo) ? "失败，维持原判" : /replay ?center/i.test(lo) ? "，联盟回放中心复核中" : ""); return r; }
+    if (/review/i.test(lo)) { r.kind = "review"; r.crit = true; r.txt = "裁判主动看录像回放" + (/overturned/i.test(lo) ? "，改判" : /supports|stands/i.test(lo) ? "，维持原判" : ""); return r; }
+    var vio = /kicked ball/i.test(lo) ? "踢球违例" : /defensive goaltending/i.test(lo) ? "防守干扰球" : /goaltending/i.test(lo) ? "干扰球" : /delay/i.test(lo) ? "延误比赛违例" : /^lane$/i.test(tt) || /lane violation/i.test(lo) ? "罚球违例" : /violation/i.test(lo) ? pick(TO, lo, "违例") : "";
+    if (vio) { r.kind = "foul"; r.viol = r.crit = true; r.ftype = vio; r.txt = ((w || tcn) ? (w || tcn) + " " : "") + vio; return r; }
     if (/no shot/i.test(tt)) { r.kind = "other"; r.txt = (w || tcn) + " 出手（未计入投篮）"; return r; }
-    // 翻不了的：不显示英文句子，只留球员/球队中文名 + “其他事件”，并在控制台记一次
+    // 翻译表里没有的新类型：不跳过，显示英文原文，并在控制台记一次
     P.unk = P.unk || {}; if (!P.unk[tt]) { P.unk[tt] = 1; try { console.info("[文字直播] 未翻译的事件类型：", tt, "|", txt); } catch (e) {} }
-    r.txt = ((w || tcn) ? (w || tcn) + " " : "") + "其他事件";
+    r.unk = true; r.txt = ((w || tcn) ? (w || tcn) + " " : "") + "（英文原文）" + (txt || tt);
     return r;
   }
 
@@ -187,7 +191,7 @@
       if (g && Date.now() - P.preT > (near ? 30000 : 60000)) { // 赛前每分钟读一次首发和伤病；开赛前 1 小时内且页面在前台每 30 秒
         P.preT = Date.now(); var pg = g.espn_id;
         fetch(SUM + pg + "&t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
-          if (!d || pg !== P.gid) return; loadPeople(d, g); P.luAt = nowPT(); P.tipMs = Date.parse((((d.header || {}).competitions || [])[0] || {}).date || "") || 0; P.inj.t = 0; return Promise.all([loadInj(), loadRoles(), loadIR()]).then(function () { var cur = selGame(); if (pg === P.gid && cur && cur.espn_id === pg) renderLineup(g); });
+          if (d) P.sumOkT = Date.now(); if (!d || pg !== P.gid) return; loadPeople(d, g); P.luAt = nowPT(); P.tipMs = Date.parse((((d.header || {}).competitions || [])[0] || {}).date || "") || 0; P.inj.t = 0; return Promise.all([loadInj(), loadRoles(), loadIR()]).then(function () { var cur = selGame(); if (pg === P.gid && cur && cur.espn_id === pg) renderLineup(g); });
         }).catch(function () {});
       }
       return;
@@ -196,7 +200,7 @@
     var gid = g.espn_id;
     P.busy = true; P.busyAt = Date.now();
     tfetch(SUM + gid + "&t=" + Date.now(), 5000).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
-      P.fastMs = 2000;
+      P.fastMs = 2000; P.okT = P.sumOkT = Date.now();
       try { // 头部比分立刻合进大比分
         var cp = ((d.header || {}).competitions || [])[0] || {}, stt = cp.status || {}, ty = stt.type || {}, hr = { state: ty.state, name: ty.name, period: stt.period, clock: stt.displayClock };
         (cp.competitors || []).forEach(function (t) { var k = t.homeAway === "home" ? "h" : "a"; if (t.score != null && t.score !== "") hr[k + "s"] = +t.score; if (t.linescores) hr[k + "ls"] = t.linescores.map(function (x) { var v = x.value != null ? x.value : x.displayValue; return v == null || v === "" ? null : +v; }); });
@@ -231,8 +235,8 @@
   function loadInj() {
     if (Date.now() - P.inj.t < 60000) return Promise.resolve();
     P.inj.t = Date.now();
-    return fetch("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : {}; }).then(function (j) {
-      var by = {}, bt = {};
+    return fetch("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries?t=" + Date.now(), { cache: "no-store" }).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (j) {
+      var by = {}, bt = {}; P.inj.okT = Date.now();
       (j.injuries || []).forEach(function (t) { bt[String(t.id)] = t.injuries || []; (t.injuries || []).forEach(function (i) { var id = String(((i.athlete || {}).links ? (/id\/(\d+)/.exec(JSON.stringify(i.athlete.links)) || [])[1] : "") || ""); if (id) by[id] = i; }); });
       P.inj.byId = by; P.inj.byTeam = bt;
     }).catch(function () {});
@@ -350,7 +354,11 @@
   function stHtml(groups, note) {
     var h = '<div class="lu-h">首发 <small>' + esc(note || "") + "</small></div>";
     groups.forEach(function (gp) {
-      h += '<div class="lu-tm"><div class="lu-tt">' + esc(gp.cn) + " <small>" + (gp.side === "h" ? "主队" : "客队") + "</small></div>";
+      var sk = "st|" + gp.cn, sg = gp.ids.map(function (p) { return p.id || p.en; }).join(","), cg;
+      if (P.rowSig[sk] != null && P.rowSig[sk] !== sg) P.rowChg[sk] = { t: Date.now(), hm: hhmm(), fl: 1 };
+      P.rowSig[sk] = sg; cg = P.rowChg[sk]; var fresh = cg && Date.now() - cg.t < 1800000;
+      h += '<div class="lu-tm' + (fresh && cg.fl ? " flash" : "") + '"><div class="lu-tt">' + esc(gp.cn) + " <small>" + (gp.side === "h" ? "主队" : "客队") + "</small>" + (fresh ? '<i class="upd">刚更新 ' + cg.hm + "</i>" : "") + "</div>";
+      if (cg) cg.fl = 0;
       h += gp.ids.length ? '<ul class="lu-st">' + gp.ids.map(function (p) {
         var ps = POS[String(p.pos || "").toUpperCase()] || "";
         return '<li><span class="lu-hd">' + head(p.id) + '</span><span class="lu-nm"><b>' + esc(fullName(p.id, p.en)) + "</b>" + (ps ? '<i class="lu-pos">' + ps + "</i>" : "") + (P.ath[p.id] && P.ath[p.id].ejected ? '<em class="ejt">已驱逐</em>' : "") + '</span><span class="lu-rl">' + roleTag(p.id) + "</span></li>";
@@ -452,6 +460,8 @@
   }
   /* 缺阵名单（赛中/赛前详情共用）：tl = [{id: ESPN 球队 id, cn, ab, side}]，按队分组 */
   function stCls(st) { st = String(st || "").toLowerCase(); return /out/.test(st) ? "red" : /probable/.test(st) ? "grn" : /doubt|quest|day/.test(st) ? "yel" : ""; }
+  P.rowSig = {}; P.rowChg = {};
+  function hhmm() { return nowPT().slice(0, 5); }
   function absHtml(away, home, tl, I) {
     var h = "", TT = {}, byAb = {}, rows = {}, offNames = {};
     tl.forEach(function (x, i) { TT[x.id] = x; byAb[x.ab] = x.id; rows[x.id] = []; if (!x.side) x.side = i ? "h" : "a"; });
@@ -484,6 +494,16 @@
         rows[t].push(row(rr2 * 10 + (cls === "red" ? 0 : cls === "yel" ? 1 : 2) + 0.5, cls, id ? head(id) : "", fullName(id, at.displayName), s[1], roleTag(id),
           ((side && part && part.indexOf("生病") < 0 ? side : "") + part || "原因未写") + " · 来源 ESPN" + (i.date ? " · " + md(i.date) + " " + ptTime(i.date) + " 太平洋时间" : ""), retHtml(i)));
       });
+    });
+    tl.forEach(function (x) { // 和上一次读到的比：状态/伤情/回归消息变了或新增的人 → 短暂高亮 + “刚更新 HH:MM”
+      var tk = "ab|" + x.ab, seenT = P.rowSig[tk], cur = {};
+      rows[x.id].forEach(function (r) {
+        var m = /<b>([^<]*)<\/b>/.exec(r.h), k = tk + "|" + (m ? m[1] : ""), sig = r.h.replace(/ · 来源[^<]*/g, "").replace(/（[0-9:]+ 版）/g, "");
+        cur[k] = sig;
+        if (seenT && seenT[k] !== sig) P.rowChg[k] = { t: Date.now(), hm: hhmm(), fl: 1 };
+        var c = P.rowChg[k]; if (c && Date.now() - c.t < 1800000) { r.h = r.h.replace('<em class="abst">', '<i class="upd">刚更新 ' + c.hm + '</i><em class="abst">'); if (c.fl) { r.h = r.h.replace('<li class="', '<li class="flash '); c.fl = 0; } }
+      });
+      P.rowSig[tk] = cur;
     });
     tl.forEach(function (x) {
       var rs = rows[x.id].sort(function (a, b) { return a.o - b.o; });

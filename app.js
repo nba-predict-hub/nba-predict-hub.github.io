@@ -723,7 +723,7 @@
   function stampScore() {
     var s = ""; try { s = new Intl.DateTimeFormat("zh-CN", { timeZone: "America/Los_Angeles", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).format(new Date()); } catch (e) {}
     var g = state.data && game(), cur = g && liveFor(g);
-    var el = $("scoreAt"); if (el && s) el.textContent = "比分更新于 " + s + (cur && cur.state === "in" ? " · " + (cur.src === "NBA" ? "NBA 官方" : "ESPN") : "");
+    var el = $("scoreAt"); if (el && s) el.textContent = "比分 最后检查 " + s + (cur && cur.state === "in" ? " · " + (cur.src === "NBA" ? "NBA 官方" : "ESPN") : "");
   }
   function rankOf(x) { return (x.state === "post" ? 1e7 : 0) + (x.period || 0) * 1e5 + (x.as || 0) + (x.hs || 0) + (720 - clkSec(x.clock)) / 1000; }
   /* ---- NBA 官方实时比分（浏览器直拉；跨域失败/403/超时就静默用 ESPN，连续失败 3 次本次访问不再试） ---- */
@@ -774,7 +774,7 @@
     if (live.busy) return; // 上一个请求没回来就不发下一个
     live.busy = true; live.busyAt = Date.now();
     sbFetch(SB_URL + "?t=" + Date.now(), 5000).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
-      live.fastMs = 2000; stampScore();
+      live.fastMs = 2000; live.okT = Date.now(); stampScore();
       var nb = parseSB(d), prev = {};
       (state.data ? allGames() : []).forEach(function (g) { var s = liveFor(g); if (s) prev[g.espn_id] = s; });
       var oldIds = (live.events || []).map(function (e) { return e.id + e.state; }).join(",");
@@ -797,7 +797,7 @@
 
   /* ---------- 日期栏（雷速式）：点哪天看哪天；今天显示完整页面，其他日子显示当天赛果/赛程 ---------- */
   var WEEK = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
-  var dayState = { sel: null, today: null, cache: {} };
+  var dayState = { sel: null, today: null, cache: {}, sig: {}, chg: {} };
   function ptParts(dt) {
     var f = new Intl.DateTimeFormat("en-US", { timeZone: "America/Los_Angeles", year: "numeric", month: "2-digit", day: "2-digit", weekday: "short" }).formatToParts(dt), o = {};
     f.forEach(function (p) { o[p.type] = p.value; });
@@ -824,13 +824,18 @@
     var c = dayState.cache[key];
     if (c) drawDay(key, iso, c.events);
     else dv.innerHTML = '<p class="note">读取中…</p>';
-    var stale = !c || (key >= dayState.today && Date.now() - c.t > 300000);
-    if (stale) fetch(SB_URL + "?dates=" + key + "&t=" + Date.now(), { cache: "no-store" }).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
+    if (!c || (key >= dayState.today && Date.now() - c.t > 120000)) refreshDay(key, iso);
+  }
+  // 当天/未来赛程每 2 分钟自动重拉（开赛时间、状态、锁定预测都会自动出现）
+  function refreshDay(key, iso) {
+    var c = dayState.cache[key], dv = $("dayView");
+    return fetch(SB_URL + "?dates=" + key + "&t=" + Date.now(), { cache: "no-store" }).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
       var evs = []; var nb = parseSB(d); for (var k in nb) if (k === nb[k].id) evs.push(nb[k]);
-      dayState.cache[key] = { t: Date.now(), events: evs };
+      dayState.cache[key] = { t: Date.now(), events: evs }; dayState.okT = dayState.okT || {}; dayState.okT[key] = Date.now();
       if (dayState.sel === key) drawDay(key, iso, evs);
     }).catch(function () { if (dayState.sel === key && !c) dv.innerHTML = '<p class="note">赛程读取失败，稍后再点一次</p>'; });
   }
+  setInterval(function () { if (dayState.sel && dayState.sel > dayState.today && document.visibilityState === "visible") refreshDay(dayState.sel, dayState.iso); }, 120000);
   function judge(lock, s, kind) {
     // 先用台账 result；没填且已终场，就用终场比分对照锁定线算（只在页面上算，不写回）
     if (!lock) return null;
@@ -866,7 +871,11 @@
         if (L.spread) lk += '<div class="lk">' + (past ? "赛前锁定：" : "模型预测：") + "<b>" + esc(L.spread.pick_text) + "</b> <small>" + esc(L.spread.model_label) + (L.spread.band_cn ? " · 把握度" + esc(L.spread.band_cn) : "") + "</small> " + resChip(js) + "</div>";
         if (L.total) lk += '<div class="lk sm">大小分：<b>' + esc(L.total.pick_text) + "</b> " + resChip(jt) + "</div>";
       } else lk = '<div class="lk dim">' + (past || s.state !== "pre" ? "当日未预测" : "预测在开盘后锁定（约早上 7 点后）") + "</div>";
-      return '<li class="dli" data-id="' + esc(s.id) + '"><div class="tm2"><span>' + esc(an) + " @ " + esc(hn) + '</span><span class="st2">' + st + "</span></div>" + lk + '<div class="dmore">点开看赛前详情 ›</div><div class="ddet" hidden></div></li>';
+      var sg = st + "|" + lk, pv = dayState.sig[s.id], up = "";
+      if (pv != null && pv !== sg) { dayState.chg[s.id] = { t: Date.now(), hm: hm() }; up = " flash"; }
+      dayState.sig[s.id] = sg;
+      var cg = dayState.chg[s.id]; if (cg && Date.now() - cg.t < 1800000) lk += '<i class="upd">刚更新 ' + cg.hm + "</i>";
+      return '<li class="dli' + up + '" data-id="' + esc(s.id) + '"><div class="tm2"><span>' + esc(an) + " @ " + esc(hn) + '</span><span class="st2">' + st + "</span></div>" + lk + '<div class="dmore">点开看赛前详情 ›</div><div class="ddet" hidden></div></li>';
     }).join("") + "</ul>";
     if (nW + nL) h += '<p class="note">这天让分方向：对 ' + nW + " 场，错 " + nL + " 场（只算赛前锁定的）。</p>";
     h += '<p class="note">只用开赛前锁定的记录；对错优先用我们账本里的结果，账本还没填时按终场比分对照锁定的盘口算。</p>';
@@ -883,11 +892,11 @@
     });
   }
   /* ---------- 赛前详情（未来日期也能点开）：全部只显示，不写回模型 ---------- */
-  var pre = { odds: null, oddsT: 0, sched: {}, timer: 0 };
+  var pre = { odds: null, oddsT: 0, sched: {}, timer: 0, sig: {}, chg: {} };
   function getJSON(u) { return fetch(u + (u.indexOf("?") < 0 ? "?" : "&") + "t=" + Date.now(), { cache: "no-store" }).then(function (r) { if (!r.ok) throw 0; return r.json(); }); }
   function loadOdds() {
     if (pre.odds && Date.now() - pre.oddsT < 60000) return Promise.resolve(pre.odds);
-    return getJSON("pre_odds.json").then(function (j) { pre.odds = j; pre.oddsT = Date.now(); return j; }, function () { return pre.odds || null; });
+    return getJSON("pre_odds.json").then(function (j) { pre.odds = j; pre.oddsT = pre.oddsOk = Date.now(); return j; }, function () { return pre.odds || null; });
   }
   function loadSched(tid) {
     var c = pre.sched[tid]; if (c && Date.now() - c.t < 600000) return Promise.resolve(c);
@@ -964,6 +973,12 @@
       h += '<div class="pd-h">各队分量 <small>来源 ESPN 本赛季场均</small></div>' + rolesHtml(s.aab, an) + rolesHtml(s.hab, hn);
       var at = (r[2] && r[2].at) || (r[3] && r[3].at) || "";
       h += '<div class="pd-h">近况 <small>来源 ESPN 球队赛程 · ' + esc(at) + " 获取</small></div>" + formHtml(an, r[2]) + formHtml(hn, r[3]);
+      h = h.replace(/<div class="pd-row">([\s\S]*?)<\/div>/g, function (m0, inner) { // 每行内容变了：短暂高亮 + “刚更新 HH:MM”
+        var key = s.id + "|" + inner.replace(/<[^>]+>/g, "").slice(0, 6), sig = inner.replace(/(更新于|读取于|获取)[^<]*/g, ""), pv = pre.sig[key], fl = "";
+        if (pv != null && pv !== sig) { pre.chg[key] = { t: Date.now(), hm: hm() }; fl = " flash"; }
+        pre.sig[key] = sig; var cg = pre.chg[key];
+        return '<div class="pd-row' + fl + '">' + inner + (cg && Date.now() - cg.t < 1800000 ? '<i class="upd">刚更新 ' + cg.hm + "</i>" : "") + "</div>";
+      });
       if (d._h !== h) { d._h = h; d.innerHTML = h; }
       var tip = Date.parse(s.date || "") || 0, near = tip && tip - Date.now() < 3600000 && s.state === "pre";
       pre.timer = setTimeout(function () { if (dayState.open === s.id && !d.hidden && document.visibilityState === "visible") preDetail(s, d); }, near ? 30000 : 60000);
@@ -978,17 +993,20 @@
     }).then(function (d) {
       if (!d || typeof d !== "object") throw new Error("bad json");
       var changed = d.generated_at !== state.gen;
+      state.okT = Date.now();
       state.data = d; state.gen = d.generated_at;
       var lp = loadLeisu().catch(function () {});
       if (first) {
         // 只有上面的读取/解析失败才算“读取失败”；渲染出错只影响对应板块，加载动画一定收起
         return lp.then(function () { return loaderFeed(d); }).catch(function () {}).then(function () {
           safe("整页", function () { renderAll(true); });
-          state.shown = true; hideLoader(); safe("比分", function () { pollScores(); });
+          state.shown = true; hideLoader(); safe("比分", function () { pollScores(); }); safe("恢复", function () { FR.restore(); });
         });
       }
       lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); });
-      if (changed) { safe("整页", function () { renderAll(false); }); safe("日期页", function () { var c = dayState.cache[dayState.sel]; if (dayState.sel !== dayState.today && c) drawDay(dayState.sel, dayState.iso, c.events); }); toast("数据已更新 · " + String(d.generated_at || "").slice(11, 16)); }
+      if (changed) { var snap = {}; DATA_CARDS.forEach(function (k) { var e = $(k); if (e) snap[k] = e.innerHTML.replace(/<p class="chk"[\s\S]*?<\/p>/, ""); });
+        safe("整页", function () { renderAll(false); });
+        DATA_CARDS.forEach(function (k) { var e = $(k); if (e && snap[k] != null && snap[k] !== e.innerHTML.replace(/<p class="chk"[\s\S]*?<\/p>/, "")) { FR.upd[k] = { hm: hm(), t: Date.now() }; var c = e.closest(".card") || e; c.classList.remove("flash"); void c.offsetWidth; c.classList.add("flash"); } }); safe("日期页", function () { var c = dayState.cache[dayState.sel]; if (dayState.sel !== dayState.today && c) drawDay(dayState.sel, dayState.iso, c.events); }); toast("数据已更新 · " + String(d.generated_at || "").slice(11, 16)); }
     }, function (e) {
       if (first) { var t = document.querySelector(".ld-title"); if (t) t.textContent = "数据读取失败，60 秒后自动重试"; state.loadFailed = true; }
       else toast("刷新失败，先显示上次的数据");
@@ -1002,5 +1020,97 @@
       load(!state.shown);
     }
   }, 1000);
+  /* ---------- 防旧信息：每块记录“最后一次成功检查”；超过应有间隔 2 倍还没成功 → 顶部红色横幅 + 该块变灰盖“数据已旧” + 语音播报一次 ---------- */
+  function hms(t, sec) { try { return new Intl.DateTimeFormat("zh-CN", { timeZone: "America/Los_Angeles", hour: "2-digit", minute: "2-digit", second: sec === false ? undefined : "2-digit", hour12: false }).format(new Date(t)); } catch (e) { return ""; } }
+  function hm() { return hms(Date.now(), false); }
+  var DATA_CARDS = ["hero", "scale", "odds", "edge", "factors", "inj"];
+  var FR = { upd: {}, grace: Date.now(), spoke: false, on: false };
+  window.FRESH = FR;
+  function PB() { return window.PBP || {}; }
+  function todayView() { return state.shown && !$("app").classList.contains("day-mode"); }
+  function curState() { var g = state.data && game(), s = g && liveFor(g); return s ? s.state : null; }
+  function cardOf(id) { var e = $(id); return e ? (e.closest(".card") || e) : null; }
+  function near() { var P = PB(); return P.tipMs && P.tipMs - Date.now() < 3600000; }
+  // 应有间隔（毫秒）：比分/文字直播 前台 2 秒一轮 + 单次请求最长 5 秒超时，按 5 秒算；其余按各自轮询间隔
+  var BLOCKS = [
+    { k: "score", name: "比分", on: function () { return todayView(); }, exp: function () { return anyLive() ? 5000 : 120000; }, last: function () { return live.okT; }, cards: function () { return [$("liveTop"), $("courtCard")]; }, chk: null },
+    { k: "pbp", name: "文字直播", on: function () { return todayView() && curState() === "in" && PB().gid; }, exp: function () { return 5000; }, last: function () { return PB().okT; }, cards: function () { return [cardOf("pbp"), $("statusCard")]; }, chk: ["pbp", "statusCard"] },
+    { k: "lineup", name: "首发·缺阵", on: function () { return todayView() && PB().gid && curState() !== "post"; }, exp: function () { return curState() === "pre" && near() ? 30000 : 60000; }, last: function () { var P = PB(); return Math.min(P.sumOkT || 0, (P.inj || {}).okT || 0); }, cards: function () { return [$("lineupCard")]; }, chk: ["lineupCard"] },
+    { k: "data", name: "预测和盘口", on: function () { return todayView(); }, exp: function () { return REFRESH * 1000; }, last: function () { return state.okT; }, cards: function () { return DATA_CARDS.map(cardOf); }, chk: DATA_CARDS },
+    { k: "day", name: "赛程", on: function () { return state.shown && dayState.sel > dayState.today; }, exp: function () { return 120000; }, last: function () { return (dayState.okT || {})[dayState.sel]; }, cards: function () { return [$("dayView")]; }, chk: ["dayView"] },
+    { k: "pre", name: "赛前详情", on: function () { return state.shown && dayState.sel > dayState.today && !!dayState.open; }, exp: function () { return 60000; }, last: function () { return Math.min(pre.oddsOk || 0, (PB().inj || {}).okT || 0); }, cards: function () { var d = document.querySelector(".dli .ddet:not([hidden])"); return [d]; }, chk: null }
+  ];
+  function paintChk(id, b, t) {
+    var c = cardOf(id); if (!c) return;
+    var p = null; for (var i = 0; i < c.children.length; i++) if (c.children[i].className === "chk") p = c.children[i];
+    if (!p) { p = document.createElement("p"); p.className = "chk"; c.appendChild(p); }
+    var u = FR.upd[id], tx = "最后检查 " + (t ? hms(t) : "—") + "（太平洋时间）" + (u && Date.now() - u.t < 1800000 ? " · 刚更新 " + u.hm : "");
+    if (p.textContent !== tx) p.textContent = tx;
+  }
+  function freshCheck() {
+    var now = Date.now(), bad = [], st = [], all = [];
+    if (document.visibilityState !== "visible") return; // 后台时浏览器会压慢定时器，不判断
+    BLOCKS.forEach(function (b) {
+      var on = !!b.on(), cs = (b.cards() || []).filter(Boolean);
+      cs.forEach(function (c) { if (all.indexOf(c) < 0) all.push(c); });
+      if (!on) { b.since = 0; return; }
+      if (!b.since) b.since = now;
+      var t = b.last() || 0, ref = Math.max(t, b.since, FR.grace), x = now - ref > 2 * b.exp();
+      if (b.chk) b.chk.forEach(function (id) { paintChk(id, b, t); });
+      if (x) { bad.push(b.name); cs.forEach(function (c) { if (st.indexOf(c) < 0) st.push(c); }); }
+    });
+    all.forEach(function (c) { var y = st.indexOf(c) >= 0; if (c.classList.contains("stale") !== y) c.classList.toggle("stale", y); });
+    var bar = $("staleBar"), on = bad.length > 0;
+    if (bar) { var h = on ? "⚠ 数据已旧，正在重连<small>" + esc(bad.join("、")) + "</small>" : ""; if (bar._h !== h) { bar._h = h; bar.innerHTML = h; bar.hidden = !on; document.documentElement.classList.toggle("stl", on); } }
+    if (on && !FR.spoke) { FR.spoke = true; var V = window.VOICE; if (V && V.say && V.unlocked && !V.muted) V.say("数据已断开，正在重连", false, true); }
+    if (!on) FR.spoke = false;
+    FR.on = on; FR.bad = bad;
+  }
+  setInterval(freshCheck, 1000);
+  // 回到前台 / 切回页面 / 恢复网络：立刻重查所有数据（节流 5 秒），并给 8 秒宽限，避免刚回来就误报
+  function wake(why) {
+    if (!state.data) return;
+    if (why !== "online") FR.grace = Date.now();
+    if (Date.now() - (FR.wokeAt || 0) < 5000) return; FR.wokeAt = Date.now();
+    live.busy = false; pollScores();
+    var P = PB(); if (P.inj) P.inj.t = 0; P.irT = 0; P.preT = 0; if (P.kick) P.kick();
+    if (Date.now() - (state.okT || 0) > 15000) load(false);
+    if (dayState.sel > dayState.today) { refreshDay(dayState.sel, dayState.iso); pre.oddsT = 0; }
+    checkVer();
+  }
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible") wake("vis"); });
+  window.addEventListener("pageshow", function (e) { if (e.persisted) wake("show"); });
+  window.addEventListener("focus", function () { wake("focus"); });
+  window.addEventListener("online", function () { wake("online"); });
+
+  /* ---------- 网站代码有新版本（version.json 由提交钩子生成）：空闲时自动刷新页面，保留所选比赛/日期/滚动位置；数据文件更新不触发 ---------- */
+  var VER = (/app\.js\?v=([A-Za-z0-9]+)/.exec((document.querySelector('script[src*="app.js"]') || {}).src || "") || [])[1] || "";
+  var lastAct = 0;
+  ["pointerdown", "touchstart", "keydown", "scroll", "wheel"].forEach(function (k) { window.addEventListener(k, function () { lastAct = Date.now(); }, { passive: true, capture: true }); });
+  function checkVer() {
+    if (!VER || FR.newVer) return tryReload();
+    fetch("version.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      if (j && j.v && j.v !== VER) { FR.newVer = j.v; tryReload(); }
+    }).catch(function () {});
+  }
+  function tryReload() {
+    if (!FR.newVer) return;
+    var V = window.VOICE || {};
+    if (V.busy || Date.now() - lastAct < 15000) { clearTimeout(FR.rt); FR.rt = setTimeout(tryReload, 5000); return; } // 正在播报或用户正在操作：稍后再试
+    try { sessionStorage.setItem("nba_reload", JSON.stringify({ day: dayState.sel !== dayState.today ? dayState.sel : null, iso: dayState.iso, open: dayState.open || null, y: window.scrollY, voice: !!(V.unlocked && !V.muted), t: Date.now() })); } catch (e) {}
+    try { if (state.sel) localStorage.setItem("nba_sel", state.sel); } catch (e) {}
+    location.reload();
+  }
+  setInterval(checkVer, 60000);
+  // 自动刷新后恢复：日期、展开的赛前详情、滚动位置；之前开着语音就提示“点一下继续”（iPhone 必须点一下才能出声）
+  function restoreAfterReload() {
+    var r = null; try { r = JSON.parse(sessionStorage.getItem("nba_reload") || "null"); sessionStorage.removeItem("nba_reload"); } catch (e) {}
+    if (!r || Date.now() - r.t > 120000) return;
+    if (r.day && r.iso) { dayState.open = r.open; var b = document.querySelector('.dchip[data-day="' + r.day + '"]'); if (b) selectDay(r.day, r.iso); }
+    setTimeout(function () { window.scrollTo(0, r.y || 0); }, 300);
+    var h = document.querySelector(".vhint"); if (r.voice && h && !h.classList.contains("gone")) h.textContent = "网站已自动更新到新版，点一下页面继续语音解说";
+    toast("网站已自动更新到新版");
+  }
+  FR.restore = restoreAfterReload;
   load(true);
 })();

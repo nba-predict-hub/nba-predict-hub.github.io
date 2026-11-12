@@ -156,7 +156,7 @@
     if (V.n % 9 === 0 && r.clock) out = perCn(r.per) + "还剩" + clockCn(r.clock) + "，" + out;
     if (clutch && (scored || r.kind === "to" || r.kind === "foul")) { hot = true; if (Math.random() < 0.6) out = rnd(["关键时刻！", "生死时刻！", "最后两分钟！"]) + out; }
     if (r.alert || r.kind === "eject") hot = true;
-    return { t: out, hot: hot, clutch: clutch, alert: !!(r.alert || r.kind === "eject"), who: r.who, kind: r.kind };
+    return { t: out, hot: hot, clutch: clutch, alert: !!(r.alert || r.kind === "eject"), crit: !!r.crit, who: r.who, kind: r.kind };
   }
   function build(list, gm) {
     var outl = [];
@@ -173,11 +173,11 @@
   P.listeners.push(function (ev, a, first) {
     var gm = g(); if (!gm || !V.unlocked || V.muted) return;
     if (gm.espn_id !== V.gid) { intro(); return; }
-    if (ev === "status") { say("场上状况：" + a.txt); return; }
+    if (ev === "status") { V.q.push({ t: "场上状况：" + a.txt, hot: true, alert: true }); next(); return; } // 伤退等场上状况：单独播报，不合并
     if (ev !== "plays" || !a || !a.length) return;
     if (first) { var lastp = a[a.length - 1]; if (lastp && lastp.h != null) V.prev = { h: lastp.h, a: lastp.a }; return; }
-    var all = build(a, gm), alerts = all.filter(function (x) { return x.alert; }), lines = all.filter(function (x) { return !x.alert; });
-    // 重大事件（驱逐/恶意/技术犯规/冲突）永不合并、永不丢：先保留队列里的重大事件，再逐条播报
+    var all = build(a, gm), alerts = all.filter(function (x) { return x.alert || x.crit; }), lines = all.filter(function (x) { return !x.alert && !x.crit; });
+    // 重大事件（驱逐/恶意犯规/技术犯规/冲突/伤退/挑战复核/违例）永不合并、永不丢：先保留队列里的重大事件，再逐条播报
     V.q = V.q.filter(function (q) { return q.alert; });
     alerts.forEach(function (x) { V.q.push({ t: x.t, hot: true, alert: true }); }); if (alerts.length) next();
     if (!lines.length) return;
@@ -213,5 +213,6 @@
     if (V.muted) { S.cancel(); if (V.wake) V.wake.release(); }
     else { V.unlocked = true; hint.classList.add("gone"); intro(); keepAwake(); }
   });
+  V.say = say;
   window.VOICE = V;
 })();
