@@ -346,3 +346,15 @@ main.live-mode .st-list{max-height:52px}
 #dayView .st-list{max-height:none!important;overflow:visible;order:0}
 #dayView .st-list li{padding:6px 2px;font-size:13px}
 #dayView .st-list li small{max-width:130px}
+/* 首发和缺阵全部展开，不用内嵌滚动 */
+#lineup{height:auto!important;max-height:none!important;overflow:visible!important}
+/* 横滑提示：两侧渐隐 + 末尾留白 */
+.tabs,.datebar{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 28px),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 28px),transparent 100%);padding-left:10px!important;scroll-padding-left:10px}
+.tabs::after,.datebar::after{content:"";flex:0 0 24px}
+/* 吸顶比分条：下方内容留出偏移，跳转/展开时不被盖住 */
+html{scroll-padding-top:72px}
+html.lm{scroll-padding-top:200px}
+main.live-mode>#liveTop{box-shadow:0 6px 10px rgba(7,11,24,.9)}
+main.live-mode>#liveTop+*{margin-top:8px}
+main.live-mode>section,main.live-mode>div{scroll-margin-top:200px}
+main.live-mode>#liveTop{background:#070b18!important}

@@ -560,15 +560,21 @@
 
   /* ---------- 缺失与来源 ---------- */
   function renderMissing() {
-    var d = state.data, h = '<ul class="ul">' + (d.missing || []).map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("") + "</ul>";
+    var d = state.data, h = '<ul class="ul">' + (d.missing || []).map(function (m) {
+      if (/^首发名单/.test(m)) { // 和“首发 · 缺阵”用同一份数据（ESPN starter 字段），不各说各的
+        var P = window.PBP || {}, g = game(), n = 0; if (g && P.gid === g.espn_id) for (var k in (P.ath || {})) if (P.ath[k].starter) n++;
+        m = n ? "首发名单：已公布（官方首发，ESPN starter 字段），见“首发 · 缺阵”" : "首发名单：暂无（开赛前 1 小时左右公布；比赛中显示的是场上五人，不是首发）";
+      }
+      return "<li>" + esc(m) + "</li>"; }).join("") + "</ul>";
     var mv = d.model_version || {};
     if (mv.rule) h += '<p class="note">' + esc(mv.rule) + "。</p>";
     h += '<p class="note">原则：' + (d.rules || []).map(esc).join(" ｜ ") + "</p>";
     h += '<details><summary>数据从哪来（' + (d.sources || []).length + ' 项）</summary><ul class="src-list">' + (d.sources || []).map(function (s) {
       return "<li>" + esc(s.name) + (s.note ? "：" + esc(s.note) : "") + (s.updated ? "（更新于 " + esc(String(s.updated).slice(5, 16)) + "）" : "") + "</li>";
     }).join("") + "</ul></details>";
-    $("missing").innerHTML = h;
+    var mb = $("missing"); if (mb._h !== h) { var op = mb.querySelector("details") && mb.querySelector("details").open; mb._h = h; mb.innerHTML = h; if (op) mb.querySelector("details").open = true; }
   }
+  window.NBA_RM = function () { if (state.data) safe("数据缺口", renderMissing); };
 
 
   /* ---------- 实时比分（浏览器直接读 ESPN，只用于展示，不写回任何数据） ---------- */
@@ -662,7 +668,7 @@
         '<div class="lt2">' + (d === 0 ? "平分" : esc(d > 0 ? g.home_cn : g.away_cn) + "领先 " + Math.abs(d)) + " · 总分 " + (s.hs + s.as) + "</div>";
       if (top._h !== th) { top._h = th; top.innerHTML = th; }
     }
-    if (main && main.classList.contains("live-mode") !== on) keepScroll(function () { main.classList.toggle("live-mode", on); });
+    if (main && main.classList.contains("live-mode") !== on) keepScroll(function () { main.classList.toggle("live-mode", on); }); document.documentElement.classList.toggle("lm", !!on);
   }
   /* ---- 比分校验：score / 各节加总 / 逐回合最后一条 三个数比对 ---- */
   live.finals = {};
