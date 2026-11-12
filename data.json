@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-11 18:47:52 PT",
- "generated_at_iso": "2026-11-11T18:47:52.683006-08:00",
+ "generated_at": "2026-11-11 18:50:32 PT",
+ "generated_at_iso": "2026-11-11T18:50:32.926153-08:00",
  "game_date": "2026-11-11",
  "last_lock": "2026-11-11 17:17:17 PT",
  "featured": "401909974",
@@ -2552,6 +2552,153 @@
   "board": {
    "has": false,
    "target": 300
+  }
+ },
+ "locks_by_date": {
+  "2026-11-11": {
+   "401909969": {
+    "espn_id": "401909969",
+    "away": "SAS",
+    "home": "CHI",
+    "tip_utc": "2026-11-12T01:00Z",
+    "spread": {
+     "kind": "home_line",
+     "pick": "SAS",
+     "pick_cn": "马刺",
+     "pick_text": "马刺 -15.5",
+     "line_home": -15.5,
+     "model_label": "第四版",
+     "band_cn": "",
+     "lock_time": "2026-11-11 16:45:46 PT",
+     "result": null
+    }
+   },
+   "401909974": {
+    "espn_id": "401909974",
+    "away": "GSW",
+    "home": "HOU",
+    "tip_utc": "2026-11-12T02:30Z",
+    "spread": {
+     "kind": "home_line",
+     "pick": "GSW",
+     "pick_cn": "勇士",
+     "pick_text": "勇士 +6.5",
+     "line_home": 6.5,
+     "model_label": "第六版",
+     "band_cn": "低",
+     "lock_time": "2026-11-11 17:17:17 PT",
+     "result": null
+    },
+    "total": {
+     "pick": "UNDER",
+     "pick_text": "小 219.5",
+     "line_total": 219.5,
+     "model_label": "第六版",
+     "lock_time": "2026-11-11 17:17:17 PT",
+     "result": null
+    }
+   },
+   "401909970": {
+    "espn_id": "401909970",
+    "away": "DEN",
+    "home": "MEM",
+    "tip_utc": "2026-11-12T01:00Z",
+    "spread": {
+     "kind": "home_line",
+     "pick": "MEM",
+     "pick_cn": "灰熊",
+     "pick_text": "灰熊 +3.5",
+     "line_home": -3.5,
+     "model_label": "第四版",
+     "band_cn": "",
+     "lock_time": "2026-11-11 16:45:46 PT",
+     "result": null
+    }
+   },
+   "401909971": {
+    "espn_id": "401909971",
+    "away": "LAL",
+    "home": "MIL",
+    "tip_utc": "2026-11-12T01:00Z",
+    "spread": {
+     "kind": "home_line",
+     "pick": "MIL",
+     "pick_cn": "雄鹿",
+     "pick_text": "雄鹿 +14.5",
+     "line_home": -14.5,
+     "model_label": "第四版",
+     "band_cn": "",
+     "lock_time": "2026-11-11 16:45:46 PT",
+     "result": null
+    }
+   },
+   "401909972": {
+    "espn_id": "401909972",
+    "away": "BKN",
+    "home": "NOP",
+    "tip_utc": "2026-11-12T01:00Z",
+    "spread": {
+     "kind": "home_line",
+     "pick": "BKN",
+     "pick_cn": "篮网",
+     "pick_text": "篮网 +3.5",
+     "line_home": 3.5,
+     "model_label": "第四版",
+     "band_cn": "",
+     "lock_time": "2026-11-11 16:45:46 PT",
+     "result": null
+    }
+   },
+   "401909975": {
+    "espn_id": "401909975",
+    "away": "OKC",
+    "home": "POR",
+    "tip_utc": "2026-11-12T03:00Z",
+    "spread": {
+     "kind": "home_line",
+     "pick": "OKC",
+     "pick_cn": "雷霆",
+     "pick_text": "雷霆 +2.5",
+     "line_home": 2.5,
+     "model_label": "第六版",
+     "band_cn": "低",
+     "lock_time": "2026-11-11 17:17:17 PT",
+     "result": null
+    },
+    "total": {
+     "pick": "UNDER",
+     "pick_text": "小 224.5",
+     "line_total": 224.5,
+     "model_label": "第六版",
+     "lock_time": "2026-11-11 17:17:17 PT",
+     "result": null
+    }
+   },
+   "401909973": {
+    "espn_id": "401909973",
+    "away": "ORL",
+    "home": "UTA",
+    "tip_utc": "2026-11-12T02:00Z",
+    "spread": {
+     "kind": "home_line",
+     "pick": "ORL",
+     "pick_cn": "魔术",
+     "pick_text": "魔术 -3.5",
+     "line_home": -3.5,
+     "model_label": "第六版",
+     "band_cn": "中",
+     "lock_time": "2026-11-11 17:17:17 PT",
+     "result": null
+    },
+    "total": {
+     "pick": "OVER",
+     "pick_text": "大 215.5",
+     "line_total": 215.5,
+     "model_label": "第六版",
+     "lock_time": "2026-11-11 17:17:17 PT",
+     "result": null
+    }
+   }
   }
  },
  "unlocked_games": [
