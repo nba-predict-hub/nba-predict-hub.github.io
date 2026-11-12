@@ -674,3 +674,11 @@ background:linear-gradient(180deg,transparent 0,rgba(51,225,255,.06) 70%,rgba(51
 @media (prefers-reduced-motion:reduce){#scanFx{display:none !important}}
 
 #scale svg *{vector-effect:non-scaling-stroke}#scale,#scale svg{filter:none!important;-webkit-filter:none!important;backdrop-filter:none!important}
+/* 防闪：滚动区不用毛玻璃，循环光效只播一次，入场只播一次 */
+.top,.bnav{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:rgba(5,10,16,.96)!important;transform:translateZ(0)}
+.hero:before{animation-iteration-count:1!important}
+.gcard:after,.lvmid:after,.card:before,.hero.card:before,.hr .bt i:after,.v8prog i:after,.duel .bar:after{animation-iteration-count:1!important;animation-fill-mode:forwards!important}
+.card{box-shadow:0 0 0 1px rgba(51,225,255,.05),0 4px 10px rgba(0,0,0,.3)!important}
+.card.in.done{animation:none!important;opacity:1;transform:none}
+.card.in.done.flash{animation:flashcard 2.2s ease-out 1!important}
+.gcard:after{animation:none!important;opacity:0}.gl-in .gcard:after{animation:scan 3.6s linear 1 forwards!important;opacity:1}

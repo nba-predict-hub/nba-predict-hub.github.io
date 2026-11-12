@@ -237,9 +237,9 @@
   })();
   function revealCards() {
     var cards = document.querySelectorAll(".card");
-    if (!("IntersectionObserver" in window)) { cards.forEach(function (c) { c.classList.add("in"); }); return; }
+    if (!("IntersectionObserver" in window)) { cards.forEach(function (c) { c.classList.add("in", "done"); }); return; }
     var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); animateIn(e.target); } });
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); (function (c) { setTimeout(function () { c.classList.add("done"); }, 800); })(e.target); animateIn(e.target); } });
     }, { threshold: 0.12 });
     cards.forEach(function (c) { io.observe(c); });
   }
