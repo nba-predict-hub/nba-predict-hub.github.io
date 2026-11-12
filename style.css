@@ -328,3 +328,9 @@ main.live-mode .st-list{order:-1;flex:0 0 auto;max-height:64px;border-top:0;bord
 main.live-mode .st-team .st-tn{width:auto;margin-right:2px}
 main.live-mode .st-five{gap:3px}
 main.live-mode .st-list{max-height:52px}
+/* 球员分量标签 */
+.role{font-style:normal;font-size:10px;font-weight:800;padding:0 4px;border-radius:4px;margin-left:4px;background:#1a2442;color:#cfd8ee}
+.role.r0{background:rgba(255,197,61,.2);color:var(--yel)}.role.r1{background:rgba(47,123,255,.2);color:#7fb6ff}.role.r2{color:#cfd8ee}.role.r3{color:var(--dim)}
+.rstat{font-style:normal;font-size:10px;color:var(--dim);margin-left:4px}
+.lu-p{height:auto!important;min-height:26px;flex-wrap:wrap}
+.st-list li.core span{font-weight:900}

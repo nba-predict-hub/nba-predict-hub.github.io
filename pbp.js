@@ -167,7 +167,7 @@
       if (g && Date.now() - P.preT > 60000) { // 赛前每分钟读一次首发和伤病
         P.preT = Date.now(); var pg = g.espn_id;
         fetch(SUM + pg + "&t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
-          if (!d || pg !== P.gid) return; loadPeople(d, g); P.inj.t = 0; return loadInj().then(function () { if (pg === P.gid) renderLineup(g); });
+          if (!d || pg !== P.gid) return; loadPeople(d, g); P.inj.t = 0; return Promise.all([loadInj(), loadRoles()]).then(function () { if (pg === P.gid) renderLineup(g); });
         }).catch(function () {});
       }
       return;
@@ -194,7 +194,7 @@
       render(g, fresh);
       P.listeners.forEach(function (f) { f("plays", fresh, P.firstLoad !== gid); });
       var tipIso = ((((d.header || {}).competitions || [])[0]) || {}).date;
-      Promise.all([loadInj(), loadIgs()]).then(function () { if (gid === P.gid) { renderStatus(g, tipIso); renderLineup(g); } });
+      Promise.all([loadInj(), loadIgs(), loadRoles()]).then(function () { if (gid === P.gid) { renderStatus(g, tipIso); renderLineup(g); } });
       P.firstLoad = gid;
     }).catch(function () { P.fail = true; P.fastMs = P.fastMs < 3000 ? 3000 : 5000; if (gid === P.gid) render(g, []); }).then(function () {
       P.busy = false;
@@ -302,6 +302,20 @@
   var SIDE = { left: "左", right: "右" };
   var IST = { "out": ["red", "缺阵"], "doubtful": ["org", "大概率缺阵"], "questionable": ["yel", "出战成疑"], "day-to-day": ["", "每日观察"], "probable": ["", "大概率出战"] };
   function ptTime(iso) { try { return new Intl.DateTimeFormat("zh-CN", { timeZone: "America/Los_Angeles", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(iso)); } catch (e) { return ""; } }
+  // 球员分量（盒子每天生成的 player_roles.json，按 ESPN 球员 ID）
+  P.roles = {}; P.rolesEn = {}; P.rolesT = 0;
+  function loadRoles() {
+    if (Date.now() - P.rolesT < 1800000) return Promise.resolve();
+    P.rolesT = Date.now();
+    return fetch("player_roles.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : {}; }).then(function (j) {
+      P.roles = (j && j.players) || {}; P.rolesEn = {}; for (var k in P.roles) if (P.roles[k].en) P.rolesEn[P.roles[k].en] = k;
+    }).catch(function () {});
+  }
+  var RRANK = { "核心": 0, "主力": 1, "轮换": 2, "边缘": 3 };
+  function roleTag(id) {
+    var r = id && P.roles[id]; if (!r) return "";
+    return '<em class="role r' + RRANK[r.role] + '">' + esc(r.role) + "</em><i class=\"rstat\">场均 " + r.ppg + " 分 / " + r.mpg + " 分钟</i>";
+  }
   function renderLineup(g) {
     var box = $("lineup"); if (!box || !g) return;
     var teams = Object.keys(P.teams).sort(function (x, y) { return P.teams[x].side === "h" ? 1 : -1; }), h = "";
@@ -310,7 +324,7 @@
     teams.forEach(function (t) {
       var st = []; for (var id in P.ath) if (P.ath[id].team === t && P.ath[id].starter) st.push(id);
       h += '<div class="st-team"><div class="st-tn" style="color:' + esc(P.teams[t].color) + '">' + esc(P.teams[t].cn) + "</div>" +
-        (st.length ? st.map(function (id) { return '<span class="st-p">' + head(id) + "<b>" + esc(nm(id)) + "</b></span>"; }).join("") : '<span class="dim">首发未公布</span>') + "</div>";
+        (st.length ? st.map(function (id) { return '<span class="st-p lu-p">' + head(id) + "<b>" + esc(nm(id)) + "</b>" + roleTag(id) + "</span>"; }).join("") : '<span class="dim">首发未公布</span>') + "</div>";
     });
     var I = g.injuries || {}, off = (I.players || []).length > 0, rows = [];
     h += '<div class="lu-h">缺阵名单 <small>' + (off ? "来源 NBA 官方伤病报告（" + esc(I.report || "") + "）" : "来源 ESPN") + "</small></div>";
@@ -318,7 +332,8 @@
       I.players.filter(function (q) { return !q.g_league; }).forEach(function (q) {
         var cls = q.cls === "out" ? "red" : /doubt/i.test(q.status) ? "org" : /quest/i.test(q.status) ? "yel" : "";
         var img = q.nba_id ? '<img loading="lazy" alt="" src="https://cdn.nba.com/headshots/nba/latest/260x190/' + esc(q.nba_id) + '.png" onerror="this.remove()">' : "";
-        rows.push({ o: cls === "red" ? 0 : cls === "org" ? 1 : cls === "yel" ? 2 : 3, h: '<li class="' + cls + '">' + img + "<span>" + esc((q.team_cn || "") + " " + (P.zhName ? P.zhName(q.name) : q.name)) + " · " + esc(q.status_cn || q.status) + "</span><small>" + esc(q.reason || "") + "</small></li>" });
+        var eid = P.byName[q.name] || P.rolesEn[q.name] || "", rr = eid && P.roles[eid] ? RRANK[P.roles[eid].role] : 4;
+        rows.push({ o: rr * 10 + (cls === "red" ? 0 : cls === "org" ? 1 : cls === "yel" ? 2 : 3), h: '<li class="' + cls + (rr === 0 ? " core" : "") + '">' + img + "<span>" + esc((q.team_cn || "") + " " + (P.zhName ? P.zhName(q.name) : q.name)) + " · " + esc(q.status_cn || q.status) + roleTag(eid) + "</span><small>" + esc(q.reason || "") + "</small></li>" });
       });
     } else {
       teams.forEach(function (t) {
@@ -327,7 +342,8 @@
           var s = IST[String(i.status || "").toLowerCase()] || ["", i.status || ""], dt = i.details || {};
           var part = dt.type ? (PART[String(dt.type).toLowerCase()] || dt.type) : "", side = dt.side ? (SIDE[String(dt.side).toLowerCase()] || "") : "";
           var nmz = (id && P.zh[id] && (P.zh[id].zh_short || P.zh[id].zh)) || at.displayName || "";
-          rows.push({ o: s[0] === "red" ? 0 : s[0] === "org" ? 1 : s[0] === "yel" ? 2 : 3, h: '<li class="' + s[0] + '">' + (id ? head(id) : "") + "<span>" + esc(P.teams[t].cn + " " + nmz) + " · " + esc(s[1]) + "</span><small>" + esc((side && part && part.indexOf("生病") < 0 ? side : "") + part) + (i.date ? " · " + esc(ptTime(i.date)) + " 太平洋时间" : "") + "</small></li>" });
+          var rr2 = id && P.roles[id] ? RRANK[P.roles[id].role] : 4;
+          rows.push({ o: rr2 * 10 + (s[0] === "red" ? 0 : s[0] === "org" ? 1 : s[0] === "yel" ? 2 : 3), h: '<li class="' + s[0] + (rr2 === 0 ? " core" : "") + '">' + (id ? head(id) : "") + "<span>" + esc(P.teams[t].cn + " " + nmz) + " · " + esc(s[1]) + roleTag(id) + "</span><small>" + esc((side && part && part.indexOf("生病") < 0 ? side : "") + part) + (i.date ? " · " + esc(ptTime(i.date)) + " 太平洋时间" : "") + "</small></li>" });
         });
       });
     }

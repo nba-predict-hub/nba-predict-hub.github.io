@@ -22,11 +22,18 @@ if [ -f nba_ids.py ] && [ -f player_names_zh.json ] && { [ ! -f "$ISTAMP" ] || [
   touch "$ISTAMP"
   timeout 180 python3 nba_ids.py >/dev/null 2>&1 || echo "nba_ids.py 失败（忽略）" >&2
 fi
+# 球员分量（本赛季场均）：每天最多跑一次
+RSTAMP=.roles_last_run
+if [ -f player_roles.py ] && { [ ! -f "$RSTAMP" ] || [ $(( $(date +%s) - $(stat -c %Y "$RSTAMP") )) -ge 86400 ]; }; then
+  touch "$RSTAMP"
+  timeout 120 python3 player_roles.py >/dev/null 2>&1 || echo "player_roles.py 失败（忽略）" >&2
+fi
 if [ -d .git ]; then
   git add data.json leisu_ids.json
   [ -f player_names_zh.json ] && git add player_names_zh.json
   [ -f nba_ids.json ] && git add nba_ids.json
   [ -f ingame_status.json ] && git add ingame_status.json
+  [ -f player_roles.json ] && git add player_roles.json
   if ! git diff --cached --quiet; then
     git commit -m "data: $(date '+%Y-%m-%d %H:%M %Z')" && git push
   fi
