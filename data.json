@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-11 17:47:14 PT",
- "generated_at_iso": "2026-11-11T17:47:14.944618-08:00",
+ "generated_at": "2026-11-11 17:54:50 PT",
+ "generated_at_iso": "2026-11-11T17:54:50.203789-08:00",
  "game_date": "2026-11-11",
  "last_lock": "2026-11-11 17:17:17 PT",
  "featured": "401909974",
@@ -1404,28 +1404,17 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "17:34",
+      "time": "17:53",
       "open_home": -4.5,
-      "cur_home": -3.5,
+      "cur_home": -4.5,
       "total_open": 218.5,
       "total_cur": 216.5,
       "in_median": true
      },
      {
-      "book": "平博",
-      "via": "",
-      "time": "17:34",
-      "open_home": null,
-      "cur_home": -4.0,
-      "total_open": null,
-      "total_cur": 216.0,
-      "in_median": true,
-      "note": ""
-     },
-     {
       "book": "美盘共识",
       "via": "",
-      "time": "17:34",
+      "time": "17:53",
       "open_home": -4.5,
       "cur_home": -4.5,
       "total_open": null,
@@ -1434,21 +1423,19 @@
       "note": ""
      }
     ],
-    "median_home": -4.0,
-    "median_text": "魔术 -4",
-    "median_n": 3,
-    "median_total": 216.25,
-    "median_total_n": 2,
-    "spread_range": 1.0,
-    "source": "实时盘口，更新于 17:34",
+    "median_home": -4.5,
+    "median_text": "魔术 -4.5",
+    "median_n": 2,
+    "median_total": 216.5,
+    "median_total_n": 1,
+    "spread_range": 0.0,
+    "source": "实时盘口，更新于 17:53",
     "median_books": [
      "DraftKings",
-     "平博",
      "美盘共识"
     ],
     "median_total_books": [
-     "DraftKings",
-     "平博"
+     "DraftKings"
     ],
     "crown": {
      "spread_open": "魔术 -4.5（魔术水 0.94，爵士水 0.92）",
@@ -1484,16 +1471,16 @@
      "pred_home_margin": -4.28,
      "source": "我们的模型，17:17 锁定",
      "official": false,
-     "lean": "ORL",
-     "lean_cn": "魔术"
+     "lean": "UTA",
+     "lean_cn": "爵士"
     },
     {
      "name": "第五版原选（ESPN 预测）",
      "pred_home_margin": -4.37,
      "source": "我们的模型，16:56 锁定",
      "official": false,
-     "lean": "ORL",
-     "lean_cn": "魔术"
+     "lean": "UTA",
+     "lean_cn": "爵士"
     },
     {
      "name": "第五版融合版",
@@ -1516,8 +1503,8 @@
      "pred_home_margin": -4.37,
      "source": "我们的模型，16:45 锁定",
      "official": false,
-     "lean": "ORL",
-     "lean_cn": "魔术"
+     "lean": "UTA",
+     "lean_cn": "爵士"
     },
     {
      "name": "Massey 电脑分",
@@ -1562,8 +1549,8 @@
     "pct": null
    },
    "lean_count": {
-    "ORL": 5,
-    "UTA": 5
+    "ORL": 2,
+    "UTA": 8
    },
    "total_comps": [
     {
@@ -1807,7 +1794,7 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "17:34",
+      "time": "17:53",
       "open_home": 5.5,
       "cur_home": 6.5,
       "total_open": 222.5,
@@ -1815,20 +1802,9 @@
       "in_median": true
      },
      {
-      "book": "平博",
-      "via": "",
-      "time": "17:34",
-      "open_home": null,
-      "cur_home": 6.5,
-      "total_open": null,
-      "total_cur": 219.5,
-      "in_median": true,
-      "note": ""
-     },
-     {
       "book": "美盘共识",
       "via": "",
-      "time": "17:34",
+      "time": "17:53",
       "open_home": 5.5,
       "cur_home": 6.5,
       "total_open": null,
@@ -1839,19 +1815,17 @@
     ],
     "median_home": 6.5,
     "median_text": "火箭 -6.5",
-    "median_n": 3,
+    "median_n": 2,
     "median_total": 219.5,
-    "median_total_n": 2,
+    "median_total_n": 1,
     "spread_range": 0.0,
-    "source": "实时盘口，更新于 17:34",
+    "source": "实时盘口，更新于 17:53",
     "median_books": [
      "DraftKings",
-     "平博",
      "美盘共识"
     ],
     "median_total_books": [
-     "DraftKings",
-     "平博"
+     "DraftKings"
     ],
     "crown": {
      "spread_open": "火箭 -6（勇士水 0.92，火箭水 0.94）",
@@ -2223,7 +2197,7 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "17:34",
+      "time": "17:53",
       "open_home": -2.5,
       "cur_home": 2.5,
       "total_open": 224.5,
@@ -2231,20 +2205,9 @@
       "in_median": true
      },
      {
-      "book": "平博",
-      "via": "",
-      "time": "17:34",
-      "open_home": null,
-      "cur_home": 2.5,
-      "total_open": null,
-      "total_cur": 224.0,
-      "in_median": true,
-      "note": ""
-     },
-     {
       "book": "美盘共识",
       "via": "",
-      "time": "17:34",
+      "time": "17:53",
       "open_home": -1.0,
       "cur_home": -1.5,
       "total_open": null,
@@ -2253,21 +2216,19 @@
       "note": ""
      }
     ],
-    "median_home": 2.5,
-    "median_text": "开拓者 -2.5",
-    "median_n": 3,
-    "median_total": 224.25,
-    "median_total_n": 2,
+    "median_home": 0.5,
+    "median_text": "开拓者 -0.5",
+    "median_n": 2,
+    "median_total": 224.5,
+    "median_total_n": 1,
     "spread_range": 4.0,
-    "source": "实时盘口，更新于 17:34",
+    "source": "实时盘口，更新于 17:53",
     "median_books": [
      "DraftKings",
-     "平博",
      "美盘共识"
     ],
     "median_total_books": [
-     "DraftKings",
-     "平博"
+     "DraftKings"
     ],
     "crown": {
      "spread_open": "雷霆 -1.5（雷霆水 0.93，开拓者水 0.93）",
@@ -2287,8 +2248,8 @@
      "pred_home_margin": 1.46,
      "source": "我们的模型，17:17 锁定",
      "official": true,
-     "lean": "OKC",
-     "lean_cn": "雷霆"
+     "lean": "POR",
+     "lean_cn": "开拓者"
     },
     {
      "name": "第六版备选（参考收盘）",
@@ -2311,24 +2272,24 @@
      "pred_home_margin": 1.2,
      "source": "我们的模型，16:56 锁定",
      "official": false,
-     "lean": "OKC",
-     "lean_cn": "雷霆"
+     "lean": "POR",
+     "lean_cn": "开拓者"
     },
     {
      "name": "第五版融合版",
      "pred_home_margin": 0.72,
      "source": "我们的模型，16:56 锁定",
      "official": false,
-     "lean": "OKC",
-     "lean_cn": "雷霆"
+     "lean": "POR",
+     "lean_cn": "开拓者"
     },
     {
      "name": "第五版球员模型",
      "pred_home_margin": 0.54,
      "source": "我们的模型，16:56 锁定",
      "official": false,
-     "lean": "OKC",
-     "lean_cn": "雷霆"
+     "lean": "POR",
+     "lean_cn": "开拓者"
     },
     {
      "name": "第四版",
@@ -2381,8 +2342,8 @@
     "pct": null
    },
    "lean_count": {
-    "OKC": 9,
-    "POR": 1
+    "OKC": 5,
+    "POR": 5
    },
    "total_comps": [
     {
@@ -3431,7 +3392,7 @@
   "首发名单：暂无",
   "官方伤病报告已更新到美东晚上 8:30",
   "裁判：只有勇士@火箭有名单，其他场次暂无",
-  "平博每场都有盘，已算进多家中位数",
+  "平博不是每场都有盘，暂不算进中位数",
   "已开打的比赛：盘口停在开赛前",
   "本赛季 Massey、Sagarin 的命中率：暂无（没有存档）",
   "今晚的对错：比赛结束后才有",
@@ -3467,21 +3428,21 @@
   {
    "name": "实时盘口",
    "file": "monitor/lines.json",
-   "updated": "2026-11-11 17:34 PT",
+   "updated": "2026-11-11 17:54 PT",
    "note": "DraftKings、平博、美盘共识，含开盘和变盘",
    "exists": true
   },
   {
    "name": "实时官方伤病",
    "file": "monitor/injuries.json",
-   "updated": "2026-11-11 17:34 PT",
+   "updated": "2026-11-11 17:54 PT",
    "note": "NBA 官方伤病报告",
    "exists": true
   },
   {
    "name": "盘口和伤病变动提醒",
    "file": "monitor/alerts.json",
-   "updated": "2026-11-11 17:34 PT",
+   "updated": "2026-11-11 17:54 PT",
    "note": "盘口变动超过 1 分、伤病状态变化",
    "exists": true
   },
