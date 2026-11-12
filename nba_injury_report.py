@@ -60,7 +60,7 @@ STATUS_CN = {"Out": ("缺阵", "out"), "Doubtful": ("大概率缺阵", "doubtful
              "Probable": ("大概率出战", "probable"), "Available": ("可出战", "available")}
 
 
-WORDS = sorted(dict(list(WORDS) + [("Sore", "酸痛"), ("Reconditioning", "复出适应")]).items(), key=lambda kv: len(kv[0]), reverse=True)
+WORDS = sorted(dict(list(WORDS) + [("Sore", "酸痛"), ("Reconditioning", "复出适应"), ("Sciatica", "坐骨神经痛"), ("Cervical Spine", "颈椎"), ("CervicalSpine", "颈椎"), ("Tendon Rupture", "肌腱断裂"), ("TendonRupture", "肌腱断裂")]).items(), key=lambda kv: len(kv[0]), reverse=True)
 
 
 def slot_name(dt):

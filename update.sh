@@ -28,6 +28,8 @@ if [ -f player_roles.py ] && { [ ! -f "$RSTAMP" ] || [ $(( $(date +%s) - $(stat 
   touch "$RSTAMP"
   timeout 120 python3 player_roles.py >/dev/null 2>&1 || echo "player_roles.py 失败（忽略）" >&2
 fi
+# 赛前盘口汇总：只读同事 monitor 里已有的真实盘口，没有就不写
+[ -f pre_odds.py ] && { timeout 30 python3 pre_odds.py || echo "pre_odds.py 失败（忽略）" >&2; }
 if [ -d .git ]; then
   exec 9>/workspace/nba_site/.git_push.lock
   flock -w 120 9 || { echo "等 git 锁超时，本次不提交" >&2; exit 0; }
@@ -36,6 +38,7 @@ if [ -d .git ]; then
   [ -f nba_ids.json ] && git add nba_ids.json
   [ -f ingame_status.json ] && git add ingame_status.json
   [ -f player_roles.json ] && git add player_roles.json
+  [ -f pre_odds.json ] && git add pre_odds.json
   if ! git diff --cached --quiet; then
     git commit -m "data: $(date '+%Y-%m-%d %H:%M %Z')" && git push
   fi

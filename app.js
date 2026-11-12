@@ -591,10 +591,10 @@
   function parseSB(d) {
     var out = {};
     (d.events || []).forEach(function (e) {
-      var c = (e.competitions || [])[0] || {}, st = e.status || {}, ty = st.type || {}, r = { id: String(e.id), state: ty.state, name: ty.name, period: st.period || 0, clock: st.displayClock || "", tip: ptTime(e.date) };
+      var c = (e.competitions || [])[0] || {}, st = e.status || {}, ty = st.type || {}, r = { id: String(e.id), state: ty.state, name: ty.name, period: st.period || 0, clock: st.displayClock || "", tip: ptTime(e.date), date: e.date };
       (c.competitors || []).forEach(function (t) {
         var k = t.homeAway === "home" ? "h" : "a";
-        r[k + "ab"] = nbaAb((t.team || {}).abbreviation); r[k + "s"] = t.score == null ? null : +t.score;
+        r[k + "ab"] = nbaAb((t.team || {}).abbreviation); r[k + "id"] = String((t.team || {}).id || ""); r[k + "s"] = t.score == null ? null : +t.score;
         r[k + "ls"] = (t.linescores || []).map(function (x) { var v = x.value != null ? x.value : x.displayValue; return v == null || v === "" ? null : +v; });
       });
       out[r.id] = r; out[r.aab + "@" + r.hab] = r;
@@ -857,13 +857,113 @@
         if (js && js.r === "W") nW++; if (js && js.r === "L") nL++;
         if (L.spread) lk += '<div class="lk">' + (past ? "赛前锁定：" : "模型预测：") + "<b>" + esc(L.spread.pick_text) + "</b> <small>" + esc(L.spread.model_label) + (L.spread.band_cn ? " · 把握度" + esc(L.spread.band_cn) : "") + "</small> " + resChip(js) + "</div>";
         if (L.total) lk += '<div class="lk sm">大小分：<b>' + esc(L.total.pick_text) + "</b> " + resChip(jt) + "</div>";
-      } else lk = '<div class="lk dim">' + (past || s.state !== "pre" ? "当日未预测" : "暂无预测") + "</div>";
-      return '<li><div class="tm2"><span>' + esc(an) + " @ " + esc(hn) + '</span><span class="st2">' + st + "</span></div>" + lk + "</li>";
+      } else lk = '<div class="lk dim">' + (past || s.state !== "pre" ? "当日未预测" : "预测在开盘后锁定（约早上 7 点后）") + "</div>";
+      return '<li class="dli" data-id="' + esc(s.id) + '"><div class="tm2"><span>' + esc(an) + " @ " + esc(hn) + '</span><span class="st2">' + st + "</span></div>" + lk + '<div class="dmore">点开看赛前详情 ›</div><div class="ddet" hidden></div></li>';
     }).join("") + "</ul>";
     if (nW + nL) h += '<p class="note">这天让分方向：对 ' + nW + " 场，错 " + nL + " 场（只算赛前锁定的）。</p>";
     h += '<p class="note">只用开赛前锁定的记录；对错优先用我们账本里的结果，账本还没填时按终场比分对照锁定的盘口算。</p>';
     dv.innerHTML = h;
+    dv.querySelectorAll(".dli").forEach(function (li) {
+      var s = null; evs.forEach(function (e) { if (e.id === li.getAttribute("data-id")) s = e; });
+      li.querySelector(".tm2").onclick = li.querySelector(".dmore").onclick = function () {
+        var d = li.querySelector(".ddet"), open = d.hidden;
+        dv.querySelectorAll(".ddet").forEach(function (x) { x.hidden = true; }); dv.querySelectorAll(".dmore").forEach(function (x) { x.textContent = "点开看赛前详情 ›"; });
+        dayState.open = open ? s.id : null;
+        if (open) { d.hidden = false; li.querySelector(".dmore").textContent = "收起 ‹"; preDetail(s, d); }
+      };
+      if (dayState.open === s.id) { li.querySelector(".ddet").hidden = false; li.querySelector(".dmore").textContent = "收起 ‹"; preDetail(s, li.querySelector(".ddet")); }
+    });
   }
+  /* ---------- 赛前详情（未来日期也能点开）：全部只显示，不写回模型 ---------- */
+  var pre = { odds: null, oddsT: 0, sched: {}, timer: 0 };
+  function getJSON(u) { return fetch(u + (u.indexOf("?") < 0 ? "?" : "&") + "t=" + Date.now(), { cache: "no-store" }).then(function (r) { if (!r.ok) throw 0; return r.json(); }); }
+  function loadOdds() {
+    if (pre.odds && Date.now() - pre.oddsT < 60000) return Promise.resolve(pre.odds);
+    return getJSON("pre_odds.json").then(function (j) { pre.odds = j; pre.oddsT = Date.now(); return j; }, function () { return pre.odds || null; });
+  }
+  function loadSched(tid) {
+    var c = pre.sched[tid]; if (c && Date.now() - c.t < 600000) return Promise.resolve(c);
+    if (!tid) return Promise.resolve(null);
+    return getJSON("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/" + tid + "/schedule").then(function (j) {
+      var gs = [];
+      (j.events || []).forEach(function (e) {
+        var c0 = (e.competitions || [])[0] || {}, ty = ((c0.status || {}).type) || {};
+        if (!ty.completed || ((e.seasonType || {}).type && (e.seasonType || {}).type !== 2)) return;
+        var me = null, op = null; (c0.competitors || []).forEach(function (t) { if (String((t.team || {}).id) === String(tid)) me = t; else op = t; });
+        if (!me || !op) return;
+        var sv = function (t) { var x = t.score; return x && typeof x === "object" ? +x.value : +x; };
+        gs.push({ d: e.date, w: !!me.winner, pf: sv(me), pa: sv(op) });
+      });
+      gs.sort(function (a, b) { return a.d < b.d ? -1 : 1; });
+      c = { t: Date.now(), at: ptTime(new Date().toISOString()), gs: gs }; pre.sched[tid] = c; return c;
+    }, function () { return c || null; });
+  }
+  function signLine(cnFav, x) { return cnFav + " -" + (Math.round(Math.abs(x) * 100) / 100); }
+  function formHtml(cn, c) {
+    if (!c || !c.gs.length) return '<div class="pd-row">' + esc(cn) + "：暂无</div>";
+    var l5 = c.gs.slice(-5), w = 0, pf = 0, pa = 0, sw = 0;
+    l5.forEach(function (g) { if (g.w) w++; pf += g.pf; pa += g.pa; });
+    c.gs.forEach(function (g) { if (g.w) sw++; });
+    var seq = l5.map(function (g) { return '<i class="' + (g.w ? "fw" : "fl") + '">' + (g.w ? "胜" : "负") + "</i>"; }).join("");
+    return '<div class="pd-row"><b>' + esc(cn) + "</b> 本季 " + sw + "胜" + (c.gs.length - sw) + "负 · 近 " + l5.length + " 场 " + w + "胜" + (l5.length - w) + "负 " + seq +
+      '<br><small>近 ' + l5.length + " 场场均得分 " + (Math.round(pf / l5.length * 10) / 10) + " · 失分 " + (Math.round(pa / l5.length * 10) / 10) + "</small></div>";
+  }
+  function rolesHtml(ab, cn) {
+    var P = window.PBP || {}, R = P.roles || {}, list = [];
+    for (var id in R) if (nbaAb(R[id].team) === ab && (R[id].role === "核心" || R[id].role === "主力")) list.push(id);
+    list.sort(function (a, b) { return (R[a].role === R[b].role ? 0 : R[a].role === "核心" ? -1 : 1) || R[b].ppg - R[a].ppg; });
+    if (!list.length) return '<div class="pd-row">' + esc(cn) + "：暂无</div>";
+    return '<div class="pd-row"><b>' + esc(cn) + "</b>" + list.map(function (id) {
+      var z = (P.zh && P.zh[id] && (P.zh[id].zh_short || P.zh[id].zh)) || R[id].en;
+      return '<span class="pd-p' + (R[id].role === "核心" ? " core" : "") + '">' + esc(z) + P.roleTag(id) + "</span>";
+    }).join("") + "</div>";
+  }
+  function startersHtml(s) {
+    var tip = Date.parse(s.date || "") || 0;
+    if (!tip || tip - Date.now() > 3600000) return Promise.resolve('<p class="note">首发未公布（开赛前 1 小时起每 30 秒自动查看）</p>');
+    return getJSON("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=" + s.id).then(function (j) {
+      var h = "", any = false, P = window.PBP || {};
+      (((j.boxscore || {}).players) || []).forEach(function (t) {
+        var ab = nbaAb((t.team || {}).abbreviation), st = [];
+        ((((t.statistics || [])[0] || {}).athletes) || []).forEach(function (a) { if (a.starter) st.push(a); });
+        if (st.length) any = true;
+        h += '<div class="pd-row"><b>' + esc(TEAM_CN[ab] || ab) + "</b>" + (st.length ? st.map(function (a) {
+          var id = String((a.athlete || {}).id || ""), z = (P.zh && P.zh[id] && (P.zh[id].zh_short || P.zh[id].zh)) || (a.athlete || {}).displayName || "";
+          return '<span class="pd-p">' + esc(z) + (P.roleTag ? P.roleTag(id) : "") + "</span>";
+        }).join("") : " 首发未公布") + "</div>";
+      });
+      return any ? '<p class="note">官方首发 · 来源 ESPN 技术统计 · ' + esc(ptTime(new Date().toISOString())) + " 获取</p>" + h : '<p class="note">首发未公布</p>';
+    }, function () { return '<p class="note">首发未公布</p>'; });
+  }
+  function preDetail(s, d) {
+    clearTimeout(pre.timer);
+    var an = TEAM_CN[s.aab] || s.aab, hn = TEAM_CN[s.hab] || s.hab, P = window.PBP || {};
+    var dt = ""; try { dt = new Intl.DateTimeFormat("zh-CN", { timeZone: "America/Los_Angeles", month: "numeric", day: "numeric", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(s.date)); } catch (e) {}
+    if (!d.innerHTML) d.innerHTML = '<p class="note">读取中…</p>';
+    var tl = [{ id: s.aid, cn: an, ab: s.aab }, { id: s.hid, cn: hn, ab: s.hab }];
+    Promise.all([P.prep ? P.prep() : null, loadOdds(), loadSched(s.aid), loadSched(s.hid), startersHtml(s)]).then(function (r) {
+      if (dayState.open !== s.id) return;
+      var O = r[1] || {}, og = (O.games || {})[s.id], h = "";
+      h += '<div class="pd-h">开赛时间</div><div class="pd-row">' + esc(dt || s.tip) + "（太平洋时间）</div>";
+      h += '<div class="pd-h">当前盘口 <small>只显示，不影响模型</small></div>';
+      if (og && og.med_line_home != null) {
+        var ml = og.med_line_home;
+        h += '<div class="pd-row">多家中位数（' + esc(og.books.map(function (b) { return b.book; }).join("、")) + " 共 " + og.n + " 家）：让分 <b>" + esc(ml === 0 ? "平手" : ml < 0 ? signLine(hn, ml) : signLine(an, ml)) + "</b>" + (og.med_total != null ? " · 总分 <b>" + og.med_total + "</b>" : "") +
+          "<br><small>来源 ESPN 公开盘口 + Pinnacle 公开盘 · 更新于 " + esc(String(O.lines_updated_pt || "").slice(5, 16)) + " 太平洋时间</small></div>";
+      } else h += '<div class="pd-row">多家中位数：暂无</div>';
+      var cr = null; (O.crown || []).forEach(function (c) { if (c.game === an + "@" + hn) cr = c; });
+      h += cr ? '<div class="pd-row">皇冠：让分 ' + esc(cr.crown_spread_now || "暂无") + " · 总分 " + esc(cr.crown_total_now || "暂无") + "<br><small>读取于 " + esc(cr.read_at || "") + "</small></div>" : '<div class="pd-row">皇冠：暂无</div>';
+      h += '<div class="pd-h">首发</div>' + r[4];
+      h += '<div class="pd-h">预计缺阵和伤病</div>' + (P.absHtml ? P.absHtml(s.aab, s.hab, tl, {}) : '<p class="note">暂无</p>');
+      h += '<div class="pd-h">各队分量 <small>来源 ESPN 本赛季场均</small></div>' + rolesHtml(s.aab, an) + rolesHtml(s.hab, hn);
+      var at = (r[2] && r[2].at) || (r[3] && r[3].at) || "";
+      h += '<div class="pd-h">近况 <small>来源 ESPN 球队赛程 · ' + esc(at) + " 获取</small></div>" + formHtml(an, r[2]) + formHtml(hn, r[3]);
+      if (d._h !== h) { d._h = h; d.innerHTML = h; }
+      var tip = Date.parse(s.date || "") || 0, near = tip && tip - Date.now() < 3600000 && s.state === "pre";
+      pre.timer = setTimeout(function () { if (dayState.open === s.id && !d.hidden && document.visibilityState === "visible") preDetail(s, d); }, near ? 30000 : 60000);
+    });
+  }
+
   /* ---------- 拉取与自动刷新 ---------- */
   function load(first) {
     return fetch("data.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) {
@@ -882,7 +982,7 @@
         });
       }
       lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); });
-      if (changed) { safe("整页", function () { renderAll(false); }); toast("数据已更新 · " + String(d.generated_at || "").slice(11, 16)); }
+      if (changed) { safe("整页", function () { renderAll(false); }); safe("日期页", function () { var c = dayState.cache[dayState.sel]; if (dayState.sel !== dayState.today && c) drawDay(dayState.sel, dayState.iso, c.events); }); toast("数据已更新 · " + String(d.generated_at || "").slice(11, 16)); }
     }, function (e) {
       if (first) { var t = document.querySelector(".ld-title"); if (t) t.textContent = "数据读取失败，60 秒后自动重试"; state.loadFailed = true; }
       else toast("刷新失败，先显示上次的数据");

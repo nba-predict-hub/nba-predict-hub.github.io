@@ -1,0 +1,90 @@
+{
+ "updated_pt": "2026-11-11 19:58",
+ "lines_updated_pt": "2026-11-11 19:48:44 PST",
+ "source": "同事监控 monitor/lines.json（ESPN 记分板/核心接口的 DraftKings、Pinnacle 公开盘）；皇冠来自 monitor/crown.json",
+ "games": {
+  "401909977": {
+   "away": "DET",
+   "home": "WAS",
+   "books": [
+    {
+     "book": "DraftKings",
+     "line_home": -9.5,
+     "line_total": 220.5
+    },
+    {
+     "book": "Pinnacle",
+     "line_home": -10.0,
+     "line_total": 220.5
+    }
+   ],
+   "med_line_home": -9.75,
+   "med_total": 220.5,
+   "n": 2
+  },
+  "401909978": {
+   "away": "DAL",
+   "home": "MIN",
+   "books": [
+    {
+     "book": "DraftKings",
+     "line_home": 5.5,
+     "line_total": 226.5
+    },
+    {
+     "book": "Pinnacle",
+     "line_home": 5.0,
+     "line_total": 224.5
+    }
+   ],
+   "med_line_home": 5.25,
+   "med_total": 225.5,
+   "n": 2
+  },
+  "401909979": {
+   "away": "CHA",
+   "home": "PHX",
+   "books": [
+    {
+     "book": "DraftKings",
+     "line_home": 7.5,
+     "line_total": 213.5
+    },
+    {
+     "book": "Pinnacle",
+     "line_home": 7.0,
+     "line_total": 214.0
+    }
+   ],
+   "med_line_home": 7.25,
+   "med_total": 213.75,
+   "n": 2
+  }
+ },
+ "crown": [
+  {
+   "game": "魔术@爵士",
+   "crown_spread_now": "魔术 -3.5（魔术水 0.88，爵士水 1.00）",
+   "crown_total_now": "215.5（大 0.86，小 1.00）",
+   "crown_spread_open": "魔术 -4.5（魔术水 0.94，爵士水 0.92）",
+   "crown_total_open": "217.5（大 0.92，小 0.92）",
+   "read_at": "2026-11-11 17:37 PT"
+  },
+  {
+   "game": "雷霆@开拓者",
+   "crown_spread_now": "开拓者 -2.5（雷霆水 1.00，开拓者水 0.88）",
+   "crown_total_now": "224.5（大 0.93，小 0.93）",
+   "crown_spread_open": "雷霆 -1.5（雷霆水 0.93，开拓者水 0.93）",
+   "crown_total_open": "224.5（大 0.86，小 0.98）",
+   "read_at": "2026-11-11 17:37 PT"
+  },
+  {
+   "game": "勇士@火箭",
+   "crown_spread_now": "火箭 -6.5（勇士水 0.96，火箭水 0.92）",
+   "crown_total_now": "219.5（大 0.93，小 0.93）",
+   "crown_spread_open": "火箭 -6（勇士水 0.92，火箭水 0.94）",
+   "crown_total_open": "222（大 0.94，小 0.90）",
+   "read_at": "2026-11-11 17:37 PT"
+  }
+ ]
+}

@@ -334,3 +334,15 @@ main.live-mode .st-list{max-height:52px}
 .rstat{font-style:normal;font-size:10px;color:var(--dim);margin-left:4px}
 .lu-p{height:auto!important;min-height:26px;flex-wrap:wrap}
 .st-list li.core span{font-weight:900}
+/* 赛前详情（日期页点开） */
+.dli .tm2,.dmore{cursor:pointer}
+.dmore{font-size:12px;color:var(--cyan);margin-top:4px}
+.ddet{margin-top:8px;padding:8px 10px;background:#0d1530;border:1px solid #1d2a4d;border-radius:10px;font-size:13px}
+.pd-h{font-weight:800;margin:10px 0 4px;color:#fff}.pd-h:first-child{margin-top:0}.pd-h small{font-weight:400;color:var(--dim);font-size:11px}
+.pd-row{margin:3px 0;line-height:1.6;overflow-wrap:anywhere}.pd-row small{color:var(--dim)}
+.pd-p{display:inline-block;margin:2px 6px 2px 0}.pd-p.core{font-weight:800}
+.pd-row i.fw,.pd-row i.fl{font-style:normal;font-size:11px;padding:0 4px;border-radius:4px;margin-right:2px}
+.fw{background:rgba(47,227,154,.2);color:#2fe39a}.fl{background:rgba(255,59,92,.2);color:#ff6b84}
+#dayView .st-list{max-height:none!important;overflow:visible;order:0}
+#dayView .st-list li{padding:6px 2px;font-size:13px}
+#dayView .st-list li small{max-width:130px}
