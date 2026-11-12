@@ -2,23 +2,47 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NBA预测">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="icons/splash-1290x2796.png">
+<link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="icons/splash-1179x2556.png">
+<link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="icons/splash-1284x2778.png">
+<link rel="apple-touch-startup-image" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="icons/splash-1170x2532.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="icons/splash-1125x2436.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="icons/splash-1242x2688.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="icons/splash-828x1792.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="icons/splash-750x1334.png">
+<link rel="apple-touch-startup-image" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="icons/splash-1320x2868.png">
+<link rel="apple-touch-startup-image" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="icons/splash-1206x2622.png">
 <meta name="theme-color" content="#070b18">
 <title>NBA 智能预测 · 今日结论</title>
 <meta name="description" content="NBA 智能预测系统：只展示真实模型输出，缺的数据明确标缺。">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%227%22 fill=%22%2333e1ff%22/%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css?v=880165f737">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="stylesheet" href="style.css?v=8a08a54229">
 </head>
 <body>
 <div id="staleBar" class="stalebar" role="alert" hidden></div>
 <div id="loader" aria-live="polite">
-  <div class="ld-core">
-    <div class="ld-ring"></div><div class="ld-ring r2"></div>
-    <div class="ld-ai">AI</div>
-  </div>
-  <div class="ld-title">AI 正在读取数据<span class="dots"></span></div>
-  <div class="ld-bar"><i id="ldBar"></i></div>
-  <ul id="ldList"></ul>
+  <svg class="ld-svg" viewBox="64 10 300 260" aria-hidden="true">
+    <defs><filter id="ldg" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <g class="ld-hoop" filter="url(#ldg)" fill="none" stroke="#33e1ff" stroke-linecap="round">
+      <rect x="196" y="58" width="74" height="50" rx="4" stroke-width="3" opacity=".75"/><rect x="220" y="76" width="26" height="20" rx="2" stroke-width="2" opacity=".6"/>
+      <path d="M233 108V118" stroke-width="3"/>
+      <ellipse cx="214" cy="122" rx="28" ry="6" stroke-width="4" stroke="#ff7a2f"/>
+      <path class="ld-net" d="M188 124L196 156M201 127L204 158M214 128L214 159M227 127L224 158M240 124L232 156M193 140L235 140M197 152L231 152" stroke-width="1.6" opacity=".8"/>
+    </g>
+    <path class="ld-arc" d="M40 220Q120 -10 214 116" fill="none" stroke="#33e1ff" stroke-width="3" stroke-dasharray="4 7" opacity=".55"/>
+    <g class="ld-ball" filter="url(#ldg)"><circle r="13" fill="#0b1a3a" stroke="#33e1ff" stroke-width="3"/><path d="M-13 0H13M0 -13V13M-9 -9Q0 0 -9 9M9 -9Q0 0 9 9" stroke="#33e1ff" stroke-width="1.6" fill="none"/>
+      <animateMotion id="ldMove" dur="0.85s" begin="indefinite" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".3 .1 .6 1" path="M40 220Q120 -10 214 116L214 150"/></g>
+  </svg>
+  <div class="ld-logo"><span class="logo">◆</span> NBA 智能预测</div>
+  <div class="ld-tap">点一下进入</div>
+  <div class="ld-title"></div>
 </div>
 
 <header class="top">
@@ -113,9 +137,9 @@
   </footer>
 </main>
 <div id="toast"></div>
-<script src="app.js?v=880165f737"></script>
-<script src="pbp.js?v=880165f737"></script>
-<script src="anim.js?v=880165f737"></script>
-<script src="voice.js?v=880165f737"></script>
+<script src="app.js?v=8a08a54229"></script>
+<script src="pbp.js?v=8a08a54229"></script>
+<script src="anim.js?v=8a08a54229"></script>
+<script src="voice.js?v=8a08a54229"></script>
 </body>
 </html>

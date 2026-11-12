@@ -49,25 +49,46 @@
 
   /* ---------- 开场加载动画 ---------- */
   var loaderStart = Date.now();
-  function loaderFeed(d) {
-    var list = $("ldList"), items = (d.sources || []).map(function (s) { return "读取 " + s.name; });
-    items.push("检查还缺哪些数据");
-    items.push("生成今日结论 " + (d.games || []).length + " 场");
-    var i = 0;
-    return new Promise(function (res) {
-      (function next() {
-        if (i >= items.length) return res();
-        var li = document.createElement("li"); li.textContent = items[i]; li.className = "ok";
-        list.appendChild(li); list.scrollTop = list.scrollHeight;
-        $("ldBar").style.width = Math.round(100 * (i + 1) / items.length) + "%";
-        i++; setTimeout(next, Math.max(60, 1400 / items.length));
-      })();
-    });
+  // 开场：首屏和 iOS 静态启动图同一画面（深色 + 球框）+“点一下进入”；数据在点之前就开始后台读。
+  // 点一下：播放入网音效（Web Audio 现场合成，无音频文件）+ 篮球划弧入网动画约 1 秒，最晚点后 1.5 秒进入首页
+  function loaderFeed() { return Promise.resolve(); }
+  function introSound() {
+    try { if (localStorage.getItem("nba_intro_sound") === "0") return; } catch (e) {}
+    var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    try {
+      var ac = new AC(); if (ac.resume) ac.resume();
+      var t0 = ac.currentTime + 0.8, sr = ac.sampleRate, n = Math.floor(sr * 0.45), buf = ac.createBuffer(1, n, sr), ch = buf.getChannelData(0);
+      for (var i = 0; i < n; i++) ch[i] = Math.random() * 2 - 1; // 白噪声
+      var src = ac.createBufferSource(); src.buffer = buf;
+      var bp = ac.createBiquadFilter(); bp.type = "bandpass"; bp.Q.value = 0.9; bp.frequency.setValueAtTime(7000, t0); bp.frequency.exponentialRampToValueAtTime(1800, t0 + 0.4); // 高往低扫：“唰”
+      var g1 = ac.createGain(); g1.gain.setValueAtTime(0.0001, t0); g1.gain.exponentialRampToValueAtTime(0.55, t0 + 0.03); g1.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.42);
+      src.connect(bp); bp.connect(g1); g1.connect(ac.destination); src.start(t0); src.stop(t0 + 0.45);
+      var o = ac.createOscillator(); o.type = "sine"; o.frequency.setValueAtTime(140, t0 + 0.05); o.frequency.exponentialRampToValueAtTime(42, t0 + 0.32); // 正弦下滑：低音冲击
+      var g2 = ac.createGain(); g2.gain.setValueAtTime(0.0001, t0 + 0.05); g2.gain.exponentialRampToValueAtTime(0.9, t0 + 0.07); g2.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.38);
+      o.connect(g2); g2.connect(ac.destination); o.start(t0 + 0.05); o.stop(t0 + 0.4);
+      setTimeout(function () { try { ac.close(); } catch (e) {} }, 2000);
+      FR_SND = 1;
+    } catch (e) {}
+  }
+  var FR_SND = 0;
+  function finishLoader() { if (state.ldOut) return; state.ldOut = true; $("loader").classList.add("done"); revealCards(); }
+  function startIntro(quiet) {
+    if (state.tapped) return; state.tapped = true; loaderStart = Date.now();
+    if (!quiet) { $("loader").classList.add("go"); var m = $("ldMove"); try { if (m && m.beginElement) m.beginElement(); } catch (e) {} introSound(); }
+    if (state.dataReady) hideLoader();
+    setTimeout(function () { if (!state.loadFailed) finishLoader(); }, quiet ? 0 : 1500);
   }
   function hideLoader() {
-    var wait = Math.max(0, 1600 - (Date.now() - loaderStart));
-    setTimeout(function () { $("loader").classList.add("done"); revealCards(); }, wait);
+    state.dataReady = true; if (!state.tapped) return;
+    setTimeout(finishLoader, Math.max(0, 1100 - (Date.now() - loaderStart)));
   }
+  (function () {
+    var L = $("loader"); if (!L) return;
+    var go = function (e) { if (e && e.cancelable && e.type === "touchend") e.preventDefault(); startIntro(false); };
+    L.addEventListener("click", go); L.addEventListener("touchend", go);
+    var rl = null; try { rl = sessionStorage.getItem("nba_reload"); } catch (e) {}
+    if (rl) startIntro(true); // 自动更新新版后：不再要求点击，直接回到原来的页面
+  })();
   function revealCards() {
     var cards = document.querySelectorAll(".card");
     if (!("IntersectionObserver" in window)) { cards.forEach(function (c) { c.classList.add("in"); }); return; }
@@ -816,14 +837,14 @@
     var on = bar.querySelector(".dchip.on"); if (on) bar.scrollLeft = on.offsetLeft - bar.clientWidth / 2 + on.offsetWidth / 2;
   }
   function selectDay(key, iso) {
-    dayState.sel = key; dayState.iso = iso;
+    dayState.sel = key; dayState.iso = iso; if (FR.nav) FR.nav.sync(key); if (key > dayState.today) { NAV.preKey = key; NAV.preIso = iso; }
     $("dateBar").querySelectorAll(".dchip").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-day") === key); });
     var main = $("app"), dv = $("dayView");
     if (key === dayState.today) { main.classList.remove("day-mode"); dv.hidden = true; return; }
     main.classList.add("day-mode"); dv.hidden = false;
     var c = dayState.cache[key];
     if (c) drawDay(key, iso, c.events);
-    else dv.innerHTML = '<p class="note">读取中…</p>';
+    else dv.innerHTML = '<div class="skel"></div><div class="skel"></div><div class="skel"></div>'; // 骨架，不白屏
     if (!c || (key >= dayState.today && Date.now() - c.t > 120000)) refreshDay(key, iso);
   }
   // 当天/未来赛程每 2 分钟自动重拉（开赛时间、状态、锁定预测都会自动出现）
@@ -998,9 +1019,9 @@
       var lp = loadLeisu().catch(function () {});
       if (first) {
         // 只有上面的读取/解析失败才算“读取失败”；渲染出错只影响对应板块，加载动画一定收起
-        return lp.then(function () { return loaderFeed(d); }).catch(function () {}).then(function () {
+        return Promise.race([lp, new Promise(function (r) { setTimeout(r, 300); })]).then(function () { return loaderFeed(d); }).catch(function () {}).then(function () {
           safe("整页", function () { renderAll(true); });
-          state.shown = true; hideLoader(); safe("比分", function () { pollScores(); }); safe("恢复", function () { FR.restore(); });
+          state.shown = true; hideLoader(); lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); }); safe("比分", function () { pollScores(); }); safe("恢复", function () { FR.restore(); }); safe("导航", function () { FR.nav.build(); var t0 = null; try { t0 = sessionStorage.getItem("nba_tab"); } catch (e) {} if (t0 && t0 !== "game" && t0 !== "pre") FR.nav.set(t0); else FR.nav.sync(dayState.sel || dayState.today); });
         });
       }
       lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); });
@@ -1048,22 +1069,24 @@
     if (p.textContent !== tx) p.textContent = tx;
   }
   function freshCheck() {
-    var now = Date.now(), bad = [], st = [], all = [];
+    var now = Date.now(), bad = [], st = [], all = [], offT = 0;
+    for (var ck in FR.cache) if (!offT || FR.cache[ck] < offT) offT = FR.cache[ck];
     if (document.visibilityState !== "visible") return; // 后台时浏览器会压慢定时器，不判断
     BLOCKS.forEach(function (b) {
       var on = !!b.on(), cs = (b.cards() || []).filter(Boolean);
       cs.forEach(function (c) { if (all.indexOf(c) < 0) all.push(c); });
       if (!on) { b.since = 0; return; }
       if (!b.since) b.since = now;
-      var t = b.last() || 0, ref = Math.max(t, b.since, FR.grace), x = now - ref > 2 * b.exp();
+      var t = b.last() || 0, ref = Math.max(t, b.since, FR.grace), x = !!offT || now - ref > 2 * b.exp();
       if (b.chk) b.chk.forEach(function (id) { paintChk(id, b, t); });
       if (x) { bad.push(b.name); cs.forEach(function (c) { if (st.indexOf(c) < 0) st.push(c); }); }
     });
     all.forEach(function (c) { var y = st.indexOf(c) >= 0; if (c.classList.contains("stale") !== y) c.classList.toggle("stale", y); });
     var bar = $("staleBar"), on = bad.length > 0;
-    if (bar) { var h = on ? "⚠ 数据已旧，正在重连<small>" + esc(bad.join("、")) + "</small>" : ""; if (bar._h !== h) { bar._h = h; bar.innerHTML = h; bar.hidden = !on; document.documentElement.classList.toggle("stl", on); } }
+    if (bar) { var h = on ? (offT ? "⚠ 数据已旧：现在离线<small>显示的是 " + esc(hms(offT)) + "（太平洋时间）缓存的数据，联网后自动刷新</small>" : "⚠ 数据已旧，正在重连<small>" + esc(bad.join("、")) + "</small>") : ""; if (bar._h !== h) { bar._h = h; bar.innerHTML = h; bar.hidden = !on; document.documentElement.classList.toggle("stl", on); } }
     if (on && !FR.spoke) { FR.spoke = true; var V = window.VOICE; if (V && V.say && V.unlocked && !V.muted) V.say("数据已断开，正在重连", false, true); }
     if (!on) FR.spoke = false;
+    if (offT && !on) { bar.innerHTML = "⚠ 数据已旧：现在离线<small>显示的是 " + esc(hms(offT)) + "（太平洋时间）缓存的数据</small>"; bar.hidden = false; }
     FR.on = on; FR.bad = bad;
   }
   setInterval(freshCheck, 1000);
@@ -1090,7 +1113,7 @@
   function checkVer() {
     if (!VER || FR.newVer) return tryReload();
     fetch("version.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
-      if (j && j.v && j.v !== VER) { FR.newVer = j.v; tryReload(); }
+      if (j && j.v && j.v !== VER) { FR.newVer = j.v; if (FR.swReg) FR.swReg.update().catch(function () {}); tryReload(); }
     }).catch(function () {});
   }
   function tryReload() {
@@ -1112,5 +1135,55 @@
     toast("网站已自动更新到新版");
   }
   FR.restore = restoreAfterReload;
+  /* ---------- 主屏 App：Service Worker、离线缓存标记、底部导航、禁止缩放 ---------- */
+  // 数据请求网络优先；只有断网时 SW 才返回上次缓存，并带 x-sw-cache（缓存时间）。这里记下来，防旧检查据此亮红色横幅，不让旧数据冒充新数据
+  FR.cache = {};
+  if (window.fetch) { var _fetch = window.fetch.bind(window); window.fetch = function (u, o) { return _fetch(u, o).then(function (r) { try { var key = String((u && u.url) || u).replace(/([?&])t=\d+&?/, "$1").replace(/[?&]$/, ""), c = r.headers.get("x-sw-cache"); if (c) FR.cache[key] = +c; else if (r.ok && /\.json|site\.api\.espn\.com/.test(key)) FR.cache = {}; /* 网络恢复：有一份新数据到达就撤销离线标记，其余块交给“2 倍间隔”检查 */ } catch (e) {} return r; }); }; }
+  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).then(function (r) { FR.swReg = r; }).catch(function () {});
+  if (navigator.standalone || (window.matchMedia && matchMedia("(display-mode: standalone)").matches)) document.documentElement.classList.add("standalone");
+  // 禁止误缩放：iOS 会忽略 user-scalable=no，所以再拦双指和双击
+  ["gesturestart", "gesturechange"].forEach(function (k) { document.addEventListener(k, function (e) { e.preventDefault(); }, { passive: false }); });
+  document.addEventListener("touchmove", function (e) { if (e.touches && e.touches.length > 1) e.preventDefault(); }, { passive: false });
+  var lastTouch = 0;
+  document.addEventListener("touchend", function (e) { var n = Date.now(); if (n - lastTouch < 300 && !(e.target.closest && e.target.closest("input,select,textarea"))) e.preventDefault(); lastTouch = n; }, { passive: false });
+  // 底部导航：比赛（今天）/ 赛前（未来日期）/ 直播（进行中的比赛）/ 战绩（历史命中率）——只是单页内切换现有内容
+  var NAV = { tab: "game", y: {} };
+  var ICO = { game: '<path d="M3 5h18v14H3z"/><path d="M12 5v14M3 12h18"/>', pre: '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>', live: '<circle cx="12" cy="12" r="3"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/>', hist: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>' };
+  function buildNav() {
+    var n = document.createElement("nav"); n.className = "bnav"; n.setAttribute("aria-label", "页面导航");
+    n.innerHTML = [["game", "比赛"], ["pre", "赛前"], ["live", "直播"], ["hist", "战绩"]].map(function (x) { return '<button data-t="' + x[0] + '"' + (x[0] === NAV.tab ? ' class="on"' : "") + '><svg viewBox="0 0 24 24">' + ICO[x[0]] + "</svg>" + x[1] + "<i></i></button>"; }).join("");
+    document.body.appendChild(n);
+    n.querySelectorAll("button").forEach(function (b) { b.onclick = function () { setTab(b.getAttribute("data-t")); }; });
+    ["scale", "odds", "edge", "feed", "factors", "inj", "hist", "missing"].forEach(function (k) { var c = cardOf(k); if (c) c.classList.add("model-card"); });
+    var hc = cardOf("hist"); if (hc) hc.classList.add("hist-card");
+  }
+  function paintNav() { document.querySelectorAll(".bnav button").forEach(function (b) { var t = b.getAttribute("data-t"); b.classList.toggle("on", t === NAV.tab); if (t === "live") b.classList.toggle("haslive", anyLive()); }); }
+  function navSync(key) { // 用户点日期栏时，导航跟着变
+    if (NAV.busy) return;
+    if (key > dayState.today) NAV.tab = "pre"; else if (NAV.tab === "pre" || key !== dayState.today) { NAV.tab = "game"; $("app").classList.remove("tab-live", "tab-hist"); }
+    paintNav();
+  }
+  function setTab(t) {
+    if (!state.shown) return;
+    NAV.y[NAV.tab] = window.scrollY; NAV.busy = true;
+    var main = $("app"), prevTab = NAV.tab; NAV.tab = t;
+    main.classList.toggle("tab-live", t === "live"); main.classList.toggle("tab-hist", t === "hist");
+    var nl = $("noLive"); if (nl) nl.remove();
+    if (t === "pre") {
+      var k = NAV.preKey, iso = NAV.preIso;
+      if (!k || k <= dayState.today) { var b = document.querySelector(".dchip.today + .dchip"); if (b) { k = b.getAttribute("data-day"); iso = b.getAttribute("data-iso"); } }
+      if (k) { NAV.preKey = k; NAV.preIso = iso; selectDay(k, iso); }
+    } else if (dayState.sel !== dayState.today) selectDay(dayState.today, ptParts(new Date()).iso);
+    if (t === "live") {
+      var lv = null; (live.events || []).forEach(function (e) { if (!lv && e.state === "in") lv = e; });
+      if (lv) { var tb = document.querySelector('#gameTabs .tab[data-id="' + lv.id + '"]'); if (tb && state.sel !== lv.id) tb.click(); }
+      else { var d = document.createElement("section"); d.id = "noLive"; d.className = "card nolive"; d.textContent = "现在没有进行中的比赛，开赛后这里显示比分、动画和文字直播。"; $("gameTabs").insertAdjacentElement("afterend", d); }
+    }
+    NAV.busy = false; paintNav();
+    try { sessionStorage.setItem("nba_tab", t); } catch (e) {}
+    if (prevTab !== t) window.scrollTo(0, NAV.y[t] || 0);
+  }
+  setInterval(function () { if (state.shown) paintNav(); }, 3000);
+  FR.nav = { set: setTab, sync: navSync, build: buildNav, state: NAV };
   load(true);
 })();

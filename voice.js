@@ -32,9 +32,11 @@
   // 设置：手动选语音 + 高音质语音提示
   var gear = document.createElement("button"); gear.className = "vgear"; gear.type = "button"; gear.textContent = "⚙"; gear.title = "解说声音设置";
   var panel = document.createElement("div"); panel.className = "vpanel"; panel.hidden = true;
-  panel.innerHTML = '<label>解说声音 <select class="vsel"></select></label><p>iPhone 可在设置里下载高音质中文语音，下载后在这里选它。</p>';
+  panel.innerHTML = '<label>解说声音 <select class="vsel"></select></label><p>iPhone 可在设置里下载高音质中文语音，下载后在这里选它。</p><label class="vsnd"><input type="checkbox" class="vintro"> 启动音效（打开 App 时的入网声）</label>';
   document.body.appendChild(gear); document.body.appendChild(panel);
   var sel = panel.querySelector(".vsel");
+  var cbx = panel.querySelector(".vintro"); try { cbx.checked = localStorage.getItem("nba_intro_sound") !== "0"; } catch (x) { cbx.checked = true; }
+  cbx.addEventListener("change", function () { try { localStorage.setItem("nba_intro_sound", cbx.checked ? "1" : "0"); } catch (x) {} });
   function paintSel() {
     var vs = zhVoices(); if (!sel) return;
     var h = '<option value="">自动（设备上最好的中文语音）</option>' + vs.sort(function (a, b) { return score(b) - score(a); }).map(function (v) { return '<option value="' + String(v.voiceURI).replace(/"/g, "&quot;") + '"' + (v.voiceURI === V.pref ? " selected" : "") + ">" + String(v.name).replace(/</g, "&lt;") + "</option>"; }).join("");

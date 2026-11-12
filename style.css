@@ -415,3 +415,52 @@ main.live-mode>#liveTop{top:64px}
 .card.flash{animation:flashcard 2.2s ease-out 1}
 @keyframes flashrow{0%{background-color:rgba(255,211,77,.32)}100%{background-color:rgba(255,211,77,0)}}
 @keyframes flashcard{0%{box-shadow:0 0 0 3px #ffd34d}100%{box-shadow:0 0 0 0 rgba(255,211,77,0)}}
+/* ---- 开场动画（和 iOS 静态启动图首帧一致：纯色 #070b18 + 球框） ---- */
+html,body{background-color:#070b18}
+#loader{background:#070b18 !important;transition:opacity .35s ease}
+#loader .ld-svg{width:min(300px,78vw);height:auto;display:block;overflow:visible}
+.ld-arc{stroke-dashoffset:0;opacity:0;animation:ldArc .9s .05s ease-out forwards}
+@keyframes ldArc{0%{opacity:.6;clip-path:inset(0 100% 0 0)}100%{opacity:.35;clip-path:inset(0 0 0 0)}}
+.ld-ball{opacity:0}
+#loader.go .ld-ball{opacity:1}
+.ld-net{transform-origin:214px 124px;animation:ldNet .35s .82s ease-out}
+@keyframes ldNet{0%{transform:scaleY(1)}50%{transform:scaleY(1.18)}100%{transform:scaleY(1)}}
+.ld-logo{margin-top:6px;font-size:26px;font-weight:900;letter-spacing:2px;color:#e9eefc;opacity:0;text-shadow:0 0 18px rgba(51,225,255,.85),0 0 4px #33e1ff;animation:ldLogo .55s .45s ease-out forwards}
+.ld-logo .logo{color:#33e1ff}
+@keyframes ldLogo{from{opacity:0;transform:translateY(8px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+.ld-title{margin-top:14px;font-size:15px;color:#ff8a8a;min-height:1em}
+html.splash-static .ld-ball,html.splash-static .ld-arc,html.splash-static .ld-logo{display:none}
+/* ---- 主屏 App：全屏安全区、禁止缩放 ---- */
+html{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+.top{padding-top:env(safe-area-inset-top);height:calc(64px + env(safe-area-inset-top)) !important}
+.stalebar{padding-top:calc(10px + env(safe-area-inset-top))}
+.vbtn{bottom:calc(76px + env(safe-area-inset-bottom)) !important}
+.vgear{bottom:calc(120px + env(safe-area-inset-bottom)) !important}
+.vpanel{bottom:calc(160px + env(safe-area-inset-bottom)) !important}
+#toast{bottom:calc(80px + env(safe-area-inset-bottom))}
+/* ---- 底部导航 ---- */
+.bnav{position:fixed;left:0;right:0;bottom:0;z-index:70;display:flex;background:rgba(9,14,31,.96);border-top:1px solid #1f2a47;padding:0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.bnav button{flex:1;height:56px;background:none;border:0;color:#8a96b8;font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;position:relative}
+.bnav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bnav button.on{color:#33e1ff}
+.bnav button.on:after{content:"";position:absolute;top:0;left:30%;right:30%;height:2px;background:#33e1ff;box-shadow:0 0 8px #33e1ff;border-radius:2px}
+.bnav button i{position:absolute;top:8px;right:calc(50% - 18px);width:7px;height:7px;border-radius:50%;background:#ff4d5e;display:none}
+.bnav button.haslive i{display:block}
+main.tab-hist>*:not(.hist-card):not(.foot){display:none !important}
+main.tab-hist>.hist-card{display:block !important}
+main.tab-live .model-card{display:none !important}
+.nolive{text-align:center;padding:18px;color:#8a96b8}
+.skel{height:64px;border-radius:12px;margin:10px 0;background:linear-gradient(90deg,#111a33 0,#1a2546 50%,#111a33 100%);background-size:200% 100%;animation:skel 1.2s linear infinite}
+@keyframes skel{from{background-position:200% 0}to{background-position:-200% 0}}
+.offbar{font-size:13px}
+#loader:not(.go) .ld-arc,#loader:not(.go) .ld-logo,#loader:not(.go) .ld-net{animation-play-state:paused}
+#loader{cursor:pointer;-webkit-user-select:none;user-select:none}
+.ld-tap{margin-top:18px;font-size:15px;font-weight:700;color:#33e1ff;letter-spacing:4px;text-shadow:0 0 10px rgba(51,225,255,.7);animation:ldTap 1.4s ease-in-out infinite alternate}
+#loader.go .ld-tap{display:none}
+html.splash-static .ld-tap,html.splash-static .ld-title{visibility:hidden}
+@keyframes ldTap{from{opacity:.45}to{opacity:1}}
+main.live-mode>#liveTop{top:calc(64px + env(safe-area-inset-top))}
+html{scroll-padding-top:calc(72px + env(safe-area-inset-top))}
+html.lm{scroll-padding-top:calc(200px + env(safe-area-inset-top))}
+.vsnd{display:flex;align-items:center;gap:6px;margin-top:8px}
