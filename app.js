@@ -133,12 +133,15 @@
   function renderAll(first) { keepScroll(function () { renderAll0(first); }); }
   function renderAll0(first) {
     var d = state.data;
-    renderDateBar();
-    if (dayState.sel && dayState.sel !== dayState.today && dayState.cache[dayState.sel]) drawDay(dayState.sel, dayState.iso, dayState.cache[dayState.sel].events);
+    safe("日期栏", function () { renderDateBar(); }, "dateBar");
+    safe("当日比赛", function () { if (dayState.sel && dayState.sel !== dayState.today && dayState.cache[dayState.sel]) drawDay(dayState.sel, dayState.iso, dayState.cache[dayState.sel].events); }, "dayView");
+    safe("更新时间", function () {
     $("genAt").textContent = "更新于 " + String(d.generated_at || "").slice(11, 16) + " · 最新锁定 " + (d.last_lock ? String(d.last_lock).slice(11, 16) : "暂无");
     $("footGen").textContent = "数据更新于 " + String(d.generated_at || "").slice(0, 16) + "（太平洋时间）";
-    if (!state.sel || !allGames().some(function (g) { return g.espn_id === state.sel; })) state.sel = d.featured || ((d.games || [])[0] || {}).espn_id;
-    renderTabs(); renderGame(); renderFeed(); renderHist(); renderMissing();
+    });
+    safe("选场", function () { if (!state.sel || !allGames().some(function (g) { return g.espn_id === state.sel; })) state.sel = d.featured || ((d.games || [])[0] || {}).espn_id; });
+    safe("比赛标签", function () { renderTabs(); }, "gameTabs"); safe("本场", function () { renderGame(); }, "hero");
+    safe("动态", function () { renderFeed(); }, "feed"); safe("历史", function () { renderHist(); }, "hist"); safe("缺数据", function () { renderMissing(); }, "missing");
     if (!first) document.querySelectorAll(".card.in").forEach(animateIn);
   }
   function renderTabs() {
@@ -157,15 +160,27 @@
       };
     });
   }
+  // 每个板块单独保护：某块出错只在那块显示“暂时无法显示”，不挡整页
+  function safe(name, fn, elId) {
+    try { return fn(); } catch (e) {
+      try { console.error("[板块出错] " + name, e); } catch (x) {}
+      var el = elId && document.getElementById(elId);
+      if (el) { el.innerHTML = '<p class="note">暂时无法显示</p>'; el._h = null; }
+    }
+  }
   function renderGame() {
     var g = game(); if (!g) { $("hero").innerHTML = "<p>今天还没有锁定的比赛。</p>"; return; }
     if (g.nomodel) {
-      renderHeroNoModel(g); renderLeisu(g); drawCourtSetup(g); courtBarIdle(g);
-      if (v8For(g)) renderScale(g);
-      ["scale", "odds", "edge", "factors", "inj"].filter(function (k) { return !(k === "scale" && v8For(g)); }).forEach(function (k) { $(k).innerHTML = '<p class="note">本场模型未预测，只显示比分和直播。</p>'; });
+      safe("对阵", function () { renderHeroNoModel(g); }, "hero"); safe("雷速按钮", function () { renderLeisu(g); });
+      safe("球场", function () { drawCourtSetup(g); courtBarIdle(g); });
+      if (v8For(g)) safe("盘口移动", function () { renderScale(g); }, "scale");
+      ["scale", "odds", "edge", "factors", "inj"].filter(function (k) { return !(k === "scale" && v8For(g)); }).forEach(function (k) { var el = $(k); if (el) el.innerHTML = '<p class="note">本场模型未预测，只显示比分和直播。</p>'; });
       return;
     }
-    renderHero(g); renderLeisu(g); drawCourtSetup(g); courtBarIdle(g); renderScale(g); renderOdds(g); renderEdge(g); renderFactors(g); renderInj(g);
+    safe("对阵", function () { renderHero(g); }, "hero"); safe("雷速按钮", function () { renderLeisu(g); });
+    safe("球场", function () { drawCourtSetup(g); courtBarIdle(g); });
+    safe("盘口移动", function () { renderScale(g); }, "scale"); safe("盘口", function () { renderOdds(g); }, "odds");
+    safe("优势", function () { renderEdge(g); }, "edge"); safe("因素", function () { renderFactors(g); }, "factors"); safe("伤病", function () { renderInj(g); }, "inj");
   }
   function renderHeroNoModel(g) {
     var h = '<div class="vs"><div class="team h"><div class="ab">主场</div><div class="nm">' + esc(g.home_cn) + '</div></div>';
@@ -705,20 +720,31 @@
       if (!r.ok) throw new Error("HTTP " + r.status);
       return r.json();
     }).then(function (d) {
+      if (!d || typeof d !== "object") throw new Error("bad json");
       var changed = d.generated_at !== state.gen;
       state.data = d; state.gen = d.generated_at;
-      var lp = loadLeisu();
-      if (first) return lp.then(function () { return loaderFeed(d); }).then(function () { renderAll(true); hideLoader(); pollScores(); });
-      lp.then(function () { var g = game(); if (g) renderLeisu(g); });
-      if (changed) { renderAll(false); toast("数据已更新 · " + String(d.generated_at || "").slice(11, 16)); }
-    }).catch(function (e) {
-      if (first) { document.querySelector(".ld-title").textContent = "数据读取失败，60 秒后自动重试"; }
+      var lp = loadLeisu().catch(function () {});
+      if (first) {
+        // 只有上面的读取/解析失败才算“读取失败”；渲染出错只影响对应板块，加载动画一定收起
+        return lp.then(function () { return loaderFeed(d); }).catch(function () {}).then(function () {
+          safe("整页", function () { renderAll(true); });
+          state.shown = true; hideLoader(); safe("比分", function () { pollScores(); });
+        });
+      }
+      lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); });
+      if (changed) { safe("整页", function () { renderAll(false); }); toast("数据已更新 · " + String(d.generated_at || "").slice(11, 16)); }
+    }, function (e) {
+      if (first) { var t = document.querySelector(".ld-title"); if (t) t.textContent = "数据读取失败，60 秒后自动重试"; state.loadFailed = true; }
       else toast("刷新失败，先显示上次的数据");
     });
   }
   setInterval(function () {
     state.left -= 1;
-    if (state.left <= 0) { state.left = REFRESH; load(!state.data); }
+    if (state.left <= 0) {
+      state.left = REFRESH;
+      if (!state.shown && state.loadFailed) { location.reload(); return; } // 首次失败：整页重载，顺便拿到最新的脚本
+      load(!state.shown);
+    }
   }, 1000);
   load(true);
 })();
