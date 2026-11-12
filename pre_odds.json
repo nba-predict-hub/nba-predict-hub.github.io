@@ -1,5 +1,5 @@
 {
- "updated_pt": "2026-11-11 19:58",
+ "updated_pt": "2026-11-12 10:06",
  "lines_updated_pt": "2026-11-11 19:48:44 PST",
  "source": "同事监控 monitor/lines.json（ESPN 记分板/核心接口的 DraftKings、Pinnacle 公开盘）；皇冠来自 monitor/crown.json",
  "games": {
@@ -63,28 +63,36 @@
  },
  "crown": [
   {
-   "game": "魔术@爵士",
-   "crown_spread_now": "魔术 -3.5（魔术水 0.88，爵士水 1.00）",
-   "crown_total_now": "215.5（大 0.86，小 1.00）",
-   "crown_spread_open": "魔术 -4.5（魔术水 0.94，爵士水 0.92）",
-   "crown_total_open": "217.5（大 0.92，小 0.92）",
-   "read_at": "2026-11-11 17:37 PT"
+   "game": "猛龙@76人",
+   "crown_spread_now": "76人 -8.5（猛龙水 0.93，76人水 0.93）",
+   "crown_total_now": "224.5（大 0.92，小 0.92）",
+   "crown_spread_open": "76人 -10（猛龙水 0.93，76人水 0.93）",
+   "crown_total_open": "221（大 0.90，小 0.94）",
+   "read_at": "2026-11-12 10:03 PT"
   },
   {
-   "game": "雷霆@开拓者",
-   "crown_spread_now": "开拓者 -2.5（雷霆水 1.00，开拓者水 0.88）",
-   "crown_total_now": "224.5（大 0.93，小 0.93）",
-   "crown_spread_open": "雷霆 -1.5（雷霆水 0.93，开拓者水 0.93）",
-   "crown_total_open": "224.5（大 0.86，小 0.98）",
-   "read_at": "2026-11-11 17:37 PT"
+   "game": "活塞@奇才",
+   "crown_spread_now": "活塞 -10.5（活塞水 0.90，奇才水 0.96）",
+   "crown_total_now": "220.5（大 0.92，小 0.92）",
+   "crown_spread_open": "活塞 -10（活塞水 0.93，奇才水 0.93）",
+   "crown_total_open": "221（大 0.90，小 0.94）",
+   "read_at": "2026-11-12 10:03 PT"
   },
   {
-   "game": "勇士@火箭",
-   "crown_spread_now": "火箭 -6.5（勇士水 0.96，火箭水 0.92）",
-   "crown_total_now": "219.5（大 0.93，小 0.93）",
-   "crown_spread_open": "火箭 -6（勇士水 0.92，火箭水 0.94）",
-   "crown_total_open": "222（大 0.94，小 0.90）",
-   "read_at": "2026-11-11 17:37 PT"
+   "game": "独行侠@森林狼",
+   "crown_spread_now": "森林狼 -5.5（独行侠水 1.00，森林狼水 0.86）",
+   "crown_total_now": "225.5（大 0.86，小 0.98）",
+   "crown_spread_open": "森林狼 -6（独行侠水 0.89，森林狼水 0.97）",
+   "crown_total_open": "227.5（大 0.91，小 0.93）",
+   "read_at": "2026-11-12 10:03 PT"
+  },
+  {
+   "game": "黄蜂@太阳",
+   "crown_spread_now": "太阳 -6.5（黄蜂水 0.93，太阳水 0.93）",
+   "crown_total_now": "214.5（大 0.96，小 0.88）",
+   "crown_spread_open": "太阳 -6（黄蜂水 0.96，太阳水 0.90）",
+   "crown_total_open": "214（大 0.91，小 0.93）",
+   "read_at": "2026-11-12 10:03 PT"
   }
  ]
 }

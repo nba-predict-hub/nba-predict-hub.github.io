@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-12 10:01:18 PT",
- "generated_at_iso": "2026-11-12T10:01:18.577696-08:00",
+ "generated_at": "2026-11-12 10:06:21 PT",
+ "generated_at_iso": "2026-11-12T10:06:21.523976-08:00",
  "game_date": "2026-11-11",
  "last_lock": "2026-11-12 07:16:54 PT",
  "featured": "401909974",
@@ -107,7 +107,15 @@
     "median_total_books": [
      "DraftKings"
     ],
-    "crown": null,
+    "crown": {
+     "spread_open": "76人 -10（猛龙水 0.93，76人水 0.93）",
+     "spread_now": "76人 -8.5（猛龙水 0.93，76人水 0.93）",
+     "total_open": "221（大 0.90，小 0.94）",
+     "total_now": "224.5（大 0.92，小 0.92）",
+     "leisu_spread": "76人 -8.5",
+     "leisu_total": "223.5",
+     "read_at": "2026-11-12 10:03 PT"
+    },
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -266,7 +274,15 @@
     "median_total_books": [
      "DraftKings"
     ],
-    "crown": null,
+    "crown": {
+     "spread_open": "活塞 -10（活塞水 0.93，奇才水 0.93）",
+     "spread_now": "活塞 -10.5（活塞水 0.90，奇才水 0.96）",
+     "total_open": "221（大 0.90，小 0.94）",
+     "total_now": "220.5（大 0.92，小 0.92）",
+     "leisu_spread": "活塞 -10.5",
+     "leisu_total": "220.5",
+     "read_at": "2026-11-12 10:03 PT"
+    },
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -425,7 +441,15 @@
     "median_total_books": [
      "DraftKings"
     ],
-    "crown": null,
+    "crown": {
+     "spread_open": "森林狼 -6（独行侠水 0.89，森林狼水 0.97）",
+     "spread_now": "森林狼 -5.5（独行侠水 1.00，森林狼水 0.86）",
+     "total_open": "227.5（大 0.91，小 0.93）",
+     "total_now": "225.5（大 0.86，小 0.98）",
+     "leisu_spread": "森林狼 -5.75",
+     "leisu_total": "225.75",
+     "read_at": "2026-11-12 10:03 PT"
+    },
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -584,7 +608,15 @@
     "median_total_books": [
      "DraftKings"
     ],
-    "crown": null,
+    "crown": {
+     "spread_open": "太阳 -6（黄蜂水 0.96，太阳水 0.90）",
+     "spread_now": "太阳 -6.5（黄蜂水 0.93，太阳水 0.93）",
+     "total_open": "214（大 0.91，小 0.93）",
+     "total_now": "214.5（大 0.96，小 0.88）",
+     "leisu_spread": "太阳 -6.5",
+     "leisu_total": "214.5",
+     "read_at": "2026-11-12 10:03 PT"
+    },
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -1904,15 +1936,7 @@
     "median_total_books": [
      "DraftKings"
     ],
-    "crown": {
-     "spread_open": "魔术 -4.5（魔术水 0.94，爵士水 0.92）",
-     "spread_now": "魔术 -3.5（魔术水 0.88，爵士水 1.00）",
-     "total_open": "217.5（大 0.92，小 0.92）",
-     "total_now": "215.5（大 0.86，小 1.00）",
-     "leisu_spread": "魔术 -4",
-     "leisu_total": "215.5",
-     "read_at": "2026-11-11 17:37 PT"
-    },
+    "crown": null,
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -2235,15 +2259,7 @@
     "median_total_books": [
      "DraftKings"
     ],
-    "crown": {
-     "spread_open": "火箭 -6（勇士水 0.92，火箭水 0.94）",
-     "spread_now": "火箭 -6.5（勇士水 0.96，火箭水 0.92）",
-     "total_open": "222（大 0.94，小 0.90）",
-     "total_now": "219.5（大 0.93，小 0.93）",
-     "leisu_spread": "火箭 -6.5",
-     "leisu_total": "219.5",
-     "read_at": "2026-11-11 17:37 PT"
-    },
+    "crown": null,
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -2531,15 +2547,7 @@
     "median_total_books": [
      "DraftKings"
     ],
-    "crown": {
-     "spread_open": "雷霆 -1.5（雷霆水 0.93，开拓者水 0.93）",
-     "spread_now": "开拓者 -2.5（雷霆水 1.00，开拓者水 0.88）",
-     "total_open": "224.5（大 0.86，小 0.98）",
-     "total_now": "224.5（大 0.93，小 0.93）",
-     "leisu_spread": "开拓者 -2.5",
-     "leisu_total": "224.5",
-     "read_at": "2026-11-11 17:37 PT"
-    },
+    "crown": null,
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -4040,7 +4048,7 @@
   "is_first_note": "说明：和收盘线比，所有模型都在五成左右；和开盘线比略高一些。"
  },
  "missing": [
-  "皇冠盘口：已读取 3 场",
+  "皇冠盘口：已读取 4 场",
   "雷速 12 家中位数：已读取",
   "首发名单：暂无",
   "官方伤病报告已更新到美东晚上 10:30",
@@ -4123,7 +4131,7 @@
   {
    "name": "皇冠和雷速盘口（人工读取）",
    "file": "monitor/crown.json",
-   "updated": "2026-11-11 19:18 PT",
+   "updated": "2026-11-12 10:03 PT",
    "note": "",
    "exists": true
   },
