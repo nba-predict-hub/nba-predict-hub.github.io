@@ -5,7 +5,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 python3 export.py
 if [ -d .git ]; then
-  git add data.json
+  git add data.json leisu_ids.json
   if ! git diff --cached --quiet; then
     git commit -m "data: $(date '+%Y-%m-%d %H:%M %Z')" && git push
   fi
