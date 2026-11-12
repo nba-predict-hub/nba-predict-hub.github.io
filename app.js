@@ -84,25 +84,37 @@
   }
 
   /* ---------- 渲染 ---------- */
+  var TEAM_CN = { ATL: "老鹰", BOS: "凯尔特人", BKN: "篮网", CHA: "黄蜂", CHI: "公牛", CLE: "骑士", DAL: "独行侠", DEN: "掘金", DET: "活塞", GSW: "勇士", HOU: "火箭", IND: "步行者", LAC: "快船", LAL: "湖人", MEM: "灰熊", MIA: "热火", MIL: "雄鹿", MIN: "森林狼", NOP: "鹈鹕", NYK: "尼克斯", OKC: "雷霆", ORL: "魔术", PHI: "76人", PHX: "太阳", POR: "开拓者", SAC: "国王", SAS: "马刺", TOR: "猛龙", UTA: "爵士", WAS: "奇才" };
+  // 当天全部比赛：有 ESPN 赛程时用赛程（含模型没预测的场次），进行中的置顶；否则只用 data.json 里的场次
+  function allGames() {
+    var d = state.data || {}, mg = d.games || [], evs = (window.LIVE && LIVE.events) || [];
+    if (!evs.length) return mg;
+    var list = evs.map(function (s) {
+      var g = mg.filter(function (x) { return x.espn_id === s.id || (x.away === s.aab && x.home === s.hab); })[0];
+      return g || { espn_id: s.id, away: s.aab, home: s.hab, away_cn: TEAM_CN[s.aab] || s.aab, home_cn: TEAM_CN[s.hab] || s.hab, nomodel: true, records: {}, tip_pt: s.tip, injuries: {} };
+    });
+    var rank = function (g) { var s = window.liveFor && liveFor(g); return !s ? 1 : s.state === "in" ? 0 : s.state === "pre" ? 1 : 2; };
+    return list.map(function (g, i) { return [g, i]; }).sort(function (x, y) { return rank(x[0]) - rank(y[0]) || x[1] - y[1]; }).map(function (x) { return x[0]; });
+  }
   function game() {
-    var d = state.data, id = state.sel;
-    return (d.games || []).filter(function (g) { return g.espn_id === id; })[0] || (d.games || [])[0];
+    var gs = allGames(), id = state.sel;
+    return gs.filter(function (g) { return g.espn_id === id; })[0] || gs[0];
   }
   function renderAll(first) {
     var d = state.data;
     $("genAt").textContent = "更新于 " + String(d.generated_at || "").slice(11, 16) + " · 最新锁定 " + (d.last_lock ? String(d.last_lock).slice(11, 16) : "暂无");
     $("footGen").textContent = "数据更新于 " + String(d.generated_at || "").slice(0, 16) + "（太平洋时间）";
-    if (!state.sel || !(d.games || []).some(function (g) { return g.espn_id === state.sel; })) state.sel = d.featured || ((d.games || [])[0] || {}).espn_id;
+    if (!state.sel || !allGames().some(function (g) { return g.espn_id === state.sel; })) state.sel = d.featured || ((d.games || [])[0] || {}).espn_id;
     renderTabs(); renderGame(); renderFeed(); renderHist(); renderMissing();
     if (!first) document.querySelectorAll(".card.in").forEach(animateIn);
   }
   function renderTabs() {
-    var d = state.data;
-    $("gameTabs").innerHTML = (d.games || []).map(function (g) {
-      var p = g.spread ? g.spread.pick_text : "暂无结论";
+    var d = state.data, gs = allGames(), full = gs !== d.games;
+    $("gameTabs").innerHTML = gs.map(function (g) {
+      var p = g.nomodel ? "本场模型未预测" : g.spread ? "模型：" + g.spread.pick_text : "暂无结论";
       return '<button class="tab' + (g.espn_id === state.sel ? " on" : "") + '" data-id="' + esc(g.espn_id) + '"><b>' + esc(g.away_cn) + " @ " + esc(g.home_cn) +
         "</b><span class=\"lvtab\" data-lvtab=\"" + esc(g.espn_id) + "\">" + esc(String(g.tip_pt || "时间待定").replace(/ PT$/, "")) + "</span><span>" + esc(p) + "</span></button>";
-    }).join("") + ((d.unlocked_games || []).length ? '<button class="tab" disabled><b class="dim">另 ' + d.unlocked_games.length + ' 场</b><span>锁定时已开赛，无模型结论</span></button>' : "");
+    }).join("") + (!full && (d.unlocked_games || []).length ? '<button class="tab" disabled><b class="dim">另 ' + d.unlocked_games.length + ' 场</b><span>锁定时已开赛，无模型结论</span></button>' : "");
     setTimeout(function () { paintLive(false); }, 0);
     $("gameTabs").querySelectorAll(".tab[data-id]").forEach(function (b) {
       b.onclick = function () {
@@ -113,7 +125,19 @@
   }
   function renderGame() {
     var g = game(); if (!g) { $("hero").innerHTML = "<p>今天还没有锁定的比赛。</p>"; return; }
+    if (g.nomodel) {
+      renderHeroNoModel(g); renderLeisu(g); drawCourtSetup(g);
+      ["scale", "odds", "edge", "factors", "inj"].forEach(function (k) { $(k).innerHTML = '<p class="note">本场模型未预测，只显示比分和直播。</p>'; });
+      return;
+    }
     renderHero(g); renderLeisu(g); drawCourtSetup(g); renderScale(g); renderOdds(g); renderEdge(g); renderFactors(g); renderInj(g);
+  }
+  function renderHeroNoModel(g) {
+    var h = '<div class="vs"><div class="team h"><div class="ab">主场</div><div class="nm">' + esc(g.home_cn) + '</div></div>';
+    h += '<div class="mid lvmid" data-lvmid="' + esc(g.espn_id) + '"><b>VS</b>' + esc(g.tip_pt || "") + "</div>";
+    h += '<div class="team a"><div class="ab">客场</div><div class="nm">' + esc(g.away_cn) + "</div></div></div>";
+    h += '<div class="nomodel">本场模型未预测</div><p class="note lvwarn" id="lvWarn"></p>';
+    $("hero").innerHTML = h; paintLive(false);
   }
   function renderHero(g) {
     var d = state.data, mv = d.model_version || {}, sp = g.spread, to = g.total, h = "";
@@ -154,7 +178,7 @@
       .then(function (j) { leisuIds = (j && j.games) || j || {}; }).catch(function () { leisuIds = {}; });
   }
   function leisuId(g) {
-    var keys = [g.espn_id, g.away_cn + "@" + g.home_cn, g.away + "@" + g.home, g.away_cn + " @ " + g.home_cn, g.away + " @ " + g.home];
+    var keys = [String(g.espn_id), g.away_cn + "@" + g.home_cn, g.away + "@" + g.home, g.away_cn + " @ " + g.home_cn, g.away + " @ " + g.home];
     for (var i = 0; i < keys.length; i++) { var v = leisuIds[keys[i]]; if (v && /^\d+$/.test(String(v))) return String(v); }
     return null;
   }
@@ -467,7 +491,7 @@
   }
   function paintLive(animate) {
     var d = state.data; if (!d) return;
-    (d.games || []).forEach(function (g) {
+    allGames().forEach(function (g) {
       var s = liveFor(g), key = g.espn_id, pv = live.prev[key];
       var tab = document.querySelector('[data-lvtab="' + key + '"]'), mid = document.querySelector('[data-lvmid="' + key + '"]');
       if (!s) return;
@@ -493,8 +517,11 @@
     clearTimeout(live.timer);
     fetch(SB_URL + "?t=" + Date.now(), { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
       var nb = parseSB(d), prev = {};
-      (state.data && state.data.games || []).forEach(function (g) { var s = liveFor(g); if (s) prev[g.espn_id] = s; });
-      live.prev = prev; live.byId = nb; live.fail = false; live.okAt = ptTime(new Date().toISOString());
+      (state.data ? allGames() : []).forEach(function (g) { var s = liveFor(g); if (s) prev[g.espn_id] = s; });
+      var oldIds = (live.events || []).map(function (e) { return e.id + e.state; }).join(",");
+      live.events = []; for (var k in nb) if (k === nb[k].id) live.events.push(nb[k]);
+      live.prev = prev; live.byId = nb;
+      if (state.data && oldIds !== live.events.map(function (e) { return e.id + e.state; }).join(",")) { renderTabs(); var gg = game(); if (gg && (gg.nomodel || !$("hero").innerHTML)) renderGame(); } live.fail = false; live.okAt = ptTime(new Date().toISOString());
       paintLive(true);
       if (window.PBP) window.PBP.kick();
     }).catch(function () { live.fail = true; paintLive(false); }).then(function () {

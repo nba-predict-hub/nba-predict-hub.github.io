@@ -178,7 +178,7 @@ details{margin-top:10px;font-size:14px}summary{cursor:pointer;color:var(--cyan)}
 @keyframes plus{0%{opacity:0;transform:translate(-50%,6px)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-26px)}}
 @keyframes blink{50%{opacity:.25}}
 .lvwarn:empty{display:none}
-.lsframe{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff;height:min(78vh,640px)}
+.lsframe{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff;height:900px;margin:0 -6px}
 .lsframe iframe{width:100%;height:100%;border:0;display:block}
 .lsbtn{display:block;text-align:center;margin:10px 0 4px;padding:11px;border-radius:12px;background:linear-gradient(90deg,#2f7bff,#33e1ff);color:#04101f;font-weight:800;text-decoration:none}
 /* 文字直播 */
@@ -197,3 +197,4 @@ details{margin-top:10px;font-size:14px}summary{cursor:pointer;color:var(--cyan)}
 .pbp-list li.k-sub .tx,.pbp-list li.k-timeout .tx,.pbp-list li.k-end .tx{color:var(--dim)}
 .pbp-list li.new{animation:pnew 1.6s ease-out}
 @keyframes pnew{0%{background:rgba(51,225,255,.28);transform:translateX(-8px)}100%{background:transparent;transform:none}}
+.nomodel{margin:6px auto 2px;width:max-content;padding:4px 12px;border-radius:999px;background:#1b2440;color:var(--yel);font-size:13px;font-weight:700}

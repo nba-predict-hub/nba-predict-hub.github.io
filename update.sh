@@ -4,6 +4,12 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 python3 export.py
+# 雷速 ID：最多每 30 分钟跑一次；失败不影响其他导出
+STAMP=.leisu_last_run
+if [ ! -f "$STAMP" ] || [ $(( $(date +%s) - $(stat -c %Y "$STAMP") )) -ge 1800 ]; then
+  touch "$STAMP"
+  timeout 120 python3 leisu_ids.py || echo "leisu_ids.py 失败（忽略）" >&2
+fi
 if [ -d .git ]; then
   git add data.json leisu_ids.json
   if ! git diff --cached --quiet; then
