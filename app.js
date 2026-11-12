@@ -55,9 +55,9 @@
        汇聚 0.30–0.84 镜头高速前冲（放射速度线），520 颗能量粒子从四周螺旋汇聚成一颗旋转的篮球（球缝线条），上升音越来越急
        蓄压 0.84–1.00 篮球向中心坍缩成一个光核（吸气声）→ 0.92 第一下重拍，速度线骤停，留 0.08 秒屏息
        爆发 1.00–1.15 第二下重拍（低音轰鸣 + 金属撞击）：横向光晕炸开、细冲击环、粒子回弹拼成“NBA”，镌铬 Logo 接替粒子，轻微震屏
-       定格 1.15–2.20 高光扫过 Logo、余烬缓慢飘散 → 1.45 青色细线展开、“智能预测”升起收字距 → 副标题 → 1.95 星芒；大面积黑色留白，之后 0.3 秒淡出
+       定格 1.15–1.80 高光扫过 Logo、余烬缓慢飘散 → 1.68 星芒；只留居中的镌铬“NBA”和大面积黑色留白，之后 0.3 秒淡出
      粒子/速度线画在 1 倍分辨率画布（光效本来就是柔的），Logo、光晕、标题是预渲染的高清图层，只改位置和透明度；首帧 = 黑场 + 中心暗光点（与 iOS 静态启动图一致） */
-  var IN = { T: 2200, imp: 0.92, boom: 1.0, hold: 1.45 };
+  var IN = { T: 1800, imp: 0.92, boom: 1.0, glint: 1.68 };
   function loaderFeed() { return Promise.resolve(); }
   function introSound() {
     try { if (localStorage.getItem("nba_intro_sound") === "0") return; } catch (e) {}
@@ -79,7 +79,6 @@
       [523, 1187, 1873, 2960].forEach(function (f, i) { osc("triangle", f, f, B, 0.004, 0.11 / (i + 1), 0.8 - i * 0.14); }); // 金属撞击
       nz("bandpass", 1600, 700, 0.8, B, 0.01, 0.14, 0.8);                                           // 爆发空气尾音
       osc("sine", 2200, 5200, T + 1.18, 0.15, 0.022, 0.3);                                          // 高光扫过
-      osc("sine", 1650, 1650, T + IN.hold, 0.004, 0.06, 0.08);                                     // 标题线展开
       setTimeout(function () { try { ac.close(); } catch (e) {} }, 3300);
     } catch (e) {}
   }
@@ -95,7 +94,7 @@
   function sv(o, k, v) { if (o[k] !== v) o[k] = v; } // 值没变就不写，少触发合成
   function st(c, tf, a) { sv(c.style, "transform", tf); sv(c.style, "opacity", a <= 0.004 ? "0" : a.toFixed(3)); }
   function buildLayers() {
-    var u = Math.min(W, H * 0.6) / 390, cxp = W / 2, cyp = H * 0.45, i, g, N = 520;
+    var u = Math.min(W, H * 0.6) / 390, cxp = W / 2, cyp = H * 0.47, i, g, N = 520;
     var sd = 7; function rnd() { sd = (sd * 16807) % 2147483647; return sd / 2147483647; }
     var old = $("ldFx"); if (old) old.parentNode.removeChild(old); var ow = $("ldWorld"); if (ow) ow.parentNode.removeChild(ow);
     var box = document.createElement("div"); box.id = "ldFx"; cv.parentNode.insertBefore(box, cv.nextSibling);
@@ -107,7 +106,7 @@
     g.globalCompositeOperation = "destination-in"; var vg = g.createLinearGradient(0, 0, 0, 48); vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(0.45, "rgba(0,0,0,.6)"); vg.addColorStop(0.5, "#000"); vg.addColorStop(0.55, "rgba(0,0,0,.6)"); vg.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = vg; g.fillRect(0, 0, 512, 48);
     var FW = W * 1.6, FH = 44 * u, flare = lay(fl.c, FW, FH, cxp - FW / 2, cyp - FH / 2);
     // 镌铬 Logo（高清）+ 青色辉光 + 扫光层
-    var fs = 120 * u, lw = 340 * u, lh = 160 * u, lg = cvMk(lw, lh, Math.min(3, window.devicePixelRatio || 1)), gg = cvMk(lw, lh), by0 = lh / 2 + fs * 0.36, font = "900 " + fs + "px 'Helvetica Neue',-apple-system,'Arial Black',Arial,sans-serif";
+    var fs = 140 * u, lw = 380 * u, lh = 180 * u, lg = cvMk(lw, lh, Math.min(3, window.devicePixelRatio || 1)), gg = cvMk(lw, lh), by0 = lh / 2 + fs * 0.36, font = "900 " + fs + "px 'Helvetica Neue',-apple-system,'Arial Black',Arial,sans-serif";
     g = lg.g; g.font = font; g.textAlign = "center"; g.textBaseline = "alphabetic";
     g.fillStyle = "#05070c"; g.fillText("NBA", lw / 2, by0 + 3 * u);
     var cg = g.createLinearGradient(0, by0 - fs * 0.72, 0, by0); cg.addColorStop(0, "#ffffff"); cg.addColorStop(0.36, "#cfd8e6"); cg.addColorStop(0.49, "#66748c"); cg.addColorStop(0.51, "#273044"); cg.addColorStop(0.72, "#8d9ab2"); cg.addColorStop(1, "#eef3fb");
@@ -133,9 +132,7 @@
     }
     // 速度线
     var SN = 70, S = { a: new Float32Array(SN), r: new Float32Array(SN), v: new Float32Array(SN) }; for (i = 0; i < SN; i++) { S.a[i] = rnd() * Math.PI * 2; S.r[i] = (20 + rnd() * 200) * u; S.v[i] = 0.6 + rnd() * 0.8; }
-    // 标题画布（高清，只覆盖 Logo 下方一带）
-    var tT = cyp + 30 * u, tH = 170 * u, tc = cvMk(W, tH); tc.c.className = "ld-spr"; tc.c.style.width = W + "px"; tc.c.style.height = tH + "px"; tc.c.style.top = tT + "px"; tc.c.style.left = "0px"; box.appendChild(tc.c);
-    LY = { u: u, x: cxp, y: cyp, RB: RB, P: P, S: S, SN: SN, box: box, bloom: bloom, flare: flare, glow: glow, logo: logo, sweep: sweep, sw: swc.g, swD: lg.c.width / lw, lgC: lg.c, lw: lw, lh: lh, tc: tc.g, tT: tT, tH: tH, tx: 1 };
+    LY = { u: u, x: cxp, y: cyp, RB: RB, P: P, S: S, SN: SN, box: box, bloom: bloom, flare: flare, glow: glow, logo: logo, sweep: sweep, sw: swc.g, swD: lg.c.width / lw, lgC: lg.c, lw: lw, lh: lh };
   }
   function render(t) {
     if (!LY) buildLayers();
@@ -203,20 +200,8 @@
     if (on) { var sw2 = LY.sw; sw2.setTransform(LY.swD, 0, 0, LY.swD, 0, 0); sw2.globalCompositeOperation = "source-over"; sw2.clearRect(0, 0, lw, lh); sw2.drawImage(LY.lgC, 0, 0, lw, lh); sw2.globalCompositeOperation = "source-atop"; var sx = -60 * u + eio(sp2) * (lw + 120 * u), sgd = sw2.createLinearGradient(sx - 40 * u, 0, sx + 40 * u, 0); sgd.addColorStop(0, "rgba(255,255,255,0)"); sgd.addColorStop(0.5, "rgba(255,255,255,.9)"); sgd.addColorStop(1, "rgba(255,255,255,0)"); sw2.fillStyle = sgd; sw2.save(); sw2.transform(1, 0, -0.35, 1, 0.35 * lh / 2, 0); sw2.fillRect(sx - 40 * u, 0, 80 * u, lh); sw2.restore(); }
     var tfl = "scale(" + sc.toFixed(4) + ")";
     st(LY.logo, tfl, on ? 0 : la); st(LY.sweep, tfl, on ? la : 0); st(LY.glow, "scale(" + (sc * 1.05).toFixed(4) + ")", db > 0 ? la * (0.2 + 0.75 * Math.exp(-db * 4)) : 0);
-    // 标题排版
-    var tx2 = t > IN.hold - 0.02 || Math.abs(t - 1.95) < 0.17; if (!tx2 && !LY.tx) return; LY.tx = tx2;
-    var c2 = LY.tc, tT = LY.tT; c2.setTransform(DPR, 0, 0, DPR, 0, -tT * DPR); c2.globalAlpha = 1; c2.globalCompositeOperation = "source-over"; c2.clearRect(0, tT, W, LY.tH);
-    var bw = exo((t - IN.hold) / 0.3);
-    if (bw > 0) {
-      var barY = y + 58 * u, hw2 = 92 * u * bw, bgc = c2.createLinearGradient(x - hw2, 0, x + hw2, 0); bgc.addColorStop(0, "rgba(51,225,255,0)"); bgc.addColorStop(0.2, "#33e1ff"); bgc.addColorStop(0.8, "#33e1ff"); bgc.addColorStop(1, "rgba(51,225,255,0)");
-      c2.fillStyle = bgc; c2.fillRect(x - hw2, barY - 1.25 * u, hw2 * 2, 2.5 * u);
-      var tr = eo((t - IN.hold - 0.06) / 0.38);
-      if (tr > 0) { var chs = "智能预测".split(""), fz = 30 * u, gap = 6 * u + 22 * u * (1 - tr), ty2 = barY + 30 * u + 26 * u * (1 - tr); c2.save(); c2.beginPath(); c2.rect(0, barY + 2 * u, W, 60 * u); c2.clip(); c2.font = "800 " + fz + "px -apple-system,'PingFang SC','Noto Sans CJK SC',sans-serif"; c2.textBaseline = "middle"; c2.textAlign = "center"; c2.globalAlpha = tr; c2.fillStyle = "#eef4ff"; var tot = chs.length * fz + (chs.length - 1) * gap; chs.forEach(function (ch, j) { c2.fillText(ch, x - tot / 2 + fz / 2 + j * (fz + gap), ty2); }); c2.restore(); }
-      var sa = eo((t - 1.72) / 0.3);
-      if (sa > 0) { var sub = "赛前预测 · 实时比分".split(""), f2 = 12.5 * u, sy = barY + 70 * u; c2.font = "600 " + f2 + "px -apple-system,'PingFang SC','Noto Sans CJK SC',sans-serif"; c2.textBaseline = "middle"; c2.textAlign = "left"; c2.globalAlpha = sa; c2.fillStyle = "#8fa3c4"; var spc = 3 * u, ws = sub.map(function (ch) { return c2.measureText(ch).width; }), tw = ws.reduce(function (p1, p2) { return p1 + p2; }, 0) + spc * (sub.length - 1), sx2 = x - tw / 2; sub.forEach(function (ch, j) { c2.fillText(ch, sx2, sy); sx2 += ws[j] + spc; }); c2.globalAlpha = 1; }
-    }
-    var gt = 1 - Math.abs(t - 1.95) / 0.16;
-    if (gt > 0) { var gx = x + 118 * u * sc, gy = y - 40 * u * sc; cx.globalCompositeOperation = "lighter"; cx.globalAlpha = gt; [[1, 0, 38], [0, 1, 22]].forEach(function (v) { var L2 = v[2] * u, g2 = cx.createLinearGradient(gx - v[0] * L2, gy - v[1] * L2, gx + v[0] * L2, gy + v[1] * L2); g2.addColorStop(0, "rgba(180,240,255,0)"); g2.addColorStop(0.5, "rgba(235,252,255,1)"); g2.addColorStop(1, "rgba(180,240,255,0)"); cx.fillStyle = g2; if (v[0]) cx.fillRect(gx - L2, gy - 0.8 * u, L2 * 2, 1.6 * u); else cx.fillRect(gx - 0.8 * u, gy - L2, 1.6 * u, L2 * 2); }); cx.globalCompositeOperation = "source-over"; cx.globalAlpha = 1; }
+    var gt = 1 - Math.abs(t - IN.glint) / 0.16; // Logo 角上一下星芒
+    if (gt > 0) { var gx = x + 138 * u * sc, gy = y - 47 * u * sc; cx.globalCompositeOperation = "lighter"; cx.globalAlpha = gt; [[1, 0, 38], [0, 1, 22]].forEach(function (v) { var L2 = v[2] * u, g2 = cx.createLinearGradient(gx - v[0] * L2, gy - v[1] * L2, gx + v[0] * L2, gy + v[1] * L2); g2.addColorStop(0, "rgba(180,240,255,0)"); g2.addColorStop(0.5, "rgba(235,252,255,1)"); g2.addColorStop(1, "rgba(180,240,255,0)"); cx.fillStyle = g2; if (v[0]) cx.fillRect(gx - L2, gy - 0.8 * u, L2 * 2, 1.6 * u); else cx.fillRect(gx - 0.8 * u, gy - L2, 1.6 * u, L2 * 2); }); cx.globalCompositeOperation = "source-over"; cx.globalAlpha = 1; }
   }
   function firstFrame() { if (!cx) return; sizeCv(); render(0); }
   window.__introAt = function (t) { if (cx) { if (LY) for (var i = 0; i < LY.P.N; i++) LY.P.px[i] = NaN; render(Math.max(0, t - 0.017)); render(t); } };
