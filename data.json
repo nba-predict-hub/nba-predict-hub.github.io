@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-11 18:10:00 PT",
- "generated_at_iso": "2026-11-11T18:10:00.809344-08:00",
+ "generated_at": "2026-11-11 18:15:05 PT",
+ "generated_at_iso": "2026-11-11T18:15:05.154841-08:00",
  "game_date": "2026-11-11",
  "last_lock": "2026-11-11 17:17:17 PT",
  "featured": "401909974",
@@ -3481,7 +3481,7 @@
   {
    "name": "盘口和伤病变动提醒",
    "file": "monitor/alerts.json",
-   "updated": "2026-11-11 17:54 PT",
+   "updated": "2026-11-11 18:10 PT",
    "note": "盘口变动超过 1 分、伤病状态变化",
    "exists": true
   },
