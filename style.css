@@ -324,3 +324,7 @@ main.live-mode .st-list{order:-1;flex:0 0 auto;max-height:64px;border-top:0;bord
 .st-list li.org span{color:#ff9f43;font-weight:800}
 #scoreAt{display:inline-block;min-width:13em;text-align:right;font-variant-numeric:tabular-nums}
 .st-list li.grn span{color:var(--green);font-weight:800}.st-list li small a{color:var(--cyan)}
+/* 紧凑布局：队名放在行首，主客队五人都完整显示 */
+main.live-mode .st-team .st-tn{width:auto;margin-right:2px}
+main.live-mode .st-five{gap:3px}
+main.live-mode .st-list{max-height:52px}

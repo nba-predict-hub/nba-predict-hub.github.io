@@ -664,8 +664,26 @@
     }
     if (main && main.classList.contains("live-mode") !== on) keepScroll(function () { main.classList.toggle("live-mode", on); });
   }
+  /* ---- 比分校验：score / 各节加总 / 逐回合最后一条 三个数比对 ---- */
+  live.finals = {};
+  function sumLs(ls) { if (!ls || !ls.length) return null; var t = 0; for (var i = 0; i < ls.length; i++) { if (ls[i] == null || isNaN(ls[i])) return null; t += +ls[i]; } return t; }
+  function fixScore(s) {
+    if (!s || s.state === "pre") return s;
+    if (s.state === "post" && live.finals[s.id]) { s.as = live.finals[s.id].as; s.hs = live.finals[s.id].hs; return s; } // 终场后以终场时的比分为准
+    var P = window.PBP, lp = P && String(P.gid) === String(s.id) && P.plays.length ? P.plays[P.plays.length - 1] : null;
+    ["a", "h"].forEach(function (k) {
+      var raw = s[k + "s"], c = [raw, sumLs(s[k + "ls"]), lp ? (k === "a" ? lp.a : lp.h) : null].filter(function (v) { return v != null && !isNaN(v); }).map(Number);
+      if (!c.length) return;
+      var same = c.every(function (v) { return v === c[0]; });
+      s[k + "s"] = same || s.src === "NBA" ? (s.src === "NBA" && raw != null ? +raw : c[0]) : Math.max.apply(null, c); // 不一致：官方源优先，否则取较大（比赛中比分不会减少）
+    });
+    if (s.state === "post") live.finals[s.id] = { as: s.as, hs: s.hs };
+    return s;
+  }
+  window.fixScore = fixScore;
   function paintLive(animate) {
     var d = state.data; if (!d) return;
+    for (var kk in live.byId) if (kk === live.byId[kk].id) fixScore(live.byId[kk]);
     allGames().forEach(function (g) {
       var s = liveFor(g), key = g.espn_id, pv = live.prev[key];
       var tab = document.querySelector('[data-lvtab="' + key + '"]'), mid = document.querySelector('[data-lvmid="' + key + '"]');

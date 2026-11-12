@@ -46,7 +46,7 @@
   }
   function g() { return window.NBA && NBA.game(); }
   function sc(gm) {
-    var s = window.liveFor && liveFor(gm); if (!s || s.state === "pre") return "";
+    var s = window.liveFor && liveFor(gm); if (!s || s.state === "pre") return ""; if (window.fixScore) fixScore(s);
     var d = s.hs - s.as;
     return gm.away_cn + " " + s.as + " 比 " + s.hs + " " + gm.home_cn + (d === 0 ? "，平分" : "，" + (d > 0 ? gm.home_cn : gm.away_cn) + "领先 " + Math.abs(d) + " 分");
   }
@@ -66,8 +66,11 @@
   function secs(c) { c = String(c || ""); var m = /^(\d+):(\d+)/.exec(c); return m ? +m[1] * 60 + +m[2] : parseFloat(c) || 0; }
   function sideOf(r) { var t = P.teams[r.team]; return t ? t.side : null; }
   function leadPhrase(r, gm, prev) { // 从得分队视角说比分变化
-    var side = sideOf(r); if (side == null || r.h == null || r.a == null) return sc(gm);
-    var mine = side === "h" ? r.h : r.a, opp = side === "h" ? r.a : r.h, d = mine - opp, me = TM(r);
+    var side = sideOf(r), s = window.liveFor && liveFor(gm); if (side == null || r.h == null || r.a == null) return { t: sc(gm) };
+    if (s && window.fixScore) fixScore(s);
+    var useS = s && s.state !== "pre" && r === (P.plays[P.plays.length - 1] || null); // 最新一条用校验后的比分
+    var H = useS ? s.hs : r.h, Aw = useS ? s.as : r.a;
+    var mine = side === "h" ? H : Aw, opp = side === "h" ? Aw : H, d = mine - opp, me = TM(r);
     var pd = prev && prev.h != null ? (side === "h" ? prev.h - prev.a : prev.a - prev.h) : null;
     if (d === 0) return { t: "比分扳平！" + mine + " 平", hot: true };
     if (pd != null && pd <= 0 && d > 0) return { t: me + "反超！" + mine + " 比 " + opp, hot: true };
@@ -110,7 +113,7 @@
     if (!out || /^\s*[，,]/.test(out)) return null;
     V.n = (V.n || 0) + 1;
     if (scored) { var lp = leadPhrase(r, gm, prev); out = J(out, lp.t); hot = hot || lp.hot; }
-    else if (V.n % 4 === 0 && r.h != null && r.kind !== "end" && r.kind !== "timeout") out = J(out, gm.away_cn + " " + r.a + " 比 " + r.h + " " + gm.home_cn);
+    else if (V.n % 4 === 0 && r.h != null && r.kind !== "end" && r.kind !== "timeout") out = J(out, sc(gm) || (gm.away_cn + " " + r.a + " 比 " + r.h + " " + gm.home_cn));
     if (V.n % 9 === 0 && r.clock) out = perCn(r.per) + "还剩" + clockCn(r.clock) + "，" + out;
     if (clutch && (scored || r.kind === "to" || r.kind === "foul")) { hot = true; if (Math.random() < 0.6) out = "关键时刻！" + out; }
     return { t: out, hot: hot };
