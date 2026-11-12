@@ -146,11 +146,13 @@
       if (!c && !A.q.length) A.barAct = window.statusCn ? statusCn(gs) : (gs.name === "STATUS_HALFTIME" ? "中场休息" : "本节结束");
     } else if (!c && !A.q.length) {
       var lt = P.plays[P.plays.length - 1];
-      if (lt && lt !== A.lastR && lt.kind !== "other") { A.lastR = lt; A.barAct = actText(lt); A.endT = now; } // 永远显示最新一条
+      if (lt && lt !== A.lastR) { A.lastR = lt; A.barAct = actText(lt); A.endT = now; } // 永远显示最新一条
       else if (lt && /^(reb|to|jump)$/.test(lt.kind) && A.endT && now - A.endT > 3000 && A.poss && P.teams[A.poss]) A.barAct = P.teams[A.poss].cn + " 持球";
     }
     A.freeze = !c && (function () { var lt = P.plays[P.plays.length - 1]; return !!lt && (lt.kind === "timeout" || lt.kind === "end"); })();
-    if (window.NBA_BAR) NBA_BAR.set(A.barAct || "直播中", barSub(A.lastR));
+    var al = P.lastAlert && Date.now() - P.lastAlert.t < 15000 && !(gs && gs.state === "post") ? P.lastAlert.r : null; // 驱逐/恶意/技术犯规：大字红色显示 15 秒
+    if (al) A.barAct = actText(al);
+    if (window.NBA_BAR) NBA_BAR.set(A.barAct || "直播中", barSub(A.lastR), !!al);
     // 动作对目标点的覆盖
     var ov = {}, r = c && c.r;
     if (c) {

@@ -130,6 +130,10 @@
     } else if (r.kind === "to") {
       if (r.stealer) out = rnd([N(r.stealer) + "抢断！" + n + "失误", n + "的球被" + N(r.stealer) + "断了"]);
       else out = (n || tm) + rnd(["失误", "出现失误"]) + (r.totype && r.totype !== "失误" ? "，" + r.totype : "");
+    } else if (r.kind === "eject") {
+      out = (N(r.who) || String(r.txt || "").replace(/\s*被驱逐出场$/, "")) + "被驱逐出场！";
+    } else if (r.kind === "foul" && r.alert) {
+      out = r.who ? N(r.who) + String(r.txt || "").replace(/^\S+\s*/, "").replace(/（(.*?)）/g, "$1") + "！" : String(r.txt || "") + "！";
     } else if (r.kind === "foul") {
       out = (n || tm) + (r.ftype || "犯规") + (r.drawer ? rnd(["，" + N(r.drawer) + "造成犯规", "，犯在" + N(r.drawer) + "身上"]) : "");
     } else if (r.kind === "sub") {
@@ -151,28 +155,38 @@
     else if (V.n % 4 === 0 && r.h != null && r.kind !== "end" && r.kind !== "timeout") out = J(out, sc(gm) || (gm.away_cn + " " + r.a + " 比 " + r.h + " " + gm.home_cn));
     if (V.n % 9 === 0 && r.clock) out = perCn(r.per) + "还剩" + clockCn(r.clock) + "，" + out;
     if (clutch && (scored || r.kind === "to" || r.kind === "foul")) { hot = true; if (Math.random() < 0.6) out = rnd(["关键时刻！", "生死时刻！", "最后两分钟！"]) + out; }
-    return { t: out, hot: hot, clutch: clutch };
+    if (r.alert || r.kind === "eject") hot = true;
+    return { t: out, hot: hot, clutch: clutch, alert: !!(r.alert || r.kind === "eject"), who: r.who, kind: r.kind };
   }
   function build(list, gm) {
     var outl = [];
-    list.forEach(function (r) { var x = line(r, gm, V.prev); if (r.h != null) V.prev = { h: r.h, a: r.a }; if (x) outl.push(x); });
+    list.forEach(function (r) {
+      var x = line(r, gm, V.prev); if (r.h != null) V.prev = { h: r.h, a: r.a }; if (!x) return;
+      var lastA = null; for (var i = outl.length - 1; i >= 0; i--) if (outl[i].alert) { lastA = outl[i]; break; }
+      if (x.kind === "eject" && lastA && lastA.kind === "foul" && lastA.who === x.who) { lastA.t = lastA.t.replace(/！$/, "") + "，被驱逐出场！"; return; } // 恶意犯规 + 驱逐 合成一句
+      outl.push(x);
+    });
     return outl;
   }
   V.preview = function (n) { var gm = g(); V.n = 0; V.prev = null; return build(P.plays.slice(-n), gm).map(function (x) { return (x.clutch ? "[关键] " : x.hot ? "[激动] " : "") + x.t; }); };
 
   P.listeners.push(function (ev, a, first) {
-    var gm = g(); if (!gm || !V.unlocked) return;
+    var gm = g(); if (!gm || !V.unlocked || V.muted) return;
     if (gm.espn_id !== V.gid) { intro(); return; }
     if (ev === "status") { say("场上状况：" + a.txt); return; }
     if (ev !== "plays" || !a || !a.length) return;
     if (first) { var lastp = a[a.length - 1]; if (lastp && lastp.h != null) V.prev = { h: lastp.h, a: lastp.a }; return; }
-    var lines = build(a, gm);
-    if (lines.length + V.q.length > 2) { // 积压：合并成一句，始终贴着直播
+    var all = build(a, gm), alerts = all.filter(function (x) { return x.alert; }), lines = all.filter(function (x) { return !x.alert; });
+    // 重大事件（驱逐/恶意/技术犯规/冲突）永不合并、永不丢：先保留队列里的重大事件，再逐条播报
+    V.q = V.q.filter(function (q) { return q.alert; });
+    alerts.forEach(function (x) { V.q.push({ t: x.t, hot: true, alert: true }); }); if (alerts.length) next();
+    if (!lines.length) return;
+    if (lines.length + V.q.length - alerts.length > 2) { // 积压：合并成一句，始终贴着直播
       var pa = 0, ph = 0; a.forEach(function (r) { if ((r.kind === "shot" || r.kind === "ft") && r.made) { if (sideOf(r) === "h") ph += r.pts || 0; else pa += r.pts || 0; } });
       var last = lines[lines.length - 1];
       var sum = (pa || ph ? "刚才几个回合，" + gm.away_cn + "得 " + pa + " 分，" + gm.home_cn + "得 " + ph + " 分。" : "") + (last ? last.t + "。" : "") + (last && / 比 |领先|平/.test(last.t) ? "" : "现在" + sc(gm));
-      say(sum, true, last && last.hot);
-    } else if (lines.length) { var x = lines[lines.length - 1]; if (V.unlocked && !V.muted) { V.q = []; say(x.t, false, x.hot, x.clutch); } } // 不排队：等待中的旧句子作废，只留最新一句
+      V.q.push({ t: sum, hot: !!(last && last.hot) }); next();
+    } else { var x = lines[lines.length - 1]; if (V.unlocked && !V.muted) say(x.t, false, x.hot, x.clutch); } // 不排队：等待中的普通旧句子已作废，只留最新一句
   });
 
   function keepAwake() { // 屏幕常亮（支持的浏览器才有效）

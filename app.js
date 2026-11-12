@@ -322,8 +322,9 @@
   }
 
   /* ---------- 球场下方大字 ---------- */
-  function setBar(act, sub) {
+  function setBar(act, sub, alert) {
     var a1 = $("cbAct"), s1 = $("cbSub"); if (!a1) return;
+    if (a1.classList.contains("alert") !== !!alert) a1.classList.toggle("alert", !!alert);
     if (a1.textContent !== act) { a1.textContent = act; fitBar(a1); }
     if (s1.textContent !== sub) s1.textContent = sub;
   }

@@ -29,7 +29,7 @@
     });
   }
   // 球员中文名：同事生成的 player_names_zh.json（键 = ESPN 球员 ID），查不到就用英文姓
-  P.zh = {}; P.zhByEn = {}; P.zhFullByEn = {};
+  P.zh = {}; P.zhByEn = {}; P.zhFullByEn = {}; P.ejectIds = {};
   // 文本里的英文全名换成虎扑中文全名（只换译名表里有的，没有的保留英文）
   P.zhText = function (s) { return String(s || "").replace(/[A-Z][A-Za-z.'\-]+(?: (?:(?:da|de|del|der|di|du|la|le|van|von|dos) )?[A-Z][A-Za-z.'\-]+)+/g, function (m) { return P.zhFullByEn[m.toLowerCase()] || m; }); };
   P.loadNames = function () {
@@ -120,15 +120,18 @@
       r.txt = (w || tcn) + " 失误（" + pick(TO, tt + " " + txt, "失误") + "）" + (st ? "，" + nameFromText(st[1]) + " 抢断" : "");
       return r;
     }
+    if (/eject/i.test(tt) || / ejected\b/i.test(txt)) { r.kind = "eject"; r.alert = true; r.txt = (w || nameFromText(txt.replace(/\s+ejected[\s\S]*$/i, "")) || tcn) + " 被驱逐出场"; if (r.who) P.ejectIds[r.who] = 1; return r; }
+    if (/altercation|fight/i.test(lo)) { r.kind = "foul"; r.alert = true; r.txt = "场上发生冲突" + (tcn ? "（" + tcn + "）" : ""); return r; }
     if (/technical/i.test(tt)) { // 技术犯规类（类型名里常常没有 foul 一词）
       r.kind = "foul";
       var tk = /defensive 3|3-second/i.test(tt) ? "防守 3 秒（技术犯规）" : /delay/i.test(tt) ? "延误比赛技术犯规" : /flop/i.test(tt) ? "假摔技术犯规" : /hanging/i.test(tt) ? "挂筐技术犯规" : /taunt/i.test(tt) ? "挑衅技术犯规" : /double/i.test(tt) ? "双方技术犯规" : "技术犯规";
+      r.alert = true;
       var dm = /double technical foul:\s*(.+?) and (.+)$/i.exec(txt);
       r.txt = dm ? tk + "：" + nameFromText(dm[1]) + "、" + nameFromText(dm[2]) : (w || tcn || (/[A-Z][a-z]+ [A-Z]/.test(txt) ? nameFromText(txt.replace(/\s+(defensive|delay|flopping|technical|hanging|taunting)[\s\S]*$/i, "")) : "")) + " " + tk;
       return r;
     }
     if (/foul|charge/i.test(tt)) {
-      r.kind = "foul"; var dr = /\((.+?) draws the foul\)/.exec(txt); r.ftype = pick(FOUL, tt, "犯规"); if (dr) r.drawer = P.byName[dr[1].trim()] || parts[1];
+      r.kind = "foul"; if (/flagrant/i.test(tt)) r.alert = true; var dr = /\((.+?) draws the foul\)/.exec(txt); r.ftype = pick(FOUL, tt, "犯规"); if (dr) r.drawer = P.byName[dr[1].trim()] || parts[1];
       r.txt = (w || tcn) + " " + pick(FOUL, tt, "犯规") + (dr ? "（" + nameFromText(dr[1]) + " 造犯规）" : "");
       return r;
     }
@@ -159,7 +162,8 @@
   function selGame() { return window.NBA && window.NBA.game ? window.NBA.game() : null; }
   function liveState(g) { var s = g && window.liveFor ? window.liveFor(g) : null; return s ? s.state : null; }
   function reset(g) {
-    P.ath = {}; P.byName = {}; P.teams = {}; P.luAt = "";
+    P.ejectIds = {}; P.lastAlert = null; P.ath = {}; P.byName = {}; P.teams = {}; P.luAt = "";
+    var ab = $("alertBar"); if (ab) { ab._h = ""; ab.innerHTML = ""; ab.hidden = true; }
     ["status", "lineup"].forEach(function (k) { var b = $(k); if (b) { b._h = ""; b.innerHTML = '<p class="note small-miss">读取中…</p>'; } });
     P.preT = 0; P.tipMs = 0; P.active = false; P.gid = g ? g.espn_id : null; P.plays = []; P.seen = {}; P.loadedPost = false; P.latestShot = null; P.showN = 30; P.fail = false; P.listeners.forEach(function (f) { f("reset"); }); }
   // 带超时的请求（不支持 AbortController 的浏览器就不设超时）
@@ -208,6 +212,9 @@
       if (fresh.length && shots.length && (!P.latestShot || P.latestShot.id !== shots[shots.length - 1].id)) { P.latestShot = shots[shots.length - 1]; P.flashT = performance.now(); }
       P.active = P.plays.length > 0;
       render(g, fresh);
+      for (var ej in P.ejectIds) if (P.ath[ej]) P.ath[ej].ejected = true;
+      fresh.forEach(function (r) { if (r.alert && P.firstLoad === gid) P.lastAlert = { r: r, t: Date.now() }; });
+      renderAlertBar(g);
       P.listeners.forEach(function (f) { f("plays", fresh, P.firstLoad !== gid); });
       var tipIso = ((((d.header || {}).competitions || [])[0]) || {}).date;
       Promise.all([loadInj(), loadIgs(), loadRoles(), loadIR()]).then(function () { var cur = selGame(); if (gid === P.gid && cur && cur.espn_id === gid) { renderStatus(g, tipIso); renderLineup(g); } });
@@ -289,7 +296,7 @@
   P.lastStatus = {};
   function renderStatus(g, tipIso) {
     var box = $("status"); if (!box) return;
-    var items = statusItems(tipIso, g.espn_id), h = "";
+    var items = statusItems(tipIso, g.espn_id), h = ""; P.lastItems = items; renderAlertBar(g);
     // 场上五人：ESPN 技术统计里的“在场”字段，每队正好 5 人才显示
     var five = {}; for (var id in P.ath) if (P.ath[id].active) (five[P.ath[id].team] = five[P.ath[id].team] || []).push(id);
     var teams = Object.keys(P.teams).sort(function (x, y) { return P.teams[x].side === "h" ? 1 : -1; });
@@ -297,7 +304,7 @@
     teams.forEach(function (t) {
       var ids = five[t] || [];
       h += '<div class="st-team"><div class="st-tn" style="color:' + esc(P.teams[t].color) + '">' + esc(P.teams[t].cn) + (liveState(g) === "post" ? " 终场时场上五人" : " 当前场上五人") + "</div>" +
-        (ids.length === 5 ? ids.map(function (id) { var a = P.ath[id]; return '<span class="st-p' + (a.fouls >= 5 ? " f5" : "") + '">' + head(id) + "<b>" + esc(nm(id)) + "</b>" + (a.starter ? '<em class="st-fs">首发</em>' : "") + "<i>" + (a.fouls != null ? a.fouls + "犯" : "") + "</i></span>"; }).join("") : '<span class="dim">暂无（ESPN 没给出完整在场名单）</span>') + "</div>";
+        (ids.length === 5 ? ids.map(function (id) { var a = P.ath[id]; return '<span class="st-p' + (a.fouls >= 5 ? " f5" : "") + '">' + head(id) + "<b>" + esc(nm(id)) + "</b>" + (a.starter ? '<em class="st-fs">首发</em>' : "") + (a.ejected ? '<em class="ejt">已驱逐</em>' : "") + "<i>" + (a.fouls != null ? a.fouls + "犯" : "") + "</i></span>"; }).join("") : '<span class="dim">暂无（ESPN 没给出完整在场名单）</span>') + "</div>";
     });
     h += '</div><div class="st-src">在场名单：ESPN 技术统计实时字段</div>';
     h += '<ul class="st-list">' + (items.length ? items.map(function (x) { return '<li class="' + x.cls + '">' + head(x.id) + "<span>" + esc(x.txt) + "</span><small>" + (x.url ? '<a href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(x.src) + "</a>" : esc(x.src)) + "</small></li>"; }).join("") : '<li class="none">暂无伤病、犯规麻烦或驱逐（伤病回场情况暂无官方消息）</li>') + "</ul>";
@@ -346,8 +353,9 @@
       h += '<div class="lu-tm"><div class="lu-tt">' + esc(gp.cn) + " <small>" + (gp.side === "h" ? "主队" : "客队") + "</small></div>";
       h += gp.ids.length ? '<ul class="lu-st">' + gp.ids.map(function (p) {
         var ps = POS[String(p.pos || "").toUpperCase()] || "";
-        return '<li><span class="lu-hd">' + head(p.id) + '</span><span class="lu-nm"><b>' + esc(fullName(p.id, p.en)) + "</b>" + (ps ? '<i class="lu-pos">' + ps + "</i>" : "") + '</span><span class="lu-rl">' + roleTag(p.id) + "</span></li>";
+        return '<li><span class="lu-hd">' + head(p.id) + '</span><span class="lu-nm"><b>' + esc(fullName(p.id, p.en)) + "</b>" + (ps ? '<i class="lu-pos">' + ps + "</i>" : "") + (P.ath[p.id] && P.ath[p.id].ejected ? '<em class="ejt">已驱逐</em>' : "") + '</span><span class="lu-rl">' + roleTag(p.id) + "</span></li>";
       }).join("") + "</ul>" : '<p class="lu-none">首发未公布</p>';
+      if (gp.ej && gp.ej.length) h += '<p class="lu-ej"><em class="ejt">已驱逐</em> ' + esc(gp.ej.join("、")) + "</p>";
       h += "</div>";
     });
     return h;
@@ -358,7 +366,8 @@
     var teams = Object.keys(P.teams).sort(function (x, y) { return P.teams[x].side === "h" ? 1 : -1; }), hasSt = false;
     var groups = teams.map(function (t) {
       var ids = []; for (var id in P.ath) if (P.ath[id].team === t && P.ath[id].starter) { ids.push({ id: id, en: P.ath[id].full, pos: P.ath[id].pos }); hasSt = true; }
-      return { cn: P.teams[t].cn, side: P.teams[t].side, ids: ids };
+      var ej = []; for (var id2 in P.ath) if (P.ath[id2].team === t && P.ath[id2].ejected) ej.push(fullName(id2, P.ath[id2].full));
+      return { cn: P.teams[t].cn, side: P.teams[t].side, ids: ids, ej: ej };
     });
     var h = teams.length ? stHtml(groups, hasSt ? "官方首发（ESPN starter 字段）· " + (P.luAt || "") + " 获取" : "") : '<div class="lu-h">首发</div><p class="lu-none">首发未公布</p>';
     // 官方伤病报告优先：盒子每分钟探测新版生成的 injury_report.json；其次 data.json 里的官方报告；ESPN 补充官方没列的人
@@ -486,6 +495,19 @@
   P.absHtml = absHtml; P.roleTag = roleTag;
   P.prep = function () { return Promise.all([loadInj(), loadRoles(), loadIR()]); };
   P.renderLineup = renderLineup;
+  // 置顶提示栏：本场驱逐（技术统计 ejected 字段或驱逐事件）+ 伤退（只用 ESPN/官方明确写出的）
+  function clk(c) { c = String(c || ""); return c.indexOf(":") < 0 ? c + " 秒" : c; }
+  function renderAlertBar(g) {
+    var bar = $("alertBar"); if (!bar) return;
+    var out = [], seen = {};
+    for (var id in P.ath) if (P.ath[id].ejected) { seen[id] = 1; var ev = null; P.plays.forEach(function (r) { if (r.kind === "eject" && r.who === id) ev = r; });
+      out.push('<span class="ab-r">' + esc(((P.teams[P.ath[id].team] || {}).cn || "") + " " + fullName(id, P.ath[id].full)) + " 被驱逐" + (ev ? "（" + perCn(ev.per) + " " + clk(ev.clock) + "）" : "") + "</span>"); }
+    P.plays.forEach(function (r) { if (r.kind === "eject" && r.who && !seen[r.who]) { seen[r.who] = 1; out.push('<span class="ab-r">' + esc(r.txt + "（" + perCn(r.per) + " " + clk(r.clock) + "）") + "</span>"); } });
+    try { (P.lastItems || []).forEach(function (x) { if (/:inj:|:igs:/.test(x.key) && /离场|不会回场|伤退|回场成疑/.test(x.txt)) out.push('<span class="' + (x.cls === "red" ? "ab-r" : "ab-y") + '">' + esc(x.txt) + "</span>"); }); } catch (e) {}
+    var h = out.length ? "⚠ " + out.join("") : "";
+    if (bar._h !== h) { bar._h = h; bar.innerHTML = h; bar.hidden = !h; }
+  }
+  P.renderAlertBar = renderAlertBar;
   P.ir = {}; P.irT = 0;
   function loadIR() { // 官方伤病报告（同站文件，每 60 秒）
     if (Date.now() - P.irT < 60000) return Promise.resolve();
@@ -531,7 +553,7 @@
   function scoreTxt(r) { return r.a == null || r.a + r.h === P._lag ? "" : r.a + ":" + r.h; }
   function li(r, isNew) {
     var t = P.teams[r.team], side = t ? t.side : "";
-    return '<li class="k-' + r.kind + (side ? " s-" + side : "") + (isNew ? " new" : "") + (r.made ? " made" : "") + '"><span class="pt">' + esc(perCn(r.per)) + "<br>" + esc(String(r.clock).indexOf(":") < 0 ? r.clock + "秒" : r.clock) + '</span><span class="tx">' + esc(r.txt) + '</span><span class="sc">' + esc(scoreTxt(r)) + "</span></li>";
+    return '<li class="k-' + r.kind + (r.alert ? " alert" : "") + (side ? " s-" + side : "") + (isNew ? " new" : "") + (r.made ? " made" : "") + '"><span class="pt">' + esc(perCn(r.per)) + "<br>" + esc(String(r.clock).indexOf(":") < 0 ? r.clock + "秒" : r.clock) + '</span><span class="tx">' + esc(r.txt) + '</span><span class="sc">' + esc(scoreTxt(r)) + "</span></li>";
   }
   // 固定骨架：标题行、固定高度走势图、固定高度内部滚动列表；刷新时只改变化的部分，页面不跳
   function render(g, fresh) {

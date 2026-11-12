@@ -390,3 +390,13 @@ main.live-mode #status .st-list{max-height:none!important;overflow:visible}#stat
 .vpanel{position:fixed;right:12px;left:12px;bottom:calc(98px + env(safe-area-inset-bottom));z-index:61;background:#0d1530;border:1px solid #2a3a66;border-radius:12px;padding:10px 12px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.5)}
 .vpanel label{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.vpanel select{flex:1;min-width:0;max-width:100%;background:#131c35;color:#e9eefc;border:1px solid #2a3a66;border-radius:8px;padding:4px}
 .vpanel p{margin:6px 0 0;font-size:11px;color:var(--dim)}
+/* 重大事件：驱逐/恶意/技术犯规/冲突 */
+.pbp-list li.alert{background:rgba(255,59,92,.14);border-left-color:#ff3b5c!important}.pbp-list li.alert .tx{color:#ff6b84;font-weight:900}
+#cbAct.alert{color:#ff4d6d!important;text-shadow:0 0 12px rgba(255,59,92,.6)}
+.ejt{font-style:normal;font-size:10px;font-weight:900;line-height:14px;padding:0 4px;border-radius:4px;background:rgba(255,59,92,.22);color:#ff6b84;margin-left:4px;white-space:nowrap}
+.alertbar{position:relative;z-index:16;margin:4px 0;padding:6px 10px;border-radius:10px;background:#2a0d16;border:1px solid #ff3b5c;font-size:13px;font-weight:800;color:#ffd5dc;display:flex;flex-wrap:wrap;gap:4px 10px;overflow-wrap:anywhere}
+.alertbar[hidden]{display:none}
+.alertbar .ab-r{color:#ff8fa3}.alertbar .ab-y{color:var(--yel)}
+main.live-mode>#alertBar{order:3}
+main.live-mode>#liveTop{top:64px}
+.lu-ej{margin:4px 0 0;font-size:13px;color:#ff8fa3;overflow-wrap:anywhere}
