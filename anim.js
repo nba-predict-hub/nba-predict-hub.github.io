@@ -157,7 +157,7 @@
       cx.shadowBlur = 0; cx.fillStyle = "#fff"; cx.font = "800 15px -apple-system,'PingFang SC',sans-serif"; cx.textAlign = "center"; cx.textBaseline = "middle";
       cx.font = (act ? "800 16px" : "700 12px") + " -apple-system,'PingFang SC',sans-serif"; cx.fillText(a.jersey || "", X, Y - bob + 1);
       if (act) { // 小人旁写中文队名 + 球员姓
-        var lab = (tm.cn || "") + " " + (a.name || ""); cx.font = "800 19px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
+        var lab = (tm.cn || "") + " " + (P.nm(s.id) || a.name || ""); cx.font = "800 19px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
         var lw = cx.measureText(lab).width + 14, lx = Math.max(m + lw / 2, Math.min(W - m - lw / 2, X)), ly = Math.min(H - m - 12, Y + R + 16);
         cx.globalAlpha = 1; cx.fillStyle = "rgba(5,10,24,.85)"; cx.strokeStyle = tm.color || "#888"; cx.lineWidth = 2;
         roundRect(cx, lx - lw / 2, ly - 13, lw, 26, 8); cx.fill(); cx.stroke();

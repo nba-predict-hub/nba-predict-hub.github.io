@@ -12,6 +12,7 @@ if [ ! -f "$STAMP" ] || [ $(( $(date +%s) - $(stat -c %Y "$STAMP") )) -ge 1800 ]
 fi
 if [ -d .git ]; then
   git add data.json leisu_ids.json
+  [ -f player_names_zh.json ] && git add player_names_zh.json
   if ! git diff --cached --quiet; then
     git commit -m "data: $(date '+%Y-%m-%d %H:%M %Z')" && git push
   fi

@@ -26,7 +26,20 @@
       });
     });
   }
-  function nm(id) { var a = P.ath[id]; return a ? a.name : null; }
+  // 球员中文名：同事生成的 player_names_zh.json（键 = ESPN 球员 ID），查不到就用英文姓
+  P.zh = {}; P.zhByEn = {};
+  P.loadNames = function () {
+    return fetch("player_names_zh.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : {}; }).then(function (j) {
+      var m = (j && j.players) || j || {}, by = {};
+      for (var k in m) { var v = m[k]; if (v && typeof v === "object" && (v.zh_short || v.zh)) { if (v.en) by[String(v.en).trim().toLowerCase()] = v.zh_short || v.zh; } else delete m[k]; }
+      var changed = JSON.stringify(Object.keys(m).length) !== JSON.stringify(Object.keys(P.zh).length);
+      P.zh = m; P.zhByEn = by;
+      if (changed && P.plays.length) { P.plays = P.plays.map(function (r) { var x = tr(r._p); x.el = r.el; return x; }); var g = selGame(); if (g) render(g, null); }
+    }).catch(function () {});
+  };
+  function nm(id) { var z = P.zh[id]; if (z && (z.zh_short || z.zh)) return z.zh_short || z.zh; var a = P.ath[id]; return a ? a.name : null; }
+  P.nm = nm;
+  P.zhName = function (en) { return P.zhByEn[String(en || "").trim().toLowerCase()] || null; };
   function nameFromText(full) { var id = P.byName[String(full || "").trim()]; return id ? nm(id) : surname(full); }
   function teamCn(p) { var t = P.teams[String((p.team || {}).id)]; return t ? t.cn : ""; }
 
@@ -77,7 +90,7 @@
   // 返回 {kind, who, whoId, txt, pts, x, y, made, shot, ft, ...}
   function tr(p) {
     var tt = (p.type || {}).text || "", txt = p.text || "", lo = (tt + " " + txt).toLowerCase(), parts = (p.participants || []).map(function (q) { return String((q.athlete || {}).id); });
-    var r = { id: p.id, per: (p.period || {}).number || 1, clock: (p.clock || {}).displayValue || "", a: p.awayScore, h: p.homeScore, team: String((p.team || {}).id || ""), pts: p.scoreValue || 0, raw: txt, who: parts[0] || null, kind: "other" };
+    var r = { _p: p, id: p.id, per: (p.period || {}).number || 1, clock: (p.clock || {}).displayValue || "", a: p.awayScore, h: p.homeScore, team: String((p.team || {}).id || ""), pts: p.scoreValue || 0, raw: txt, who: parts[0] || null, kind: "other" };
     var w = nm(r.who) || "", tcn = teamCn(p), c = p.coordinate || {};
     if (c.x >= 0 && c.x <= 50 && c.y > -6 && c.y < 48) { r.x = c.x; r.y = c.y; }
     if (p.shootingPlay) {
@@ -229,5 +242,6 @@
   };
 
   document.addEventListener("visibilitychange", function () { if (!document.hidden) P.kick(); });
-  setTimeout(tick, 1500);
+  P.loadNames().then(function () { setTimeout(tick, 300); });
+  setInterval(P.loadNames, 600000);
 })();
