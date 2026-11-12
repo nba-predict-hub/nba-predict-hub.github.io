@@ -73,7 +73,7 @@
     return txt;
   }
   function barSub(r) {
-    var g = window.NBA && NBA.game(), s = g && window.liveFor ? liveFor(g) : null;
+    var g = window.NBA && NBA.game(), s = g && window.liveShow ? liveShow(g) : null;
     if (s && window.NBA_BAR && s.state !== "pre") return NBA_BAR.scoreLine(g, s);
     if (!r || !g) return "";
     var per = r.per <= 4 ? "第" + r.per + "节" : "加时";
@@ -121,7 +121,12 @@
       for (var i = 0; i < n - 1; i++) apply(all[i]);
       retarget(); for (var id in A.sp) { A.sp[id].X = A.sp[id].tx; A.sp[id].Y = A.sp[id].ty; }
       if (n) enqueue(all[n - 1]);
-    } else fresh.forEach(enqueue);
+    } else {
+      // 这批里有得分：立刻播这一球（之前还没播完的只静默更新场上人员/球权），让大字和大比分、语音同一刻
+      var si = -1; fresh.forEach(function (r, i) { if ((r.kind === "shot" || r.kind === "ft") && r.made) si = i; });
+      if (si >= 0) { A.cur = null; A.q.forEach(apply); A.q = []; fresh.slice(0, si).forEach(apply); fresh.slice(si).forEach(enqueue); }
+      else fresh.forEach(enqueue);
+    }
   });
 
   /* ---- 每帧更新和绘制 ---- */

@@ -217,6 +217,7 @@
       if (fresh.length && shots.length && (!P.latestShot || P.latestShot.id !== shots[shots.length - 1].id)) { P.latestShot = shots[shots.length - 1]; P.flashT = performance.now(); }
       P.active = P.plays.length > 0;
       render(g, fresh);
+      if (fresh.length && window.LIVE_REPAINT) window.LIVE_REPAINT(); // 新回合到达：大比分和动画、大字、语音同一刻更新
       for (var ej in P.ejectIds) if (P.ath[ej]) P.ath[ej].ejected = true;
       fresh.forEach(function (r) { if (r.alert && P.firstLoad === gid) P.lastAlert = { r: r, t: Date.now() }; });
       renderAlertBar(g);

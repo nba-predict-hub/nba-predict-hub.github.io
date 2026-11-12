@@ -65,7 +65,7 @@
   }
   function g() { return window.NBA && NBA.game(); }
   function sc(gm) {
-    var s = window.liveFor && liveFor(gm); if (!s || s.state === "pre") return ""; if (window.fixScore) fixScore(s);
+    var s = window.liveShow && liveShow(gm); if (!s || s.state === "pre") return "";
     var d = s.hs - s.as;
     return gm.away_cn + " " + s.as + " 比 " + s.hs + " " + gm.home_cn + (d === 0 ? "，平分" : "，" + (d > 0 ? gm.home_cn : gm.away_cn) + "领先 " + Math.abs(d) + " 分");
   }
@@ -97,8 +97,7 @@
   function secs(c) { c = String(c || ""); var m = /^(\d+):(\d+)/.exec(c); return m ? +m[1] * 60 + +m[2] : parseFloat(c) || 0; }
   function sideOf(r) { var t = P.teams[r.team]; return t ? t.side : null; }
   function leadPhrase(r, gm, prev) { // 从得分队视角说比分变化
-    var side = sideOf(r), s = window.liveFor && liveFor(gm); if (side == null || r.h == null || r.a == null) return { t: sc(gm) };
-    if (s && window.fixScore) fixScore(s);
+    var side = sideOf(r), s = window.liveShow && liveShow(gm); if (side == null || r.h == null || r.a == null) return { t: sc(gm) };
     var useS = s && s.state !== "pre" && r === (P.plays[P.plays.length - 1] || null); // 最新一条用校验后的比分
     var H = useS ? s.hs : r.h, Aw = useS ? s.as : r.a;
     var mine = side === "h" ? H : Aw, opp = side === "h" ? Aw : H, d = mine - opp, me = TM(r);

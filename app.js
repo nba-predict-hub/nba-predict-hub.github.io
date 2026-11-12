@@ -681,7 +681,7 @@
   }
   // 比赛进行中：比分条（吸顶）+ 球场 + 场上状况 放最上面；只在状态变化时切换一次
   function liveLayout() {
-    var g = game(), s = g && liveFor(g), on = !!(s && s.state === "in"), main = $("app"), top = $("liveTop");
+    var g = game(), s = g && dispOf(liveFor(g)), on = !!(s && s.state === "in"), main = $("app"), top = $("liveTop");
     if (on && top) {
       var d = s.hs - s.as, np = Math.max(4, (s.als || []).length, (s.hls || []).length), q = "";
       for (var i = 0; i < np; i++) q += "<th>" + (i < 4 ? i + 1 : (i === 4 ? "OT" : "OT" + (i - 3))) + "</th>";
@@ -710,11 +710,28 @@
     return s;
   }
   window.fixScore = fixScore;
+  // 显示用比分：比赛进行中，scoreboard 比最新一条逐回合的比分新时，先显示逐回合的比分，
+  // 等对应的得分回合到了，大比分和动画、大字、语音同时更新；超过 20 秒还没等到就直接显示 scoreboard。节末、中场、终场按官方比分。
+  // 只影响显示，不改 live.byId 里的数据（比分不倒退、防旧检查都照旧）
+  live.ahead = {};
+  function dispOf(s) {
+    if (!s) return s; fixScore(s);
+    var P = window.PBP, lp = s.state === "in" && s.name !== "STATUS_END_PERIOD" && s.name !== "STATUS_HALFTIME" && P && String(P.gid) === String(s.id) && P.plays.length ? P.plays[P.plays.length - 1] : null;
+    if (!lp || lp.a == null || lp.h == null || (s.as <= lp.a && s.hs <= lp.h)) { delete live.ahead[s.id]; return s; }
+    var ah = live.ahead[s.id]; if (!ah) ah = live.ahead[s.id] = { t: Date.now() };
+    if (Date.now() - ah.t > 20000) return s;
+    var d = {}; for (var k in s) d[k] = s[k];
+    d.as = Math.min(s.as, lp.a); d.hs = Math.min(s.hs, lp.h); d.held = true;
+    ["a", "h"].forEach(function (k) { var ls = (s[k + "ls"] || []).slice(), diff = s[k + "s"] - d[k + "s"]; if (diff && ls.length && ls[ls.length - 1] != null) ls[ls.length - 1] = Math.max(0, ls[ls.length - 1] - diff); d[k + "ls"] = ls; });
+    return d;
+  }
+  window.liveShow = function (g) { return dispOf(liveFor(g)); };
+  window.LIVE_REPAINT = function () { paintLive(true); };
   function paintLive(animate) {
     var d = state.data; if (!d) return;
     for (var kk in live.byId) if (kk === live.byId[kk].id) fixScore(live.byId[kk]);
     allGames().forEach(function (g) {
-      var s = liveFor(g), key = g.espn_id, pv = live.prev[key];
+      var s = dispOf(liveFor(g)), key = g.espn_id, pv = live.shown[key]; if (s) live.shown[key] = { as: s.as, hs: s.hs };
       var tab = document.querySelector('[data-lvtab="' + key + '"]'), mid = document.querySelector('[data-lvmid="' + key + '"]');
       if (!s) return;
       var started = s.state !== "pre", inp = s.state === "in";
@@ -778,7 +795,7 @@
     }
     stampScore();
   };
-  live.fastMs = 2000; live.busy = false;
+  live.fastMs = 2000; live.busy = false; live.shown = {};
   function sbFetch(url, ms) {
     var ac = window.AbortController ? new AbortController() : null, t = ac ? setTimeout(function () { ac.abort(); }, ms) : 0;
     return fetch(url, ac ? { cache: "no-store", signal: ac.signal } : { cache: "no-store" }).then(function (r) { clearTimeout(t); return r; }, function (e) { clearTimeout(t); throw e; });
