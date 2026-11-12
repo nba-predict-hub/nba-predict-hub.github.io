@@ -651,3 +651,17 @@ main.live-mode>#liveTop{top:calc(92px + env(safe-area-inset-top)) !important}
 html{scroll-padding-top:calc(100px + env(safe-area-inset-top))}
 html.lm{scroll-padding-top:calc(228px + env(safe-area-inset-top))}
 .top{flex-wrap:wrap !important}.top>.brand,.top>.meta{min-width:0}
+/* 直播页倒计时：数码管 */
+.cd-t.seg{display:flex;justify-content:center;align-items:flex-start;gap:4px;margin-top:14px;text-shadow:none}
+.seg .sg{display:flex;flex-direction:column;align-items:center;gap:4px}.seg .sg i{font-style:normal;font-size:11px;color:var(--dim);letter-spacing:.2em}
+.seg .sgd{display:flex;gap:3px}
+.seg .sd{position:relative;display:block;width:34px;height:52px;line-height:52px;text-align:center;font-family:var(--mono);font-size:40px;font-weight:700;color:#bff6ff;
+background:linear-gradient(180deg,rgba(14,34,56,.95),rgba(4,10,20,.95));border:1px solid rgba(51,225,255,.35);border-radius:4px;
+text-shadow:0 0 6px #33e1ff,0 0 16px rgba(51,225,255,.7);box-shadow:inset 0 0 12px rgba(51,225,255,.12),0 0 10px rgba(51,225,255,.15);overflow:hidden}
+.seg .sd:before{content:"8";position:absolute;inset:0;color:rgba(51,225,255,.07);text-shadow:none}
+.seg .sd:after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.6)}
+.seg em{font-style:normal;font-family:var(--mono);font-size:34px;line-height:52px;color:#33e1ff;text-shadow:0 0 10px #33e1ff;animation:batt 1s steps(2) infinite}
+.seg .sd.tk{animation:flip .35s ease-out 1;transform-origin:50% 50%}
+@keyframes flip{0%{transform:rotateX(80deg);opacity:.3}100%{transform:none;opacity:1}}
+@media (max-width:360px){.seg .sd{width:28px;height:44px;line-height:44px;font-size:32px}}
+@media (prefers-reduced-motion:reduce){.seg em,.seg .sd.tk{animation:none !important}}

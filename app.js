@@ -1380,11 +1380,16 @@
         else {
           var ms = Date.parse(nx.date) - Date.now(), sec = Math.max(0, Math.floor(ms / 1000)), hh = Math.floor(sec / 3600), mm = Math.floor(sec % 3600 / 60), ss = sec % 60;
           var at = ""; try { at = new Intl.DateTimeFormat("zh-CN", { timeZone: "America/Los_Angeles", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(nx.date)); } catch (e) {}
-          h = '<div class="cd-h">现在没有进行中的比赛</div><div class="cd-g">下一场 ' + esc((TEAM_CN[nx.aab] || nx.aab) + " @ " + (TEAM_CN[nx.hab] || nx.hab)) + '</div><div class="cd-t">' + (ms > 0 ? (hh ? hh + " 小时 " : "") + (mm < 10 && hh ? "0" : "") + mm + " 分 " + (ss < 10 ? "0" : "") + ss + " 秒" : "即将开赛") + '</div><div class="cd-s">开赛时间 ' + esc(at) + "（太平洋时间，ESPN 赛程）</div>";
+          h = '<div class="cd-h">现在没有进行中的比赛</div><div class="cd-g">下一场 ' + esc((TEAM_CN[nx.aab] || nx.aab) + " @ " + (TEAM_CN[nx.hab] || nx.hab)) + '</div>' + (ms > 0 ? segClock(hh, mm, ss) : '<div class="cd-t">即将开赛</div>') + '<div class="cd-s">开赛时间 ' + esc(at) + "（太平洋时间，ESPN 赛程）</div>";
         }
       }
       if (box._h !== h) { box._h = h; box.innerHTML = h; box.hidden = !h; }
     }
+  }
+  // 数码管倒计时：每位数字一个格子，背后是暗的“8”（数码管未点亮段），秒的个位每秒翻一下；读屏仍读“X 小时 X 分 X 秒”
+  function segClock(hh, mm, ss) {
+    function grp(n, lab, last) { var t = (n < 10 ? "0" : "") + n; return '<span class="sg"><span class="sgd">' + t.split("").map(function (d, i) { return '<b class="sd' + (last && i === t.length - 1 ? " tk" : "") + '">' + d + "</b>"; }).join("") + '</span><i>' + lab + "</i></span>"; }
+    return '<div class="cd-t seg" role="timer" aria-label="' + hh + " 小时 " + mm + " 分 " + ss + ' 秒">' + grp(hh, "小时") + '<em>:</em>' + grp(mm, "分") + '<em>:</em>' + grp(ss, "秒", true) + "</div>";
   }
   function tomorrowKey() { return ptParts(new Date(Date.now() + 86400000)).key; }
   // 球队主色（只做卡片两侧细条点缀）
