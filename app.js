@@ -536,17 +536,18 @@
     var lvl = Math.abs(sp.edge) >= 3 ? "明显倾向" : Math.abs(sp.edge) >= 1.5 ? "中等倾向" : "轻微倾向";
     $("scale").innerHTML =
       '<svg viewBox="0 0 400 230" role="img" aria-label="天平倾向' + esc(sp.pick_cn) + '">' +
-      '<defs><filter id="gl"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>' +
-      '<polygon points="200,70 170,210 230,210" fill="#131b31" stroke="#33e1ff" stroke-width="2" filter="url(#gl)"/>' +
-      '<rect x="140" y="208" width="120" height="8" rx="4" fill="#33e1ff" filter="url(#gl)"/>' +
-      '<g class="beam" data-deg="' + deg.toFixed(1) + '">' +
-      '<rect x="50" y="66" width="300" height="8" rx="4" fill="#9fdcff" filter="url(#gl)"/>' +
-      '<circle cx="200" cy="70" r="9" fill="#2fe39a" filter="url(#gl)"/>' +
-      '<g><line x1="70" y1="74" x2="45" y2="140" stroke="#5aa2ff"/><line x1="70" y1="74" x2="95" y2="140" stroke="#5aa2ff"/>' +
-      '<path d="M35 140 h70 a35 14 0 0 1 -70 0z" fill="rgba(47,123,255,.35)" stroke="#5aa2ff" stroke-width="2" filter="url(#gl)"/>' +
-      '<text x="70" y="172" fill="#5aa2ff" font-size="18" font-weight="900" text-anchor="middle">' + esc(g.home_cn) + "</text></g>" +
-      '<g><line x1="330" y1="74" x2="305" y2="140" stroke="#ff6b84"/><line x1="330" y1="74" x2="355" y2="140" stroke="#ff6b84"/>' +
-      '<path d="M295 140 h70 a35 14 0 0 1 -70 0z" fill="rgba(255,59,92,.35)" stroke="#ff6b84" stroke-width="2" filter="url(#gl)"/>' +
+      '<defs><filter id="gl" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>' +
+      '<g shape-rendering="geometricPrecision" vector-effect="non-scaling-stroke">' +
+      '<polygon points="200,74 172,208 228,208" fill="#0b1122" stroke="#33e1ff" stroke-width="2" stroke-linejoin="round" filter="url(#gl)"/>' +
+      '<rect x="140" y="208" width="120" height="8" rx="3" fill="#0b1122" stroke="#33e1ff" stroke-width="2" filter="url(#gl)"/></g>' +
+      '<g class="beam" data-deg="' + deg.toFixed(1) + '" shape-rendering="geometricPrecision">' +
+      '<rect x="50" y="66" width="300" height="8" rx="3" fill="#0b1122" stroke="#9fdcff" stroke-width="2" filter="url(#gl)"/>' +
+      '<circle cx="200" cy="70" r="8" fill="#0b1122" stroke="#2fe39a" stroke-width="2" filter="url(#gl)"/>' +
+      '<g><line x1="70" y1="74" x2="45" y2="140" stroke="#5aa2ff" stroke-width="1.5"/><line x1="70" y1="74" x2="95" y2="140" stroke="#5aa2ff" stroke-width="1.5"/>' +
+      '<path d="M35 140 h70 a35 14 0 0 1 -70 0z" fill="rgba(47,123,255,.22)" stroke="#5aa2ff" stroke-width="2" filter="url(#gl)"/>' +
+'<text x="70" y="172" fill="#5aa2ff" font-size="18" font-weight="900" text-anchor="middle">' + esc(g.home_cn) + "</text></g>" +
+      '<g><line x1="330" y1="74" x2="305" y2="140" stroke="#ff6b84" stroke-width="1.5"/><line x1="330" y1="74" x2="355" y2="140" stroke="#ff6b84" stroke-width="1.5"/>' +
+      '<path d="M295 140 h70 a35 14 0 0 1 -70 0z" fill="rgba(255,59,92,.22)" stroke="#ff6b84" stroke-width="2" filter="url(#gl)"/>' +
       '<text x="330" y="172" fill="#ff6b84" font-size="18" font-weight="900" text-anchor="middle">' + esc(g.away_cn) + "</text></g>" +
       "</g></svg>" +
       '<div class="scale-say">判决：<span class="' + (home ? "blue" : "red") + '">' + esc(sp.pick_text) + "</span> · " + lvl + "</div>" +

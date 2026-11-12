@@ -672,3 +672,5 @@ background:linear-gradient(180deg,transparent 0,rgba(51,225,255,.06) 70%,rgba(51
 #scanFx.go{animation:scanfx .32s cubic-bezier(.4,0,.2,1) 1}
 @keyframes scanfx{0%{opacity:1;transform:translateY(-100%)}85%{opacity:1}100%{opacity:0;transform:translateY(0)}}
 @media (prefers-reduced-motion:reduce){#scanFx{display:none !important}}
+
+#scale svg *{vector-effect:non-scaling-stroke}#scale,#scale svg{filter:none!important;-webkit-filter:none!important;backdrop-filter:none!important}
