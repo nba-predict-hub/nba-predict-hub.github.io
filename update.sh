@@ -29,6 +29,8 @@ if [ -f player_roles.py ] && { [ ! -f "$RSTAMP" ] || [ $(( $(date +%s) - $(stat 
   timeout 120 python3 player_roles.py >/dev/null 2>&1 || echo "player_roles.py 失败（忽略）" >&2
 fi
 if [ -d .git ]; then
+  exec 9>/workspace/nba_site/.git_push.lock
+  flock -w 120 9 || { echo "等 git 锁超时，本次不提交" >&2; exit 0; }
   git add data.json leisu_ids.json
   [ -f player_names_zh.json ] && git add player_names_zh.json
   [ -f nba_ids.json ] && git add nba_ids.json

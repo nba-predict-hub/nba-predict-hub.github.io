@@ -3,3 +3,5 @@
 .names_last_run
 .nbaids_last_run
 .roles_last_run
+.git_push.lock
+.injury_report_state.json

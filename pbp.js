@@ -146,7 +146,7 @@
   /* ---- 拉取 ---- */
   function selGame() { return window.NBA && window.NBA.game ? window.NBA.game() : null; }
   function liveState(g) { var s = g && window.liveFor ? window.liveFor(g) : null; return s ? s.state : null; }
-  function reset(g) { P.preT = 0; P.active = false; P.gid = g ? g.espn_id : null; P.plays = []; P.seen = {}; P.loadedPost = false; P.latestShot = null; P.showN = 30; P.fail = false; P.listeners.forEach(function (f) { f("reset"); }); }
+  function reset(g) { P.preT = 0; P.tipMs = 0; P.active = false; P.gid = g ? g.espn_id : null; P.plays = []; P.seen = {}; P.loadedPost = false; P.latestShot = null; P.showN = 30; P.fail = false; P.listeners.forEach(function (f) { f("reset"); }); }
   // 带超时的请求（不支持 AbortController 的浏览器就不设超时）
   function tfetch(url, ms) {
     var ac = window.AbortController ? new AbortController() : null, t = ac ? setTimeout(function () { ac.abort(); }, ms) : 0;
@@ -164,10 +164,11 @@
     P.active = !!g && (st === "in" || st === "post") && P.plays.length > 0;
     if (!g || !st || st === "pre") {
       renderEmpty(st); P.timer = setTimeout(tick, 15000);
-      if (g && Date.now() - P.preT > 60000) { // 赛前每分钟读一次首发和伤病
+      var near = P.tipMs && P.tipMs - Date.now() < 3600000 && document.visibilityState === "visible";
+      if (g && Date.now() - P.preT > (near ? 30000 : 60000)) { // 赛前每分钟读一次首发和伤病；开赛前 1 小时内且页面在前台每 30 秒
         P.preT = Date.now(); var pg = g.espn_id;
         fetch(SUM + pg + "&t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
-          if (!d || pg !== P.gid) return; loadPeople(d, g); P.inj.t = 0; return Promise.all([loadInj(), loadRoles()]).then(function () { if (pg === P.gid) renderLineup(g); });
+          if (!d || pg !== P.gid) return; loadPeople(d, g); P.luAt = nowPT(); P.tipMs = Date.parse((((d.header || {}).competitions || [])[0] || {}).date || "") || 0; P.inj.t = 0; return Promise.all([loadInj(), loadRoles(), loadIR()]).then(function () { if (pg === P.gid) renderLineup(g); });
         }).catch(function () {});
       }
       return;
@@ -183,7 +184,7 @@
         if (window.LIVE_MERGE && hr.as != null && hr.hs != null) window.LIVE_MERGE(gid, hr);
       } catch (e) {}
       if (gid !== P.gid) return;
-      loadPeople(d, g);
+      loadPeople(d, g); P.luAt = nowPT();
       var fresh = [];
       (d.plays || []).forEach(function (p) { if (!P.seen[p.id]) { P.seen[p.id] = 1; var r = tr(p); r.el = elapsed(p); P.plays.push(r); fresh.push(r); } });
       if (st === "post") P.loadedPost = true;
@@ -194,7 +195,7 @@
       render(g, fresh);
       P.listeners.forEach(function (f) { f("plays", fresh, P.firstLoad !== gid); });
       var tipIso = ((((d.header || {}).competitions || [])[0]) || {}).date;
-      Promise.all([loadInj(), loadIgs(), loadRoles()]).then(function () { if (gid === P.gid) { renderStatus(g, tipIso); renderLineup(g); } });
+      Promise.all([loadInj(), loadIgs(), loadRoles(), loadIR()]).then(function () { if (gid === P.gid) { renderStatus(g, tipIso); renderLineup(g); } });
       P.firstLoad = gid;
     }).catch(function () { P.fail = true; P.fastMs = P.fastMs < 3000 ? 3000 : 5000; if (gid === P.gid) render(g, []); }).then(function () {
       P.busy = false;
@@ -319,39 +320,51 @@
   function renderLineup(g) {
     var box = $("lineup"); if (!box || !g) return;
     var teams = Object.keys(P.teams).sort(function (x, y) { return P.teams[x].side === "h" ? 1 : -1; }), h = "";
-    h += '<div class="lu-h">首发</div>';
+    var hasSt = false; for (var sid in P.ath) if (P.ath[sid].starter) { hasSt = true; break; }
+    h += '<div class="lu-h">首发 <small>' + (hasSt ? "官方首发 · 来源 ESPN 技术统计 · " + esc(P.luAt || "") + " 获取" : "") + "</small></div>";
     if (!teams.length) h += '<p class="note">首发未公布</p>';
     teams.forEach(function (t) {
       var st = []; for (var id in P.ath) if (P.ath[id].team === t && P.ath[id].starter) st.push(id);
       h += '<div class="st-team"><div class="st-tn" style="color:' + esc(P.teams[t].color) + '">' + esc(P.teams[t].cn) + "</div>" +
         (st.length ? st.map(function (id) { return '<span class="st-p lu-p">' + head(id) + "<b>" + esc(nm(id)) + "</b>" + roleTag(id) + "</span>"; }).join("") : '<span class="dim">首发未公布</span>') + "</div>";
     });
-    var I = g.injuries || {}, off = (I.players || []).length > 0, rows = [];
-    h += '<div class="lu-h">缺阵名单 <small>' + (off ? "来源 NBA 官方伤病报告（" + esc(I.report || "") + "）" : "来源 ESPN") + "</small></div>";
+    // 官方伤病报告优先：盒子每分钟探测新版生成的 injury_report.json；其次 data.json 里的官方报告；ESPN 补充官方没列的人
+    var IR = P.ir || {}, irList = (IR.games || {})[g.away + "@" + g.home], I = g.injuries || {}, rows = [], offNames = {};
+    var off = irList ? irList : ((I.players || []).length ? I.players : null);
+    var offSrc = irList ? "NBA 官方伤病报告 " + (IR.version_pt || "") + " 版（太平洋时间）" : (off ? "NBA 官方伤病报告（" + (I.report || "") + "）" : "");
+    h += '<div class="lu-h">缺阵名单 <small>' + esc(irList ? "官方伤病报告 " + (IR.version_pt || "") + " 版" : off ? "官方伤病报告（" + (I.report || "") + "）" : "来源 ESPN") + "</small></div>";
+    var TCN = {}; teams.forEach(function (t) { TCN[P.teams[t].side === "h" ? g.home : g.away] = P.teams[t].cn; });
     if (off) {
-      I.players.filter(function (q) { return !q.g_league; }).forEach(function (q) {
+      off.filter(function (q) { return !q.g_league; }).forEach(function (q) {
+        offNames[q.name] = 1;
         var cls = q.cls === "out" ? "red" : /doubt/i.test(q.status) ? "org" : /quest/i.test(q.status) ? "yel" : "";
-        var img = q.nba_id ? '<img loading="lazy" alt="" src="https://cdn.nba.com/headshots/nba/latest/260x190/' + esc(q.nba_id) + '.png" onerror="this.remove()">' : "";
         var eid = P.byName[q.name] || P.rolesEn[q.name] || "", rr = eid && P.roles[eid] ? RRANK[P.roles[eid].role] : 4;
-        rows.push({ o: rr * 10 + (cls === "red" ? 0 : cls === "org" ? 1 : cls === "yel" ? 2 : 3), h: '<li class="' + cls + (rr === 0 ? " core" : "") + '">' + img + "<span>" + esc((q.team_cn || "") + " " + (P.zhName ? P.zhName(q.name) : q.name)) + " · " + esc(q.status_cn || q.status) + roleTag(eid) + "</span><small>" + esc(q.reason || "") + "</small></li>" });
-      });
-    } else {
-      teams.forEach(function (t) {
-        ((P.inj.byTeam || {})[t] || []).forEach(function (i) {
-          var at = i.athlete || {}, id = (/id\/(\d+)/.exec(JSON.stringify(at.links || "")) || [])[1] || "";
-          var s = IST[String(i.status || "").toLowerCase()] || ["", i.status || ""], dt = i.details || {};
-          var part = dt.type ? (PART[String(dt.type).toLowerCase()] || dt.type) : "", side = dt.side ? (SIDE[String(dt.side).toLowerCase()] || "") : "";
-          var nmz = (id && P.zh[id] && (P.zh[id].zh_short || P.zh[id].zh)) || at.displayName || "";
-          var rr2 = id && P.roles[id] ? RRANK[P.roles[id].role] : 4;
-          rows.push({ o: rr2 * 10 + (s[0] === "red" ? 0 : s[0] === "org" ? 1 : s[0] === "yel" ? 2 : 3), h: '<li class="' + s[0] + (rr2 === 0 ? " core" : "") + '">' + (id ? head(id) : "") + "<span>" + esc(P.teams[t].cn + " " + nmz) + " · " + esc(s[1]) + roleTag(id) + "</span><small>" + esc((side && part && part.indexOf("生病") < 0 ? side : "") + part) + (i.date ? " · " + esc(ptTime(i.date)) + " 太平洋时间" : "") + "</small></li>" });
-        });
+        var img = q.nba_id ? '<img loading="lazy" alt="" src="https://cdn.nba.com/headshots/nba/latest/260x190/' + esc(q.nba_id) + '.png" onerror="this.remove()">' : (eid ? head(eid) : "");
+        rows.push({ o: rr * 10 + (cls === "red" ? 0 : cls === "org" ? 1 : cls === "yel" ? 2 : 3), h: '<li class="' + cls + (rr === 0 ? " core" : "") + '">' + img + "<span>" + esc((q.team_cn || TCN[q.team] || "") + " " + ((P.zhName && P.zhName(q.name)) || q.name)) + " · " + esc(q.status_cn || q.status) + roleTag(eid) + "</span><small>" + esc((q.reason_cn || q.reason || "") + " · " + offSrc) + "</small></li>" });
       });
     }
+    teams.forEach(function (t) { // ESPN：没有官方报告时全用；有官方报告时只补官方没列的人
+      ((P.inj.byTeam || {})[t] || []).forEach(function (i) {
+        var at = i.athlete || {}, id = (/id\/(\d+)/.exec(JSON.stringify(at.links || "")) || [])[1] || "";
+        if (off && offNames[at.displayName]) return;
+        var s = IST[String(i.status || "").toLowerCase()] || ["", i.status || ""], dt = i.details || {};
+        var part = dt.type ? (PART[String(dt.type).toLowerCase()] || dt.type) : "", side = dt.side ? (SIDE[String(dt.side).toLowerCase()] || "") : "";
+        var nmz = (id && P.zh[id] && (P.zh[id].zh_short || P.zh[id].zh)) || at.displayName || "";
+        var rr2 = id && P.roles[id] ? RRANK[P.roles[id].role] : 4;
+        rows.push({ o: rr2 * 10 + (s[0] === "red" ? 0 : s[0] === "org" ? 1 : s[0] === "yel" ? 2 : 3) + 0.5, h: '<li class="' + s[0] + (rr2 === 0 ? " core" : "") + '">' + (id ? head(id) : "") + "<span>" + esc(P.teams[t].cn + " " + nmz) + " · " + esc(s[1]) + roleTag(id) + "</span><small>" + esc((side && part && part.indexOf("生病") < 0 ? side : "") + part) + " · 来源 ESPN" + (i.date ? " " + esc(ptTime(i.date)) + " 太平洋时间" : "") + "</small></li>" });
+      });
+    });
     rows.sort(function (a, b) { return a.o - b.o; });
     h += '<ul class="st-list lu-list">' + (rows.length ? rows.map(function (r) { return r.h; }).join("") : '<li class="none">' + (off || teams.length ? "没有列出伤病球员" : "开赛前一小时左右会有名单") + "</li>") + "</ul>";
     if (box._h !== h) { box._h = h; box.innerHTML = h; }
   }
   P.renderLineup = renderLineup;
+  P.ir = {}; P.irT = 0;
+  function loadIR() { // 官方伤病报告（同站文件，每 60 秒）
+    if (Date.now() - P.irT < 60000) return Promise.resolve();
+    P.irT = Date.now();
+    return fetch("injury_report.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { if (j && j.games) P.ir = j; }).catch(function () {});
+  }
   P.preT = 0;
 
   P.kick = function () { P.timer && clearTimeout(P.timer); setTimeout(tick, 50); };
