@@ -64,6 +64,18 @@
   /* ---- 记录 → 动作 ---- */
   function shortTxt(r) { return String(r.txt || "").replace(/（.*?）/g, "").replace(/\s+\+\d+$/, "").trim(); }
   function enqueue(r) { A.q.push(r); }
+  function actText(r) {
+    var tm = P.teams[r.team], a = P.ath[r.who], txt = String(r.txt || "").replace(/（(.*?)）/g, function (m0, x) { return /罚/.test(x) ? m0 : ""; }).trim();
+    if (a && tm && /^(shot|ft|reb|to|foul)$/.test(r.kind)) return tm.cn + " " + (a.jersey ? a.jersey + "号 " : "") + txt;
+    return txt;
+  }
+  function barSub(r) {
+    var g = window.NBA && NBA.game(), s = g && window.liveFor ? liveFor(g) : null;
+    if (s && window.NBA_BAR && s.state !== "pre") return NBA_BAR.scoreLine(g, s);
+    if (!r || !g) return "";
+    var per = r.per <= 4 ? "第" + r.per + "节" : "加时";
+    return per + " " + r.clock + " · " + g.away_cn + " " + r.a + " : " + r.h + " " + g.home_cn;
+  }
   function start(r) {
     apply(r);
     var tid = r.team || (r.who && P.ath[r.who] ? P.ath[r.who].team : null), side = sideOf(tid);
@@ -76,7 +88,7 @@
     else if (r.kind === "reb") { var s2 = A.lastShotSide || side; c.spot = toFt(s2, 25 + (Math.random() * 8 - 4), 3 + Math.random() * 3); c.dur = 1100; }
     else if (r.kind === "sub") c.dur = 1000;
     else if (r.kind === "timeout" || r.kind === "end") c.dur = 1400;
-    A.cur = c;
+    A.cur = c; A.lastR = r; A.barAct = actText(r);
     retarget();
   }
   function speed() { return A.q.length > 3 ? Math.min(8, 1 + A.q.length / 2) : 1; }
@@ -103,7 +115,13 @@
     var sp = speed(), c = A.cur;
     if (!c && A.q.length) { start(A.q.shift()); c = A.cur; }
     var k = c ? (now - c.t0) * sp / c.dur : 0;
-    if (c && k >= 1) { A.cur = null; c = null; retarget(); }
+    if (c && k >= 1) {
+      if (c.r.kind === "shot" && c.spot) A.mark = { X: c.spot.X, Y: c.spot.Y, made: c.r.made, t: now };
+      A.endT = now; A.cur = null; c = null; retarget();
+    }
+    // 球场下方大字：当前动作；空闲几秒后显示谁持球
+    if (!c && !A.q.length && A.endT && now - A.endT > 3000 && A.poss && P.teams[A.poss]) A.barAct = P.teams[A.poss].cn + " 持有球权";
+    if (window.NBA_BAR) NBA_BAR.set(A.barAct || "直播中", barSub(A.lastR));
     // 动作对目标点的覆盖
     var ov = {}, r = c && c.r;
     if (c) {
@@ -129,15 +147,22 @@
     list.sort(function (a, b) { return a.Y - b.Y; });
     list.forEach(function (s) {
       var tm = P.teams[s.team] || {}, a = P.ath[s.id] || {}, X = px(s.X), Y = py(s.Y), act = r && (r.who === s.id || r.assist === s.id || r.blocker === s.id || r.stealer === s.id || r.inId === s.id);
-      var R = 15, bob = Math.abs(Math.sin(t * 6 + s.ph)) * 2;
+      var R = act ? 17 : 11, bob = Math.abs(Math.sin(t * 6 + s.ph)) * 2;
       cx.save();
-      cx.globalAlpha = s.out ? 0.45 : 1;
+      cx.globalAlpha = s.out ? 0.3 : act ? 1 : 0.45;
       cx.fillStyle = "rgba(0,0,0,.35)"; cx.beginPath(); cx.ellipse(X, Y + R + 2, R * 0.8, 4, 0, 0, 6.283); cx.fill();
       cx.shadowColor = act ? "#fff" : (tm.color || "#888"); cx.shadowBlur = act ? 22 : 8;
       cx.fillStyle = tm.color || "#888"; cx.strokeStyle = tm.alt || "#fff"; cx.lineWidth = 3;
       cx.beginPath(); cx.arc(X, Y - bob, R, 0, 6.283); cx.fill(); cx.stroke();
       cx.shadowBlur = 0; cx.fillStyle = "#fff"; cx.font = "800 15px -apple-system,'PingFang SC',sans-serif"; cx.textAlign = "center"; cx.textBaseline = "middle";
-      cx.fillText(a.jersey || "", X, Y - bob + 1);
+      cx.font = (act ? "800 16px" : "700 12px") + " -apple-system,'PingFang SC',sans-serif"; cx.fillText(a.jersey || "", X, Y - bob + 1);
+      if (act) { // 小人旁写中文队名 + 球员姓
+        var lab = (tm.cn || "") + " " + (a.name || ""); cx.font = "800 19px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
+        var lw = cx.measureText(lab).width + 14, lx = Math.max(m + lw / 2, Math.min(W - m - lw / 2, X)), ly = Math.min(H - m - 12, Y + R + 16);
+        cx.globalAlpha = 1; cx.fillStyle = "rgba(5,10,24,.85)"; cx.strokeStyle = tm.color || "#888"; cx.lineWidth = 2;
+        roundRect(cx, lx - lw / 2, ly - 13, lw, 26, 8); cx.fill(); cx.stroke();
+        cx.fillStyle = "#fff"; cx.fillText(lab, lx, ly + 1);
+      }
       cx.restore();
     });
     // 球和结果
@@ -162,24 +187,20 @@
     }
     // 气泡文字
     if (c && r) {
-      var who = r.kind === "sub" ? r.inId : (r.kind === "to" && r.stealer ? r.who : r.who), s3 = who && A.sp[who], txt = shortTxt(r);
-      var bxp, byp;
-      if (s3) { bxp = px(s3.X); byp = py(s3.Y) - 34; } else { bxp = W / 2; byp = m + 40; }
-      var fade = k < 0.1 ? k / 0.1 : k > 0.9 ? (1 - k) / 0.1 : 1;
-      cx.save(); cx.globalAlpha = Math.max(0, fade);
-      cx.font = "800 22px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif"; cx.textAlign = "center"; cx.textBaseline = "middle";
-      var tw = cx.measureText(txt).width + 22, hb = 36;
-      bxp = Math.max(m + tw / 2, Math.min(W - m - tw / 2, bxp)); byp = Math.max(m + hb / 2, byp);
-      var bg = r.kind === "shot" || r.kind === "ft" ? (r.made ? "rgba(20,120,80,.92)" : "rgba(150,30,55,.92)") : r.kind === "foul" || r.kind === "to" ? "rgba(160,110,10,.92)" : "rgba(20,40,80,.92)";
-      cx.fillStyle = bg; cx.strokeStyle = "rgba(255,255,255,.5)"; cx.lineWidth = 1.5;
-      roundRect(cx, bxp - tw / 2, byp - hb / 2, tw, hb, 10); cx.fill(); cx.stroke();
-      cx.fillStyle = "#fff"; cx.fillText(txt, bxp, byp + 1);
+      cx.save(); cx.textAlign = "center"; cx.textBaseline = "middle";
       if (r.kind === "shot" && r.assist && A.sp[r.assist] && k < 0.6) { // 助攻小气泡
         var as = A.sp[r.assist]; cx.font = "700 16px -apple-system,'PingFang SC',sans-serif"; cx.fillStyle = "#33e1ff"; cx.fillText("助攻", px(as.X), py(as.Y) - 28);
       }
       if (r.kind === "shot" && r.blocker && A.sp[r.blocker] && k > 0.5) { var bl = A.sp[r.blocker]; cx.font = "800 18px -apple-system,'PingFang SC',sans-serif"; cx.fillStyle = "#ffc53d"; cx.fillText("盖帽！", px(bl.X), py(bl.Y) - 28); }
       if (r.kind === "to" && r.stealer && A.sp[r.stealer] && k > 0.4) { var st = A.sp[r.stealer]; cx.font = "800 18px -apple-system,'PingFang SC',sans-serif"; cx.fillStyle = "#33e1ff"; cx.fillText("抢断！", px(st.X), py(st.Y) - 28); }
       if (r.kind === "sub" && r.outId && A.sp[r.outId]) { var os = A.sp[r.outId]; cx.font = "700 16px -apple-system,'PingFang SC',sans-serif"; cx.fillStyle = "#8a96b8"; cx.fillText("下场", px(os.X), Math.min(H - m - 8, py(os.Y) - 26)); }
+      cx.restore();
+    }
+    if (A.mark && now - A.mark.t < 3500) {
+      var fm = 1 - (now - A.mark.t) / 3500, mx = px(A.mark.X), my = py(A.mark.Y);
+      cx.save(); cx.globalAlpha = fm; cx.lineWidth = 4;
+      if (A.mark.made) { cx.fillStyle = "#2fe39a"; cx.shadowColor = "#2fe39a"; cx.shadowBlur = 12; cx.beginPath(); cx.arc(mx, my, 9, 0, 6.283); cx.fill(); }
+      else { cx.strokeStyle = "#ff4d6d"; cx.beginPath(); cx.moveTo(mx - 8, my - 8); cx.lineTo(mx + 8, my + 8); cx.moveTo(mx + 8, my - 8); cx.lineTo(mx - 8, my + 8); cx.stroke(); }
       cx.restore();
     }
     if (A.q.length > 3) { cx.save(); cx.fillStyle = "rgba(233,238,252,.7)"; cx.font = "600 14px -apple-system,'PingFang SC',sans-serif"; cx.textAlign = "right"; cx.fillText("追赶最新记录 ×" + sp.toFixed(1), W - m - 6, m + 16); cx.restore(); }

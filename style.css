@@ -210,3 +210,8 @@ html{overflow-anchor:auto}
 .pbp-chart{height:190px}
 .pbp-list{height:420px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:10px}
 #lvWarn{min-height:0}
+/* 球场下方大字 */
+.court-bar{height:112px;margin-top:8px;padding:8px 10px;border-radius:12px;background:#0a1226;border:1px solid var(--line);text-align:center;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.cb-act{font-size:17px;font-weight:900;line-height:1.35;color:#fff;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.cb-sub{font-size:14px;font-weight:700;color:var(--yel);margin-top:2px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.one-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:6px 0 0}

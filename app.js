@@ -132,11 +132,11 @@
   function renderGame() {
     var g = game(); if (!g) { $("hero").innerHTML = "<p>今天还没有锁定的比赛。</p>"; return; }
     if (g.nomodel) {
-      renderHeroNoModel(g); renderLeisu(g); drawCourtSetup(g);
+      renderHeroNoModel(g); renderLeisu(g); drawCourtSetup(g); courtBarIdle(g);
       ["scale", "odds", "edge", "factors", "inj"].forEach(function (k) { $(k).innerHTML = '<p class="note">本场模型未预测，只显示比分和直播。</p>'; });
       return;
     }
-    renderHero(g); renderLeisu(g); drawCourtSetup(g); renderScale(g); renderOdds(g); renderEdge(g); renderFactors(g); renderInj(g);
+    renderHero(g); renderLeisu(g); drawCourtSetup(g); courtBarIdle(g); renderScale(g); renderOdds(g); renderEdge(g); renderFactors(g); renderInj(g);
   }
   function renderHeroNoModel(g) {
     var h = '<div class="vs"><div class="team h"><div class="ab">主场</div><div class="nm">' + esc(g.home_cn) + '</div></div>';
@@ -242,8 +242,9 @@
       rg.addColorStop(0, col.replace("A", (0.35 + 0.25 * pulse).toFixed(2))); rg.addColorStop(1, col.replace("A", "0"));
       x.fillStyle = rg; x.fillRect(m, m, cw, ch);
     }
-    if (pickHome) glow(m + cw * 0.25, "rgba(47,123,255,A)");
-    if (pickAway) glow(m + cw * 0.75, "rgba(255,59,92,A)");
+    var liveOn = window.PBP && window.PBP.active;
+    if (pickHome && !liveOn) glow(m + cw * 0.25, "rgba(47,123,255,A)");
+    if (pickAway && !liveOn) glow(m + cw * 0.75, "rgba(255,59,92,A)");
     // 扫描线
     var sx = m + ((t * 160) % cw);
     var sg = x.createLinearGradient(sx - 60, 0, sx, 0); sg.addColorStop(0, "rgba(51,225,255,0)"); sg.addColorStop(1, "rgba(51,225,255,.25)");
@@ -260,10 +261,38 @@
     team(m + cw * 0.25, g.home_cn, "主场", g.records[g.home], "#5aa2ff", pickHome);
     team(m + cw * 0.75, g.away_cn, "客场", g.records[g.away], "#ff6b84", pickAway);
     x.fillStyle = "rgba(233,238,252,.75)"; x.font = "600 15px -apple-system,'PingFang SC',sans-serif";
-    var foot = g.spread ? (g.spread.model_label + "：" + (winText(g, g.spread.pred_home_margin) || "") + " ｜ 盘口 " + (hcText(g, g.spread.line_home) || "暂无")) : "暂无模型结论";
-    x.fillText(foot, W / 2, H - m - 12);
+    courtBarIdle(g);
     if (window.PBP && window.PBP.draw) window.PBP.draw(x, m, cw, ch, W, H, t, g);
   }
+
+  /* ---------- 球场下方大字 ---------- */
+  function setBar(act, sub) {
+    var a1 = $("cbAct"), s1 = $("cbSub"); if (!a1) return;
+    if (a1.textContent !== act) a1.textContent = act;
+    if (s1.textContent !== sub) s1.textContent = sub;
+  }
+  function preSentence(g) {
+    if (g.nomodel) return "本场模型未预测";
+    var sp = g.spread; if (!sp || sp.pred_home_margin == null || sp.line_home == null) return "暂无模型结论";
+    var pm = sp.pred_home_margin, lh = sp.line_home;
+    var win = pm > 0 ? g.home_cn : g.away_cn, fav = lh > 0 ? g.home_cn : g.away_cn, L = num(Math.abs(lh), 1), pick = sp.pick_team === g.home ? g.home_cn : g.away_cn;
+    var s = "模型看好" + win + "赢 " + num(Math.abs(pm), 2) + " 分，";
+    if (lh === 0) return s + "盘口平手，模型认为" + pick + "能赢盘";
+    s += "盘口" + fav + "让 " + L + " 分，";
+    return s + (pick === fav ? "模型认为" + fav + "能赢盘（赢超过 " + L + " 分）" : "模型认为" + pick + "受让能赢盘（" + fav + "赢不到 " + L + " 分）");
+  }
+  function scoreLine(g, s) {
+    if (!s) return "";
+    if (s.state === "pre") return s.tip + " 开赛（太平洋时间）";
+    return statusCn(s) + " · " + g.away_cn + " " + s.as + " : " + s.hs + " " + g.home_cn;
+  }
+  function courtBarIdle(g) {
+    if (window.PBP && window.PBP.active) return; // 直播时由动画接管
+    var s = liveFor(g);
+    if (!s || s.state === "pre") setBar(preSentence(g), s ? scoreLine(g, s) : String(g.tip_pt || "").replace(/ PT$/, ""));
+    else setBar(s.state === "post" ? "比赛已结束" : "直播数据读取中…", scoreLine(g, s));
+  }
+  window.NBA_BAR = { set: setBar, scoreLine: scoreLine };
 
   /* ---------- 天平 ---------- */
   function renderScale(g) {

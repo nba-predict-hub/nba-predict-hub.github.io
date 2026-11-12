@@ -224,22 +224,6 @@
   };
   P.draw = function (cx, m, cw, ch, W, H, t) {
     if (!P.active) return;
-    var pend = {}; if (P.anim) { P.anim.q.forEach(function (r) { pend[r.id] = 1; }); if (P.anim.cur && P.anim.cur.r) pend[P.anim.cur.r.id] = 1; }
-    var shots = P.plays.filter(function (r) { return r.kind === "shot" && r.x != null && !pend[r.id]; }).slice(-60);
-    var now = performance.now();
-    shots.forEach(function (r) {
-      var tm = P.teams[r.team]; if (!tm) return;
-      var xy = P.courtXY(tm.side, r.x, r.y, m, cw, ch), latest = P.latestShot && r.id === P.latestShot.id;
-      cx.save(); cx.globalAlpha = latest ? 1 : 0.75; cx.lineWidth = 2.5;
-      if (r.made) { cx.fillStyle = "#2fe39a"; cx.shadowColor = "#2fe39a"; cx.shadowBlur = 8; cx.beginPath(); cx.arc(xy[0], xy[1], 5.5, 0, 6.283); cx.fill(); }
-      else { cx.strokeStyle = "#ff4d6d"; cx.beginPath(); cx.moveTo(xy[0] - 5, xy[1] - 5); cx.lineTo(xy[0] + 5, xy[1] + 5); cx.moveTo(xy[0] + 5, xy[1] - 5); cx.lineTo(xy[0] - 5, xy[1] + 5); cx.stroke(); }
-      if (latest) {
-        var k = ((now - P.flashT) % 1200) / 1200;
-        cx.globalAlpha = 1 - k; cx.strokeStyle = r.made ? "#2fe39a" : "#ff4d6d"; cx.shadowBlur = 16; cx.shadowColor = cx.strokeStyle; cx.lineWidth = 3;
-        cx.beginPath(); cx.arc(xy[0], xy[1], 8 + 22 * k, 0, 6.283); cx.stroke();
-      }
-      cx.restore();
-    });
     if (P.drawExtra) P.drawExtra(cx, m, cw, ch, W, H, t);
   };
 
