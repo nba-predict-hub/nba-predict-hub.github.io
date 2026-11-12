@@ -317,3 +317,8 @@ main.live-mode #gameTabs{padding-bottom:4px}
 .lt2{font-size:14px;font-weight:900;height:20px;line-height:20px;text-align:center;white-space:nowrap}
 main.live-mode .dchip{height:42px;padding:2px 0}main.live-mode .dchip b{line-height:18px}main.live-mode .dchip span{line-height:14px}
 main.live-mode .st-list{order:-1;flex:0 0 auto;max-height:64px;border-top:0;border-bottom:1px solid #18213b}main.live-mode .st-list li.none{padding:2px}
+/* 首发 · 缺阵（固定高度，内部滚动） */
+#lineup{height:330px;overflow-y:auto}
+.lu-h{font-weight:900;font-size:14px;margin:6px 0 4px}.lu-h small{font-weight:400;font-size:11px;color:var(--dim);margin-left:6px}
+.lu-list{flex:none;overflow:visible}
+.st-list li.org span{color:#ff9f43;font-weight:800}
