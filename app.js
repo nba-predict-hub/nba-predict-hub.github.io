@@ -696,14 +696,36 @@
   // 比分更新时间（太平洋时间，精确到秒），显示在页头，方便看是否卡住
   function stampScore() {
     var s = ""; try { s = new Intl.DateTimeFormat("zh-CN", { timeZone: "America/Los_Angeles", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).format(new Date()); } catch (e) {}
-    var el = $("scoreAt"); if (el && s) el.textContent = "比分更新于 " + s;
+    var g = state.data && game(), cur = g && liveFor(g);
+    var el = $("scoreAt"); if (el && s) el.textContent = "比分更新于 " + s + (cur && cur.state === "in" ? " · " + (cur.src === "NBA" ? "NBA 官方" : "ESPN") : "");
+  }
+  function rankOf(x) { return (x.state === "post" ? 1e7 : 0) + (x.period || 0) * 1e5 + (x.as || 0) + (x.hs || 0) + (720 - clkSec(x.clock)) / 1000; }
+  /* ---- NBA 官方实时比分（浏览器直拉；跨域失败/403/超时就静默用 ESPN，连续失败 3 次本次访问不再试） ---- */
+  var NBA_SB = "https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json";
+  var nbaSrc = { fails: 0, off: false, busy: false };
+  function nbaClock(c) { var m = /PT(\d+)M([\d.]+)S/.exec(c || ""); if (!m) return ""; var mm = +m[1], ss = parseFloat(m[2]); return mm ? mm + ":" + (ss < 10 ? "0" : "") + Math.floor(ss) : ss.toFixed(1); }
+  function pollNBA() {
+    if (nbaSrc.off || nbaSrc.busy || !anyLive()) return;
+    nbaSrc.busy = true;
+    sbFetch(NBA_SB + "?t=" + Date.now(), 4000).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+      nbaSrc.fails = 0;
+      ((d.scoreboard || {}).games || []).forEach(function (x) {
+        var at = x.awayTeam || {}, ht = x.homeTeam || {}, key = at.teamTricode + "@" + ht.teamTricode, cur = live.byId[key]; if (!cur) return;
+        var txt = String(x.gameStatusText || "");
+        var r = { as: +at.score, hs: +ht.score, period: x.period, clock: nbaClock(x.gameClock), state: x.gameStatus === 2 ? "in" : x.gameStatus === 3 ? "post" : "pre",
+          name: /half/i.test(txt) ? "STATUS_HALFTIME" : /^end/i.test(txt) ? "STATUS_END_PERIOD" : x.gameStatus === 3 ? "STATUS_FINAL" : "STATUS_IN_PROGRESS",
+          als: (at.periods || []).map(function (p) { return p.score; }), hls: (ht.periods || []).map(function (p) { return p.score; }), src: "NBA" };
+        if (r.state === "pre" || isNaN(r.as) || isNaN(r.hs)) return;
+        window.LIVE_MERGE(cur.id, r);
+      });
+    }).catch(function () { if (++nbaSrc.fails >= 3) nbaSrc.off = true; }).then(function () { nbaSrc.busy = false; });
   }
   function clkSec(c) { c = String(c || ""); var m = /^(\d+):(\d+)/.exec(c); return m ? +m[1] * 60 + +m[2] : parseFloat(c) || 0; }
   // 把逐回合接口（summary）头部的比分合进来：两个来源谁新用谁，大比分绝不等动画
   window.LIVE_MERGE = function (id, r) {
     var cur = live.byId[String(id)]; if (!cur || !r) return;
-    var rank = function (x) { return (x.state === "post" ? 1e7 : 0) + (x.period || 0) * 1e5 + (x.as || 0) + (x.hs || 0) + (720 - clkSec(x.clock)) / 1000; };
-    if (rank(r) > rank(cur)) {
+    if (rankOf(r) > rankOf(cur)) {
+      cur.src = r.src || "ESPN";
       ["as", "hs", "period", "clock", "state", "name", "als", "hls"].forEach(function (k) { if (r[k] != null) cur[k] = r[k]; });
       paintLive(true);
     }
@@ -730,8 +752,10 @@
       var nb = parseSB(d), prev = {};
       (state.data ? allGames() : []).forEach(function (g) { var s = liveFor(g); if (s) prev[g.espn_id] = s; });
       var oldIds = (live.events || []).map(function (e) { return e.id + e.state; }).join(",");
+      for (var k0 in nb) { var o = live.byId[k0]; if (o && k0 === nb[k0].id && rankOf(o) > rankOf(nb[k0])) ["as", "hs", "period", "clock", "state", "name", "als", "hls", "src"].forEach(function (f) { nb[k0][f] = o[f]; }); } // 比分不倒退
       live.events = []; for (var k in nb) if (k === nb[k].id) live.events.push(nb[k]);
       live.prev = prev; live.byId = nb;
+      pollNBA();
       if (state.data && oldIds !== live.events.map(function (e) { return e.id + e.state; }).join(",")) keepScroll(function () { var sl = $("gameTabs").scrollLeft; renderTabs(); $("gameTabs").scrollLeft = sl; var gg = game(); if (gg && (gg.nomodel || !$("hero").innerHTML)) renderGame(); }); live.fail = false; live.okAt = ptTime(new Date().toISOString());
       paintLive(true);
       if (window.PBP) window.PBP.kick();
