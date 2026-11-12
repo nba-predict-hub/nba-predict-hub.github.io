@@ -1061,7 +1061,7 @@
       if (pv != null && pv !== sg) { dayState.chg[s.id] = { t: Date.now(), hm: hm() }; up = " flash"; }
       dayState.sig[s.id] = sg;
       var cg = dayState.chg[s.id]; if (cg && Date.now() - cg.t < 1800000) lk += '<i class="upd">刚更新 ' + cg.hm + "</i>";
-      return '<li class="dli' + up + '" data-id="' + esc(s.id) + '"><div class="tm2"><span>' + esc(an) + " @ " + esc(hn) + '</span><span class="st2">' + st + "</span></div>" + lk + '<div class="dmore">点开看赛前详情 ›</div><div class="ddet" hidden></div></li>';
+      return '<li class="dli' + up + '" data-id="' + esc(s.id) + '"><div class="tm2"><span>' + esc(an) + " @ " + esc(hn) + (L ? " " + recBadge(L.spread, L.total) : "") + '</span><span class="st2">' + st + "</span></div>" + lk + '<div class="dmore">点开看赛前详情 ›</div><div class="ddet" hidden></div></li>';
     }).join("") + "</ul>";
     if (nW + nL) h += '<p class="note">这天让分方向：对 ' + nW + " 场，错 " + nL + " 场（只算赛前锁定的）。</p>";
     h += '<p class="note">只用开赛前锁定的记录；对错优先用我们账本里的结果，账本还没填时按终场比分对照锁定的盘口算。</p>';
@@ -1399,13 +1399,16 @@
   function tomorrowKey() { return ptParts(new Date(Date.now() + 86400000)).key; }
   // 球队主色（只做卡片两侧细条点缀）
   var TCOL = { ATL: "#E03A3E", BOS: "#007A33", BKN: "#A3A9AF", CHA: "#00788C", CHI: "#CE1141", CLE: "#860038", DAL: "#0064B1", DEN: "#FEC524", DET: "#C8102E", GSW: "#FFC72C", GS: "#FFC72C", HOU: "#CE1141", IND: "#FDBB30", LAC: "#C8102E", LAL: "#FDB927", MEM: "#5D76A9", MIA: "#98002E", MIL: "#00A651", MIN: "#236192", NOP: "#B4975A", NO: "#B4975A", NYK: "#F58426", NY: "#F58426", OKC: "#007AC1", ORL: "#0077C0", PHI: "#006BB6", PHX: "#E56020", POR: "#E03A3E", SAC: "#5A2D81", SAS: "#C4CED4", SA: "#C4CED4", TOR: "#CE1141", UTA: "#F9A01B", UTAH: "#F9A01B", WAS: "#E31837", WSH: "#E31837" };
-  function gameCard(id, an, hn, mid, sub, cls, aa, ha) { var ca = TCOL[String(aa || "").toUpperCase()], ch = TCOL[String(ha || "").toUpperCase()]; return '<li class="gcard' + (cls || "") + '" data-id="' + esc(id) + '"' + (ca || ch ? ' style="' + (ca ? "--ca:" + ca + ";" : "") + (ch ? "--ch:" + ch : "") + '"' : "") + '><div class="gc-t"><b>' + esc(an) + '</b><span class="gc-m">' + mid + '</span><b>' + esc(hn) + '</b></div><div class="gc-s">' + sub + "</div></li>"; }
+  function recBadge(sp, to) { var t = []; if (sp && sp.band_cn === "高" && sp.pick_text) t.push(sp.pick_text); if (to && to.band_cn === "高" && to.pick_text) t.push(to.pick_text); return t.map(function (x) { return '<span class="rec">最推荐·' + esc(x) + "</span>"; }).join(""); }
+  function recFor(s, iso) { var g = null; allGames().forEach(function (x) { if (String(x.espn_id) === String(s.id)) g = x; }); if (g) return recBadge(mainSpread(g), g.total);
+    var ls = ((state.data || {}).locks_by_date || {})[iso] || {}, L = ls[s.id] || null; if (!L) for (var k in ls) if (ls[k].away === s.aab && ls[k].home === s.hab) L = ls[k]; return L ? recBadge(L.spread, L.total) : ""; }
+  function gameCard(id, an, hn, mid, sub, cls, aa, ha, rec) { var ca = TCOL[String(aa || "").toUpperCase()], ch = TCOL[String(ha || "").toUpperCase()]; return '<li class="gcard' + (cls || "") + '" data-id="' + esc(id) + '"' + (ca || ch ? ' style="' + (ca ? "--ca:" + ca + ";" : "") + (ch ? "--ch:" + ch : "") + '"' : "") + '>' + (rec ? '<div class="gc-rec">' + rec + "</div>" : "") + '<div class="gc-t"><b>' + esc(an) + '</b><span class="gc-m">' + mid + '</span><b>' + esc(hn) + '</b></div><div class="gc-s">' + sub + "</div></li>"; }
   function drawGameList() {
     var box = $("gameList"); if (!box || !state.data) return;
     var h = '<h2>今天的比赛 <small class="dim">点开看单场（比分、动画、文字直播、预测）</small></h2><ul class="glist">' + allGames().map(function (g) {
       var s = dispOf(liveFor(g)), ms = mainSpread(g), p = ms && ms.v8 ? "第八版：" + ms.pick_text : g.nomodel ? "本场模型未预测" : ms ? "模型：" + ms.pick_text : "暂无结论";
       var st = !s || s.state === "pre" ? '<i class="gc-tip">' + esc(String((s && s.tip) || g.tip_pt || "时间待定").replace(/ PT$/, "")) + "</i>" : '<i class="gc-sc">' + s.as + " : " + s.hs + '</i><i class="gc-st' + (s.state === "in" ? " on" : "") + '">' + esc(statusCn(s)) + "</i>";
-      return gameCard(g.espn_id, g.away_cn, g.home_cn, st, esc(p), s && s.state === "in" ? " live" : "", g.away, g.home);
+      return gameCard(g.espn_id, g.away_cn, g.home_cn, st, esc(p), s && s.state === "in" ? " live" : "", g.away, g.home, recBadge(ms, g.total));
     }).join("") + "</ul>";
     if (box._h !== h) {
       var old = box._sc || {}, now = {}; box._h = h; box.innerHTML = h;
@@ -1417,8 +1420,8 @@
   function drawPre() {
     var box = $("preView"), tk = tomorrowKey(), c = dayState.cache[tk];
     if (!c && !NAV.preFetch) { NAV.preFetch = 1; refreshDay(tk, tk.slice(0, 4) + "-" + tk.slice(4, 6) + "-" + tk.slice(6)).then(function () { NAV.preFetch = 0; if (NAV.pg === "pr") drawPre(); }); }
-    var today = (live.events || []).filter(function (e) { return e.state === "pre"; }), tm = c ? c.events : null;
-    function list(evs) { return '<ul class="daylist">' + evs.map(function (s) { return '<li class="dli" data-id="' + esc(s.id) + '"><div class="tm2"><span>' + esc((TEAM_CN[s.aab] || s.aab) + " @ " + (TEAM_CN[s.hab] || s.hab)) + '</span><span class="st2">' + esc(s.tip) + ' 开赛</span></div><div class="dmore">点开看首发、缺阵、回归、盘口 ›</div><div class="ddet" hidden></div></li>'; }).join("") + "</ul>"; }
+    var today = (live.events || []).filter(function (e) { return e.state === "pre"; }), tm = c ? c.events : null; var tIso = ptParts(new Date()).iso, mIso = tk.slice(0, 4) + "-" + tk.slice(4, 6) + "-" + tk.slice(6); today.forEach(function (e) { e._iso = tIso; }); (tm || []).forEach(function (e) { e._iso = mIso; });
+    function list(evs) { return '<ul class="daylist">' + evs.map(function (s) { return '<li class="dli" data-id="' + esc(s.id) + '"><div class="tm2"><span>' + esc((TEAM_CN[s.aab] || s.aab) + " @ " + (TEAM_CN[s.hab] || s.hab)) + " " + recFor(s, s._iso) + '</span><span class="st2">' + esc(s.tip) + ' 开赛</span></div><div class="dmore">点开看首发、缺阵、回归、盘口 ›</div><div class="ddet" hidden></div></li>'; }).join("") + "</ul>"; }
     var h = '<h2>赛前 <small class="dim">未开打的比赛 · 太平洋时间</small></h2><div class="pv-h">今天</div>' + (today.length ? list(today) : '<p class="note">今天的比赛都已开打或结束。</p>') +
       '<div class="pv-h">明天 ' + (+tk.slice(4, 6)) + "/" + (+tk.slice(6)) + "</div>" + (tm ? (tm.length ? list(tm) : '<p class="note">明天没有比赛。</p>') : '<div class="skel"></div><div class="skel"></div>');
     if (box._h === h) return; box._h = h; box.innerHTML = h;

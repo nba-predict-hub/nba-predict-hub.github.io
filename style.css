@@ -691,3 +691,4 @@ body{background:linear-gradient(rgba(51,225,255,.025) 1px,transparent 1px) 0 0/1
 /* 兜底防闪：内容区禁用循环动画、will-change、遮罩和滤镜，只保留直播红点/在线点 */
 main *,main *:before,main *:after{animation-iteration-count:1!important;will-change:auto!important;-webkit-mask-image:none!important;mask-image:none!important;filter:none!important;-webkit-filter:none!important}
 main .live i,main .lvtab.live:before,main .lvst.live i,main .gc-st.on:before,main .lvst .on:before{animation-iteration-count:infinite!important}
+.gc-rec{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}.rec{display:inline-block;background:#ffd23f;color:#1a1200;font-weight:900;font-size:13px;line-height:1.3;padding:3px 9px;border-radius:999px;box-shadow:0 0 0 1px #fff3b0;white-space:nowrap;vertical-align:middle}
