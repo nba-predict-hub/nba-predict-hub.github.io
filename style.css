@@ -682,3 +682,9 @@ background:linear-gradient(180deg,transparent 0,rgba(51,225,255,.06) 70%,rgba(51
 .card.in.done{animation:none!important;opacity:1;transform:none}
 .card.in.done.flash{animation:flashcard 2.2s ease-out 1!important}
 .gcard:after{animation:none!important;opacity:0}.gl-in .gcard:after{animation:scan 3.6s linear 1 forwards!important;opacity:1}
+/* iOS 丢图块：去掉固定+遮罩的网格层（迫使整页内容合成成超大图层），网格改画在 body 背景；卡片上不留常驻 will-change */
+body:before{display:none!important;content:none!important}
+body{background:linear-gradient(rgba(51,225,255,.025) 1px,transparent 1px) 0 0/100% 28px,linear-gradient(90deg,rgba(51,225,255,.022) 1px,transparent 1px) 0 0/28px 100%,radial-gradient(900px 420px at 50% -160px,rgba(30,90,170,.35),transparent 70%),#020409!important}
+.card:before,.hero.card:before,.gcard:after,.lvmid:after,#scanFx{will-change:auto!important}
+.card.in.done:before{animation:none!important;opacity:0}
+#scanFx:not(.go){display:none}
