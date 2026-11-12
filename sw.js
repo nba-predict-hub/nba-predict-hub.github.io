@@ -1,21 +1,23 @@
 /* 主屏 App 的 Service Worker
-   - 页面外壳（HTML/CSS/JS/图标）：HTML 网络优先，断网才用缓存；带 ?v= 的脚本样式按版本缓存
+   - 页面外壳：HTML 网络优先（不走 HTTP 缓存），断网才用缓存；带 ?v= 的脚本/样式/图标按版本缓存，缓存名 shell-版本号，新版激活时删掉所有旧缓存
    - 数据（所有 .json 和 ESPN 接口）：网络优先，有网永远用最新；只有拿不到网络时才返回上次缓存，并加 x-sw-cache（缓存时间），页面据此显示红色“⚠ 数据已旧”
    - version.json 只走网络；发新版时这个文件的 VER 会被提交钩子改掉，SW 立即接管（skipWaiting + clients.claim） */
-var VER = "905baae96b";
+var VER = "64123c3cd9";
 var SHELL = "shell-" + VER, DATA = "data-v1", lastPut = {};
 self.addEventListener("install", function (e) {
-  self.skipWaiting();
+  self.skipWaiting(); // 新版装好立即接管，不等旧页面关掉
   e.waitUntil(caches.open(SHELL).then(function (c) {
     return fetch("./", { cache: "no-store" }).then(function (r) { return r.text(); }).then(function (h) {
-      var urls = ["manifest.json", "icons/icon-192.png", "icons/apple-touch-icon.png", "icons/icon.svg"];
-      (h.match(/(?:src|href)="([^"]+\?v=[^"]+)"/g) || []).forEach(function (m) { urls.push(m.replace(/^(?:src|href)="|"$/g, "")); });
-      return c.put("./", new Response(h, { headers: { "content-type": "text/html; charset=utf-8" } })).then(function () { return c.addAll(urls); });
+      var urls = [];
+      (h.match(/(?:src|href)="([^"]+\?v=[^"]+)"/g) || []).forEach(function (m) { var x = m.replace(/^(?:src|href)="|"$/g, ""); if (!/splash-/.test(x)) urls.push(x); }); // 启动图由 iOS 自己取，不进 SW 缓存
+      return c.put("./", new Response(h, { headers: { "content-type": "text/html; charset=utf-8" } })).then(function () {
+        return Promise.all(urls.map(function (x) { return fetch(new Request(x, { cache: "reload" })).then(function (r) { if (r.ok) return c.put(x, r); }); }));
+      });
     });
   }).catch(function () {}));
 });
-self.addEventListener("activate", function (e) {
-  e.waitUntil(caches.keys().then(function (ks) { return Promise.all(ks.filter(function (k) { return k.indexOf("shell-") === 0 && k !== SHELL; }).map(function (k) { return caches.delete(k); })); }).then(function () { return self.clients.claim(); }));
+self.addEventListener("activate", function (e) { // 删掉所有旧缓存（只留本版外壳 + 离线数据），再接管所有页面
+  e.waitUntil(caches.keys().then(function (ks) { return Promise.all(ks.filter(function (k) { return k !== SHELL && k !== DATA; }).map(function (k) { return caches.delete(k); })); }).then(function () { return self.clients.claim(); }));
 });
 function dataKey(u) { var x = new URL(u); x.searchParams.delete("t"); return x.toString(); }
 self.addEventListener("fetch", function (e) {
@@ -42,10 +44,13 @@ self.addEventListener("fetch", function (e) {
     }));
     return;
   }
-  if (same) { // 外壳静态文件：带版本号的按版本缓存；其余缓存优先、后台更新
-    e.respondWith(caches.open(SHELL).then(function (c) { return c.match(req).then(function (m) {
-      var net = fetch(req).then(function (r) { if (r.ok) c.put(req, r.clone()); return r; });
-      return m || net;
-    }); }));
+  if (same) { // 外壳静态文件：带 ?v= 的按版本缓存（版本变了地址就变）；不带版本号的一律网络优先，断网才用缓存
+    if (/[?&]v=/.test(u.search)) {
+      e.respondWith(caches.open(SHELL).then(function (c) { return c.match(req).then(function (m) {
+        return m || fetch(req).then(function (r) { if (r.ok) c.put(req, r.clone()); return r; });
+      }); }));
+    } else {
+      e.respondWith(fetch(req, { cache: "no-cache" }).catch(function () { return caches.match(req, { ignoreSearch: true }); }));
+    }
   }
 });

@@ -49,12 +49,15 @@
 
   /* ---------- 开场加载动画 ---------- */
   var loaderStart = Date.now();
-  /* ---------- 片头：分镜三段（单一强调色：青蓝 #33e1ff，其余深色 + 镌铬金属） ----------
-     蓄力 0–0.85s：暗场球馆，顶光两下心跳式脉动，镜头缓慢推近；篮球从镜头前（焦外虚化、动态模糊）划弧飞向远处篮筐，低频上升音。
-     爆发 0.85–1.45s：空心入网“唰”，网绳甩动、篮筐平面一圈细冲击波，场灯打亮，镜头轻推；1.05s 镌铬“NBA”从镜头前砸下定位，低音轰鸣 + 金属撞击，焦点从篮筐转到 Logo（背景虚化压暗），1.18s 起高光扫过。
-     定格 1.45–2.15s：青色标题线从中间展开，“智能预测”从线下升起、字距收紧，副标题淡入，Logo 边角一下星芒，镜头继续微推；之后 0.3s 淡出进首页。
-     全部 Canvas 预渲染图层 + 每帧少量绘制（不用逐帧阴影模糊），点一下可跳过；首帧 = 暗场球馆（和 iOS 静态启动图同一画面）。音效 Web Audio 现场合成，和关键帧同一时间轴 */
-  var IN = { T: 2150, hit: 0.85, slam: 1.05, hold: 1.45 };
+  /* ---------- 片头 v3「能量汇聚」：参考 暴雪/星际2 片头（蓝光汇聚成标）、Riot 品牌片头（上升音 + 结尾两下重拍）、漫威/PlayStation（碎片汇聚成金属标）、保时捷开机（精准、干脆的定格）
+     分镜（秒）：
+       点火 0–0.30   黑场中心一个光点 → 拉成横向变形镜头光线（高音“叮” + 次低音起）
+       汇聚 0.30–0.84 镜头高速前冲（放射速度线），520 颗能量粒子从四周螺旋汇聚成一颗旋转的篮球（球缝线条），上升音越来越急
+       蓄压 0.84–1.00 篮球向中心坍缩成一个光核（吸气声）→ 0.92 第一下重拍，速度线骤停，留 0.08 秒屏息
+       爆发 1.00–1.15 第二下重拍（低音轰鸣 + 金属撞击）：横向光晕炸开、细冲击环、粒子回弹拼成“NBA”，镌铬 Logo 接替粒子，轻微震屏
+       定格 1.15–2.20 高光扫过 Logo、余烬缓慢飘散 → 1.45 青色细线展开、“智能预测”升起收字距 → 副标题 → 1.95 星芒；大面积黑色留白，之后 0.3 秒淡出
+     粒子/速度线画在 1 倍分辨率画布（光效本来就是柔的），Logo、光晕、标题是预渲染的高清图层，只改位置和透明度；首帧 = 黑场 + 中心暗光点（与 iOS 静态启动图一致） */
+  var IN = { T: 2200, imp: 0.92, boom: 1.0, hold: 1.45 };
   function loaderFeed() { return Promise.resolve(); }
   function introSound() {
     try { if (localStorage.getItem("nba_intro_sound") === "0") return; } catch (e) {}
@@ -65,154 +68,158 @@
       function env(g, t0, a, peak, d) { g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(peak, t0 + a); g.gain.exponentialRampToValueAtTime(0.0001, t0 + a + d); }
       function osc(type, f0, f1, t0, a, peak, d) { var o = ac.createOscillator(), g = ac.createGain(); o.type = type; o.frequency.setValueAtTime(f0, t0); if (f1 !== f0) o.frequency.exponentialRampToValueAtTime(f1, t0 + a + d); env(g, t0, a, peak, d); o.connect(g); g.connect(M); o.start(t0); o.stop(t0 + a + d + 0.05); }
       function nz(type, f0, f1, q, t0, a, peak, d) { var n = Math.floor(sr * (a + d + 0.06)), b = ac.createBuffer(1, n, sr), c = b.getChannelData(0); for (var i = 0; i < n; i++) c[i] = Math.random() * 2 - 1; var s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain(); s.buffer = b; f.type = type; f.Q.value = q; f.frequency.setValueAtTime(f0, t0); f.frequency.exponentialRampToValueAtTime(f1, t0 + a + d); env(g, t0, a, peak, d); s.connect(f); f.connect(g); g.connect(M); s.start(t0); s.stop(t0 + a + d + 0.05); }
-      var Hh = T + IN.hit, S = T + IN.slam;
-      nz("lowpass", 140, 1500, 0.7, T, 0.8, 0.2, 0.05); osc("sine", 48, 100, T, 0.8, 0.16, 0.05);   // 蓄力：低频上升
-      osc("sine", 78, 36, T + 0.12, 0.008, 0.7, 0.22); osc("sine", 78, 36, T + 0.47, 0.008, 0.85, 0.22); // 两下心跳（对齐顶光脉动）
-      nz("bandpass", 320, 2600, 1.6, T + 0.4, 0.42, 0.3, 0.06);                                    // 球飞过
-      nz("bandpass", 6500, 1700, 0.9, Hh, 0.012, 0.55, 0.32);                                      // 空心入网：唰
-      osc("sine", 96, 30, S, 0.008, 1.0, 0.9); nz("lowpass", 240, 70, 0.7, S, 0.008, 0.6, 0.5);    // Logo 砸下：低音轰鸣
-      [523, 1187, 1873, 2960].forEach(function (f, i) { osc("triangle", f, f, S, 0.004, 0.12 / (i + 1), 0.75 - i * 0.13); }); // 金属撞击
+      var I = T + IN.imp, B = T + IN.boom;
+      osc("sine", 3300, 3300, T, 0.004, 0.08, 0.25); osc("sine", 6600, 6600, T, 0.004, 0.025, 0.15);   // 点火：高音“叮”
+      osc("sine", 40, 58, T, 0.6, 0.35, 0.3);                                                       // 次低音起
+      nz("highpass", 700, 6500, 0.8, T + 0.3, 0.6, 0.16, 0.02); osc("triangle", 90, 360, T + 0.3, 0.6, 0.07, 0.02); // 汇聚：上升音
+      nz("bandpass", 250, 3200, 1.2, T + 0.76, 0.16, 0.35, 0.01);                                  // 蓄压：吸气
+      osc("sine", 130, 48, I, 0.004, 0.85, 0.14); nz("highpass", 2500, 2500, 0.7, I, 0.002, 0.3, 0.03); // 第一下重拍
+      osc("sine", 1800, 2600, I + 0.01, 0.06, 0.02, 0.02);                                          // 屏息里一丝高音
+      osc("sine", 92, 28, B, 0.006, 1.0, 1.0); nz("lowpass", 260, 60, 0.7, B, 0.006, 0.7, 0.55);    // 第二下重拍：低音轰鸣
+      [523, 1187, 1873, 2960].forEach(function (f, i) { osc("triangle", f, f, B, 0.004, 0.11 / (i + 1), 0.8 - i * 0.14); }); // 金属撞击
+      nz("bandpass", 1600, 700, 0.8, B, 0.01, 0.14, 0.8);                                           // 爆发空气尾音
       osc("sine", 2200, 5200, T + 1.18, 0.15, 0.022, 0.3);                                          // 高光扫过
       osc("sine", 1650, 1650, T + IN.hold, 0.004, 0.06, 0.08);                                     // 标题线展开
       setTimeout(function () { try { ac.close(); } catch (e) {} }, 3300);
     } catch (e) {}
   }
   var cv = $("ldCv"), cx = cv && cv.getContext("2d"), W = 0, H = 0, DPR = 1, LY = null;
-  function sizeCv() { if (!cv) return; DPR = Math.min(2, window.devicePixelRatio || 1); W = window.innerWidth; H = window.innerHeight; cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR); cx.setTransform(DPR, 0, 0, DPR, 0, 0); LY = null; }
+  function sizeCv() { if (!cv) return; DPR = Math.min(2, window.devicePixelRatio || 1); W = window.innerWidth; H = window.innerHeight; cv.width = Math.round(W); cv.height = Math.round(H); cx.setTransform(1, 0, 0, 1, 0, 0); LY = null; }
   function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
   function eo(x) { x = clamp(x); return 1 - Math.pow(1 - x, 3); }
   function eio(x) { x = clamp(x); return x * x * (3 - 2 * x); }
   function exo(x) { x = clamp(x); return x === 1 ? 1 : 1 - Math.pow(2, -10 * x); }
-  function pulse(t, c) { var d = t - c; return d < 0 ? 0 : Math.exp(-d * 7) * (1 - Math.exp(-d * 60)); }
-  function cvMk(w, h) { var c = document.createElement("canvas"); c.width = Math.max(1, Math.round(w * DPR)); c.height = Math.max(1, Math.round(h * DPR)); var g = c.getContext("2d"); g.setTransform(DPR, 0, 0, DPR, 0, 0); return { c: c, g: g, w: w, h: h }; }
+  function back(x) { x = clamp(x); var c = 1.9; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); }
+  function cvMk(w, h, d) { d = d || DPR; var c = document.createElement("canvas"); c.width = Math.max(1, Math.round(w * d)); c.height = Math.max(1, Math.round(h * d)); var g = c.getContext("2d"); g.setTransform(d, 0, 0, d, 0, 0); return { c: c, g: g, w: w, h: h }; }
   function blurOf(o, k) { var src = o.c, f = 1; while (f < k) { f *= 2; var s = document.createElement("canvas"); s.width = Math.max(1, Math.round(o.c.width / f)); s.height = Math.max(1, Math.round(o.c.height / f)); var g = s.getContext("2d"); g.imageSmoothingEnabled = true; g.imageSmoothingQuality = "high"; g.drawImage(src, 0, 0, s.width, s.height); src = s; } return { c: src, w: o.w, h: o.h }; }
+  function sv(o, k, v) { if (o[k] !== v) o[k] = v; } // 值没变就不写，少触发合成
+  function st(c, tf, a) { sv(c.style, "transform", tf); sv(c.style, "opacity", a <= 0.004 ? "0" : a.toFixed(3)); }
   function buildLayers() {
-    var u = Math.min(W, H * 0.6) / 390, G = { u: u, x: W / 2, ry: H * 0.3, rx: 34 * u, ly: H * 0.565 }, i, g; G.yB = G.ry + 150 * u; G.vy = G.ry - 70 * u;
-    var sd = 11; function rnd() { sd = (sd * 16807) % 2147483647; return sd / 2147483647; }
-    // 背景：球馆暗场 + 远处看台焦外光斑 + 地板透视线
-    var bg = cvMk(W, H); g = bg.g;
-    var sky = g.createLinearGradient(0, 0, 0, H); sky.addColorStop(0, "#03060e"); sky.addColorStop(0.45, "#071026"); sky.addColorStop(1, "#020309"); g.fillStyle = sky; g.fillRect(0, 0, W, H);
-    for (i = 0; i < 18; i++) { var bx = rnd() * W, by = H * (0.06 + rnd() * 0.2), br = (5 + rnd() * 13) * u, rg = g.createRadialGradient(bx, by, 0, bx, by, br); rg.addColorStop(0, "rgba(140,185,255," + (0.07 + rnd() * 0.1) + ")"); rg.addColorStop(0.7, "rgba(140,185,255,.04)"); rg.addColorStop(1, "rgba(140,185,255,0)"); g.fillStyle = rg; g.fillRect(bx - br, by - br, br * 2, br * 2); }
-    var fl = g.createLinearGradient(0, G.yB, 0, H); fl.addColorStop(0, "#0c1734"); fl.addColorStop(1, "#03060e"); g.fillStyle = fl; g.fillRect(0, G.yB, W, H - G.yB);
-    var eg = g.createLinearGradient(0, G.yB - 2, 0, G.yB + 24 * u); eg.addColorStop(0, "rgba(120,170,255,.16)"); eg.addColorStop(1, "rgba(120,170,255,0)"); g.fillStyle = eg; g.fillRect(0, G.yB - 2, W, 24 * u);
-    function px(x0, y) { return W / 2 + x0 * (y - G.vy) / (G.yB - G.vy); }
-    var yF = G.yB + 210 * u, kF = (yF - G.vy) / (G.yB - G.vy);
-    g.strokeStyle = "rgba(170,200,240,.2)"; g.lineWidth = 1.5 * u; g.beginPath(); g.moveTo(0, G.yB); g.lineTo(W, G.yB);
-    g.moveTo(px(-62 * u, G.yB), G.yB); g.lineTo(px(-62 * u, yF), yF); g.lineTo(px(62 * u, yF), yF); g.lineTo(px(62 * u, G.yB), G.yB); g.stroke();
-    g.beginPath(); g.ellipse(W / 2, yF, 62 * u * kF, 62 * u * kF * 0.24, 0, 0, Math.PI); g.stroke();
-    g.strokeStyle = "rgba(170,200,240,.12)"; g.beginPath(); g.ellipse(W / 2, G.yB, 236 * u, 236 * u * 0.62, 0, 0, Math.PI); g.stroke();
-    // 篮板 + 后半圈篮筐（清晰版 + 虚化版，用来做景深转焦）
-    var hp = cvMk(W, H); g = hp.g; var x = W / 2, ry = G.ry;
-    g.strokeStyle = "rgba(120,135,165,.55)"; g.lineWidth = 3 * u; g.beginPath(); g.moveTo(x - 24 * u, 0); g.lineTo(x - 16 * u, ry - 84 * u); g.moveTo(x + 24 * u, 0); g.lineTo(x + 16 * u, ry - 84 * u); g.stroke();
-    g.fillStyle = "rgba(150,190,255,.07)"; g.fillRect(x - 76 * u, ry - 84 * u, 152 * u, 98 * u);
-    g.save(); g.beginPath(); g.rect(x - 76 * u, ry - 84 * u, 152 * u, 98 * u); g.clip(); var gl = g.createLinearGradient(x - 76 * u, ry - 84 * u, x + 20 * u, ry + 14 * u); gl.addColorStop(0.3, "rgba(255,255,255,0)"); gl.addColorStop(0.45, "rgba(255,255,255,.09)"); gl.addColorStop(0.55, "rgba(255,255,255,0)"); g.fillStyle = gl; g.fillRect(x - 76 * u, ry - 84 * u, 152 * u, 98 * u); g.restore();
-    g.strokeStyle = "rgba(236,242,255,.92)"; g.lineWidth = 3.5 * u; g.strokeRect(x - 76 * u, ry - 84 * u, 152 * u, 98 * u); g.lineWidth = 2.6 * u; g.strokeRect(x - 25 * u, ry - 40 * u, 50 * u, 36 * u);
-    g.fillStyle = "#3a414f"; g.fillRect(x - 7 * u, ry - 6 * u, 14 * u, 6 * u);
-    g.strokeStyle = "#a8420c"; g.lineWidth = 4 * u; g.beginPath(); g.ellipse(x, ry, G.rx, 8 * u, 0, Math.PI, Math.PI * 2); g.stroke();
-    // 镌铬 Logo + 青色辉光（预渲染）
-    var fs = 120 * u, lw = 340 * u, lh = 160 * u, lg = cvMk(lw, lh), gg = cvMk(lw, lh), by0 = lh / 2 + fs * 0.36, font = "900 " + fs + "px 'Helvetica Neue',-apple-system,'Arial Black',Arial,sans-serif";
+    var u = Math.min(W, H * 0.6) / 390, cxp = W / 2, cyp = H * 0.45, i, g, N = 520;
+    var sd = 7; function rnd() { sd = (sd * 16807) % 2147483647; return sd / 2147483647; }
+    var old = $("ldFx"); if (old) old.parentNode.removeChild(old); var ow = $("ldWorld"); if (ow) ow.parentNode.removeChild(ow);
+    var box = document.createElement("div"); box.id = "ldFx"; cv.parentNode.insertBefore(box, cv.nextSibling);
+    function lay(c, w, h, l, tp) { c.className = "ld-spr"; c.style.width = w + "px"; c.style.height = h + "px"; c.style.left = l + "px"; c.style.top = tp + "px"; c.style.opacity = 0; box.appendChild(c); return c; }
+    // 光晕（径向）与横向变形镜头光线：预渲染，靠透明度/缩放动画
+    var bl = cvMk(128, 128, 1); g = bl.g; var rg = g.createRadialGradient(64, 64, 0, 64, 64, 64); rg.addColorStop(0, "rgba(235,252,255,.95)"); rg.addColorStop(0.18, "rgba(120,230,255,.55)"); rg.addColorStop(0.5, "rgba(51,225,255,.14)"); rg.addColorStop(1, "rgba(51,225,255,0)"); g.fillStyle = rg; g.fillRect(0, 0, 128, 128);
+    var BS = 520 * u, bloom = lay(bl.c, BS, BS, cxp - BS / 2, cyp - BS / 2);
+    var fl = cvMk(512, 48, 1); g = fl.g; var hg = g.createLinearGradient(0, 0, 512, 0); hg.addColorStop(0, "rgba(51,225,255,0)"); hg.addColorStop(0.3, "rgba(51,225,255,.35)"); hg.addColorStop(0.47, "rgba(200,245,255,.9)"); hg.addColorStop(0.5, "#ffffff"); hg.addColorStop(0.53, "rgba(200,245,255,.9)"); hg.addColorStop(0.7, "rgba(51,225,255,.35)"); hg.addColorStop(1, "rgba(51,225,255,0)"); g.fillStyle = hg; g.fillRect(0, 0, 512, 48);
+    g.globalCompositeOperation = "destination-in"; var vg = g.createLinearGradient(0, 0, 0, 48); vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(0.45, "rgba(0,0,0,.6)"); vg.addColorStop(0.5, "#000"); vg.addColorStop(0.55, "rgba(0,0,0,.6)"); vg.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = vg; g.fillRect(0, 0, 512, 48);
+    var FW = W * 1.6, FH = 44 * u, flare = lay(fl.c, FW, FH, cxp - FW / 2, cyp - FH / 2);
+    // 镌铬 Logo（高清）+ 青色辉光 + 扫光层
+    var fs = 120 * u, lw = 340 * u, lh = 160 * u, lg = cvMk(lw, lh, Math.min(3, window.devicePixelRatio || 1)), gg = cvMk(lw, lh), by0 = lh / 2 + fs * 0.36, font = "900 " + fs + "px 'Helvetica Neue',-apple-system,'Arial Black',Arial,sans-serif";
     g = lg.g; g.font = font; g.textAlign = "center"; g.textBaseline = "alphabetic";
     g.fillStyle = "#05070c"; g.fillText("NBA", lw / 2, by0 + 3 * u);
     var cg = g.createLinearGradient(0, by0 - fs * 0.72, 0, by0); cg.addColorStop(0, "#ffffff"); cg.addColorStop(0.36, "#cfd8e6"); cg.addColorStop(0.49, "#66748c"); cg.addColorStop(0.51, "#273044"); cg.addColorStop(0.72, "#8d9ab2"); cg.addColorStop(1, "#eef3fb");
-    g.fillStyle = cg; g.fillText("NBA", lw / 2, by0); g.lineWidth = 1.2 * u; g.strokeStyle = "rgba(255,255,255,.35)"; g.strokeText("NBA", lw / 2, by0);
+    g.fillStyle = cg; g.fillText("NBA", lw / 2, by0); g.lineWidth = 1.2 * u; g.strokeStyle = "rgba(160,235,255,.55)"; g.strokeText("NBA", lw / 2, by0);
     gg.g.font = font; gg.g.textAlign = "center"; gg.g.fillStyle = "#33e1ff"; gg.g.fillText("NBA", lw / 2, by0);
-    // 篮球（清晰 + 焦外）
-    var R = 60 * u, bs = cvMk(R * 2, R * 2); g = bs.g; var bgd = g.createRadialGradient(R * 0.7, R * 0.65, R * 0.1, R, R, R); bgd.addColorStop(0, "#f7a560"); bgd.addColorStop(0.55, "#d2601c"); bgd.addColorStop(1, "#5c2306"); g.fillStyle = bgd; g.beginPath(); g.arc(R, R, R, 0, Math.PI * 2); g.fill();
-    g.save(); g.clip(); g.strokeStyle = "rgba(28,10,2,.8)"; g.lineWidth = 2.6 * u; g.beginPath(); g.moveTo(0, R); g.lineTo(2 * R, R); g.moveTo(R, 0); g.lineTo(R, 2 * R); g.stroke();
-    g.beginPath(); g.arc(-R * 0.55, R, R * 1.15, -0.9, 0.9); g.stroke(); g.beginPath(); g.arc(R * 2.55, R, R * 1.15, Math.PI - 0.9, Math.PI + 0.9); g.stroke(); g.restore();
-    bg.g.drawImage(hp.c, 0, 0, W, H);
-    // 灯光层（顶光锥 + 地板光池）、场灯光束层：预渲染好，每帧只改透明度
-    var li = cvMk(W, H); g = li.g; var lc = g.createLinearGradient(0, 0, 0, G.yB + 60 * u); lc.addColorStop(0, "rgba(150,195,255,.2)"); lc.addColorStop(1, "rgba(150,195,255,0)"); g.fillStyle = lc;
-    g.beginPath(); g.moveTo(x - 26 * u, -10); g.lineTo(x + 26 * u, -10); g.lineTo(x + 175 * u, G.yB + 60 * u); g.lineTo(x - 175 * u, G.yB + 60 * u); g.closePath(); g.fill();
-    g.save(); g.translate(x, G.yB + 50 * u); g.scale(1, 0.24); var pg = g.createRadialGradient(0, 0, 0, 0, 0, 210 * u); pg.addColorStop(0, "rgba(120,175,255,.32)"); pg.addColorStop(1, "rgba(120,175,255,0)"); g.fillStyle = pg; g.fillRect(-210 * u, -210 * u, 420 * u, 420 * u); g.restore();
-    var bm = cvMk(W, H); g = bm.g; [-1, 1].forEach(function (d) { var bgr = g.createLinearGradient(x + d * W * 0.55, 0, x, G.yB); bgr.addColorStop(0, "rgba(51,225,255,.16)"); bgr.addColorStop(1, "rgba(51,225,255,0)"); g.fillStyle = bgr; g.beginPath(); g.moveTo(x + d * (W * 0.5), -10); g.lineTo(x + d * (W * 0.5 + 50 * u), -10); g.lineTo(x - d * 20 * u, G.yB); g.lineTo(x + d * 30 * u, G.yB); g.closePath(); g.fill(); });
-    // 背景几层放进 DOM，由合成器做推镜/透明度（手机上走 GPU，省掉每帧整屏重绘）
-    var old = $("ldWorld"); if (old) old.parentNode.removeChild(old);
-    var wd = document.createElement("div"); wd.id = "ldWorld"; wd.style.transformOrigin = x + "px " + (ry + 60 * u) + "px";
-    var sB = blurOf(bg, 8); [bg.c, sB.c, li.c, bm.c].forEach(function (c) { c.className = "ld-lay"; wd.appendChild(c); });
-    cv.parentNode.insertBefore(wd, cv);
-    // 篮球（DOM 精灵：清晰 + 焦外 + 3 个动态模糊残影），篮网/前半圈篮筐画在只覆盖篮筐一带的小画布上
-    function cp(src, w, h) { var o = cvMk(w, h); o.g.drawImage(src.c || src, 0, 0, w, h); return o.c; }
-    function lay(c, w, h, cls) { c.className = cls || "ld-spr"; c.style.width = w + "px"; c.style.height = h + "px"; return c; }
-    var bsB = blurOf(bs, 8), balls = [lay(cp(bsB, R * 2, R * 2), R * 2, R * 2), lay(cp(bsB, R * 2, R * 2), R * 2, R * 2), lay(cp(bsB, R * 2, R * 2), R * 2, R * 2), lay(bsB.c, R * 2, R * 2), lay(bs.c, R * 2, R * 2)];
-    balls.forEach(function (c) { c.style.opacity = 0; wd.appendChild(c); });
-    var hT = ry - 70 * u, hH = 190 * u, hc = cvMk(W, hH); lay(hc.c, W, hH); hc.c.style.top = hT + "px"; wd.appendChild(hc.c);
-    // Logo 组（DOM：残影 ×3、辉光、本体、扫光层），整体随砸下震动
-    var old2 = $("ldLogo"); if (old2) old2.parentNode.removeChild(old2);
-    var lgw = document.createElement("div"); lgw.id = "ldLogo"; var lgl = [cp(lg, lw, lh), cp(lg, lw, lh), cp(lg, lw, lh), blurOf(gg, 16).c, lg.c, cvMk(lw, lh).c];
-    lgl.forEach(function (c) { lay(c, lw, lh); c.style.left = (W / 2 - lw / 2) + "px"; c.style.top = (G.ly - lh / 2) + "px"; c.style.opacity = 0; lgw.appendChild(c); });
-    cv.parentNode.insertBefore(lgw, cv);
-    LY = { G: G, wd: wd, sS: bg.c.style, sB: sB.c.style, sL: li.c.style, sM: bm.c.style, balls: balls, R: R, hc: hc.g, hT: hT, hH: hH, lgw: lgw, lgl: lgl, lg: lg, lt: lgl[5].getContext("2d"), lw: lw, lh: lh, tT: G.ly - 70 * u, tH: 240 * u, tx: 1 };
-    cv.width = Math.round(W * DPR); cv.height = Math.round(LY.tH * DPR); cv.style.top = LY.tT + "px"; cv.style.height = LY.tH + "px"; cv.style.bottom = "auto"; // 文字画布只覆盖标题一带
+    var lx0 = cxp - lw / 2, ly0 = cyp - lh / 2, glow = lay(blurOf(gg, 16).c, lw, lh, lx0, ly0), logo = lay(lg.c, lw, lh, lx0, ly0), swc = cvMk(lw, lh, lg.c.width / lw), sweep = lay(swc.c, lw, lh, lx0, ly0);
+    // 粒子目标：从“NBA”字形里取点
+    var mw = Math.round(lw), mh = Math.round(lh), mc = cvMk(mw, mh, 1), mg = mc.g; mg.font = font; mg.textAlign = "center"; mg.fillStyle = "#fff"; mg.fillText("NBA", mw / 2, by0);
+    var dat = mg.getImageData(0, 0, mw, mh).data, pts = [], step = Math.max(2, Math.round(2.5 * u)); for (var yy = 0; yy < mh; yy += step) for (var xx = 0; xx < mw; xx += step) if (dat[(yy * mw + xx) * 4 + 3] > 128) pts.push([xx - mw / 2, yy - mh / 2]);
+    var P = { N: N, sx: new Float32Array(N), sy: new Float32Array(N), bx: new Float32Array(N), by: new Float32Array(N), bz: new Float32Array(N), ol: new Uint8Array(N), lx: new Float32Array(N), ly: new Float32Array(N), d: new Float32Array(N), d2: new Float32Array(N), em: new Uint8Array(N), wh: new Uint8Array(N), px: new Float32Array(N), py: new Float32Array(N) };
+    var RB = 72 * u, s48 = Math.sin(0.84), c48 = Math.cos(0.84);
+    for (i = 0; i < N; i++) {
+      var a = rnd() * Math.PI * 2, r = (260 + rnd() * 320) * u; P.sx[i] = cxp + Math.cos(a) * r; P.sy[i] = cyp + Math.sin(a) * r * 1.25;
+      var kind = rnd(), s = rnd() * Math.PI * 2, X, Y, Z;
+      if (kind < 0.3) { X = Math.cos(s) * RB; Y = Math.sin(s) * RB; Z = 0; P.ol[i] = 1; }            // 外轮廓（不随球转）
+      else if (kind < 0.48) { X = Math.cos(s) * RB; Y = 0; Z = Math.sin(s) * RB; }                  // 横缝
+      else if (kind < 0.66) { X = 0; Y = Math.cos(s) * RB; Z = Math.sin(s) * RB; }                  // 竖缝
+      else { var sg = rnd() < 0.5 ? -1 : 1; X = sg * c48 * RB; Y = s48 * Math.cos(s) * RB; Z = s48 * Math.sin(s) * RB; } // 两侧弧缝
+      P.bx[i] = X; P.by[i] = Y; P.bz[i] = Z;
+      P.em[i] = rnd() < 0.14 ? 1 : 0; var q = pts[Math.floor(rnd() * pts.length)] || [0, 0];
+      if (P.em[i]) { var ea = rnd() * Math.PI * 2, er = (140 + rnd() * 260) * u; P.lx[i] = Math.cos(ea) * er; P.ly[i] = Math.sin(ea) * er; } else { P.lx[i] = q[0]; P.ly[i] = q[1]; }
+      P.d[i] = rnd() * 0.14; P.d2[i] = rnd() * 0.05; P.wh[i] = rnd() < 0.35 ? 1 : 0; P.px[i] = NaN;
+    }
+    // 速度线
+    var SN = 70, S = { a: new Float32Array(SN), r: new Float32Array(SN), v: new Float32Array(SN) }; for (i = 0; i < SN; i++) { S.a[i] = rnd() * Math.PI * 2; S.r[i] = (20 + rnd() * 200) * u; S.v[i] = 0.6 + rnd() * 0.8; }
+    // 标题画布（高清，只覆盖 Logo 下方一带）
+    var tT = cyp + 30 * u, tH = 170 * u, tc = cvMk(W, tH); tc.c.className = "ld-spr"; tc.c.style.width = W + "px"; tc.c.style.height = tH + "px"; tc.c.style.top = tT + "px"; tc.c.style.left = "0px"; box.appendChild(tc.c);
+    LY = { u: u, x: cxp, y: cyp, RB: RB, P: P, S: S, SN: SN, box: box, bloom: bloom, flare: flare, glow: glow, logo: logo, sweep: sweep, sw: swc.g, swD: lg.c.width / lw, lgC: lg.c, lw: lw, lh: lh, tc: tc.g, tT: tT, tH: tH, tx: 1 };
   }
-  function sv(o, k, v) { if (o[k] !== v) o[k] = v; } // 值没变就不写，少触发合成
-  function st(c, tf, a) { sv(c.style, "transform", tf); sv(c.style, "opacity", a <= 0.004 ? "0" : a.toFixed(3)); }
   function render(t) {
     if (!LY) buildLayers();
-    var G = LY.G, u = G.u, x = G.x, ry = G.ry, dh = t - IN.hit, ds = t - IN.slam, i, l;
-    var s = 1 + 0.08 * eio(t / 2.15) + (dh > 0 ? 0.035 * Math.exp(-dh * 6) * (1 - Math.exp(-dh * 40)) : 0);
-    var shk = ds > 0 ? 5 * u * Math.exp(-ds * 9) * Math.cos(ds * 55) : 0;
-    var amb = Math.min(1, 0.34 + 0.3 * pulse(t, 0.12) + 0.36 * pulse(t, 0.47) + 0.22 * eio((t - 0.55) / 0.3) + (dh > 0 ? 0.5 * exo(dh / 0.08) : 0));
-    var foc = eio(ds / 0.35), dim = 1 - 0.5 * foc;
-    var sp = Math.min(1, 0.25 + 0.75 * pulse(t, 0.12) + 0.9 * pulse(t, 0.47) + (dh > 0 ? 0.7 : 0.3 * eio((t - 0.55) / 0.3))) * dim, bo = dh > 0 ? exo(dh / 0.06) * (0.55 + 0.45 * Math.exp(-dh * 4)) * dim : 0;
-    // 镜头：缓推 + 入网轻推 + 砸 Logo 时阻尼震动（合成器做，不重绘）
-    sv(LY.wd.style, "transform", "translate3d(0," + shk.toFixed(1) + "px,0) scale(" + s.toFixed(4) + ")");
-    sv(LY.sS, "opacity", (amb * dim * (1 - foc)).toFixed(2)); sv(LY.sB, "opacity", (amb * dim * foc).toFixed(2)); sv(LY.sL, "opacity", sp.toFixed(2)); sv(LY.sM, "opacity", bo.toFixed(2));
-    // 篮球：从镜头前（焦外、大）划弧飞向篮筐
-    var R = LY.R, B = LY.balls;
-    function ball(tt) { var k = clamp((tt - 0.35) / (IN.hit - 0.35)), e = Math.pow(k, 1.15), p0x = W * 0.98, p0y = H * 0.92, c1x = W * 0.66, c1y = -H * 0.06, p2x = x, p2y = ry - 5 * u; return { x: (1 - e) * (1 - e) * p0x + 2 * (1 - e) * e * c1x + e * e * p2x, y: (1 - e) * (1 - e) * p0y + 2 * (1 - e) * e * c1y + e * e * p2y, r: 12.5 * u / (0.12 + 0.88 * e), e: e, rot: k * 9 }; }
-    function tf(b, rot) { return "translate3d(" + (b.x - R).toFixed(1) + "px," + (b.y - R).toFixed(1) + "px,0) scale(" + (b.r / R).toFixed(4) + ")" + (rot ? " rotate(" + rot.toFixed(3) + "rad)" : ""); }
-    if (t > 0.35 && t <= IN.hit) {
-      for (i = 0; i < 3; i++) { var gb = ball(t - 0.022 * (3 - i)); st(B[i], tf(gb), 0.13 * (i + 1) / 3); }
-      var b = ball(t), bl = clamp((1 - b.e) * 1.4); st(B[3], tf(b), bl); st(B[4], tf(b, b.rot), 1 - bl);
-    } else { for (i = 0; i < 4; i++) sv(B[i].style, "opacity", "0"); if (dh > 0 && dh < 0.3) { var d = dh / 0.3; st(B[4], tf({ x: x, y: ry - 5 * u + d * 72 * u, r: 12.5 * u }, 9 + d * 2), (1 - d * d) * dim); } else sv(B[4].style, "opacity", "0"); }
-    // 篮网（甩动）+ 前半圈篮筐 + 入网冲击波（小画布）
-    var na = (0.45 + 0.55 * amb) * (1 - 0.65 * foc), A = dh > 0 ? 6 * u * Math.exp(-dh * 4.5) : 0, sw = dh > 0 ? Math.exp(-dh * 5) * Math.sin(dh * 26) : 0, N = 9, pts = [];
-    var hk = (dh > 0 && dh < 1.3 ? dh.toFixed(3) : "s") + na.toFixed(2) + foc.toFixed(2); // 篮网静止时不重绘
-    var g = LY.hc;
-    if (hk !== LY.hk) { LY.hk = hk; g.setTransform(DPR, 0, 0, DPR, 0, -LY.hT * DPR); g.clearRect(0, LY.hT, W, LY.hH); g.globalCompositeOperation = "source-over";
-    for (i = 0; i < N; i++) { var q = i / (N - 1) * 2 - 1, col = []; for (l = 0; l < 4; l++) { var f = l / 3; col.push([x + q * G.rx * (1 - 0.42 * f) + Math.sin(i * 1.3 + dh * 30) * A * f, ry + 6 * u * Math.sqrt(1 - q * q) * (1 - f) + f * 46 * u * (1 + 0.28 * sw)]); } pts.push(col); }
-    g.globalAlpha = na; g.strokeStyle = "rgba(232,238,250,.85)"; g.lineWidth = 1.1 * u; g.beginPath();
-    for (i = 0; i < N; i++) { g.moveTo(pts[i][0][0], pts[i][0][1]); for (l = 1; l < 4; l++) g.lineTo(pts[i][l][0], pts[i][l][1]); }
-    for (i = 0; i < N - 1; i++) for (l = 0; l < 3; l++) { g.moveTo(pts[i][l][0], pts[i][l][1]); g.lineTo(pts[i + 1][l + 1][0], pts[i + 1][l + 1][1]); g.moveTo(pts[i + 1][l][0], pts[i + 1][l][1]); g.lineTo(pts[i][l + 1][0], pts[i][l + 1][1]); }
-    g.stroke();
-    g.globalAlpha = (0.5 + 0.5 * amb) * (1 - 0.55 * foc); g.strokeStyle = "#ff6a1a"; g.lineWidth = 4.5 * u; g.beginPath(); g.ellipse(x, ry, G.rx, 8 * u, 0, 0, Math.PI); g.stroke();
-    g.strokeStyle = "rgba(255,190,140,.7)"; g.lineWidth = 1.2 * u; g.beginPath(); g.ellipse(x, ry - 1.2 * u, G.rx, 8 * u, 0, 0.25, Math.PI - 0.25); g.stroke();
-    if (dh > 0 && dh < 0.55) { var w = eo(dh / 0.55); g.globalCompositeOperation = "lighter"; g.globalAlpha = 0.7 * (1 - dh / 0.55); g.strokeStyle = "#33e1ff"; g.lineWidth = 2 * u * (1 - w) + 0.5; g.beginPath(); g.ellipse(x, ry, G.rx + w * 190 * u, 8 * u + w * 48 * u, 0, 0, Math.PI * 2); g.stroke(); g.globalCompositeOperation = "source-over"; } }
-    // 镌铬 Logo：从镜头前砸下（残影）→ 定位 → 辉光 → 高光扫过
-    var Lg = LY.lgl, lw = LY.lw, lh = LY.lh, k0 = (t - (IN.slam - 0.13)) / 0.13;
-    sv(LY.lgw.style, "transform", "translate3d(0," + (shk * 0.6).toFixed(1) + "px,0)");
-    if (k0 > 0) {
-      var k = clamp(k0), e = k * k * k, sc = ds < 0 ? 2.7 - 1.7 * e : 1 + 0.035 * Math.exp(-ds * 9) * Math.cos(ds * 32) + 0.025 * eio(ds / 1.1), la = clamp(k * 3);
-      for (i = 0; i < 3; i++) st(Lg[i], "scale(" + (sc + 0.22 * (3 - i) * (1 - e)).toFixed(4) + ")", ds < 0 ? 0.12 * la : 0);
-      st(Lg[3], "scale(" + (sc * 1.06).toFixed(4) + ")", ds > 0 ? 0.22 + 0.7 * Math.exp(-ds * 5) : 0);
-      var swp = clamp((t - 1.18) / 0.45), on = swp > 0 && swp < 1;
-      if (on) { var lt = LY.lt; lt.setTransform(DPR, 0, 0, DPR, 0, 0); lt.globalCompositeOperation = "source-over"; lt.clearRect(0, 0, lw, lh); lt.drawImage(LY.lg.c, 0, 0, lw, lh); lt.globalCompositeOperation = "source-atop"; var sx = -60 * u + eio(swp) * (lw + 120 * u), sg = lt.createLinearGradient(sx - 40 * u, 0, sx + 40 * u, 0); sg.addColorStop(0, "rgba(255,255,255,0)"); sg.addColorStop(0.5, "rgba(255,255,255,.9)"); sg.addColorStop(1, "rgba(255,255,255,0)"); lt.fillStyle = sg; lt.save(); lt.transform(1, 0, -0.35, 1, 0.35 * lh / 2, 0); lt.fillRect(sx - 40 * u, 0, 80 * u, lh); lt.restore(); }
-      st(Lg[4], "scale(" + sc.toFixed(4) + ")", on ? 0 : la); st(Lg[5], "scale(" + sc.toFixed(4) + ")", on ? la : 0);
-    } else for (i = 0; i < 6; i++) sv(Lg[i].style, "opacity", "0");
-    // 标题排版（只清 Logo 下方一带）：青色细线从中间展开 → “智能预测”从线下升起、字距收紧 → 副标题淡入；Logo 角上一下星芒
-    var tx = t > IN.hold - 0.02 || Math.abs(t - 1.95) < 0.17; if (!tx && !LY.tx) return; LY.tx = tx; // 标题出现前文字画布不重绘
-    cx.setTransform(DPR, 0, 0, DPR, 0, -LY.tT * DPR); cx.globalAlpha = 1; cx.globalCompositeOperation = "source-over"; cx.clearRect(0, LY.tT, W, LY.tH); cx.translate(0, shk * 0.6);
-    var gt = 1 - Math.abs(t - 1.95) / 0.16;
-    if (gt > 0) { var gx = x + 118 * u * sc, gy = G.ly - 40 * u * sc; cx.globalCompositeOperation = "lighter"; cx.globalAlpha = gt; [[1, 0, 38], [0, 1, 22]].forEach(function (v) { var L2 = v[2] * u, sg2 = cx.createLinearGradient(gx - v[0] * L2, gy - v[1] * L2, gx + v[0] * L2, gy + v[1] * L2); sg2.addColorStop(0, "rgba(180,240,255,0)"); sg2.addColorStop(0.5, "rgba(235,252,255,1)"); sg2.addColorStop(1, "rgba(180,240,255,0)"); cx.fillStyle = sg2; if (v[0]) cx.fillRect(gx - L2, gy - 0.8 * u, L2 * 2, 1.6 * u); else cx.fillRect(gx - 0.8 * u, gy - L2, 1.6 * u, L2 * 2); }); cx.globalCompositeOperation = "source-over"; }
-    // 标题排版：青色细线从中间展开 → “智能预测”从线下升起、字距收紧 → 副标题淡入
+    var u = LY.u, x = LY.x, y = LY.y, P = LY.P, N = P.N, i, db = t - IN.boom;
+    var shk = db > 0 ? 6 * u * Math.exp(-db * 10) * Math.cos(db * 60) : 0;
+    sv(LY.box.style, "transform", "translate3d(0," + shk.toFixed(1) + "px,0)");
+    var g = cx; g.setTransform(1, 0, 0, 1, 0, shk); g.globalCompositeOperation = "source-over"; g.globalAlpha = 1; g.clearRect(0, -20, W, H + 40);
+    g.globalCompositeOperation = "lighter";
+    // 点火：中心光点 → 横向光线
+    if (t < 0.55) {
+      var ig = eo(t / 0.3), fo = 1 - clamp((t - 0.3) / 0.25), hw = 4 * u + ig * W * 0.55;
+      var lgd = g.createLinearGradient(x - hw, 0, x + hw, 0); lgd.addColorStop(0, "rgba(51,225,255,0)"); lgd.addColorStop(0.5, "rgba(225,250,255," + (0.35 + 0.65 * ig) * fo + ")"); lgd.addColorStop(1, "rgba(51,225,255,0)");
+      g.fillStyle = lgd; g.fillRect(x - hw, y - 1 * u, hw * 2, 2 * u);
+      var cr = (3 + 5 * ig) * u, cgd = g.createRadialGradient(x, y, 0, x, y, cr * 3); cgd.addColorStop(0, "rgba(235,252,255," + (0.5 + 0.5 * ig) * fo + ")"); cgd.addColorStop(1, "rgba(51,225,255,0)"); g.fillStyle = cgd; g.fillRect(x - cr * 3, y - cr * 3, cr * 6, cr * 6);
+    }
+    // 速度线：镜头高速前冲，0.92 第一下重拍时骤停
+    if (t > 0.28 && t < IN.imp) {
+      var wk = clamp((t - 0.28) / 0.6), sp = wk * wk, S = LY.S; g.strokeStyle = "rgba(150,225,255," + (0.18 + 0.3 * wk) * clamp((t - 0.28) / 0.1) + ")"; g.lineWidth = 1.2 * u; g.beginPath();
+      for (i = 0; i < LY.SN; i++) { var rr = (S.r[i] + (t - 0.28) * (t - 0.28) * 1400 * u * S.v[i]) % (Math.max(W, H) * 0.75), len = (10 + 160 * sp) * u * S.v[i], ca = Math.cos(S.a[i]), sa = Math.sin(S.a[i]); g.moveTo(x + ca * rr, y + sa * rr); g.lineTo(x + ca * (rr + len), y + sa * (rr + len)); }
+      g.stroke();
+    }
+    // 粒子：螺旋汇聚成旋转篮球 → 坍缩成光核 → 爆开拼成“NBA”
+    if (t > 0.28 && t < 1.75) {
+      var rot = (t - 0.3) * 5.5, cr2 = Math.cos(rot), sr2 = Math.sin(rot), tl = 0.38, ct = Math.cos(tl), stl = Math.sin(tl), im = t > 0.84 ? Math.pow(clamp((t - 0.84) / (IN.imp - 0.84)), 3) : 0, pul = 1 + 0.05 * Math.sin(t * 40) * clamp((t - 0.7) / 0.1);
+      var fadeL = 1 - clamp((t - 1.08) / 0.12), fadeE = 1 - clamp((t - 1.1) / 0.6);
+      for (var pass = 0; pass < 2; pass++) {
+        g.strokeStyle = pass ? "rgba(240,252,255,.95)" : "rgba(51,225,255,.85)"; g.lineWidth = (pass ? 1.3 : 1.6) * u; g.beginPath(); var any = false;
+        for (i = 0; i < N; i++) {
+          if (P.wh[i] !== pass) continue;
+          var X, Y, a = 1;
+          if (t < IN.boom) {
+            var bx = P.bx[i], by = P.by[i], bz = P.bz[i], zz = 0;
+            if (!P.ol[i]) { var x1 = bx * cr2 + bz * sr2, z1 = -bx * sr2 + bz * cr2, y1 = by * ct - z1 * stl; zz = by * stl + z1 * ct; bx = x1; by = y1; }
+            var tx = x + bx * pul * (1 - im), ty = y + by * pul * (1 - im), k = eo((t - 0.3 - P.d[i]) / 0.42), sw = (1 - k) * 1.4, dx = P.sx[i] - x, dy = P.sy[i] - y, rx = x + dx * Math.cos(sw) - dy * Math.sin(sw), ry = y + dx * Math.sin(sw) + dy * Math.cos(sw);
+            X = rx + (tx - rx) * k; Y = ry + (ty - ry) * k; if (zz < 0) a = 0.45;
+            if (t > IN.imp) { X = x; Y = y; }
+            if (k <= 0) continue;
+          } else {
+            var e = P.em[i] ? eo((db - P.d2[i]) / 0.5) : back((db - P.d2[i]) / 0.12);
+            X = x + P.lx[i] * e; Y = y + P.ly[i] * e + (P.em[i] ? -db * 30 * u : 0); a = P.em[i] ? fadeE : fadeL; if (a <= 0) continue;
+          }
+          var ox = P.px[i], oy = P.py[i]; if (ox !== ox || Math.abs(X - ox) + Math.abs(Y - oy) > 260 * u) { ox = X - 1; oy = Y; }
+          if (Math.abs(X - ox) + Math.abs(Y - oy) < 1) ox = X - 1;
+          P.px[i] = X; P.py[i] = Y;
+          if (a < 0.6) continue; // 背面/淡出的少画，省一次描边
+          g.moveTo(ox, oy); g.lineTo(X, Y); any = true;
+        }
+        if (any) g.stroke();
+      }
+      if (t > 1.08 && t < 1.75) { // 淡出阶段的粒子：统一降透明度再画一遍太贵，直接用整体透明度画一次
+        var fa = Math.max(fadeL, fadeE * 0.8); if (fa > 0.02 && fa < 0.6) { g.globalAlpha = fa / 0.6; g.strokeStyle = "rgba(120,230,255,.8)"; g.lineWidth = 1.3 * u; g.beginPath(); for (i = 0; i < N; i++) { if (!P.em[i] && fadeL <= 0) continue; g.moveTo(P.px[i] - 1, P.py[i]); g.lineTo(P.px[i], P.py[i]); } g.stroke(); g.globalAlpha = 1; }
+      }
+    }
+    // 光核（坍缩后屏息 0.92–1.0）
+    if (t > 0.86 && t < IN.boom + 0.05) { var cc = clamp((t - 0.86) / 0.06), cR = (6 + 10 * cc + 3 * Math.sin(t * 90)) * u * (t > IN.boom ? 1 + db * 30 : 1), cgr = g.createRadialGradient(x, y, 0, x, y, cR * 2.5); cgr.addColorStop(0, "rgba(255,255,255," + cc + ")"); cgr.addColorStop(0.35, "rgba(120,235,255," + 0.7 * cc + ")"); cgr.addColorStop(1, "rgba(51,225,255,0)"); g.fillStyle = cgr; g.fillRect(x - cR * 2.5, y - cR * 2.5, cR * 5, cR * 5); }
+    // 冲击环
+    if (db > 0 && db < 0.5) { var w = eo(db / 0.5); g.globalAlpha = 0.8 * (1 - db / 0.5); g.strokeStyle = "#7fe9ff"; g.lineWidth = 2.2 * u * (1 - w) + 0.6; g.beginPath(); g.arc(x, y, 20 * u + w * 300 * u, 0, Math.PI * 2); g.stroke(); g.globalAlpha = 1; }
+    g.globalCompositeOperation = "source-over";
+    // 光晕、横向光线（DOM 图层）
+    st(LY.bloom, "scale(" + (db > 0 ? (0.35 + 1.1 * eo(db / 0.3)).toFixed(3) : "0.3") + ")", db > 0 ? Math.exp(-db * 4.5) : 0);
+    st(LY.flare, "scale(" + (db > 0 ? (0.25 + 0.95 * exo(db / 0.25)).toFixed(3) : "0.25") + ",1)", db > 0 ? 0.25 + 0.75 * Math.exp(-db * 3.5) : 0);
+    // 镌铬 Logo：粒子拼好后接替，回弹定位，高光扫过
+    var la = clamp((db - 0.05) / 0.08), sc = db > 0 ? 1.07 - 0.07 * eo(db / 0.2) + 0.03 * eio((db - 0.2) / 1.0) : 1;
+    var sp2 = clamp((t - 1.18) / 0.45), on = sp2 > 0 && sp2 < 1, lw = LY.lw, lh = LY.lh;
+    if (on) { var sw2 = LY.sw; sw2.setTransform(LY.swD, 0, 0, LY.swD, 0, 0); sw2.globalCompositeOperation = "source-over"; sw2.clearRect(0, 0, lw, lh); sw2.drawImage(LY.lgC, 0, 0, lw, lh); sw2.globalCompositeOperation = "source-atop"; var sx = -60 * u + eio(sp2) * (lw + 120 * u), sgd = sw2.createLinearGradient(sx - 40 * u, 0, sx + 40 * u, 0); sgd.addColorStop(0, "rgba(255,255,255,0)"); sgd.addColorStop(0.5, "rgba(255,255,255,.9)"); sgd.addColorStop(1, "rgba(255,255,255,0)"); sw2.fillStyle = sgd; sw2.save(); sw2.transform(1, 0, -0.35, 1, 0.35 * lh / 2, 0); sw2.fillRect(sx - 40 * u, 0, 80 * u, lh); sw2.restore(); }
+    var tfl = "scale(" + sc.toFixed(4) + ")";
+    st(LY.logo, tfl, on ? 0 : la); st(LY.sweep, tfl, on ? la : 0); st(LY.glow, "scale(" + (sc * 1.05).toFixed(4) + ")", db > 0 ? la * (0.2 + 0.75 * Math.exp(-db * 4)) : 0);
+    // 标题排版
+    var tx2 = t > IN.hold - 0.02 || Math.abs(t - 1.95) < 0.17; if (!tx2 && !LY.tx) return; LY.tx = tx2;
+    var c2 = LY.tc, tT = LY.tT; c2.setTransform(DPR, 0, 0, DPR, 0, -tT * DPR); c2.globalAlpha = 1; c2.globalCompositeOperation = "source-over"; c2.clearRect(0, tT, W, LY.tH);
     var bw = exo((t - IN.hold) / 0.3);
     if (bw > 0) {
-      var barY = G.ly + 58 * u, hw = 92 * u * bw, bgc = cx.createLinearGradient(x - hw, 0, x + hw, 0); bgc.addColorStop(0, "rgba(51,225,255,0)"); bgc.addColorStop(0.2, "#33e1ff"); bgc.addColorStop(0.8, "#33e1ff"); bgc.addColorStop(1, "rgba(51,225,255,0)");
-      cx.globalAlpha = 1; cx.fillStyle = bgc; cx.fillRect(x - hw, barY - 1.25 * u, hw * 2, 2.5 * u);
+      var barY = y + 58 * u, hw2 = 92 * u * bw, bgc = c2.createLinearGradient(x - hw2, 0, x + hw2, 0); bgc.addColorStop(0, "rgba(51,225,255,0)"); bgc.addColorStop(0.2, "#33e1ff"); bgc.addColorStop(0.8, "#33e1ff"); bgc.addColorStop(1, "rgba(51,225,255,0)");
+      c2.fillStyle = bgc; c2.fillRect(x - hw2, barY - 1.25 * u, hw2 * 2, 2.5 * u);
       var tr = eo((t - IN.hold - 0.06) / 0.38);
-      if (tr > 0) {
-        var chs = "智能预测".split(""), fz = 30 * u, gap = 6 * u + 22 * u * (1 - tr), ty = barY + 30 * u + 26 * u * (1 - tr);
-        cx.save(); cx.beginPath(); cx.rect(0, barY + 2 * u, W, 60 * u); cx.clip(); cx.font = "800 " + fz + "px -apple-system,'PingFang SC','Noto Sans CJK SC',sans-serif"; cx.textBaseline = "middle"; cx.textAlign = "center"; cx.globalAlpha = tr; cx.fillStyle = "#eef4ff";
-        var cw = fz, tot = chs.length * cw + (chs.length - 1) * gap; chs.forEach(function (c, j) { cx.fillText(c, x - tot / 2 + cw / 2 + j * (cw + gap), ty); }); cx.restore();
-      }
+      if (tr > 0) { var chs = "智能预测".split(""), fz = 30 * u, gap = 6 * u + 22 * u * (1 - tr), ty2 = barY + 30 * u + 26 * u * (1 - tr); c2.save(); c2.beginPath(); c2.rect(0, barY + 2 * u, W, 60 * u); c2.clip(); c2.font = "800 " + fz + "px -apple-system,'PingFang SC','Noto Sans CJK SC',sans-serif"; c2.textBaseline = "middle"; c2.textAlign = "center"; c2.globalAlpha = tr; c2.fillStyle = "#eef4ff"; var tot = chs.length * fz + (chs.length - 1) * gap; chs.forEach(function (ch, j) { c2.fillText(ch, x - tot / 2 + fz / 2 + j * (fz + gap), ty2); }); c2.restore(); }
       var sa = eo((t - 1.72) / 0.3);
-      if (sa > 0) { var sub = "赛前预测 · 实时比分".split(""), f2 = 12.5 * u, sy = barY + 70 * u; cx.font = "600 " + f2 + "px -apple-system,'PingFang SC','Noto Sans CJK SC',sans-serif"; cx.textBaseline = "middle"; cx.textAlign = "left"; cx.globalAlpha = sa; cx.fillStyle = "#8fa3c4"; var sp2 = 3 * u, ws = sub.map(function (c) { return cx.measureText(c).width; }), tw = ws.reduce(function (a2, b2) { return a2 + b2; }, 0) + sp2 * (sub.length - 1), sx2 = x - tw / 2; sub.forEach(function (c, j) { cx.fillText(c, sx2, sy); sx2 += ws[j] + sp2; }); }
+      if (sa > 0) { var sub = "赛前预测 · 实时比分".split(""), f2 = 12.5 * u, sy = barY + 70 * u; c2.font = "600 " + f2 + "px -apple-system,'PingFang SC','Noto Sans CJK SC',sans-serif"; c2.textBaseline = "middle"; c2.textAlign = "left"; c2.globalAlpha = sa; c2.fillStyle = "#8fa3c4"; var spc = 3 * u, ws = sub.map(function (ch) { return c2.measureText(ch).width; }), tw = ws.reduce(function (p1, p2) { return p1 + p2; }, 0) + spc * (sub.length - 1), sx2 = x - tw / 2; sub.forEach(function (ch, j) { c2.fillText(ch, sx2, sy); sx2 += ws[j] + spc; }); c2.globalAlpha = 1; }
     }
-    cx.globalAlpha = 1;
+    var gt = 1 - Math.abs(t - 1.95) / 0.16;
+    if (gt > 0) { var gx = x + 118 * u * sc, gy = y - 40 * u * sc; cx.globalCompositeOperation = "lighter"; cx.globalAlpha = gt; [[1, 0, 38], [0, 1, 22]].forEach(function (v) { var L2 = v[2] * u, g2 = cx.createLinearGradient(gx - v[0] * L2, gy - v[1] * L2, gx + v[0] * L2, gy + v[1] * L2); g2.addColorStop(0, "rgba(180,240,255,0)"); g2.addColorStop(0.5, "rgba(235,252,255,1)"); g2.addColorStop(1, "rgba(180,240,255,0)"); cx.fillStyle = g2; if (v[0]) cx.fillRect(gx - L2, gy - 0.8 * u, L2 * 2, 1.6 * u); else cx.fillRect(gx - 0.8 * u, gy - L2, 1.6 * u, L2 * 2); }); cx.globalCompositeOperation = "source-over"; cx.globalAlpha = 1; }
   }
   function firstFrame() { if (!cx) return; sizeCv(); render(0); }
-  window.__introAt = function (t) { if (cx) render(t); };
+  window.__introAt = function (t) { if (cx) { if (LY) for (var i = 0; i < LY.P.N; i++) LY.P.px[i] = NaN; render(Math.max(0, t - 0.017)); render(t); } };
   function playIntro(done) {
     if (!cx) return done();
     if (!LY) buildLayers();
@@ -1266,6 +1273,7 @@
     if (!state.data) return;
     if (why !== "online") FR.grace = Date.now();
     if (Date.now() - (FR.wokeAt || 0) < 5000) return; FR.wokeAt = Date.now();
+    try { if (FR.swReg && FR.swReg.update) FR.swReg.update(); } catch (e) {} // 回到前台顺手检查新版 SW
     live.busy = false; pollScores();
     var P = PB(); if (P.inj) P.inj.t = 0; P.irT = 0; P.preT = 0; if (P.kick) P.kick();
     if (Date.now() - (state.okT || 0) > 15000) load(false);
