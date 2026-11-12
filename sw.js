@@ -2,7 +2,7 @@
    - 页面外壳：HTML 网络优先（不走 HTTP 缓存），断网才用缓存；带 ?v= 的脚本/样式/图标按版本缓存，缓存名 shell-版本号，新版激活时删掉所有旧缓存
    - 数据（所有 .json 和 ESPN 接口）：网络优先，有网永远用最新；只有拿不到网络时才返回上次缓存，并加 x-sw-cache（缓存时间），页面据此显示红色“⚠ 数据已旧”
    - version.json 只走网络；发新版时这个文件的 VER 会被提交钩子改掉，SW 立即接管（skipWaiting + clients.claim） */
-var VER = "604991db7f";
+var VER = "260b57debb";
 var SHELL = "shell-" + VER, DATA = "data-v1", lastPut = {};
 self.addEventListener("install", function (e) {
   self.skipWaiting(); // 新版装好立即接管，不等旧页面关掉
