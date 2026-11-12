@@ -1,8 +1,8 @@
 {
- "generated_at": "2026-11-12 11:00:40 PT",
- "generated_at_iso": "2026-11-12T11:00:40.335622-08:00",
+ "generated_at": "2026-11-12 11:05:43 PT",
+ "generated_at_iso": "2026-11-12T11:05:43.192831-08:00",
  "game_date": "2026-11-11",
- "last_lock": "2026-11-12 07:16:54 PT",
+ "last_lock": "2026-11-12 11:01:17 PT",
  "featured": "401909974",
  "model_version": {
   "version": 6,
@@ -69,15 +69,15 @@
    "total": {
     "model": "v6_selected=T6",
     "model_label": "第六版",
-    "lock_time": "2026-11-12 07:16:54 PT",
-    "pick": "OVER",
-    "pick_cn": "大分",
-    "line_total": 222.5,
-    "pred_total": 223.72,
-    "edge": 1.22,
+    "lock_time": "2026-11-12 11:01:17 PT",
+    "pick": "UNDER",
+    "pick_cn": "小分",
+    "line_total": 223.5,
+    "pred_total": 223.31,
+    "edge": 0.19,
     "band": "low",
     "band_cn": "低",
-    "pick_text": "大 222.5",
+    "pick_text": "小 223.5",
     "line_source": "DraftKings 锁定时的盘口",
     "result": null
    },
@@ -86,18 +86,18 @@
      {
       "book": "DraftKings",
       "via": "",
-      "time": "开赛前 07:16",
+      "time": "开赛前 11:01",
       "open_home": 9.5,
-      "cur_home": 8.5,
+      "cur_home": 7.5,
       "total_open": 221.5,
-      "total_cur": 222.5,
+      "total_cur": 223.5,
       "in_median": true
      }
     ],
-    "median_home": 8.5,
-    "median_text": "76人 -8.5",
+    "median_home": 7.5,
+    "median_text": "76人 -7.5",
     "median_n": 1,
-    "median_total": 222.5,
+    "median_total": 223.5,
     "median_total_n": 1,
     "spread_range": null,
     "source": "暂时没有实时盘口，用模型锁定时的盘口",
@@ -122,24 +122,24 @@
    "comps": [
     {
      "name": "第六版",
-     "pred_home_margin": 5.76,
-     "source": "我们的模型，07:16 锁定",
+     "pred_home_margin": 7.05,
+     "source": "我们的模型，11:01 锁定",
      "official": true,
      "lean": "TOR",
      "lean_cn": "猛龙"
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_home_margin": 8.2,
-     "source": "我们的模型，07:16 锁定",
+     "pred_home_margin": 7.16,
+     "source": "我们的模型，11:01 锁定",
      "official": false,
      "lean": "TOR",
      "lean_cn": "猛龙"
     },
     {
      "name": "第六版备选（参考开盘）",
-     "pred_home_margin": 8.69,
-     "source": "我们的模型，07:16 锁定",
+     "pred_home_margin": 9.08,
+     "source": "我们的模型，11:01 锁定",
      "official": false,
      "lean": "PHI",
      "lean_cn": "76人"
@@ -169,17 +169,17 @@
    "total_comps": [
     {
      "name": "第六版",
-     "pred_total": 223.72,
+     "pred_total": 223.31,
      "official": true
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_total": 222.56,
+     "pred_total": 223.7,
      "official": false
     },
     {
      "name": "第六版备选（参考开盘）",
-     "pred_total": 220.78,
+     "pred_total": 220.51,
      "official": false
     }
    ],
@@ -225,12 +225,12 @@
    "total": {
     "model": "v6_selected=T6",
     "model_label": "第六版",
-    "lock_time": "2026-11-12 07:16:54 PT",
+    "lock_time": "2026-11-12 11:01:17 PT",
     "pick": "UNDER",
     "pick_cn": "小分",
     "line_total": 220.5,
-    "pred_total": 218.8,
-    "edge": 1.7,
+    "pred_total": 219.03,
+    "edge": 1.47,
     "band": "low",
     "band_cn": "低",
     "pick_text": "小 220.5",
@@ -289,24 +289,24 @@
    "comps": [
     {
      "name": "第六版",
-     "pred_home_margin": -10.76,
-     "source": "我们的模型，07:16 锁定",
+     "pred_home_margin": -10.9,
+     "source": "我们的模型，11:01 锁定",
      "official": true,
      "lean": "DET",
      "lean_cn": "活塞"
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_home_margin": -9.94,
-     "source": "我们的模型，07:16 锁定",
+     "pred_home_margin": -9.96,
+     "source": "我们的模型，11:01 锁定",
      "official": false,
      "lean": "DET",
      "lean_cn": "活塞"
     },
     {
      "name": "第六版备选（参考开盘）",
-     "pred_home_margin": -9.81,
-     "source": "我们的模型，07:16 锁定",
+     "pred_home_margin": -9.93,
+     "source": "我们的模型，11:01 锁定",
      "official": false,
      "lean": "DET",
      "lean_cn": "活塞"
@@ -336,17 +336,17 @@
    "total_comps": [
     {
      "name": "第六版",
-     "pred_total": 218.8,
+     "pred_total": 219.03,
      "official": true
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_total": 221.22,
+     "pred_total": 221.2,
      "official": false
     },
     {
      "name": "第六版备选（参考开盘）",
-     "pred_total": 220.16,
+     "pred_total": 220.34,
      "official": false
     }
    ],
@@ -392,12 +392,12 @@
    "total": {
     "model": "v6_selected=T6",
     "model_label": "第六版",
-    "lock_time": "2026-11-12 07:16:54 PT",
+    "lock_time": "2026-11-12 11:01:17 PT",
     "pick": "UNDER",
     "pick_cn": "小分",
     "line_total": 225.5,
-    "pred_total": 224.75,
-    "edge": 0.75,
+    "pred_total": 224.72,
+    "edge": 0.78,
     "band": "low",
     "band_cn": "低",
     "pick_text": "小 225.5",
@@ -456,24 +456,24 @@
    "comps": [
     {
      "name": "第六版",
-     "pred_home_margin": 7.77,
-     "source": "我们的模型，07:16 锁定",
+     "pred_home_margin": 7.8,
+     "source": "我们的模型，11:01 锁定",
      "official": true,
      "lean": "MIN",
      "lean_cn": "森林狼"
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_home_margin": 5.92,
-     "source": "我们的模型，07:16 锁定",
+     "pred_home_margin": 5.93,
+     "source": "我们的模型，11:01 锁定",
      "official": false,
      "lean": "MIN",
      "lean_cn": "森林狼"
     },
     {
      "name": "第六版备选（参考开盘）",
-     "pred_home_margin": 5.94,
-     "source": "我们的模型，07:16 锁定",
+     "pred_home_margin": 5.96,
+     "source": "我们的模型，11:01 锁定",
      "official": false,
      "lean": "MIN",
      "lean_cn": "森林狼"
@@ -503,7 +503,7 @@
    "total_comps": [
     {
      "name": "第六版",
-     "pred_total": 224.75,
+     "pred_total": 224.72,
      "official": true
     },
     {
@@ -513,7 +513,7 @@
     },
     {
      "name": "第六版备选（参考开盘）",
-     "pred_total": 225.86,
+     "pred_total": 225.83,
      "official": false
     }
    ],
@@ -559,12 +559,12 @@
    "total": {
     "model": "v6_selected=T6",
     "model_label": "第六版",
-    "lock_time": "2026-11-12 07:16:54 PT",
+    "lock_time": "2026-11-12 11:01:17 PT",
     "pick": "OVER",
     "pick_cn": "大分",
     "line_total": 214.5,
-    "pred_total": 215.71,
-    "edge": 1.21,
+    "pred_total": 215.75,
+    "edge": 1.25,
     "band": "low",
     "band_cn": "低",
     "pick_text": "大 214.5",
@@ -623,27 +623,27 @@
    "comps": [
     {
      "name": "第六版",
-     "pred_home_margin": 6.75,
-     "source": "我们的模型，07:16 锁定",
+     "pred_home_margin": 6.77,
+     "source": "我们的模型，11:01 锁定",
      "official": true,
      "lean": "CHA",
      "lean_cn": "黄蜂"
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_home_margin": 6.68,
-     "source": "我们的模型，07:16 锁定",
+     "pred_home_margin": 6.69,
+     "source": "我们的模型，11:01 锁定",
      "official": false,
      "lean": "CHA",
      "lean_cn": "黄蜂"
     },
     {
      "name": "第六版备选（参考开盘）",
-     "pred_home_margin": 7.49,
-     "source": "我们的模型，07:16 锁定",
+     "pred_home_margin": 7.51,
+     "source": "我们的模型，11:01 锁定",
      "official": false,
-     "lean": "CHA",
-     "lean_cn": "黄蜂"
+     "lean": "PHX",
+     "lean_cn": "太阳"
     }
    ],
    "alt_pick": null,
@@ -664,23 +664,23 @@
     "pct": 33.3
    },
    "lean_count": {
-    "CHA": 3,
-    "PHX": 0
+    "CHA": 2,
+    "PHX": 1
    },
    "total_comps": [
     {
      "name": "第六版",
-     "pred_total": 215.71,
+     "pred_total": 215.75,
      "official": true
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_total": 214.44,
+     "pred_total": 214.45,
      "official": false
     },
     {
      "name": "第六版备选（参考开盘）",
-     "pred_total": 212.4,
+     "pred_total": 212.47,
      "official": false
     }
    ],
@@ -3069,7 +3069,7 @@
      "pick_text": "小 225.5",
      "line_total": 225.5,
      "model_label": "第六版",
-     "lock_time": "2026-11-12 07:16:54 PT",
+     "lock_time": "2026-11-12 11:01:17 PT",
      "result": null
     }
    },
@@ -3090,11 +3090,11 @@
      "result": null
     },
     "total": {
-     "pick": "OVER",
-     "pick_text": "大 222.5",
-     "line_total": 222.5,
+     "pick": "UNDER",
+     "pick_text": "小 223.5",
+     "line_total": 223.5,
      "model_label": "第六版",
-     "lock_time": "2026-11-12 07:16:54 PT",
+     "lock_time": "2026-11-12 11:01:17 PT",
      "result": null
     }
    },
@@ -3119,7 +3119,7 @@
      "pick_text": "小 220.5",
      "line_total": 220.5,
      "model_label": "第六版",
-     "lock_time": "2026-11-12 07:16:54 PT",
+     "lock_time": "2026-11-12 11:01:17 PT",
      "result": null
     }
    },
@@ -3144,7 +3144,7 @@
      "pick_text": "大 214.5",
      "line_total": 214.5,
      "model_label": "第六版",
-     "lock_time": "2026-11-12 07:16:54 PT",
+     "lock_time": "2026-11-12 11:01:17 PT",
      "result": null
     }
    }
@@ -3168,6 +3168,13 @@
   }
  ],
  "feed": [
+  {
+   "sort": "2026-11-12 11:01:17",
+   "time": "11月12日 11:01",
+   "tag": "模型锁定",
+   "text": "第六版锁定 4 场：猛龙@76人、活塞@奇才、独行侠@森林狼、黄蜂@太阳",
+   "source": "我们的模型"
+  },
   {
    "sort": "2026-11-12 07:16:54",
    "time": "11月12日 07:16",
@@ -4068,7 +4075,7 @@
   {
    "name": "我们的赛前锁定记录",
    "file": "out/live_ledger.csv",
-   "updated": "2026-11-12 07:16 PT",
+   "updated": "2026-11-12 11:01 PT",
    "note": "每场开赛前锁定的方向、盘口、把握度，赛后填对错",
    "exists": true
   },
