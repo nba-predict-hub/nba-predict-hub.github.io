@@ -959,7 +959,7 @@
     if (live.busy) return; // 上一个请求没回来就不发下一个
     live.busy = true; live.busyAt = Date.now();
     var sbT0 = performance.now();
-    sbFetch(SB_URL + "?t=" + Date.now(), 5000).then(function (r) { if (!r.ok) throw new Error(r.status); FR.lat = r.headers.get("x-sw-cache") ? null : Math.round(performance.now() - sbT0); FR.latAt = Date.now(); return r.json(); }) /* 顶部状态栏：最近一次 scoreboard 请求的真实耗时（离线用缓存时不算） */.then(function (d) {
+    sbFetch(SB_URL + "?dates=" + ptParts(new Date()).key + "&t=" + Date.now(), 5000).then(function (r) { if (!r.ok) throw new Error(r.status); FR.lat = r.headers.get("x-sw-cache") ? null : Math.round(performance.now() - sbT0); FR.latAt = Date.now(); return r.json(); }) /* 顶部状态栏：最近一次 scoreboard 请求的真实耗时（离线用缓存时不算） */.then(function (d) {
       live.fastMs = 2000; live.okT = Date.now(); stampScore();
       var nb = parseSB(d), prev = {};
       (state.data ? allGames() : []).forEach(function (g) { var s = liveFor(g); if (s) prev[g.espn_id] = s; });
