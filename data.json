@@ -1,8 +1,8 @@
 {
- "generated_at": "2026-11-13 10:01:16 PT",
- "generated_at_iso": "2026-11-13T10:01:16.138949-08:00",
+ "generated_at": "2026-11-13 11:05:37 PT",
+ "generated_at_iso": "2026-11-13T11:05:37.793294-08:00",
  "game_date": "2026-11-11",
- "last_lock": "2026-11-13 07:14:16 PT",
+ "last_lock": "2026-11-13 11:04:34 PT",
  "featured": "401909974",
  "model_version": {
   "version": 6,
@@ -69,7 +69,7 @@
    "total": {
     "model": "v6_selected=T6",
     "model_label": "第六版",
-    "lock_time": "2026-11-13 07:14:16 PT",
+    "lock_time": "2026-11-13 11:04:34 PT",
     "pick": "OVER",
     "pick_cn": "大分",
     "line_total": 219.5,
@@ -120,7 +120,15 @@
      "DraftKings",
      "平博"
     ],
-    "crown": null,
+    "crown": {
+     "spread_open": "待读取",
+     "spread_now": "待读取",
+     "total_open": "待读取",
+     "total_now": "待读取",
+     "leisu_spread": "待读取",
+     "leisu_total": "待读取",
+     "read_at": "2026-11-13 10:02 PT"
+    },
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -128,7 +136,7 @@
     {
      "name": "第六版",
      "pred_home_margin": -10.16,
-     "source": "我们的模型，07:14 锁定",
+     "source": "我们的模型，11:04 锁定",
      "official": true,
      "lean": "NYK",
      "lean_cn": "尼克斯"
@@ -136,7 +144,7 @@
     {
      "name": "第六版备选（参考收盘）",
      "pred_home_margin": -9.9,
-     "source": "我们的模型，07:14 锁定",
+     "source": "我们的模型，11:04 锁定",
      "official": false,
      "lean": "NYK",
      "lean_cn": "尼克斯"
@@ -144,7 +152,7 @@
     {
      "name": "第六版备选（参考开盘）",
      "pred_home_margin": -6.25,
-     "source": "我们的模型，07:14 锁定",
+     "source": "我们的模型，11:04 锁定",
      "official": false,
      "lean": "IND",
      "lean_cn": "步行者"
@@ -230,7 +238,7 @@
    "total": {
     "model": "v6_selected=T6",
     "model_label": "第六版",
-    "lock_time": "2026-11-13 07:14:16 PT",
+    "lock_time": "2026-11-13 11:04:34 PT",
     "pick": "UNDER",
     "pick_cn": "小分",
     "line_total": 224.5,
@@ -281,7 +289,15 @@
      "DraftKings",
      "平博"
     ],
-    "crown": null,
+    "crown": {
+     "spread_open": "待读取",
+     "spread_now": "待读取",
+     "total_open": "待读取",
+     "total_now": "待读取",
+     "leisu_spread": "待读取",
+     "leisu_total": "待读取",
+     "read_at": "2026-11-13 10:02 PT"
+    },
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -289,23 +305,23 @@
     {
      "name": "第六版",
      "pred_home_margin": 9.66,
-     "source": "我们的模型，07:14 锁定",
+     "source": "我们的模型，11:04 锁定",
      "official": true,
      "lean": "ORL",
      "lean_cn": "魔术"
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_home_margin": 8.34,
-     "source": "我们的模型，07:14 锁定",
+     "pred_home_margin": 9.36,
+     "source": "我们的模型，11:04 锁定",
      "official": false,
-     "lean": "MIL",
-     "lean_cn": "雄鹿"
+     "lean": "ORL",
+     "lean_cn": "魔术"
     },
     {
      "name": "第六版备选（参考开盘）",
      "pred_home_margin": 9.35,
-     "source": "我们的模型，07:14 锁定",
+     "source": "我们的模型，11:04 锁定",
      "official": false,
      "lean": "ORL",
      "lean_cn": "魔术"
@@ -329,8 +345,8 @@
     "pct": 14.3
    },
    "lean_count": {
-    "MIL": 1,
-    "ORL": 2
+    "MIL": 0,
+    "ORL": 3
    },
    "total_comps": [
     {
@@ -391,12 +407,12 @@
    "total": {
     "model": "v6_selected=T6",
     "model_label": "第六版",
-    "lock_time": "2026-11-13 07:14:16 PT",
+    "lock_time": "2026-11-13 11:04:34 PT",
     "pick": "UNDER",
     "pick_cn": "小分",
     "line_total": 235.5,
-    "pred_total": 235.23,
-    "edge": 0.27,
+    "pred_total": 235.08,
+    "edge": 0.42,
     "band": "low",
     "band_cn": "低",
     "pick_text": "小 235.5",
@@ -442,31 +458,39 @@
      "DraftKings",
      "平博"
     ],
-    "crown": null,
+    "crown": {
+     "spread_open": "待读取",
+     "spread_now": "待读取",
+     "total_open": "待读取",
+     "total_now": "待读取",
+     "leisu_spread": "待读取",
+     "leisu_total": "待读取",
+     "read_at": "2026-11-13 10:02 PT"
+    },
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
    "comps": [
     {
      "name": "第六版",
-     "pred_home_margin": -3.62,
-     "source": "我们的模型，07:14 锁定",
+     "pred_home_margin": -3.79,
+     "source": "我们的模型，11:04 锁定",
      "official": true,
      "lean": "CLE",
      "lean_cn": "骑士"
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_home_margin": 1.14,
-     "source": "我们的模型，07:14 锁定",
+     "pred_home_margin": 1.16,
+     "source": "我们的模型，11:04 锁定",
      "official": false,
      "lean": "CLE",
      "lean_cn": "骑士"
     },
     {
      "name": "第六版备选（参考开盘）",
-     "pred_home_margin": -1.66,
-     "source": "我们的模型，07:14 锁定",
+     "pred_home_margin": -1.69,
+     "source": "我们的模型，11:04 锁定",
      "official": false,
      "lean": "CLE",
      "lean_cn": "骑士"
@@ -496,17 +520,17 @@
    "total_comps": [
     {
      "name": "第六版",
-     "pred_total": 235.23,
+     "pred_total": 235.08,
      "official": true
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_total": 235.16,
+     "pred_total": 235.19,
      "official": false
     },
     {
      "name": "第六版备选（参考开盘）",
-     "pred_total": 236.89,
+     "pred_total": 236.81,
      "official": false
     }
    ],
@@ -552,7 +576,7 @@
    "total": {
     "model": "v6_selected=T6",
     "model_label": "第六版",
-    "lock_time": "2026-11-13 07:14:16 PT",
+    "lock_time": "2026-11-13 11:04:34 PT",
     "pick": "UNDER",
     "pick_cn": "小分",
     "line_total": 245.5,
@@ -603,7 +627,15 @@
      "DraftKings",
      "平博"
     ],
-    "crown": null,
+    "crown": {
+     "spread_open": "待读取",
+     "spread_now": "待读取",
+     "total_open": "待读取",
+     "total_now": "待读取",
+     "leisu_spread": "待读取",
+     "leisu_total": "待读取",
+     "read_at": "2026-11-13 10:02 PT"
+    },
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -611,23 +643,23 @@
     {
      "name": "第六版",
      "pred_home_margin": -8.06,
-     "source": "我们的模型，07:14 锁定",
+     "source": "我们的模型，11:04 锁定",
      "official": true,
      "lean": "ATL",
      "lean_cn": "老鹰"
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_home_margin": -6.29,
-     "source": "我们的模型，07:14 锁定",
+     "pred_home_margin": -7.31,
+     "source": "我们的模型，11:04 锁定",
      "official": false,
-     "lean": "CHI",
-     "lean_cn": "公牛"
+     "lean": "ATL",
+     "lean_cn": "老鹰"
     },
     {
      "name": "第六版备选（参考开盘）",
      "pred_home_margin": -7.48,
-     "source": "我们的模型，07:14 锁定",
+     "source": "我们的模型，11:04 锁定",
      "official": false,
      "lean": "ATL",
      "lean_cn": "老鹰"
@@ -651,8 +683,8 @@
     "pct": 14.3
    },
    "lean_count": {
-    "ATL": 2,
-    "CHI": 1
+    "ATL": 3,
+    "CHI": 0
    },
    "total_comps": [
     {
@@ -713,15 +745,15 @@
    "total": {
     "model": "v6_selected=T6",
     "model_label": "第六版",
-    "lock_time": "2026-11-13 07:14:16 PT",
+    "lock_time": "2026-11-13 11:04:34 PT",
     "pick": "OVER",
     "pick_cn": "大分",
-    "line_total": 236.5,
-    "pred_total": 238.69,
-    "edge": 2.19,
-    "band": "low",
-    "band_cn": "低",
-    "pick_text": "大 236.5",
+    "line_total": 235.5,
+    "pred_total": 238.93,
+    "edge": 3.43,
+    "band": "mid",
+    "band_cn": "中",
+    "pick_text": "大 235.5",
     "line_source": "DraftKings 锁定时的盘口",
     "result": null
    },
@@ -764,31 +796,39 @@
      "DraftKings",
      "平博"
     ],
-    "crown": null,
+    "crown": {
+     "spread_open": "待读取",
+     "spread_now": "待读取",
+     "total_open": "待读取",
+     "total_now": "待读取",
+     "leisu_spread": "待读取",
+     "leisu_total": "待读取",
+     "read_at": "2026-11-13 10:02 PT"
+    },
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
    "comps": [
     {
      "name": "第六版",
-     "pred_home_margin": -3.56,
-     "source": "我们的模型，07:14 锁定",
+     "pred_home_margin": -3.23,
+     "source": "我们的模型，11:04 锁定",
      "official": true,
-     "lean": "MEM",
-     "lean_cn": "灰熊"
+     "lean": "NOP",
+     "lean_cn": "鹈鹕"
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_home_margin": -2.17,
-     "source": "我们的模型，07:14 锁定",
+     "pred_home_margin": -3.22,
+     "source": "我们的模型，11:04 锁定",
      "official": false,
      "lean": "NOP",
      "lean_cn": "鹈鹕"
     },
     {
      "name": "第六版备选（参考开盘）",
-     "pred_home_margin": -4.24,
-     "source": "我们的模型，07:14 锁定",
+     "pred_home_margin": -4.15,
+     "source": "我们的模型，11:04 锁定",
      "official": false,
      "lean": "MEM",
      "lean_cn": "灰熊"
@@ -812,23 +852,23 @@
     "pct": 14.3
    },
    "lean_count": {
-    "MEM": 2,
-    "NOP": 1
+    "MEM": 1,
+    "NOP": 2
    },
    "total_comps": [
     {
      "name": "第六版",
-     "pred_total": 238.69,
+     "pred_total": 238.93,
      "official": true
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_total": 236.5,
+     "pred_total": 235.35,
      "official": false
     },
     {
      "name": "第六版备选（参考开盘）",
-     "pred_total": 238.63,
+     "pred_total": 238.75,
      "official": false
     }
    ],
@@ -874,15 +914,15 @@
    "total": {
     "model": "v6_selected=T6",
     "model_label": "第六版",
-    "lock_time": "2026-11-13 07:14:16 PT",
+    "lock_time": "2026-11-13 11:04:34 PT",
     "pick": "OVER",
     "pick_cn": "大分",
-    "line_total": 219.5,
+    "line_total": 221.5,
     "pred_total": 223.07,
-    "edge": 3.57,
-    "band": "mid",
-    "band_cn": "中",
-    "pick_text": "大 219.5",
+    "edge": 1.57,
+    "band": "low",
+    "band_cn": "低",
+    "pick_text": "大 221.5",
     "line_source": "DraftKings 锁定时的盘口",
     "result": null
    },
@@ -925,7 +965,15 @@
      "DraftKings",
      "平博"
     ],
-    "crown": null,
+    "crown": {
+     "spread_open": "待读取",
+     "spread_now": "待读取",
+     "total_open": "待读取",
+     "total_now": "待读取",
+     "leisu_spread": "待读取",
+     "leisu_total": "待读取",
+     "read_at": "2026-11-13 10:02 PT"
+    },
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -933,15 +981,15 @@
     {
      "name": "第六版",
      "pred_home_margin": 18.06,
-     "source": "我们的模型，07:14 锁定",
+     "source": "我们的模型，11:04 锁定",
      "official": true,
      "lean": "HOU",
      "lean_cn": "火箭"
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_home_margin": 15.13,
-     "source": "我们的模型，07:14 锁定",
+     "pred_home_margin": 14.12,
+     "source": "我们的模型，11:04 锁定",
      "official": false,
      "lean": "UTA",
      "lean_cn": "爵士"
@@ -949,7 +997,7 @@
     {
      "name": "第六版备选（参考开盘）",
      "pred_home_margin": 17.61,
-     "source": "我们的模型，07:14 锁定",
+     "source": "我们的模型，11:04 锁定",
      "official": false,
      "lean": "HOU",
      "lean_cn": "火箭"
@@ -984,7 +1032,7 @@
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_total": 219.04,
+     "pred_total": 221.23,
      "official": false
     },
     {
@@ -1035,15 +1083,15 @@
    "total": {
     "model": "v6_selected=T6",
     "model_label": "第六版",
-    "lock_time": "2026-11-13 07:14:16 PT",
+    "lock_time": "2026-11-13 11:04:34 PT",
     "pick": "OVER",
     "pick_cn": "大分",
-    "line_total": 217.5,
+    "line_total": 218.5,
     "pred_total": 222.01,
-    "edge": 4.51,
+    "edge": 3.51,
     "band": "mid",
     "band_cn": "中",
-    "pick_text": "大 217.5",
+    "pick_text": "大 218.5",
     "line_source": "DraftKings 锁定时的盘口",
     "result": null
    },
@@ -1086,7 +1134,15 @@
      "DraftKings",
      "平博"
     ],
-    "crown": null,
+    "crown": {
+     "spread_open": "待读取",
+     "spread_now": "待读取",
+     "total_open": "待读取",
+     "total_now": "待读取",
+     "leisu_spread": "待读取",
+     "leisu_total": "待读取",
+     "read_at": "2026-11-13 10:02 PT"
+    },
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -1094,23 +1150,23 @@
     {
      "name": "第六版",
      "pred_home_margin": 14.93,
-     "source": "我们的模型，07:14 锁定",
+     "source": "我们的模型，11:04 锁定",
      "official": true,
      "lean": "SAS",
      "lean_cn": "马刺"
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_home_margin": 12.45,
-     "source": "我们的模型，07:14 锁定",
+     "pred_home_margin": 13.47,
+     "source": "我们的模型，11:04 锁定",
      "official": false,
-     "lean": "GSW",
-     "lean_cn": "勇士"
+     "lean": "SAS",
+     "lean_cn": "马刺"
     },
     {
      "name": "第六版备选（参考开盘）",
      "pred_home_margin": 13.69,
-     "source": "我们的模型，07:14 锁定",
+     "source": "我们的模型，11:04 锁定",
      "official": false,
      "lean": "SAS",
      "lean_cn": "马刺"
@@ -1134,8 +1190,8 @@
     "pct": 14.3
    },
    "lean_count": {
-    "GSW": 1,
-    "SAS": 2
+    "GSW": 0,
+    "SAS": 3
    },
    "total_comps": [
     {
@@ -1145,7 +1201,7 @@
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_total": 216.32,
+     "pred_total": 217.41,
      "official": false
     },
     {
@@ -1196,15 +1252,15 @@
    "total": {
     "model": "v6_selected=T6",
     "model_label": "第六版",
-    "lock_time": "2026-11-13 07:14:16 PT",
+    "lock_time": "2026-11-13 11:04:34 PT",
     "pick": "OVER",
     "pick_cn": "大分",
-    "line_total": 228.5,
+    "line_total": 229.5,
     "pred_total": 231.58,
-    "edge": 3.08,
-    "band": "mid",
-    "band_cn": "中",
-    "pick_text": "大 228.5",
+    "edge": 2.08,
+    "band": "low",
+    "band_cn": "低",
+    "pick_text": "大 229.5",
     "line_source": "DraftKings 锁定时的盘口",
     "result": null
    },
@@ -1247,7 +1303,15 @@
      "DraftKings",
      "平博"
     ],
-    "crown": null,
+    "crown": {
+     "spread_open": "待读取",
+     "spread_now": "待读取",
+     "total_open": "待读取",
+     "total_now": "待读取",
+     "leisu_spread": "待读取",
+     "leisu_total": "待读取",
+     "read_at": "2026-11-13 10:02 PT"
+    },
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -1255,15 +1319,15 @@
     {
      "name": "第六版",
      "pred_home_margin": -12.75,
-     "source": "我们的模型，07:14 锁定",
+     "source": "我们的模型，11:04 锁定",
      "official": true,
      "lean": "POR",
      "lean_cn": "开拓者"
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_home_margin": -9.5,
-     "source": "我们的模型，07:14 锁定",
+     "pred_home_margin": -10.51,
+     "source": "我们的模型，11:04 锁定",
      "official": false,
      "lean": "SAC",
      "lean_cn": "国王"
@@ -1271,7 +1335,7 @@
     {
      "name": "第六版备选（参考开盘）",
      "pred_home_margin": -11.6,
-     "source": "我们的模型，07:14 锁定",
+     "source": "我们的模型，11:04 锁定",
      "official": false,
      "lean": "POR",
      "lean_cn": "开拓者"
@@ -1306,7 +1370,7 @@
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_total": 228.19,
+     "pred_total": 229.28,
      "official": false
     },
     {
@@ -1357,7 +1421,7 @@
    "total": {
     "model": "v6_selected=T6",
     "model_label": "第六版",
-    "lock_time": "2026-11-13 07:14:16 PT",
+    "lock_time": "2026-11-13 11:04:34 PT",
     "pick": "UNDER",
     "pick_cn": "小分",
     "line_total": 222.5,
@@ -1408,7 +1472,15 @@
      "DraftKings",
      "平博"
     ],
-    "crown": null,
+    "crown": {
+     "spread_open": "待读取",
+     "spread_now": "待读取",
+     "total_open": "待读取",
+     "total_now": "待读取",
+     "leisu_spread": "待读取",
+     "leisu_total": "待读取",
+     "read_at": "2026-11-13 10:02 PT"
+    },
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -1416,23 +1488,23 @@
     {
      "name": "第六版",
      "pred_home_margin": -8.82,
-     "source": "我们的模型，07:14 锁定",
+     "source": "我们的模型，11:04 锁定",
      "official": true,
      "lean": "OKC",
      "lean_cn": "雷霆"
     },
     {
      "name": "第六版备选（参考收盘）",
-     "pred_home_margin": -7.18,
-     "source": "我们的模型，07:14 锁定",
+     "pred_home_margin": -8.2,
+     "source": "我们的模型，11:04 锁定",
      "official": false,
-     "lean": "LAC",
-     "lean_cn": "快船"
+     "lean": "OKC",
+     "lean_cn": "雷霆"
     },
     {
      "name": "第六版备选（参考开盘）",
      "pred_home_margin": -8.95,
-     "source": "我们的模型，07:14 锁定",
+     "source": "我们的模型，11:04 锁定",
      "official": false,
      "lean": "OKC",
      "lean_cn": "雷霆"
@@ -1456,8 +1528,8 @@
     "pct": 14.3
    },
    "lean_count": {
-    "OKC": 2,
-    "LAC": 1
+    "OKC": 3,
+    "LAC": 0
    },
    "total_comps": [
     {
@@ -1556,15 +1628,7 @@
     "median_total_books": [
      "DraftKings"
     ],
-    "crown": {
-     "spread_open": "76人 -10（猛龙水 0.93，76人水 0.93）",
-     "spread_now": "76人 -8.5（猛龙水 0.93，76人水 0.93）",
-     "total_open": "221（大 0.90，小 0.94）",
-     "total_now": "224.5（大 0.92，小 0.92）",
-     "leisu_spread": "76人 -8.5",
-     "leisu_total": "223.5",
-     "read_at": "2026-11-12 10:03 PT"
-    },
+    "crown": null,
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -1712,15 +1776,7 @@
     "median_total_books": [
      "DraftKings"
     ],
-    "crown": {
-     "spread_open": "活塞 -10（活塞水 0.93，奇才水 0.93）",
-     "spread_now": "活塞 -10.5（活塞水 0.90，奇才水 0.96）",
-     "total_open": "221（大 0.90，小 0.94）",
-     "total_now": "220.5（大 0.92，小 0.92）",
-     "leisu_spread": "活塞 -10.5",
-     "leisu_total": "220.5",
-     "read_at": "2026-11-12 10:03 PT"
-    },
+    "crown": null,
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -1868,15 +1924,7 @@
     "median_total_books": [
      "DraftKings"
     ],
-    "crown": {
-     "spread_open": "森林狼 -6（独行侠水 0.89，森林狼水 0.97）",
-     "spread_now": "森林狼 -5.5（独行侠水 1.00，森林狼水 0.86）",
-     "total_open": "227.5（大 0.91，小 0.93）",
-     "total_now": "225.5（大 0.86，小 0.98）",
-     "leisu_spread": "森林狼 -5.75",
-     "leisu_total": "225.75",
-     "read_at": "2026-11-12 10:03 PT"
-    },
+    "crown": null,
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -2024,15 +2072,7 @@
     "median_total_books": [
      "DraftKings"
     ],
-    "crown": {
-     "spread_open": "太阳 -6（黄蜂水 0.96，太阳水 0.90）",
-     "spread_now": "太阳 -6.5（黄蜂水 0.93，太阳水 0.93）",
-     "total_open": "214（大 0.91，小 0.93）",
-     "total_now": "214.5（大 0.96，小 0.88）",
-     "leisu_spread": "太阳 -6.5",
-     "leisu_total": "214.5",
-     "read_at": "2026-11-12 10:03 PT"
-    },
+    "crown": null,
     "leisu": null,
     "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
    },
@@ -3973,7 +4013,7 @@
      "pick_text": "大 219.5",
      "line_total": 219.5,
      "model_label": "第六版",
-     "lock_time": "2026-11-13 07:14:16 PT",
+     "lock_time": "2026-11-13 11:04:34 PT",
      "result": null
     }
    },
@@ -3998,7 +4038,7 @@
      "pick_text": "小 224.5",
      "line_total": 224.5,
      "model_label": "第六版",
-     "lock_time": "2026-11-13 07:14:16 PT",
+     "lock_time": "2026-11-13 11:04:34 PT",
      "result": null
     }
    },
@@ -4023,7 +4063,7 @@
      "pick_text": "小 235.5",
      "line_total": 235.5,
      "model_label": "第六版",
-     "lock_time": "2026-11-13 07:14:16 PT",
+     "lock_time": "2026-11-13 11:04:34 PT",
      "result": null
     }
    },
@@ -4048,7 +4088,7 @@
      "pick_text": "小 245.5",
      "line_total": 245.5,
      "model_label": "第六版",
-     "lock_time": "2026-11-13 07:14:16 PT",
+     "lock_time": "2026-11-13 11:04:34 PT",
      "result": null
     }
    },
@@ -4070,10 +4110,10 @@
     },
     "total": {
      "pick": "OVER",
-     "pick_text": "大 236.5",
-     "line_total": 236.5,
+     "pick_text": "大 235.5",
+     "line_total": 235.5,
      "model_label": "第六版",
-     "lock_time": "2026-11-13 07:14:16 PT",
+     "lock_time": "2026-11-13 11:04:34 PT",
      "result": null
     }
    },
@@ -4095,10 +4135,10 @@
     },
     "total": {
      "pick": "OVER",
-     "pick_text": "大 219.5",
-     "line_total": 219.5,
+     "pick_text": "大 221.5",
+     "line_total": 221.5,
      "model_label": "第六版",
-     "lock_time": "2026-11-13 07:14:16 PT",
+     "lock_time": "2026-11-13 11:04:34 PT",
      "result": null
     }
    },
@@ -4120,10 +4160,10 @@
     },
     "total": {
      "pick": "OVER",
-     "pick_text": "大 217.5",
-     "line_total": 217.5,
+     "pick_text": "大 218.5",
+     "line_total": 218.5,
      "model_label": "第六版",
-     "lock_time": "2026-11-13 07:14:16 PT",
+     "lock_time": "2026-11-13 11:04:34 PT",
      "result": null
     }
    },
@@ -4145,10 +4185,10 @@
     },
     "total": {
      "pick": "OVER",
-     "pick_text": "大 228.5",
-     "line_total": 228.5,
+     "pick_text": "大 229.5",
+     "line_total": 229.5,
      "model_label": "第六版",
-     "lock_time": "2026-11-13 07:14:16 PT",
+     "lock_time": "2026-11-13 11:04:34 PT",
      "result": null
     }
    },
@@ -4173,7 +4213,7 @@
      "pick_text": "小 222.5",
      "line_total": 222.5,
      "model_label": "第六版",
-     "lock_time": "2026-11-13 07:14:16 PT",
+     "lock_time": "2026-11-13 11:04:34 PT",
      "result": null
     }
    }
@@ -4197,6 +4237,13 @@
   }
  ],
  "feed": [
+  {
+   "sort": "2026-11-13 11:04:34",
+   "time": "11月13日 11:04",
+   "tag": "模型锁定",
+   "text": "第六版锁定 9 场：尼克斯@步行者、雄鹿@魔术、骑士@热火、老鹰@公牛、灰熊@鹈鹕、爵士@火箭、勇士@马刺、开拓者@国王、雷霆@快船",
+   "source": "我们的模型"
+  },
   {
    "sort": "2026-11-13 07:14:16",
    "time": "11月13日 07:14",
@@ -5196,7 +5243,7 @@
   "is_first_note": "说明：和收盘线比，所有模型都在五成左右；和开盘线比略高一些。"
  },
  "missing": [
-  "皇冠盘口：已读取 4 场",
+  "皇冠盘口：已读取 9 场",
   "雷速 12 家中位数：已读取",
   "首发名单：暂无",
   "官方伤病报告已更新到美东晚上 9:00",
@@ -5216,7 +5263,7 @@
   {
    "name": "我们的赛前锁定记录",
    "file": "out/live_ledger.csv",
-   "updated": "2026-11-13 07:14 PT",
+   "updated": "2026-11-13 11:04 PT",
    "note": "每场开赛前锁定的方向、盘口、把握度，赛后填对错",
    "exists": true
   },
@@ -5279,7 +5326,7 @@
   {
    "name": "皇冠和雷速盘口（人工读取）",
    "file": "monitor/crown.json",
-   "updated": "2026-11-12 10:03 PT",
+   "updated": "2026-11-13 10:01 PT",
    "note": "",
    "exists": true
   },
