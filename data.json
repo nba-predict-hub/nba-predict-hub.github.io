@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-14 07:18:48 PT",
- "generated_at_iso": "2026-11-14T07:18:48.296850-08:00",
+ "generated_at": "2026-11-14 07:23:35 PT",
+ "generated_at_iso": "2026-11-14T07:23:35.903998-08:00",
  "game_date": "2026-11-11",
  "last_lock": "2026-11-14 07:17:55 PT",
  "featured": "401909974",
@@ -64,7 +64,7 @@
     "band": "high",
     "band_cn": "高",
     "line_source": "早盘锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -220,7 +220,7 @@
     "band": "low",
     "band_cn": "低",
     "line_source": "早盘锁定时的盘口",
-    "result": null
+    "result": "W"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -376,7 +376,7 @@
     "band": "low",
     "band_cn": "低",
     "line_source": "早盘锁定时的盘口",
-    "result": null
+    "result": "W"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -532,7 +532,7 @@
     "band": "high",
     "band_cn": "高",
     "line_source": "早盘锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -688,7 +688,7 @@
     "band": "low",
     "band_cn": "低",
     "line_source": "早盘锁定时的盘口",
-    "result": null
+    "result": "W"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -844,7 +844,7 @@
     "band": "high",
     "band_cn": "高",
     "line_source": "早盘锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -1000,7 +1000,7 @@
     "band": "high",
     "band_cn": "高",
     "line_source": "早盘锁定时的盘口",
-    "result": null
+    "result": "W"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -1179,7 +1179,7 @@
     "band": "mid",
     "band_cn": "中",
     "line_source": "早盘锁定时的盘口",
-    "result": null
+    "result": "W"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -1358,7 +1358,7 @@
     "band": "low",
     "band_cn": "低",
     "line_source": "早盘锁定时的盘口",
-    "result": null
+    "result": "W"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -2119,18 +2119,16 @@
    "game_status": "pre",
    "game_status_cn": "未开赛",
    "spread": {
-    "model": "v6_selected=S6",
-    "model_label": "第六版",
-    "lock_time": "2026-11-14 07:17:55 PT",
-    "pick_team": "NOP",
-    "pick_cn": "鹈鹕",
-    "pick_text": "鹈鹕 +12.5",
-    "line_home": -12.5,
-    "pred_home_margin": -12.12,
-    "edge": 0.38,
-    "band": "low",
-    "band_cn": "低",
-    "line_source": "DraftKings 锁定时的盘口",
+    "model": "M8_open(early)",
+    "model_label": "第八版早锁",
+    "lock_time": "2026-11-14 07:23:17 PT",
+    "pick_team": "DEN",
+    "pick_cn": "掘金",
+    "pick_text": "掘金 -12.5",
+    "line_home": 12.5,
+    "band": "high",
+    "band_cn": "高",
+    "line_source": "早盘锁定时的盘口",
     "result": null
    },
    "total": {
@@ -2269,18 +2267,16 @@
    "game_status": "pre",
    "game_status_cn": "未开赛",
    "spread": {
-    "model": "v6_selected=S6",
-    "model_label": "第六版",
-    "lock_time": "2026-11-14 07:17:55 PT",
-    "pick_team": "CLE",
-    "pick_cn": "骑士",
-    "pick_text": "骑士 +1.5",
-    "line_home": -1.5,
-    "pred_home_margin": 3.96,
-    "edge": 5.46,
+    "model": "M8_open(early)",
+    "model_label": "第八版早锁",
+    "lock_time": "2026-11-14 07:23:17 PT",
+    "pick_team": "DAL",
+    "pick_cn": "独行侠",
+    "pick_text": "独行侠 -1.5",
+    "line_home": 1.5,
     "band": "high",
     "band_cn": "高",
-    "line_source": "DraftKings 锁定时的盘口",
+    "line_source": "早盘锁定时的盘口",
     "result": null
    },
    "total": {
@@ -2419,18 +2415,16 @@
    "game_status": "pre",
    "game_status_cn": "未开赛",
    "spread": {
-    "model": "v6_selected=S6",
-    "model_label": "第六版",
-    "lock_time": "2026-11-14 07:17:55 PT",
+    "model": "M8_open(early)",
+    "model_label": "第八版早锁",
+    "lock_time": "2026-11-14 07:23:17 PT",
     "pick_team": "DET",
     "pick_cn": "活塞",
     "pick_text": "活塞 -4.5",
-    "line_home": -4.5,
-    "pred_home_margin": -5.16,
-    "edge": 0.66,
-    "band": "low",
-    "band_cn": "低",
-    "line_source": "DraftKings 锁定时的盘口",
+    "line_home": 4.5,
+    "band": "high",
+    "band_cn": "高",
+    "line_source": "早盘锁定时的盘口",
     "result": null
    },
    "total": {
@@ -2569,18 +2563,16 @@
    "game_status": "pre",
    "game_status_cn": "未开赛",
    "spread": {
-    "model": "v6_selected=S6",
-    "model_label": "第六版",
-    "lock_time": "2026-11-14 07:17:55 PT",
-    "pick_team": "MEM",
-    "pick_cn": "灰熊",
-    "pick_text": "灰熊 -3.5",
-    "line_home": 3.5,
-    "pred_home_margin": 5.0,
-    "edge": 1.5,
-    "band": "low",
-    "band_cn": "低",
-    "line_source": "DraftKings 锁定时的盘口",
+    "model": "M8_open(early)",
+    "model_label": "第八版早锁",
+    "lock_time": "2026-11-14 07:23:17 PT",
+    "pick_team": "BKN",
+    "pick_cn": "篮网",
+    "pick_text": "篮网 +3.5",
+    "line_home": -3.5,
+    "band": "mid",
+    "band_cn": "中",
+    "line_source": "早盘锁定时的盘口",
     "result": null
    },
    "total": {
@@ -2719,18 +2711,16 @@
    "game_status": "pre",
    "game_status_cn": "未开赛",
    "spread": {
-    "model": "v6_selected=S6",
-    "model_label": "第六版",
-    "lock_time": "2026-11-14 07:17:55 PT",
+    "model": "M8_open(early)",
+    "model_label": "第八版早锁",
+    "lock_time": "2026-11-14 07:23:17 PT",
     "pick_team": "MIN",
     "pick_cn": "森林狼",
     "pick_text": "森林狼 -15.5",
-    "line_home": 15.5,
-    "pred_home_margin": 19.38,
-    "edge": 3.88,
+    "line_home": -15.5,
     "band": "high",
     "band_cn": "高",
-    "line_source": "DraftKings 锁定时的盘口",
+    "line_source": "早盘锁定时的盘口",
     "result": null
    },
    "total": {
@@ -4289,40 +4279,150 @@
      "high": false,
      "same": true
     }
+   },
+   "401909980": {
+    "away": "DEN",
+    "home": "NOP",
+    "pick_team": "DEN",
+    "pick_cn": "掘金",
+    "pick_text": "掘金 -12.5",
+    "pick_line": -12.5,
+    "open_home": -10.5,
+    "cur_home": -12.5,
+    "moved": -2.0,
+    "pred_home": -13.87,
+    "edge": 3.37,
+    "band": "high",
+    "band_cn": "高",
+    "lock_time": "2026-11-14 07:23:17 PT",
+    "m9a": {
+     "team": "DEN",
+     "team_cn": "掘金",
+     "high": true,
+     "same": true
+    }
+   },
+   "401909981": {
+    "away": "DAL",
+    "home": "CLE",
+    "pick_team": "DAL",
+    "pick_cn": "独行侠",
+    "pick_text": "独行侠 -1.5",
+    "pick_line": -1.5,
+    "open_home": 3.5,
+    "cur_home": -1.5,
+    "moved": -5.0,
+    "pred_home": 1.28,
+    "edge": 2.22,
+    "band": "high",
+    "band_cn": "高",
+    "lock_time": "2026-11-14 07:23:17 PT",
+    "m9a": {
+     "team": "DAL",
+     "team_cn": "独行侠",
+     "high": false,
+     "same": true
+    }
+   },
+   "401909982": {
+    "away": "DET",
+    "home": "MIA",
+    "pick_team": "DET",
+    "pick_cn": "活塞",
+    "pick_text": "活塞 -4.5",
+    "pick_line": -4.5,
+    "open_home": -5.5,
+    "cur_home": -4.5,
+    "moved": 1.0,
+    "pred_home": -7.85,
+    "edge": 2.35,
+    "band": "high",
+    "band_cn": "高",
+    "lock_time": "2026-11-14 07:23:17 PT",
+    "m9a": {
+     "team": "DET",
+     "team_cn": "活塞",
+     "high": false,
+     "same": true
+    }
+   },
+   "401909983": {
+    "away": "BKN",
+    "home": "MEM",
+    "pick_team": "BKN",
+    "pick_cn": "篮网",
+    "pick_text": "篮网 +3.5",
+    "pick_line": 3.5,
+    "open_home": 5.5,
+    "cur_home": 3.5,
+    "moved": -2.0,
+    "pred_home": 3.48,
+    "edge": 2.02,
+    "band": "mid",
+    "band_cn": "中",
+    "lock_time": "2026-11-14 07:23:17 PT",
+    "m9a": {
+     "team": "BKN",
+     "team_cn": "篮网",
+     "high": false,
+     "same": true
+    }
+   },
+   "401909984": {
+    "away": "CHI",
+    "home": "MIN",
+    "pick_team": "MIN",
+    "pick_cn": "森林狼",
+    "pick_text": "森林狼 -15.5",
+    "pick_line": -15.5,
+    "open_home": 14.5,
+    "cur_home": 15.5,
+    "moved": 1.0,
+    "pred_home": 18.26,
+    "edge": 3.76,
+    "band": "high",
+    "band_cn": "高",
+    "lock_time": "2026-11-14 07:23:17 PT",
+    "m9a": {
+     "team": "MIN",
+     "team_cn": "森林狼",
+     "high": true,
+     "same": true
+    }
    }
   },
   "board": {
    "has": true,
    "target": 300,
    "all": {
-    "w": 2,
-    "l": 2,
+    "w": 8,
+    "l": 5,
     "p": 0,
-    "n": 4,
-    "pct": 50.0
+    "n": 13,
+    "pct": 61.5
    },
    "high": {
-    "w": 0,
-    "l": 1,
+    "w": 1,
+    "l": 4,
     "p": 0,
-    "n": 1,
-    "pct": 0.0
+    "n": 5,
+    "pct": 20.0
    },
    "m9a": {
-    "w": 2,
-    "l": 2,
+    "w": 8,
+    "l": 5,
     "p": 0,
-    "n": 4,
-    "pct": 50.0
+    "n": 13,
+    "pct": 61.5
    },
    "m9a_high": {
     "w": 0,
-    "l": 1,
+    "l": 2,
     "p": 0,
-    "n": 1,
+    "n": 2,
     "pct": 0.0
    },
-   "pending": 9
+   "pending": 5
   }
  },
  "locks_by_date": {
@@ -4620,7 +4720,7 @@
      "model_label": "第八版早锁",
      "band_cn": "高",
      "lock_time": "2026-11-13 07:19:00 PT",
-     "result": null
+     "result": "L"
     },
     "total": {
      "pick": "OVER",
@@ -4645,7 +4745,7 @@
      "model_label": "第八版早锁",
      "band_cn": "低",
      "lock_time": "2026-11-13 07:19:00 PT",
-     "result": null
+     "result": "W"
     },
     "total": {
      "pick": "UNDER",
@@ -4670,7 +4770,7 @@
      "model_label": "第八版早锁",
      "band_cn": "低",
      "lock_time": "2026-11-13 07:19:00 PT",
-     "result": null
+     "result": "W"
     },
     "total": {
      "pick": "UNDER",
@@ -4695,7 +4795,7 @@
      "model_label": "第八版早锁",
      "band_cn": "高",
      "lock_time": "2026-11-13 07:19:00 PT",
-     "result": null
+     "result": "L"
     },
     "total": {
      "pick": "UNDER",
@@ -4720,7 +4820,7 @@
      "model_label": "第八版早锁",
      "band_cn": "低",
      "lock_time": "2026-11-13 07:19:00 PT",
-     "result": null
+     "result": "W"
     },
     "total": {
      "pick": "OVER",
@@ -4745,7 +4845,7 @@
      "model_label": "第八版早锁",
      "band_cn": "高",
      "lock_time": "2026-11-13 07:19:00 PT",
-     "result": null
+     "result": "L"
     },
     "total": {
      "pick": "OVER",
@@ -4770,7 +4870,7 @@
      "model_label": "第八版早锁",
      "band_cn": "高",
      "lock_time": "2026-11-13 07:19:00 PT",
-     "result": null
+     "result": "W"
     },
     "total": {
      "pick": "OVER",
@@ -4795,7 +4895,7 @@
      "model_label": "第八版早锁",
      "band_cn": "中",
      "lock_time": "2026-11-13 07:19:00 PT",
-     "result": null
+     "result": "W"
     },
     "total": {
      "pick": "OVER",
@@ -4820,7 +4920,7 @@
      "model_label": "第八版早锁",
      "band_cn": "低",
      "lock_time": "2026-11-13 07:19:00 PT",
-     "result": null
+     "result": "W"
     },
     "total": {
      "pick": "UNDER",
@@ -4839,14 +4939,14 @@
     "home": "NOP",
     "tip_utc": "2026-11-15T00:00Z",
     "spread": {
-     "kind": "home_line",
-     "pick": "NOP",
-     "pick_cn": "鹈鹕",
-     "pick_text": "鹈鹕 +12.5",
-     "line_home": -12.5,
-     "model_label": "第六版",
-     "band_cn": "低",
-     "lock_time": "2026-11-14 07:17:55 PT",
+     "kind": "pick_line",
+     "pick": "DEN",
+     "pick_cn": "掘金",
+     "pick_text": "掘金 -12.5",
+     "pick_line": -12.5,
+     "model_label": "第八版早锁",
+     "band_cn": "高",
+     "lock_time": "2026-11-14 07:23:17 PT",
      "result": null
     },
     "total": {
@@ -4864,14 +4964,14 @@
     "home": "CLE",
     "tip_utc": "2026-11-15T00:30Z",
     "spread": {
-     "kind": "home_line",
-     "pick": "CLE",
-     "pick_cn": "骑士",
-     "pick_text": "骑士 +1.5",
-     "line_home": -1.5,
-     "model_label": "第六版",
+     "kind": "pick_line",
+     "pick": "DAL",
+     "pick_cn": "独行侠",
+     "pick_text": "独行侠 -1.5",
+     "pick_line": -1.5,
+     "model_label": "第八版早锁",
      "band_cn": "高",
-     "lock_time": "2026-11-14 07:17:55 PT",
+     "lock_time": "2026-11-14 07:23:17 PT",
      "result": null
     },
     "total": {
@@ -4889,14 +4989,14 @@
     "home": "MIA",
     "tip_utc": "2026-11-15T01:00Z",
     "spread": {
-     "kind": "home_line",
+     "kind": "pick_line",
      "pick": "DET",
      "pick_cn": "活塞",
      "pick_text": "活塞 -4.5",
-     "line_home": -4.5,
-     "model_label": "第六版",
-     "band_cn": "低",
-     "lock_time": "2026-11-14 07:17:55 PT",
+     "pick_line": -4.5,
+     "model_label": "第八版早锁",
+     "band_cn": "高",
+     "lock_time": "2026-11-14 07:23:17 PT",
      "result": null
     },
     "total": {
@@ -4914,14 +5014,14 @@
     "home": "MEM",
     "tip_utc": "2026-11-15T01:00Z",
     "spread": {
-     "kind": "home_line",
-     "pick": "MEM",
-     "pick_cn": "灰熊",
-     "pick_text": "灰熊 -3.5",
-     "line_home": 3.5,
-     "model_label": "第六版",
-     "band_cn": "低",
-     "lock_time": "2026-11-14 07:17:55 PT",
+     "kind": "pick_line",
+     "pick": "BKN",
+     "pick_cn": "篮网",
+     "pick_text": "篮网 +3.5",
+     "pick_line": 3.5,
+     "model_label": "第八版早锁",
+     "band_cn": "中",
+     "lock_time": "2026-11-14 07:23:17 PT",
      "result": null
     },
     "total": {
@@ -4939,14 +5039,14 @@
     "home": "MIN",
     "tip_utc": "2026-11-15T01:00Z",
     "spread": {
-     "kind": "home_line",
+     "kind": "pick_line",
      "pick": "MIN",
      "pick_cn": "森林狼",
      "pick_text": "森林狼 -15.5",
-     "line_home": 15.5,
-     "model_label": "第六版",
+     "pick_line": -15.5,
+     "model_label": "第八版早锁",
      "band_cn": "高",
-     "lock_time": "2026-11-14 07:17:55 PT",
+     "lock_time": "2026-11-14 07:23:17 PT",
      "result": null
     },
     "total": {
@@ -6116,7 +6216,7 @@
   {
    "name": "第八版让分早锁记录",
    "file": "out/live_ledger_v8_early.csv",
-   "updated": "2026-11-13 07:19 PT",
+   "updated": "2026-11-14 07:23 PT",
    "note": "每场开盘后锁一次，之后不改",
    "exists": true
   }
