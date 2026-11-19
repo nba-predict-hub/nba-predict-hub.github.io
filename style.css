@@ -704,3 +704,18 @@ main .live i,main .lvtab.live:before,main .lvst.live i,main .gc-st.on:before,mai
 .gc-clk.on:before{content:"";display:inline-block;width:6px;height:6px;margin-right:6px;border-radius:50%;background:#ff4d5e;vertical-align:2px}
 .gc-s{margin-top:6px;position:relative;z-index:1}
 .gc-sc{font-size:inherit !important;text-shadow:none}
+
+/* V9 模拟盘：醒目但不使用循环动画、遮罩、滤镜、will-change */
+.v9board{border:1px solid rgba(255,210,63,.55) !important;background:linear-gradient(180deg,rgba(42,32,8,.55),rgba(8,12,20,.92)) !important;box-shadow:none}
+.v9board h2{color:#ffe28a;letter-spacing:.08em}
+.v9-sum{margin:8px 0 12px;padding:8px 10px;border:1px solid rgba(255,210,63,.3);color:#ffe9ad;font-weight:700;font-size:14px;line-height:1.45}
+.v9-empty{margin:12px 0;padding:14px 10px;text-align:center;color:#e8d9a0;font-weight:700;border:1px dashed rgba(255,210,63,.35)}
+.v9-list{list-style:none;margin:0;padding:0}
+.v9-row{padding:10px 0;border-top:1px solid rgba(255,255,255,.08)}
+.v9-meta{font-size:13px;color:#f3f6ff;font-weight:700;margin-bottom:6px}
+.v9-body{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;font-size:13px;color:#d5deef}
+.v9-res{margin-left:auto;font-weight:800}
+.v9-res.ok{color:#8ef0c0}.v9-res.bad{color:#ff9aa6}.v9-res.push{color:#ffd27a}.v9-res.pend{color:#c9d2e4}
+/* 去掉“高把握”发光高亮，把握度文字仍保留 */
+.pill.高{box-shadow:none !important;text-shadow:none !important;animation:none !important;background:rgba(255,255,255,.02) !important}
+.pill.高:after{box-shadow:none !important;animation:none !important}

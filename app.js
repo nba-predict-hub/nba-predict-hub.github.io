@@ -310,6 +310,7 @@
     safe("选场", function () { if (!state.sel || !allGames().some(function (g) { return g.espn_id === state.sel; })) state.sel = d.featured || ((d.games || [])[0] || {}).espn_id; });
     safe("比赛标签", function () { renderTabs(); }, "gameTabs"); safe("本场", function () { renderGame(); }, "hero");
     safe("动态", function () { renderFeed(); }, "feed"); safe("历史", function () { renderHist(); }, "hist"); safe("缺数据", function () { renderMissing(); }, "missing");
+    safe("V9模拟盘", function () { drawV9(); }, "v9Board");
     if (!first) document.querySelectorAll(".card.in").forEach(animateIn);
     state.booted = true;
   }
@@ -1186,13 +1187,14 @@
         // 只有上面的读取/解析失败才算“读取失败”；渲染出错只影响对应板块，加载动画一定收起
         return Promise.race([lp, new Promise(function (r) { setTimeout(r, 300); })]).then(function () { return loaderFeed(d); }).catch(function () {}).then(function () {
           safe("整页", function () { renderAll(true); });
-          state.shown = true; hideLoader(); lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); }); safe("比分", function () { pollScores(); }); safe("恢复", function () { FR.restore(); }); safe("导航", function () { FR.nav.build(); var t0 = null; try { t0 = sessionStorage.getItem("nba_tab"); } catch (e) {} FR.nav.set(/^(gl|gd|lv|pr|hs)$/.test(t0 || "") ? t0 : "gl", true); });
+          state.shown = true; hideLoader(); lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); }); safe("比分", function () { pollScores(); }); safe("恢复", function () { FR.restore(); }); safe("导航", function () { FR.nav.build(); var t0 = null; try { t0 = sessionStorage.getItem("nba_tab"); } catch (e) {} FR.nav.set(/^(gl|gd|lv|pr|hs)$/.test(t0 || "") ? t0 : "gl", true); }); loadV9();
         });
       }
       lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); });
       if (changed) { var snap = {}; DATA_CARDS.forEach(function (k) { var e = $(k); if (e) snap[k] = e.innerHTML.replace(/<p class="chk"[\s\S]*?<\/p>/, ""); });
         safe("整页", function () { renderAll(false); });
         DATA_CARDS.forEach(function (k) { var e = $(k); if (e && snap[k] != null && snap[k] !== e.innerHTML.replace(/<p class="chk"[\s\S]*?<\/p>/, "")) { FR.upd[k] = { hm: hm(), t: Date.now() }; var c = e.closest(".card") || e; c.classList.remove("flash"); void c.offsetWidth; c.classList.add("flash"); } }); safe("日期页", function () { var c = dayState.cache[dayState.sel]; if (dayState.sel !== dayState.today && c) drawDay(dayState.sel, dayState.iso, c.events); }); toast("数据已更新 · " + String(d.generated_at || "").slice(11, 16)); }
+      loadV9();
     }, function (e) {
       if (first) { var t = document.querySelector(".ld-title"); if (t) t.textContent = "数据读取失败，60 秒后自动重试"; state.loadFailed = true; }
       else toast("刷新失败，先显示上次的数据");
@@ -1399,7 +1401,37 @@
   function tomorrowKey() { return ptParts(new Date(Date.now() + 86400000)).key; }
   // 球队主色（只做卡片两侧细条点缀）
   var TCOL = { ATL: "#E03A3E", BOS: "#007A33", BKN: "#A3A9AF", CHA: "#00788C", CHI: "#CE1141", CLE: "#860038", DAL: "#0064B1", DEN: "#FEC524", DET: "#C8102E", GSW: "#FFC72C", GS: "#FFC72C", HOU: "#CE1141", IND: "#FDBB30", LAC: "#C8102E", LAL: "#FDB927", MEM: "#5D76A9", MIA: "#98002E", MIL: "#00A651", MIN: "#236192", NOP: "#B4975A", NO: "#B4975A", NYK: "#F58426", NY: "#F58426", OKC: "#007AC1", ORL: "#0077C0", PHI: "#006BB6", PHX: "#E56020", POR: "#E03A3E", SAC: "#5A2D81", SAS: "#C4CED4", SA: "#C4CED4", TOR: "#CE1141", UTA: "#F9A01B", UTAH: "#F9A01B", WAS: "#E31837", WSH: "#E31837" };
-  function recBadge(sp, to) { var t = []; if (sp && sp.band_cn === "高" && sp.pick_text) t.push(sp.pick_text); if (to && to.band_cn === "高" && to.pick_text) t.push(to.pick_text); return t.length ? '<span class="rec">最推荐</span>' : ""; }
+  function v9txt(x) { return (x == null || String(x).trim() === "") ? "缺" : String(x); }
+  function drawV9() {
+    var box = $("v9Board"); if (!box) return;
+    var d = state.v9, rows = (d && d.rows) || [], rec = (d && d.record) || {};
+    var h = '<h2>V9 模拟盘</h2><p class="say">这是模拟盘，不是下注建议。只展示真实账本，缺的字段标“缺”。</p>';
+    if (!d || !d.exists || !rows.length) {
+      h += '<p class="v9-empty">V9 模拟盘账本尚未生成</p>';
+    } else {
+      var recLine = rec.n ? (rec.w + "-" + rec.l + (rec.p ? "-" + rec.p : "") + "（方向命中率 " + (rec.pct != null ? rec.pct + "%" : "缺") + "）") : "暂无已结算场次";
+      h += '<div class="v9-sum">累计战绩 ' + recLine + " · 最长连败 " + (rec.max_lose_streak != null ? rec.max_lose_streak : "缺") + "</div><ul class=\"v9-list\">";
+      rows.forEach(function (r) {
+        var game = r.game || [r.away_cn || r.away, r.home_cn || r.home].filter(Boolean).join(" @ ") || "缺";
+        var res = r.result_cn || (r.result ? r.result : "待定");
+        var rc = r.result === "W" ? " ok" : r.result === "L" ? " bad" : r.result === "P" ? " push" : " pend";
+        h += '<li class="v9-row"><div class="v9-meta">' + esc(v9txt(r.lock_time_pt || r.lock_time)) + " · " + esc(game) + "</div>" +
+          '<div class="v9-body"><span>方向 ' + esc(v9txt(r.direction)) + "</span><span>盘口 " + esc(v9txt(r.line)) + "</span><span>把握度 " + esc(v9txt(r.confidence)) + '</span><span class="v9-res' + rc + '">' + esc(res) + "</span></div></li>";
+      });
+      h += "</ul>";
+    }
+    var src = (d && d.source) || "nba_model/out/live_ledger_v9.csv";
+    var upd = (d && (d.source_updated || d.generated_at)) || "缺";
+    h += '<p class="note">来源 ' + esc(src) + " · 更新于 " + esc(upd) + "</p>";
+    if (box._h === h) return; box._h = h; box.innerHTML = h; box.hidden = false;
+  }
+  function loadV9() {
+    return fetch("v9_ledger.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) {
+      if (!r.ok) { state.v9 = null; return; }
+      return r.json().then(function (j) { state.v9 = j && typeof j === "object" ? j : null; });
+    }).catch(function () { state.v9 = null; }).then(function () { safe("V9模拟盘", drawV9, "v9Board"); });
+  }
+    function recBadge(sp, to) { return ""; } // 不再在卡片上标“最推荐/高把握”，避免像下注建议
   function recFor(s, iso) { var g = null; allGames().forEach(function (x) { if (String(x.espn_id) === String(s.id)) g = x; }); if (g) return recBadge(mainSpread(g), g.total);
     var ls = ((state.data || {}).locks_by_date || {})[iso] || {}, L = ls[s.id] || null; if (!L) for (var k in ls) if (ls[k].away === s.aab && ls[k].home === s.hab) L = ls[k]; return L ? recBadge(L.spread, L.total) : ""; }
   function cardClock(s) {
