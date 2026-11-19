@@ -1,8 +1,8 @@
 {
- "generated_at": "2026-11-18 23:57:43 PT",
- "generated_at_iso": "2026-11-18T23:57:43.343897-08:00",
+ "generated_at": "2026-11-19 00:02:45 PT",
+ "generated_at_iso": "2026-11-19T00:02:45.469587-08:00",
  "game_date": "2026-11-11",
- "last_lock": "2026-11-18 16:30:00 PT",
+ "last_lock": "2026-11-19 00:00:00 PT",
  "featured": "401909974",
  "model_version": {
   "version": 6,
@@ -3672,6 +3672,169 @@
    "extra": null
   },
   {
+   "espn_id": "401910022",
+   "away": "LAC",
+   "home": "SAS",
+   "away_cn": "快船",
+   "home_cn": "马刺",
+   "away_name": "LA Clippers",
+   "home_name": "San Antonio Spurs",
+   "tip_pt": null,
+   "venue": null,
+   "broadcast": null,
+   "records": {
+    "LAC": null,
+    "SAS": null
+   },
+   "records_note": "ESPN",
+   "game_status": "pre",
+   "game_status_cn": "未开赛",
+   "spread": {
+    "model": "v6_selected=S6",
+    "model_label": "第六版",
+    "lock_time": "2026-11-19 00:00:00 PT",
+    "pick_team": "SAS",
+    "pick_cn": "马刺",
+    "pick_text": "马刺 -16.5",
+    "line_home": 16.5,
+    "pred_home_margin": 18.77,
+    "edge": 2.27,
+    "band": "mid",
+    "band_cn": "中",
+    "line_source": "DraftKings 锁定时的盘口",
+    "result": null
+   },
+   "total": {
+    "model": "v6_selected=T6",
+    "model_label": "第六版",
+    "lock_time": "2026-11-19 00:00:00 PT",
+    "pick": "UNDER",
+    "pick_cn": "小分",
+    "line_total": 225.5,
+    "pred_total": 220.32,
+    "edge": 5.18,
+    "band": "high",
+    "band_cn": "高",
+    "pick_text": "小 225.5",
+    "line_source": "DraftKings 锁定时的盘口",
+    "result": null
+   },
+   "market": {
+    "books": [
+     {
+      "book": "DraftKings",
+      "via": "ESPN core 接口",
+      "time": "00:01",
+      "open_home": 16.5,
+      "cur_home": 16.5,
+      "total_open": 225.5,
+      "total_cur": 226.5,
+      "in_median": true
+     },
+     {
+      "book": "平博",
+      "via": "",
+      "time": "00:01",
+      "open_home": null,
+      "cur_home": 15.5,
+      "total_open": null,
+      "total_cur": 227.0,
+      "in_median": true,
+      "note": ""
+     }
+    ],
+    "median_home": 16.0,
+    "median_text": "马刺 -16",
+    "median_n": 2,
+    "median_total": 226.75,
+    "median_total_n": 2,
+    "spread_range": 1.0,
+    "source": "实时盘口，更新于 00:01",
+    "median_books": [
+     "DraftKings",
+     "平博"
+    ],
+    "median_total_books": [
+     "DraftKings",
+     "平博"
+    ],
+    "crown": null,
+    "leisu": null,
+    "leisu_note": "缺：雷速 12 家中位数需浏览器读取"
+   },
+   "comps": [
+    {
+     "name": "第六版",
+     "pred_home_margin": 18.77,
+     "source": "我们的模型，00:00 锁定",
+     "official": true,
+     "lean": "SAS",
+     "lean_cn": "马刺"
+    },
+    {
+     "name": "第六版备选（参考收盘）",
+     "pred_home_margin": 17.22,
+     "source": "我们的模型，00:00 锁定",
+     "official": false,
+     "lean": "SAS",
+     "lean_cn": "马刺"
+    },
+    {
+     "name": "第六版备选（参考开盘）",
+     "pred_home_margin": 18.44,
+     "source": "我们的模型，00:00 锁定",
+     "official": false,
+     "lean": "SAS",
+     "lean_cn": "马刺"
+    }
+   ],
+   "alt_pick": null,
+   "version": 6,
+   "version_cn": "第六版",
+   "version_record": {
+    "w": 9,
+    "l": 18,
+    "p": 0,
+    "graded": 27,
+    "pct": 33.3
+   },
+   "version_record_total": {
+    "w": 11,
+    "l": 16,
+    "p": 0,
+    "graded": 27,
+    "pct": 40.7
+   },
+   "lean_count": {
+    "LAC": 0,
+    "SAS": 3
+   },
+   "total_comps": [
+    {
+     "name": "第六版",
+     "pred_total": 220.32,
+     "official": true
+    },
+    {
+     "name": "第六版备选（参考收盘）",
+     "pred_total": 226.04,
+     "official": false
+    },
+    {
+     "name": "第六版备选（参考开盘）",
+     "pred_total": 222.73,
+     "official": false
+    }
+   ],
+   "injuries": {
+    "report": "美东下午 5:00（太平洋时间 14:00）",
+    "players": [],
+    "not_submitted": [],
+    "changes": []
+   },
+   "extra": null
+  },
+  {
    "espn_id": "401909969",
    "away": "SAS",
    "home": "CHI",
@@ -5732,6 +5895,33 @@
      "result": "L"
     }
    }
+  },
+  "2026-11-19": {
+   "401910022": {
+    "espn_id": "401910022",
+    "away": "LAC",
+    "home": "SAS",
+    "tip_utc": "2026-11-20T01:00Z",
+    "spread": {
+     "kind": "home_line",
+     "pick": "SAS",
+     "pick_cn": "马刺",
+     "pick_text": "马刺 -16.5",
+     "line_home": 16.5,
+     "model_label": "第六版",
+     "band_cn": "中",
+     "lock_time": "2026-11-19 00:00:00 PT",
+     "result": null
+    },
+    "total": {
+     "pick": "UNDER",
+     "pick_text": "小 225.5",
+     "line_total": 225.5,
+     "model_label": "第六版",
+     "lock_time": "2026-11-19 00:00:00 PT",
+     "result": null
+    }
+   }
   }
  },
  "unlocked_games": [
@@ -5752,6 +5942,13 @@
   }
  ],
  "feed": [
+  {
+   "sort": "2026-11-19 00:00:00",
+   "time": "11月19日 00:00",
+   "tag": "模型锁定",
+   "text": "第六版锁定 1 场：快船@马刺",
+   "source": "我们的模型"
+  },
   {
    "sort": "2026-11-18 16:30:00",
    "time": "11月18日 16:30",
@@ -6728,7 +6925,7 @@
   "首发名单：暂无",
   "官方伤病报告已更新到美东下午 5:00",
   "裁判：只有勇士@火箭有名单，其他场次暂无",
-  "平博不是每场都有盘，暂不算进中位数",
+  "平博每场都有盘，已算进多家中位数",
   "已开打的比赛：盘口停在开赛前",
   "本赛季 Massey、Sagarin 的命中率：暂无（没有存档）",
   "今晚的对错：比赛结束后才有",
@@ -6743,7 +6940,7 @@
   {
    "name": "我们的赛前锁定记录",
    "file": "out/live_ledger.csv",
-   "updated": "2026-11-18 22:11 PT",
+   "updated": "2026-11-19 00:00 PT",
    "note": "每场开赛前锁定的方向、盘口、把握度，赛后填对错",
    "exists": true
   },
@@ -6764,7 +6961,7 @@
   {
    "name": "实时盘口",
    "file": "monitor/lines.json",
-   "updated": "2026-11-18 22:53 PT",
+   "updated": "2026-11-19 00:01 PT",
    "note": "DraftKings、平博、美盘共识，含开盘和变盘",
    "exists": true
   },
