@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-11-18 16:23:59 PT",
+  "source": "nba_model/out/live_ledger_v9.csv",
+  "source_updated": null,
+  "exists": false,
+  "note": "账本文件尚不存在",
+  "rows": [],
+  "record": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "n": 0,
+    "pct": null,
+    "max_lose_streak": 0
+  }
+}
