@@ -1,178 +1,151 @@
 {
- "updated_pt": "2026-11-13 11:05",
- "lines_updated_pt": "2026-11-12 18:17:29 PST",
+ "updated_pt": "2026-11-18 16:55",
+ "lines_updated_pt": "2026-11-18 16:52:36 PST",
  "source": "同事监控 monitor/lines.json（ESPN 记分板/核心接口的 DraftKings、Pinnacle 公开盘）；皇冠来自 monitor/crown.json",
  "games": {
-  "401909296": {
-   "away": "NYK",
-   "home": "IND",
-   "books": [
-    {
-     "book": "DraftKings",
-     "line_home": -6.5,
-     "line_total": 220.5
-    },
-    {
-     "book": "Pinnacle",
-     "line_home": -7.0,
-     "line_total": 220.5
-    }
-   ],
-   "med_line_home": -6.75,
-   "med_total": 220.5,
-   "n": 2
-  },
-  "401909297": {
-   "away": "MIL",
-   "home": "ORL",
-   "books": [
-    {
-     "book": "DraftKings",
-     "line_home": 9.5,
-     "line_total": 222.5
-    },
-    {
-     "book": "Pinnacle",
-     "line_home": 9.0,
-     "line_total": 222.5
-    }
-   ],
-   "med_line_home": 9.25,
-   "med_total": 222.5,
-   "n": 2
-  },
-  "401909298": {
-   "away": "CLE",
-   "home": "MIA",
-   "books": [
-    {
-     "book": "DraftKings",
-     "line_home": 2.5,
-     "line_total": 236.5
-    },
-    {
-     "book": "Pinnacle",
-     "line_home": 2.5,
-     "line_total": 235.0
-    }
-   ],
-   "med_line_home": 2.5,
-   "med_total": 235.75,
-   "n": 2
-  },
-  "401909299": {
-   "away": "ATL",
-   "home": "CHI",
-   "books": [
-    {
-     "book": "DraftKings",
-     "line_home": -6.5,
-     "line_total": 246.5
-    },
-    {
-     "book": "Pinnacle",
-     "line_home": -6.5,
-     "line_total": 245.0
-    }
-   ],
-   "med_line_home": -6.5,
-   "med_total": 245.75,
-   "n": 2
-  },
-  "401909300": {
-   "away": "MEM",
+  "401910013": {
+   "away": "DET",
    "home": "NOP",
    "books": [
     {
      "book": "DraftKings",
      "line_home": -3.5,
-     "line_total": 234.5
+     "line_total": 224.5
     },
     {
      "book": "Pinnacle",
-     "line_home": -3.0,
-     "line_total": 235.0
+     "line_home": -3.5,
+     "line_total": 224.0
+    },
+    {
+     "book": "tpt",
+     "line_home": -4.5,
+     "line_total": "缺"
     }
    ],
-   "med_line_home": -3.25,
-   "med_total": 234.75,
-   "n": 2
+   "med_line_home": -3.5,
+   "med_total": 224.25,
+   "n": 3
   },
-  "401909301": {
-   "away": "UTA",
-   "home": "HOU",
+  "401910014": {
+   "away": "ATL",
+   "home": "OKC",
    "books": [
     {
      "book": "DraftKings",
-     "line_home": 17.5,
-     "line_total": 217.5
+     "line_home": 6.5,
+     "line_total": 228.5
     },
     {
      "book": "Pinnacle",
-     "line_home": 17.0,
-     "line_total": 218.5
+     "line_home": 6.5,
+     "line_total": 228.0
+    },
+    {
+     "book": "tpt",
+     "line_home": 6.0,
+     "line_total": "缺"
     }
    ],
-   "med_line_home": 17.25,
-   "med_total": 218.0,
-   "n": 2
+   "med_line_home": 6.5,
+   "med_total": 228.25,
+   "n": 3
   },
-  "401909302": {
+  "401910016": {
    "away": "GSW",
-   "home": "SAS",
+   "home": "DAL",
    "books": [
     {
      "book": "DraftKings",
-     "line_home": 13.5,
-     "line_total": 218.5
+     "line_home": 4.5,
+     "line_total": 223.5
     },
     {
      "book": "Pinnacle",
-     "line_home": 13.0,
-     "line_total": 220.0
+     "line_home": 4.5,
+     "line_total": 223.5
+    },
+    {
+     "book": "tpt",
+     "line_home": 4.5,
+     "line_total": "缺"
     }
    ],
-   "med_line_home": 13.25,
-   "med_total": 219.25,
-   "n": 2
+   "med_line_home": 4.5,
+   "med_total": 223.5,
+   "n": 3
   },
-  "401909303": {
-   "away": "POR",
+  "401910015": {
+   "away": "BOS",
+   "home": "DEN",
+   "books": [
+    {
+     "book": "DraftKings",
+     "line_home": -2.5,
+     "line_total": 219.5
+    },
+    {
+     "book": "Pinnacle",
+     "line_home": -2.5,
+     "line_total": 220.0
+    },
+    {
+     "book": "tpt",
+     "line_home": -2.5,
+     "line_total": "缺"
+    }
+   ],
+   "med_line_home": -2.5,
+   "med_total": 219.75,
+   "n": 3
+  },
+  "401910017": {
+   "away": "UTA",
+   "home": "LAL",
+   "books": [
+    {
+     "book": "DraftKings",
+     "line_home": 12.5,
+     "line_total": 230.5
+    },
+    {
+     "book": "Pinnacle",
+     "line_home": 11.5,
+     "line_total": 230.0
+    },
+    {
+     "book": "tpt",
+     "line_home": 10.5,
+     "line_total": "缺"
+    }
+   ],
+   "med_line_home": 11.5,
+   "med_total": 230.25,
+   "n": 3
+  },
+  "401910018": {
+   "away": "PHX",
    "home": "SAC",
    "books": [
     {
      "book": "DraftKings",
-     "line_home": -10.5,
-     "line_total": 229.5
-    },
-    {
-     "book": "Pinnacle",
-     "line_home": -11.5,
-     "line_total": 230.0
-    }
-   ],
-   "med_line_home": -11.0,
-   "med_total": 229.75,
-   "n": 2
-  },
-  "401909304": {
-   "away": "OKC",
-   "home": "LAC",
-   "books": [
-    {
-     "book": "DraftKings",
      "line_home": -7.5,
-     "line_total": 221.5
+     "line_total": 227.5
     },
     {
      "book": "Pinnacle",
      "line_home": -7.5,
-     "line_total": 222.0
+     "line_total": 227.0
+    },
+    {
+     "book": "tpt",
+     "line_home": -6.5,
+     "line_total": "缺"
     }
    ],
    "med_line_home": -7.5,
-   "med_total": 221.75,
-   "n": 2
+   "med_total": 227.25,
+   "n": 3
   }
  },
  "crown": [

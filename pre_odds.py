@@ -37,8 +37,8 @@ def main():
         if not per:
             continue
         bs = list(per.values())
-        sp = [b["line_home"] for b in bs if b["line_home"] is not None]
-        to = [b["line_total"] for b in bs if b["line_total"] is not None]
+        sp = [b["line_home"] for b in bs if isinstance(b["line_home"], (int, float)) and not isinstance(b["line_home"], bool)]
+        to = [b["line_total"] for b in bs if isinstance(b["line_total"], (int, float)) and not isinstance(b["line_total"], bool)]
         games[g["espn_id"]] = {"away": g.get("away"), "home": g.get("home"), "books": bs,
                                "med_line_home": statistics.median(sp) if sp else None,
                                "med_total": statistics.median(to) if to else None, "n": len(bs)}
