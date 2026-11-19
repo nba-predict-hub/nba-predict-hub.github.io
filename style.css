@@ -462,10 +462,10 @@ html{scroll-padding-top:calc(72px + env(safe-area-inset-top))}
 html.lm{scroll-padding-top:calc(200px + env(safe-area-inset-top))}
 .vsnd{display:flex;align-items:center;gap:6px;margin-top:8px}
 /* ---- 四个独立页面 ---- */
-main[data-pg="gl"]>*:not(.p-gl):not(.foot),main[data-pg="gd"]>*:not(.p-gd):not(.foot),main[data-pg="lv"]>*:not(.p-lv):not(.foot),main[data-pg="pr"]>*:not(.p-pr):not(.foot),main[data-pg="hs"]>*:not(.p-hs):not(.foot){display:none !important}
+main[data-pg="gl"]>*:not(.p-gl):not(.foot),main[data-pg="gd"]>*:not(.p-gd):not(.foot),main[data-pg="lv"]>*:not(.p-lv):not(.foot),main[data-pg="pr"]>*:not(.p-pr):not(.foot),main[data-pg="hs"]>*:not(.p-hs):not(.foot),main[data-pg="tr"]>*:not(.p-tr):not(.foot){display:none !important}
 main[data-pg]>[hidden]{display:none !important}
 main.day-mode>#gameList{display:none !important}
-main[data-pg="hs"]>.p-hs,main[data-pg="pr"]>#preView,main[data-pg="gl"]:not(.day-mode)>#gameList{display:block !important}
+main[data-pg="hs"]>.p-hs,main[data-pg="pr"]>#preView,main[data-pg="gl"]:not(.day-mode)>#gameList,main[data-pg="tr"]>#trainView{display:block !important}
 main.lv-none>#gameTabs,main.lv-none>#alertBar,main.lv-none>#liveTop,main.lv-none>#courtCard,main.lv-none>#statusCard,main.lv-none>.p-lv.card:not(#liveNone){display:none !important}
 main[data-pg="lv"]:not(.lv-none)>#liveNone{display:none !important}
 .backbar{margin:0 0 8px}.backbar button{background:none;border:0;color:#33e1ff;font-size:15px;font-weight:700;padding:6px 2px}
@@ -719,3 +719,33 @@ main .live i,main .lvtab.live:before,main .lvst.live i,main .gc-st.on:before,mai
 /* 去掉“高把握”发光高亮，把握度文字仍保留 */
 .pill.高{box-shadow:none !important;text-shadow:none !important;animation:none !important;background:rgba(255,255,255,.02) !important}
 .pill.高:after{box-shadow:none !important;animation:none !important}
+
+/* 底部五枚标签：略收字号和图标，避免 430 宽挤在一起、文字换行 */
+.bnav button{min-width:0;padding:0 1px;font-size:10px;gap:2px;white-space:nowrap}
+.bnav button svg{width:20px;height:20px;flex:none}
+.bnav button.on svg{transform:none;filter:none}
+/* 训练进度页：只渲染 progress.json，通用列表/卡片，无循环动画、遮罩、滤镜、will-change */
+#v9{scroll-margin-top:calc(100px + env(safe-area-inset-top))}
+.p-tr h2{margin-bottom:8px}
+.tr-cur{margin:0 0 16px;padding:12px 12px 10px;border:1px solid rgba(51,225,255,.28)}
+.tr-k{font-size:12px;color:var(--dim);letter-spacing:.08em;margin-bottom:6px}
+.tr-v{font-size:16px;font-weight:800;line-height:1.45;color:#f2f6ff}
+.tr-upd{margin-top:8px;font-size:12px;color:#b7c3dc}
+.tr-blk{margin:0 0 18px}
+.tr-blk h3{margin:0 0 8px;font-size:14px;letter-spacing:.06em;color:#d5deef}
+.tr-ul,.tr-bt,.tr-live{list-style:none;margin:0;padding:0}
+.tr-ul li{position:relative;padding:7px 0 7px 14px;border-top:1px solid rgba(255,255,255,.08);font-size:14px;line-height:1.45;color:#e8eefc}
+.tr-ul li:before{content:"";position:absolute;left:0;top:15px;width:6px;height:6px;border:1px solid #7aa0c8;border-radius:1px}
+.tr-bt{display:flex;flex-direction:column;gap:10px}
+.tr-card{padding:10px 12px;border:1px solid rgba(110,200,255,.2);background:rgba(8,14,26,.55)}
+.tr-ch{font-size:16px;font-weight:800;color:#f2f6ff}
+.tr-cp{margin:2px 0 8px;font-size:13px;color:#9fdcff}
+.tr-kv{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:4px 0;font-size:13px;color:#c5d0e8;border-top:1px solid rgba(255,255,255,.06)}
+.tr-kv b{font-family:var(--mono);font-weight:700;color:#f4fdff;font-variant-numeric:tabular-nums;text-align:right}
+.tr-fn{margin-top:10px}
+.tr-live li,.tr-live a{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;padding:8px 0;border-top:1px solid rgba(255,255,255,.08);color:#e8eefc;font-size:14px;text-decoration:none}
+.tr-live a.tr-link{color:#9fdcff}
+.tl-n{font-weight:800}
+.tl-s{font-size:12px;color:#ffd27a}
+.tl-r{margin-left:auto;font-family:var(--mono);font-weight:700;font-variant-numeric:tabular-nums}
+.tr-empty{text-align:center;padding:16px 8px;color:#e8d9a0;font-weight:700}

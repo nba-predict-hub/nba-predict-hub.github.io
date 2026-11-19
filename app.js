@@ -1187,14 +1187,14 @@
         // 只有上面的读取/解析失败才算“读取失败”；渲染出错只影响对应板块，加载动画一定收起
         return Promise.race([lp, new Promise(function (r) { setTimeout(r, 300); })]).then(function () { return loaderFeed(d); }).catch(function () {}).then(function () {
           safe("整页", function () { renderAll(true); });
-          state.shown = true; hideLoader(); lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); }); safe("比分", function () { pollScores(); }); safe("恢复", function () { FR.restore(); }); safe("导航", function () { FR.nav.build(); var t0 = null; try { t0 = sessionStorage.getItem("nba_tab"); } catch (e) {} FR.nav.set(/^(gl|gd|lv|pr|hs)$/.test(t0 || "") ? t0 : "gl", true); }); loadV9();
+          state.shown = true; hideLoader(); lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); }); safe("比分", function () { pollScores(); }); safe("恢复", function () { FR.restore(); }); safe("导航", function () { FR.nav.build(); var t0 = null; try { t0 = sessionStorage.getItem("nba_tab"); } catch (e) {} FR.nav.set(/^(gl|gd|lv|pr|hs|tr)$/.test(t0 || "") ? t0 : "gl", true); }); loadV9(); loadProgress();
         });
       }
       lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); });
       if (changed) { var snap = {}; DATA_CARDS.forEach(function (k) { var e = $(k); if (e) snap[k] = e.innerHTML.replace(/<p class="chk"[\s\S]*?<\/p>/, ""); });
         safe("整页", function () { renderAll(false); });
         DATA_CARDS.forEach(function (k) { var e = $(k); if (e && snap[k] != null && snap[k] !== e.innerHTML.replace(/<p class="chk"[\s\S]*?<\/p>/, "")) { FR.upd[k] = { hm: hm(), t: Date.now() }; var c = e.closest(".card") || e; c.classList.remove("flash"); void c.offsetWidth; c.classList.add("flash"); } }); safe("日期页", function () { var c = dayState.cache[dayState.sel]; if (dayState.sel !== dayState.today && c) drawDay(dayState.sel, dayState.iso, c.events); }); toast("数据已更新 · " + String(d.generated_at || "").slice(11, 16)); }
-      loadV9();
+      loadV9(); loadProgress();
     }, function (e) {
       if (first) { var t = document.querySelector(".ld-title"); if (t) t.textContent = "数据读取失败，60 秒后自动重试"; state.loadFailed = true; }
       else toast("刷新失败，先显示上次的数据");
@@ -1323,14 +1323,14 @@
   var lastTouch = 0;
   document.addEventListener("touchend", function (e) { var n = Date.now(); if (n - lastTouch < 300 && !(e.target.closest && e.target.closest("input,select,textarea"))) e.preventDefault(); lastTouch = n; }, { passive: false });
   // 底部四个标签 = 四个独立页面（同一页面内切换，不跳转、不白屏，各自记住滚动位置）
-  //   比赛 gl：当天比赛卡片列表 → 点进去 gd：单场完整页面；直播 lv：只看进行中的比赛，没有就显示下一场倒计时；赛前 pr：未开打比赛的首发/缺阵/回归/盘口；战绩 hs：模型方向命中率
+  //   比赛 gl：当天比赛卡片列表 → 点进去 gd：单场完整页面；直播 lv：只看进行中的比赛，没有就显示下一场倒计时；赛前 pr：未开打比赛的首发/缺阵/回归/盘口；战绩 hs：模型方向命中率；训练 tr：训练进度（读 progress.json）
   var NAV = { pg: "gl", y: {} };
-  var ICO = { gl: '<path d="M3 5h18v14H3z"/><path d="M12 5v14M3 12h18"/>', pr: '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>', lv: '<circle cx="12" cy="12" r="3"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/>', hs: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>' };
+  var ICO = { gl: '<path d="M3 5h18v14H3z"/><path d="M12 5v14M3 12h18"/>', pr: '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>', lv: '<circle cx="12" cy="12" r="3"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/>', hs: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>', tr: '<path d="M4 19V5h16v14H4z"/><path d="M8 9h8M8 12h8M8 15h5"/>' };
   function tabOf(pg) { return pg === "gd" ? "gl" : pg; }
   function mk(id, cls, html, after) { var e = document.createElement("section"); e.id = id; e.className = cls; e.innerHTML = html || ""; (after ? after.parentNode.insertBefore(e, after.nextSibling) : $("app").insertBefore(e, $("app").firstChild)); return e; }
   function buildNav() {
     var n = document.createElement("nav"); n.className = "bnav"; n.setAttribute("aria-label", "页面导航");
-    n.innerHTML = [["gl", "比赛"], ["lv", "直播"], ["pr", "赛前"], ["hs", "战绩"]].map(function (x) { return '<button data-t="' + x[0] + '"><svg viewBox="0 0 24 24">' + ICO[x[0]] + "</svg>" + x[1] + "<i></i></button>"; }).join("");
+    n.innerHTML = [["gl", "比赛"], ["lv", "直播"], ["pr", "赛前"], ["hs", "战绩"], ["tr", "训练"]].map(function (x) { return '<button data-t="' + x[0] + '"><svg viewBox="0 0 24 24">' + ICO[x[0]] + "</svg>" + x[1] + "<i></i></button>"; }).join("");
     document.body.appendChild(n);
     n.querySelectorAll("button").forEach(function (b) { b.onclick = function () { var t = b.getAttribute("data-t"); setTab(t === "gl" && NAV.pg === "gl" ? "gl" : t); }; });
     var app = $("app");
@@ -1344,6 +1344,7 @@
     var pc = cardOf("pbp"); if (pc) pc.classList.add("p-gd", "p-lv");
     ["scale", "odds", "edge", "feed", "factors", "inj", "missing"].forEach(function (k) { var c = cardOf(k); if (c) c.classList.add("p-gd", "model-card"); });
     var hc = cardOf("hist"); if (hc) hc.classList.add("p-hs");
+    var tv = $("trainView"); if (tv) tv.classList.add("p-tr");
   }
   function paintNav() {
     var t = tabOf(NAV.pg);
@@ -1363,6 +1364,7 @@
     if (pg === "lv") { var lv = null; (live.events || []).forEach(function (e) { if (!lv && e.state === "in") lv = e; }); if (lv && state.sel !== lv.id) { var tb = document.querySelector('#gameTabs .tab[data-id="' + lv.id + '"]'); if (tb) tb.click(); } }
     if (pg === "pr") drawPre();
     if (pg === "gl") drawGameList();
+    if (pg === "tr") drawTrain();
     paintPage(); paintNav();
     try { sessionStorage.setItem("nba_tab", pg); } catch (e) {}
     if (old !== pg || keep) { var y = NAV.y[pg] || 0; window.scrollTo(0, y); requestAnimationFrame(function () { window.scrollTo(0, y); }); }
@@ -1430,6 +1432,63 @@
       if (!r.ok) { state.v9 = null; return; }
       return r.json().then(function (j) { state.v9 = j && typeof j === "object" ? j : null; });
     }).catch(function () { state.v9 = null; }).then(function () { safe("V9模拟盘", drawV9, "v9Board"); });
+  }
+    function trMiss(v) { return v == null || String(v).trim() === "" ? "缺" : String(v); }
+  function trList(title, arr) {
+    var h = '<div class="tr-blk"><h3>' + esc(title) + "</h3>";
+    if (!arr || !arr.length) return h + '<p class="note">缺</p></div>';
+    return h + '<ul class="tr-ul">' + arr.map(function (x) { return "<li>" + esc(trMiss(x)) + "</li>"; }).join("") + "</ul></div>";
+  }
+  function trWL(w, l) { return (w == null && l == null) ? "缺" : trMiss(w) + "-" + trMiss(l); }
+  function drawTrain() {
+    var box = $("trainView"); if (!box) return;
+    var d = state.progress, h = "<h2>训练进度</h2>";
+    if (!d) {
+      h += '<p class="tr-empty">缺</p><p class="note">来源 模型训练记录 progress.json · 更新于 缺</p>';
+    } else {
+      h += '<div class="tr-cur"><div class="tr-k">当前步骤</div><div class="tr-v">' + esc(trMiss(d.current)) + '</div><div class="tr-upd">更新于 ' + esc(trMiss(d.updated_at)) + "</div></div>";
+      h += trList("已完成", d.done) + trList("进行中", d.doing) + trList("待做", d.todo);
+      h += '<div class="tr-blk"><h3>各版本检验成绩</h3>';
+      var rows = d.backtests || [];
+      if (!rows.length) h += '<p class="note">缺</p>';
+      else h += '<ul class="tr-bt">' + rows.map(function (r) {
+        r = r || {};
+        var pct = (r.vs_close_pct == null || r.vs_close_pct === "") ? "缺" : (typeof r.vs_close_pct === "number" ? r.vs_close_pct.toFixed(1) + "%" : String(r.vs_close_pct) + (/%$/.test(String(r.vs_close_pct)) ? "" : "%"));
+        return '<li class="tr-card"><div class="tr-ch">' + esc(trMiss(r.version)) + " · " + esc(trMiss(r.tier)) + '</div><div class="tr-cp">' + esc(trMiss(r.period)) + "</div>" +
+          '<div class="tr-kv"><span>对收盘</span><b>' + esc(trWL(r.vs_close_w, r.vs_close_l)) + "（" + esc(pct) + "）</b></div>" +
+          '<div class="tr-kv"><span>对开盘</span><b>' + esc(trWL(r.vs_open_w, r.vs_open_l)) + "</b></div>" +
+          '<div class="tr-kv"><span>每周场数</span><b>' + esc(trMiss(r.per_week)) + "</b></div>" +
+          '<div class="tr-kv"><span>最长连败</span><b>' + esc(trMiss(r.max_losing_streak)) + "</b></div>" +
+          (r.note ? '<p class="note">' + esc(r.note) + "</p>" : "") + "</li>";
+      }).join("") + "</ul>";
+      h += '<p class="note tr-fn">' + esc(trMiss(d.backtest_note)) + "</p></div>";
+      h += '<div class="tr-blk"><h3>实盘战绩</h3>';
+      var live = d.live || [];
+      if (!live.length) h += '<p class="note">缺</p>';
+      else h += '<ul class="tr-live">' + live.map(function (x) {
+        x = x || {};
+        var body = '<span class="tl-n">' + esc(trMiss(x.name)) + "</span>" + (x.status != null && String(x.status) !== "" ? '<span class="tl-s">' + esc(x.status) + "</span>" : "") + '<span class="tl-r">' + esc(trMiss(x.record)) + "</span>";
+        return x.link ? '<li><a class="tr-link" href="' + esc(x.link) + '">' + body + "</a></li>" : "<li>" + body + "</li>";
+      }).join("") + "</ul>";
+      h += "</div>";
+      h += trList("备注", d.notes);
+      h += '<p class="note">来源 模型训练记录 progress.json · 更新于 ' + esc(trMiss(d.updated_at)) + "</p>";
+    }
+    if (box._h === h) return; box._h = h; box.innerHTML = h;
+    box.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.onclick = function (ev) {
+        ev.preventDefault();
+        var id = (a.getAttribute("href") || "").replace(/^#/, "");
+        setTab("gl");
+        setTimeout(function () { var el = document.getElementById(id) || $("v9Board"); if (el) el.scrollIntoView({ block: "start" }); }, 60);
+      };
+    });
+  }
+  function loadProgress() {
+    return fetch("progress.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) {
+      if (!r.ok) { state.progress = null; return; }
+      return r.json().then(function (j) { state.progress = j && typeof j === "object" ? j : null; });
+    }).catch(function () { state.progress = null; }).then(function () { safe("训练进度", drawTrain, "trainView"); });
   }
     function recBadge(sp, to) { return ""; } // 不再在卡片上标“最推荐/高把握”，避免像下注建议
   function recFor(s, iso) { var g = null; allGames().forEach(function (x) { if (String(x.espn_id) === String(s.id)) g = x; }); if (g) return recBadge(mainSpread(g), g.total);
