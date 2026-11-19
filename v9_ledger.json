@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-18 16:29:02 PT",
+  "generated_at": "2026-11-18 16:34:05 PT",
   "source": "nba_model/out/live_ledger_v9.csv",
-  "source_updated": null,
-  "exists": false,
-  "note": "账本文件尚不存在",
+  "source_updated": "2026-11-18 16:32:58 PT",
+  "exists": true,
+  "note": "",
   "rows": [],
   "record": {
     "w": 0,
