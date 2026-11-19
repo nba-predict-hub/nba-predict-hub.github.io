@@ -1,6 +1,6 @@
 {
- "updated_pt": "2026-11-19 00:02",
- "lines_updated_pt": "2026-11-19 00:01:22 PST",
+ "updated_pt": "2026-11-19 02:35",
+ "lines_updated_pt": "2026-11-19 02:33:19 PST",
  "source": "同事监控 monitor/lines.json（ESPN 记分板/核心接口的 DraftKings、Pinnacle 公开盘）；皇冠来自 monitor/crown.json",
  "games": {
   "401910019": {
@@ -9,17 +9,17 @@
    "books": [
     {
      "book": "DraftKings",
-     "line_home": 8.5,
-     "line_total": 225.5
+     "line_home": 7.5,
+     "line_total": 226.5
     },
     {
      "book": "Pinnacle",
-     "line_home": 8.5,
-     "line_total": 226.0
+     "line_home": 7.5,
+     "line_total": 227.0
     }
    ],
-   "med_line_home": 8.5,
-   "med_total": 225.75,
+   "med_line_home": 7.5,
+   "med_total": 226.75,
    "n": 2
   },
   "401910020": {
@@ -28,17 +28,17 @@
    "books": [
     {
      "book": "DraftKings",
-     "line_home": -9.5,
-     "line_total": 226.5
+     "line_home": -10.5,
+     "line_total": 227.5
     },
     {
      "book": "Pinnacle",
-     "line_home": -9.5,
-     "line_total": 226.0
+     "line_home": -10.5,
+     "line_total": 227.5
     }
    ],
-   "med_line_home": -9.5,
-   "med_total": 226.25,
+   "med_line_home": -10.5,
+   "med_total": 227.5,
    "n": 2
   },
   "401910021": {
@@ -48,16 +48,16 @@
     {
      "book": "DraftKings",
      "line_home": -1.5,
-     "line_total": 216.5
+     "line_total": 215.5
     },
     {
      "book": "Pinnacle",
-     "line_home": -1.5,
-     "line_total": 217.5
+     "line_home": -2.0,
+     "line_total": 217.0
     }
    ],
-   "med_line_home": -1.5,
-   "med_total": 217.0,
+   "med_line_home": -1.75,
+   "med_total": 216.25,
    "n": 2
   },
   "401910022": {
@@ -66,17 +66,17 @@
    "books": [
     {
      "book": "DraftKings",
-     "line_home": 16.5,
-     "line_total": 226.5
+     "line_home": 15.5,
+     "line_total": 225.5
     },
     {
      "book": "Pinnacle",
      "line_home": 15.5,
-     "line_total": 227.0
+     "line_total": 226.0
     }
    ],
-   "med_line_home": 16.0,
-   "med_total": 226.75,
+   "med_line_home": 15.5,
+   "med_total": 225.75,
    "n": 2
   }
  },

@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-19 02:30:04 PT",
- "generated_at_iso": "2026-11-19T02:30:04.977230-08:00",
+ "generated_at": "2026-11-19 02:35:07 PT",
+ "generated_at_iso": "2026-11-19T02:35:07.208945-08:00",
  "game_date": "2026-11-11",
  "last_lock": "2026-11-19 00:00:00 PT",
  "featured": "401909974",
@@ -3724,32 +3724,32 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "00:01",
+      "time": "02:33",
       "open_home": 16.5,
-      "cur_home": 16.5,
+      "cur_home": 15.5,
       "total_open": 225.5,
-      "total_cur": 226.5,
+      "total_cur": 225.5,
       "in_median": true
      },
      {
       "book": "平博",
       "via": "",
-      "time": "00:01",
+      "time": "02:33",
       "open_home": null,
       "cur_home": 15.5,
       "total_open": null,
-      "total_cur": 227.0,
+      "total_cur": 226.0,
       "in_median": true,
       "note": ""
      }
     ],
-    "median_home": 16.0,
-    "median_text": "马刺 -16",
+    "median_home": 15.5,
+    "median_text": "马刺 -15.5",
     "median_n": 2,
-    "median_total": 226.75,
+    "median_total": 225.75,
     "median_total_n": 2,
-    "spread_range": 1.0,
-    "source": "实时盘口，更新于 00:01",
+    "spread_range": 0.0,
+    "source": "实时盘口，更新于 02:33",
     "median_books": [
      "DraftKings",
      "平博"
@@ -6961,7 +6961,7 @@
   {
    "name": "实时盘口",
    "file": "monitor/lines.json",
-   "updated": "2026-11-19 00:01 PT",
+   "updated": "2026-11-19 02:33 PT",
    "note": "DraftKings、平博、美盘共识，含开盘和变盘",
    "exists": true
   },
