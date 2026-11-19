@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-18 18:20:17 PT",
- "generated_at_iso": "2026-11-18T18:20:17.731171-08:00",
+ "generated_at": "2026-11-18 18:23:49 PT",
+ "generated_at_iso": "2026-11-18T18:23:49.815622-08:00",
  "game_date": "2026-11-11",
  "last_lock": "2026-11-18 16:30:00 PT",
  "featured": "401909974",
@@ -2787,8 +2787,8 @@
     "NOP": null
    },
    "records_note": "ESPN",
-   "game_status": "pre",
-   "game_status_cn": "未开赛",
+   "game_status": "in",
+   "game_status_cn": "进行中",
    "spread": {
     "model": "v6_selected=S6",
     "model_label": "第六版",
@@ -2823,52 +2823,27 @@
     "books": [
      {
       "book": "DraftKings",
-      "via": "ESPN core 接口",
-      "time": "16:52",
+      "via": "",
+      "time": "开赛前 16:30",
       "open_home": -8.5,
-      "cur_home": -3.5,
-      "total_open": 229.5,
-      "total_cur": 224.5,
-      "in_median": true
-     },
-     {
-      "book": "平博",
-      "via": "",
-      "time": "16:52",
-      "open_home": null,
-      "cur_home": -3.5,
-      "total_open": null,
-      "total_cur": 224.0,
-      "in_median": true,
-      "note": ""
-     },
-     {
-      "book": "美盘共识",
-      "via": "",
-      "time": "16:52",
-      "open_home": -5.5,
       "cur_home": -4.5,
-      "total_open": null,
-      "total_cur": null,
-      "in_median": true,
-      "note": ""
+      "total_open": 229.5,
+      "total_cur": 225.5,
+      "in_median": true
      }
     ],
-    "median_home": -3.5,
-    "median_text": "活塞 -3.5",
-    "median_n": 3,
-    "median_total": 224.25,
-    "median_total_n": 2,
-    "spread_range": 1.0,
-    "source": "实时盘口，更新于 16:52",
+    "median_home": -4.5,
+    "median_text": "活塞 -4.5",
+    "median_n": 1,
+    "median_total": 225.5,
+    "median_total_n": 1,
+    "spread_range": null,
+    "source": "比赛已开打，盘口停在开赛前",
     "median_books": [
-     "DraftKings",
-     "平博",
-     "美盘共识"
+     "DraftKings"
     ],
     "median_total_books": [
-     "DraftKings",
-     "平博"
+     "DraftKings"
     ],
     "crown": null,
     "leisu": null,
@@ -2888,8 +2863,8 @@
      "pred_home_margin": -4.08,
      "source": "我们的模型，16:30 锁定",
      "official": false,
-     "lean": "DET",
-     "lean_cn": "活塞"
+     "lean": "NOP",
+     "lean_cn": "鹈鹕"
     },
     {
      "name": "第六版备选（参考开盘）",
@@ -2918,8 +2893,8 @@
     "pct": 38.1
    },
    "lean_count": {
-    "DET": 3,
-    "NOP": 0
+    "DET": 2,
+    "NOP": 1
    },
    "total_comps": [
     {
@@ -2962,8 +2937,8 @@
     "OKC": null
    },
    "records_note": "ESPN",
-   "game_status": "pre",
-   "game_status_cn": "未开赛",
+   "game_status": "in",
+   "game_status_cn": "进行中",
    "spread": {
     "model": "v6_selected=S6",
     "model_label": "第六版",
@@ -2998,52 +2973,27 @@
     "books": [
      {
       "book": "DraftKings",
-      "via": "ESPN core 接口",
-      "time": "16:52",
+      "via": "",
+      "time": "开赛前 16:30",
       "open_home": 7.5,
       "cur_home": 6.5,
       "total_open": 226.5,
       "total_cur": 228.5,
       "in_median": true
-     },
-     {
-      "book": "平博",
-      "via": "",
-      "time": "16:52",
-      "open_home": null,
-      "cur_home": 6.5,
-      "total_open": null,
-      "total_cur": 228.0,
-      "in_median": true,
-      "note": ""
-     },
-     {
-      "book": "美盘共识",
-      "via": "",
-      "time": "16:52",
-      "open_home": 6.5,
-      "cur_home": 6.0,
-      "total_open": null,
-      "total_cur": null,
-      "in_median": true,
-      "note": ""
      }
     ],
     "median_home": 6.5,
     "median_text": "雷霆 -6.5",
-    "median_n": 3,
-    "median_total": 228.25,
-    "median_total_n": 2,
-    "spread_range": 0.5,
-    "source": "实时盘口，更新于 16:52",
+    "median_n": 1,
+    "median_total": 228.5,
+    "median_total_n": 1,
+    "spread_range": null,
+    "source": "比赛已开打，盘口停在开赛前",
     "median_books": [
-     "DraftKings",
-     "平博",
-     "美盘共识"
+     "DraftKings"
     ],
     "median_total_books": [
-     "DraftKings",
-     "平博"
+     "DraftKings"
     ],
     "crown": null,
     "leisu": null,
@@ -3174,17 +3124,17 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "16:52",
+      "time": "18:20",
       "open_home": -2.5,
       "cur_home": -2.5,
       "total_open": 219.5,
-      "total_cur": 219.5,
+      "total_cur": 218.5,
       "in_median": true
      },
      {
       "book": "平博",
       "via": "",
-      "time": "16:52",
+      "time": "18:20",
       "open_home": null,
       "cur_home": -2.5,
       "total_open": null,
@@ -3195,7 +3145,7 @@
      {
       "book": "美盘共识",
       "via": "",
-      "time": "16:52",
+      "time": "18:20",
       "open_home": -2.5,
       "cur_home": -2.5,
       "total_open": null,
@@ -3207,10 +3157,10 @@
     "median_home": -2.5,
     "median_text": "凯尔特人 -2.5",
     "median_n": 3,
-    "median_total": 219.75,
+    "median_total": 219.25,
     "median_total_n": 2,
     "spread_range": 0.0,
-    "source": "实时盘口，更新于 16:52",
+    "source": "实时盘口，更新于 18:20",
     "median_books": [
      "DraftKings",
      "平博",
@@ -3312,8 +3262,8 @@
     "DAL": null
    },
    "records_note": "ESPN",
-   "game_status": "pre",
-   "game_status_cn": "未开赛",
+   "game_status": "in",
+   "game_status_cn": "进行中",
    "spread": {
     "model": "v6_selected=S6",
     "model_label": "第六版",
@@ -3348,52 +3298,27 @@
     "books": [
      {
       "book": "DraftKings",
-      "via": "ESPN core 接口",
-      "time": "16:52",
+      "via": "",
+      "time": "开赛前 16:30",
       "open_home": 6.5,
       "cur_home": 4.5,
       "total_open": 221.5,
       "total_cur": 223.5,
       "in_median": true
-     },
-     {
-      "book": "平博",
-      "via": "",
-      "time": "16:52",
-      "open_home": null,
-      "cur_home": 4.5,
-      "total_open": null,
-      "total_cur": 223.5,
-      "in_median": true,
-      "note": ""
-     },
-     {
-      "book": "美盘共识",
-      "via": "",
-      "time": "16:52",
-      "open_home": 2.5,
-      "cur_home": 4.5,
-      "total_open": null,
-      "total_cur": null,
-      "in_median": true,
-      "note": ""
      }
     ],
     "median_home": 4.5,
     "median_text": "独行侠 -4.5",
-    "median_n": 3,
+    "median_n": 1,
     "median_total": 223.5,
-    "median_total_n": 2,
-    "spread_range": 0.0,
-    "source": "实时盘口，更新于 16:52",
+    "median_total_n": 1,
+    "spread_range": null,
+    "source": "比赛已开打，盘口停在开赛前",
     "median_books": [
-     "DraftKings",
-     "平博",
-     "美盘共识"
+     "DraftKings"
     ],
     "median_total_books": [
-     "DraftKings",
-     "平博"
+     "DraftKings"
     ],
     "crown": null,
     "leisu": null,
@@ -3524,7 +3449,7 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "16:52",
+      "time": "18:20",
       "open_home": 12.5,
       "cur_home": 11.5,
       "total_open": 231.5,
@@ -3534,7 +3459,7 @@
      {
       "book": "平博",
       "via": "",
-      "time": "16:52",
+      "time": "18:20",
       "open_home": null,
       "cur_home": 11.5,
       "total_open": null,
@@ -3545,7 +3470,7 @@
      {
       "book": "美盘共识",
       "via": "",
-      "time": "16:52",
+      "time": "18:20",
       "open_home": 14.0,
       "cur_home": 10.5,
       "total_open": null,
@@ -3560,7 +3485,7 @@
     "median_total": 230.25,
     "median_total_n": 2,
     "spread_range": 1.0,
-    "source": "实时盘口，更新于 16:52",
+    "source": "实时盘口，更新于 18:20",
     "median_books": [
      "DraftKings",
      "平博",
@@ -3699,7 +3624,7 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "16:52",
+      "time": "18:20",
       "open_home": -6.5,
       "cur_home": -7.5,
       "total_open": 229.5,
@@ -3709,9 +3634,9 @@
      {
       "book": "平博",
       "via": "",
-      "time": "16:52",
+      "time": "18:20",
       "open_home": null,
-      "cur_home": -7.5,
+      "cur_home": -7.0,
       "total_open": null,
       "total_cur": 227.0,
       "in_median": true,
@@ -3720,7 +3645,7 @@
      {
       "book": "美盘共识",
       "via": "",
-      "time": "16:52",
+      "time": "18:20",
       "open_home": -7.0,
       "cur_home": -6.5,
       "total_open": null,
@@ -3729,13 +3654,13 @@
       "note": ""
      }
     ],
-    "median_home": -7.5,
-    "median_text": "太阳 -7.5",
+    "median_home": -7.0,
+    "median_text": "太阳 -7",
     "median_n": 3,
     "median_total": 227.25,
     "median_total_n": 2,
     "spread_range": 1.0,
-    "source": "实时盘口，更新于 16:52",
+    "source": "实时盘口，更新于 18:20",
     "median_books": [
      "DraftKings",
      "平博",
@@ -3755,16 +3680,16 @@
      "pred_home_margin": -7.05,
      "source": "我们的模型，16:30 锁定",
      "official": true,
-     "lean": "SAC",
-     "lean_cn": "国王"
+     "lean": "PHX",
+     "lean_cn": "太阳"
     },
     {
      "name": "第六版备选（参考收盘）",
      "pred_home_margin": -7.05,
      "source": "我们的模型，16:30 锁定",
      "official": false,
-     "lean": "SAC",
-     "lean_cn": "国王"
+     "lean": "PHX",
+     "lean_cn": "太阳"
     },
     {
      "name": "第六版备选（参考开盘）",
@@ -3793,8 +3718,8 @@
     "pct": 38.1
    },
    "lean_count": {
-    "PHX": 0,
-    "SAC": 3
+    "PHX": 2,
+    "SAC": 1
    },
    "total_comps": [
     {
@@ -6914,7 +6839,7 @@
   {
    "name": "实时盘口",
    "file": "monitor/lines.json",
-   "updated": "2026-11-18 16:52 PT",
+   "updated": "2026-11-18 18:20 PT",
    "note": "DraftKings、平博、美盘共识，含开盘和变盘",
    "exists": true
   },

@@ -1,80 +1,8 @@
 {
- "updated_pt": "2026-11-18 16:55",
- "lines_updated_pt": "2026-11-18 16:52:36 PST",
+ "updated_pt": "2026-11-18 18:23",
+ "lines_updated_pt": "2026-11-18 18:20:44 PST",
  "source": "同事监控 monitor/lines.json（ESPN 记分板/核心接口的 DraftKings、Pinnacle 公开盘）；皇冠来自 monitor/crown.json",
  "games": {
-  "401910013": {
-   "away": "DET",
-   "home": "NOP",
-   "books": [
-    {
-     "book": "DraftKings",
-     "line_home": -3.5,
-     "line_total": 224.5
-    },
-    {
-     "book": "Pinnacle",
-     "line_home": -3.5,
-     "line_total": 224.0
-    },
-    {
-     "book": "tpt",
-     "line_home": -4.5,
-     "line_total": "缺"
-    }
-   ],
-   "med_line_home": -3.5,
-   "med_total": 224.25,
-   "n": 3
-  },
-  "401910014": {
-   "away": "ATL",
-   "home": "OKC",
-   "books": [
-    {
-     "book": "DraftKings",
-     "line_home": 6.5,
-     "line_total": 228.5
-    },
-    {
-     "book": "Pinnacle",
-     "line_home": 6.5,
-     "line_total": 228.0
-    },
-    {
-     "book": "tpt",
-     "line_home": 6.0,
-     "line_total": "缺"
-    }
-   ],
-   "med_line_home": 6.5,
-   "med_total": 228.25,
-   "n": 3
-  },
-  "401910016": {
-   "away": "GSW",
-   "home": "DAL",
-   "books": [
-    {
-     "book": "DraftKings",
-     "line_home": 4.5,
-     "line_total": 223.5
-    },
-    {
-     "book": "Pinnacle",
-     "line_home": 4.5,
-     "line_total": 223.5
-    },
-    {
-     "book": "tpt",
-     "line_home": 4.5,
-     "line_total": "缺"
-    }
-   ],
-   "med_line_home": 4.5,
-   "med_total": 223.5,
-   "n": 3
-  },
   "401910015": {
    "away": "BOS",
    "home": "DEN",
@@ -82,7 +10,7 @@
     {
      "book": "DraftKings",
      "line_home": -2.5,
-     "line_total": 219.5
+     "line_total": 218.5
     },
     {
      "book": "Pinnacle",
@@ -96,7 +24,7 @@
     }
    ],
    "med_line_home": -2.5,
-   "med_total": 219.75,
+   "med_total": 219.25,
    "n": 3
   },
   "401910017": {
@@ -105,7 +33,7 @@
    "books": [
     {
      "book": "DraftKings",
-     "line_home": 12.5,
+     "line_home": 11.5,
      "line_total": 230.5
     },
     {
@@ -134,7 +62,7 @@
     },
     {
      "book": "Pinnacle",
-     "line_home": -7.5,
+     "line_home": -7.0,
      "line_total": 227.0
     },
     {
@@ -143,7 +71,7 @@
      "line_total": "缺"
     }
    ],
-   "med_line_home": -7.5,
+   "med_line_home": -7.0,
    "med_total": 227.25,
    "n": 3
   }
