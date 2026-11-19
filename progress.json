@@ -1,24 +1,33 @@
 {
-  "updated_at": "2026-11-18 16:45 PT",
-  "current": "V9 第一版完成，接入 X 伤病快讯和皇冠/多家中位线",
+  "updated_at": "2026-11-18 16:54 PT",
+  "current": "V9 已接入多家中位线和皇冠记录；X 伤病快讯解析已就绪，等待抓取接入（未经历史验证）",
   "done": [
-    "补对账 11/12–14",
-    "球员级伤病影响",
+    "补对账 11/12–14（V8 早锁 8-10，高把握 1-8）",
+    "球员级伤病影响（RAPM 阵容调整 + 临场可用性）",
     "盘口变动预测",
     "风险过滤（已反向动≥1分跳过、成疑分钟≥25跳过）",
-    "逐季往前检验",
-    "每日自动锁定"
+    "逐季往前检验（2023-25 选参，2025-26 留出）",
+    "每日自动锁定 run_v9.sh",
+    "多家中位线（DraftKings、Pinnacle、TPT 共识）；皇冠有读数就记，没有记‘缺’",
+    "X 伤病快讯解析器和输入文件 monitor/x_injury_news.json",
+    "测试了更晚的官方伤病报告：没有提升，没采用"
   ],
   "doing": [
-    "X 伤病快讯",
-    "皇冠和多家中位线"
+    "等待 X 快讯抓取接入锁定流程（需要主代理按清单抓取）"
   ],
   "todo": [
+    "皇冠读数（需浏览器读取写入 crown.json）",
+    "球队跟队记者账号清单（需核实）",
     "公开预测者排行榜",
     "大小分（目前无优势，不出推荐）"
   ],
   "notes": [
-    "11/15–17 额度用完，没有锁定。"
+    "11/15–17 额度用完，没有锁定，不补假记录。",
+    "今晚（11/18）8 场通过评估：A/B 档无推荐，不是错误。",
+    "V9 历史对收盘约 56%，对初盘约 61%；达不到连赢10输3，会有连输。",
+    "更晚的伤病信息能把‘线怎么动’猜得更准（68.5%→70.4%），但对盘口命中反而更差（2025-26 对收盘 57.7%→53.4%），所以没用。",
+    "多家中位线对历史命中没有可测差异（只有 DK 和 TPT 重叠两个赛季）。",
+    "X 快讯：没有历史存档，无法检验，目前只作风险标记，不进模型。"
   ],
   "backtests": [
     {
@@ -32,7 +41,7 @@
       "vs_open_l": 141,
       "per_week": 4.4,
       "max_losing_streak": 5,
-      "note": null
+      "note": "选参窗口"
     },
     {
       "version": "V9",
@@ -53,12 +62,12 @@
       "period": "2026-27（实际）",
       "vs_close_w": 16,
       "vs_close_l": 19,
-      "vs_close_pct": null,
+      "vs_close_pct": 45.7,
       "vs_open_w": 22,
       "vs_open_l": 13,
-      "per_week": null,
-      "max_losing_streak": null,
-      "note": null
+      "per_week": 10.2,
+      "max_losing_streak": 4,
+      "note": "样本太小（35场），仅供参考"
     },
     {
       "version": "V9",
@@ -83,11 +92,63 @@
       "vs_open_w": 43,
       "vs_open_l": 27,
       "per_week": 2.1,
-      "max_losing_streak": null,
+      "max_losing_streak": 5,
       "note": null
+    },
+    {
+      "version": "V9",
+      "tier": "B档",
+      "period": "2026-27（实际）",
+      "vs_close_w": 5,
+      "vs_close_l": 7,
+      "vs_close_pct": 41.7,
+      "vs_open_w": 7,
+      "vs_open_l": 5,
+      "per_week": 3.5,
+      "max_losing_streak": 3,
+      "note": "样本太小（12场）"
+    },
+    {
+      "version": "V9+晚间伤病报告（未采用）",
+      "tier": "A档",
+      "period": "2023-25",
+      "vs_close_w": 209,
+      "vs_close_l": 167,
+      "vs_close_pct": 55.6,
+      "vs_open_w": 224,
+      "vs_open_l": 146,
+      "per_week": null,
+      "max_losing_streak": null,
+      "note": "和 V9 差不多，没提升"
+    },
+    {
+      "version": "V9+晚间伤病报告（未采用）",
+      "tier": "A档",
+      "period": "2025-26",
+      "vs_close_w": 119,
+      "vs_close_l": 104,
+      "vs_close_pct": 53.4,
+      "vs_open_w": 124,
+      "vs_open_l": 94,
+      "per_week": null,
+      "max_losing_streak": null,
+      "note": "比 V9 的 57.7% 差，所以没采用"
+    },
+    {
+      "version": "V9 大小分",
+      "tier": "全部",
+      "period": "2025-26 起",
+      "vs_close_w": null,
+      "vs_close_l": null,
+      "vs_close_pct": 43.0,
+      "vs_open_w": null,
+      "vs_open_l": null,
+      "per_week": null,
+      "max_losing_streak": null,
+      "note": "A档同阈值对收盘约 45%，低于 50%，不出大小分推荐"
     }
   ],
-  "backtest_note": "2025-26 不是完全干净的留出集，真正检验看模拟盘。",
+  "backtest_note": "2025-26 不是完全干净的留出集（探索时看过早期变体），真正检验看模拟盘。‘对收盘’更接近你在临场下注的情况，‘对初盘’需要你拿到开盘线。",
   "live": [
     {
       "name": "V8",
@@ -103,8 +164,8 @@
     },
     {
       "name": "V9 模拟盘",
-      "record": null,
-      "status": null,
+      "record": "0-0",
+      "status": "今晚 8 场评估，A/B 档无推荐",
       "link": "#v9"
     }
   ]
