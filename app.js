@@ -1402,17 +1402,40 @@
   function recBadge(sp, to) { var t = []; if (sp && sp.band_cn === "高" && sp.pick_text) t.push(sp.pick_text); if (to && to.band_cn === "高" && to.pick_text) t.push(to.pick_text); return t.length ? '<span class="rec">最推荐</span>' : ""; }
   function recFor(s, iso) { var g = null; allGames().forEach(function (x) { if (String(x.espn_id) === String(s.id)) g = x; }); if (g) return recBadge(mainSpread(g), g.total);
     var ls = ((state.data || {}).locks_by_date || {})[iso] || {}, L = ls[s.id] || null; if (!L) for (var k in ls) if (ls[k].away === s.aab && ls[k].home === s.hab) L = ls[k]; return L ? recBadge(L.spread, L.total) : ""; }
-  function gameCard(id, an, hn, mid, sub, cls, aa, ha, rec) { var ca = TCOL[String(aa || "").toUpperCase()], ch = TCOL[String(ha || "").toUpperCase()]; return '<li class="gcard' + (cls || "") + '" data-id="' + esc(id) + '"' + (ca || ch ? ' style="' + (ca ? "--ca:" + ca + ";" : "") + (ch ? "--ch:" + ch : "") + '"' : "") + '>' + (rec ? '<div class="gc-rec">' + rec + "</div>" : "") + '<div class="gc-t"><b>' + esc(an) + '</b><span class="gc-m">' + mid + '</span><b>' + esc(hn) + '</b></div><div class="gc-s">' + sub + "</div></li>"; }
+  function cardClock(s) {
+    if (!s) return "缺";
+    if (s.state === "post") return s.period > 4 ? "终场（加时）" : "终场";
+    if (s.name === "STATUS_HALFTIME") return "中场休息";
+    var per = s.period > 0 ? (s.period > 4 ? (s.period === 5 ? "加时" : "第" + (s.period - 4) + "个加时") : "第" + s.period + "节") : "缺";
+    if (s.name === "STATUS_END_PERIOD") return per === "缺" ? "缺" : per + "结束";
+    var clk = (s.clock == null || String(s.clock).trim() === "") ? "缺" : (String(s.clock).indexOf(":") < 0 ? s.clock + " 秒" : s.clock);
+    return per + " 剩 " + clk;
+  }
+  function ptsTxt(v) { return (v == null || v === "" || (typeof v === "number" && isNaN(v))) ? "缺" : String(v); }
+  function gameCard(id, an, hn, mid, sub, cls, aa, ha, rec, as, hs, clk) {
+    var ca = TCOL[String(aa || "").toUpperCase()], ch = TCOL[String(ha || "").toUpperCase()];
+    var aPts = as != null ? '<em class="gc-pts">' + esc(ptsTxt(as)) + "</em>" : "";
+    var hPts = hs != null ? '<em class="gc-pts">' + esc(ptsTxt(hs)) + "</em>" : "";
+    var clock = clk ? '<div class="gc-clk' + (cls && cls.indexOf("live") >= 0 ? " on" : "") + '">' + clk + "</div>" : "";
+    return '<li class="gcard' + (cls || "") + '" data-id="' + esc(id) + '"' + (ca || ch ? ' style="' + (ca ? "--ca:" + ca + ";" : "") + (ch ? "--ch:" + ch : "") + '"' : "") + '>' + (rec ? '<div class="gc-rec">' + rec + "</div>" : "") +
+      '<div class="gc-t"><b>' + esc(an) + aPts + '</b><span class="gc-m">' + mid + '</span><b>' + hPts + esc(hn) + '</b></div>' + clock + '<div class="gc-s">' + sub + "</div></li>";
+  }
   function drawGameList() {
     var box = $("gameList"); if (!box || !state.data) return;
     var h = '<h2>今天的比赛 <small class="dim">点开看单场（比分、动画、文字直播、预测）</small></h2><ul class="glist">' + allGames().map(function (g) {
       var s = dispOf(liveFor(g)), ms = mainSpread(g), p = ms && ms.v8 ? "第八版：" + ms.pick_text : g.nomodel ? "本场模型未预测" : ms ? "模型：" + ms.pick_text : "暂无结论";
-      var st = !s || s.state === "pre" ? '<i class="gc-tip">' + esc(String((s && s.tip) || g.tip_pt || "时间待定").replace(/ PT$/, "")) + "</i>" : '<i class="gc-sc">' + s.as + " : " + s.hs + '</i><i class="gc-st' + (s.state === "in" ? " on" : "") + '">' + esc(statusCn(s)) + "</i>";
-      return gameCard(g.espn_id, g.away_cn, g.home_cn, st, esc(p), s && s.state === "in" ? " live" : "", g.away, g.home, recBadge(ms, g.total));
+      var pre = !s || s.state === "pre", st = "", as = null, hs = null, clk = "";
+      if (pre) st = '<i class="gc-tip">' + esc(String((s && s.tip) || g.tip_pt || "时间待定").replace(/ PT$/, "")) + "</i>";
+      else { as = s.as; hs = s.hs; clk = esc(cardClock(s)); }
+      return gameCard(g.espn_id, g.away_cn, g.home_cn, st, esc(p), s && s.state === "in" ? " live" : "", g.away, g.home, recBadge(ms, g.total), as, hs, clk);
     }).join("") + "</ul>";
     if (box._h !== h) {
       var old = box._sc || {}, now = {}; box._h = h; box.innerHTML = h;
-      box.querySelectorAll(".gcard").forEach(function (li) { var e = li.querySelector(".gc-sc"); if (!e) return; var id = li.getAttribute("data-id"); now[id] = e.textContent; if (old[id] != null && old[id] !== now[id]) e.classList.add("bump"); }); box._sc = now; // 比分变了：翻牌闪光
+      box.querySelectorAll(".gcard").forEach(function (li) {
+        var pts = li.querySelectorAll(".gc-pts"); if (!pts.length) return;
+        var id = li.getAttribute("data-id"), sig = Array.prototype.map.call(pts, function (p) { return p.textContent; }).join(":");
+        now[id] = sig; if (old[id] != null && old[id] !== sig) Array.prototype.forEach.call(pts, function (p) { p.classList.add("bump"); });
+      }); box._sc = now; // 比分变了：翻牌闪光
       if (!box._shown) { box._shown = 1; box.classList.add("gl-in"); setTimeout(function () { box.classList.remove("gl-in"); }, 1200); } // 第一次出现：卡片错落入场
       box.querySelectorAll(".gcard").forEach(function (li) { li.onclick = function () { var id = li.getAttribute("data-id"), tb = document.querySelector('#gameTabs .tab[data-id="' + id + '"]'); NAV.y.gd = 0; setTab("gd"); if (tb && state.sel !== id) tb.click(); window.scrollTo(0, 0); }; });
     }
