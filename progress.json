@@ -1,0 +1,111 @@
+{
+  "updated_at": "2026-11-18 16:45 PT",
+  "current": "V9 第一版完成，接入 X 伤病快讯和皇冠/多家中位线",
+  "done": [
+    "补对账 11/12–14",
+    "球员级伤病影响",
+    "盘口变动预测",
+    "风险过滤（已反向动≥1分跳过、成疑分钟≥25跳过）",
+    "逐季往前检验",
+    "每日自动锁定"
+  ],
+  "doing": [
+    "X 伤病快讯",
+    "皇冠和多家中位线"
+  ],
+  "todo": [
+    "公开预测者排行榜",
+    "大小分（目前无优势，不出推荐）"
+  ],
+  "notes": [
+    "11/15–17 额度用完，没有锁定。"
+  ],
+  "backtests": [
+    {
+      "version": "V9",
+      "tier": "A档",
+      "period": "2023-25",
+      "vs_close_w": 216,
+      "vs_close_l": 163,
+      "vs_close_pct": 57.0,
+      "vs_open_w": 233,
+      "vs_open_l": 141,
+      "per_week": 4.4,
+      "max_losing_streak": 5,
+      "note": null
+    },
+    {
+      "version": "V9",
+      "tier": "A档",
+      "period": "2025-26",
+      "vs_close_w": 123,
+      "vs_close_l": 90,
+      "vs_close_pct": 57.7,
+      "vs_open_w": 129,
+      "vs_open_l": 81,
+      "per_week": 6.3,
+      "max_losing_streak": 5,
+      "note": null
+    },
+    {
+      "version": "V9",
+      "tier": "A档",
+      "period": "2026-27（实际）",
+      "vs_close_w": 16,
+      "vs_close_l": 19,
+      "vs_close_pct": null,
+      "vs_open_w": 22,
+      "vs_open_l": 13,
+      "per_week": null,
+      "max_losing_streak": null,
+      "note": null
+    },
+    {
+      "version": "V9",
+      "tier": "B档",
+      "period": "2023-25",
+      "vs_close_w": 95,
+      "vs_close_l": 85,
+      "vs_close_pct": 52.8,
+      "vs_open_w": 99,
+      "vs_open_l": 80,
+      "per_week": 2.1,
+      "max_losing_streak": 9,
+      "note": null
+    },
+    {
+      "version": "V9",
+      "tier": "B档",
+      "period": "2025-26",
+      "vs_close_w": 42,
+      "vs_close_l": 30,
+      "vs_close_pct": 58.3,
+      "vs_open_w": 43,
+      "vs_open_l": 27,
+      "per_week": 2.1,
+      "max_losing_streak": null,
+      "note": null
+    }
+  ],
+  "backtest_note": "2025-26 不是完全干净的留出集，真正检验看模拟盘。",
+  "live": [
+    {
+      "name": "V8",
+      "record": "8-10",
+      "status": "已停用",
+      "link": null
+    },
+    {
+      "name": "高把握",
+      "record": "1-8",
+      "status": null,
+      "link": null
+    },
+    {
+      "name": "V9 模拟盘",
+      "record": null,
+      "status": null,
+      "link": "#v9"
+    }
+  ]
+}
