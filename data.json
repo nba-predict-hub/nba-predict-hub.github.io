@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-18 16:13:53 PT",
- "generated_at_iso": "2026-11-18T16:13:53.482774-08:00",
+ "generated_at": "2026-11-18 16:18:56 PT",
+ "generated_at_iso": "2026-11-18T16:18:56.303846-08:00",
  "game_date": "2026-11-11",
  "last_lock": "2026-11-14 11:02:09 PT",
  "featured": "401909974",
@@ -18,18 +18,18 @@
   "main_total_label": "第六版",
   "total_line_type": "dk_current",
   "record_spread": {
-   "w": 4,
-   "l": 12,
+   "w": 7,
+   "l": 14,
    "p": 0,
-   "graded": 16,
-   "pct": 25.0
+   "graded": 21,
+   "pct": 33.3
   },
   "record_total": {
-   "w": 5,
-   "l": 11,
+   "w": 8,
+   "l": 13,
    "p": 0,
-   "graded": 16,
-   "pct": 31.2
+   "graded": 21,
+   "pct": 38.1
   },
   "rule": "主结论总是用最新一版模型（现在是第六版）",
   "note": null
@@ -149,18 +149,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "NYK": 2,
@@ -305,18 +305,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "MIL": 2,
@@ -461,18 +461,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "CLE": 3,
@@ -617,18 +617,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "ATL": 1,
@@ -773,18 +773,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "MEM": 1,
@@ -929,18 +929,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "UTA": 1,
@@ -1085,18 +1085,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "GSW": 0,
@@ -1241,18 +1241,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "POR": 3,
@@ -1397,18 +1397,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "OKC": 3,
@@ -1545,18 +1545,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "TOR": 2,
@@ -1693,18 +1693,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "DET": 1,
@@ -1841,18 +1841,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "DAL": 0,
@@ -1989,18 +1989,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "CHA": 0,
@@ -2060,7 +2060,7 @@
     "band": "high",
     "band_cn": "高",
     "line_source": "早盘锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -2075,7 +2075,7 @@
     "band_cn": "低",
     "pick_text": "大 235.5",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "market": {
     "books": [
@@ -2162,18 +2162,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "DEN": 1,
@@ -2233,7 +2233,7 @@
     "band": "high",
     "band_cn": "高",
     "line_source": "早盘锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -2248,7 +2248,7 @@
     "band_cn": "低",
     "pick_text": "大 227.5",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "W"
    },
    "market": {
     "books": [
@@ -2335,18 +2335,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "DAL": 0,
@@ -2406,7 +2406,7 @@
     "band": "high",
     "band_cn": "高",
     "line_source": "早盘锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -2421,7 +2421,7 @@
     "band_cn": "低",
     "pick_text": "大 229.5",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "W"
    },
    "market": {
     "books": [
@@ -2508,18 +2508,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "DET": 2,
@@ -2579,7 +2579,7 @@
     "band": "mid",
     "band_cn": "中",
     "line_source": "早盘锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -2594,7 +2594,7 @@
     "band_cn": "低",
     "pick_text": "大 228.5",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "W"
    },
    "market": {
     "books": [
@@ -2681,18 +2681,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "BKN": 0,
@@ -2752,7 +2752,7 @@
     "band": "high",
     "band_cn": "高",
     "line_source": "早盘锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "total": {
     "model": "v6_selected=T6",
@@ -2767,7 +2767,7 @@
     "band_cn": "低",
     "pick_text": "大 235.5",
     "line_source": "DraftKings 锁定时的盘口",
-    "result": null
+    "result": "L"
    },
    "market": {
     "books": [
@@ -2854,18 +2854,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "CHI": 0,
@@ -3768,18 +3768,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "ORL": 1,
@@ -3927,18 +3927,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "GSW": 4,
@@ -4103,18 +4103,18 @@
    "version": 6,
    "version_cn": "第六版",
    "version_record": {
-    "w": 4,
-    "l": 12,
+    "w": 7,
+    "l": 14,
     "p": 0,
-    "graded": 16,
-    "pct": 25.0
+    "graded": 21,
+    "pct": 33.3
    },
    "version_record_total": {
-    "w": 5,
-    "l": 11,
+    "w": 8,
+    "l": 13,
     "p": 0,
-    "graded": 16,
-    "pct": 31.2
+    "graded": 21,
+    "pct": 38.1
    },
    "lean_count": {
     "OKC": 3,
@@ -4143,33 +4143,33 @@
    "target": 300,
    "all": {
     "w": 8,
-    "l": 5,
+    "l": 10,
     "p": 0,
-    "n": 13,
-    "pct": 61.5
+    "n": 18,
+    "pct": 44.4
    },
    "high": {
     "w": 1,
-    "l": 4,
+    "l": 8,
     "p": 0,
-    "n": 5,
-    "pct": 20.0
+    "n": 9,
+    "pct": 11.1
    },
    "m9a": {
     "w": 8,
-    "l": 5,
+    "l": 10,
     "p": 0,
-    "n": 13,
-    "pct": 61.5
+    "n": 18,
+    "pct": 44.4
    },
    "m9a_high": {
     "w": 0,
-    "l": 2,
+    "l": 4,
     "p": 0,
-    "n": 2,
+    "n": 4,
     "pct": 0.0
    },
-   "pending": 5
+   "pending": 0
   }
  },
  "locks_by_date": {
@@ -4694,7 +4694,7 @@
      "model_label": "第八版早锁",
      "band_cn": "高",
      "lock_time": "2026-11-14 07:23:17 PT",
-     "result": null
+     "result": "L"
     },
     "total": {
      "pick": "OVER",
@@ -4702,7 +4702,7 @@
      "line_total": 235.5,
      "model_label": "第六版",
      "lock_time": "2026-11-14 11:02:09 PT",
-     "result": null
+     "result": "L"
     }
    },
    "401909981": {
@@ -4719,7 +4719,7 @@
      "model_label": "第八版早锁",
      "band_cn": "高",
      "lock_time": "2026-11-14 07:23:17 PT",
-     "result": null
+     "result": "L"
     },
     "total": {
      "pick": "OVER",
@@ -4727,7 +4727,7 @@
      "line_total": 227.5,
      "model_label": "第六版",
      "lock_time": "2026-11-14 11:02:09 PT",
-     "result": null
+     "result": "W"
     }
    },
    "401909982": {
@@ -4744,7 +4744,7 @@
      "model_label": "第八版早锁",
      "band_cn": "高",
      "lock_time": "2026-11-14 07:23:17 PT",
-     "result": null
+     "result": "L"
     },
     "total": {
      "pick": "OVER",
@@ -4752,7 +4752,7 @@
      "line_total": 229.5,
      "model_label": "第六版",
      "lock_time": "2026-11-14 11:02:09 PT",
-     "result": null
+     "result": "W"
     }
    },
    "401909983": {
@@ -4769,7 +4769,7 @@
      "model_label": "第八版早锁",
      "band_cn": "中",
      "lock_time": "2026-11-14 07:23:17 PT",
-     "result": null
+     "result": "L"
     },
     "total": {
      "pick": "OVER",
@@ -4777,7 +4777,7 @@
      "line_total": 228.5,
      "model_label": "第六版",
      "lock_time": "2026-11-14 11:02:09 PT",
-     "result": null
+     "result": "W"
     }
    },
    "401909984": {
@@ -4794,7 +4794,7 @@
      "model_label": "第八版早锁",
      "band_cn": "高",
      "lock_time": "2026-11-14 07:23:17 PT",
-     "result": null
+     "result": "L"
     },
     "total": {
      "pick": "OVER",
@@ -4802,7 +4802,7 @@
      "line_total": 235.5,
      "model_label": "第六版",
      "lock_time": "2026-11-14 11:02:09 PT",
-     "result": null
+     "result": "L"
     }
    }
   }
@@ -5779,10 +5779,10 @@
    }
   ],
   "live": {
-   "graded_rows": 118,
-   "w": 48,
-   "l": 70,
-   "pct": 40.7,
+   "graded_rows": 158,
+   "w": 65,
+   "l": 93,
+   "pct": 41.1,
    "note": "已结束的比赛"
   },
   "is_first": false,
@@ -5809,7 +5809,7 @@
   {
    "name": "我们的赛前锁定记录",
    "file": "out/live_ledger.csv",
-   "updated": "2026-11-14 11:02 PT",
+   "updated": "2026-11-18 16:14 PT",
    "note": "每场开赛前锁定的方向、盘口、把握度，赛后填对错",
    "exists": true
   },
