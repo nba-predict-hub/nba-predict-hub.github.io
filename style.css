@@ -690,7 +690,7 @@ body{background:linear-gradient(rgba(51,225,255,.025) 1px,transparent 1px) 0 0/1
 #scanFx:not(.go){display:none}
 /* 兜底防闪：内容区禁用循环动画、will-change、遮罩和滤镜，只保留直播红点/在线点 */
 main *,main *:before,main *:after{animation-iteration-count:1!important;will-change:auto!important;-webkit-mask-image:none!important;mask-image:none!important;filter:none!important;-webkit-filter:none!important}
-main .live i,main .lvtab.live:before,main .lvst.live i,main .gc-st.on:before,main .lvst .on:before{animation-iteration-count:infinite!important}
+main .live i,main .lvtab.live:before,main .lvst.live i,main .gc-st.on:before,main .lvst .on:before,main .tr-spin{animation-iteration-count:infinite!important}
 .gc-rec{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}.rec{display:inline-block;background:#ffd23f;color:#1a1200;font-weight:900;font-size:13px;line-height:1.3;padding:3px 9px;border-radius:999px;box-shadow:0 0 0 1px #fff3b0;white-space:nowrap;vertical-align:middle}
 
 /* 列表比分：队名旁实色分数；节次与剩余时间单独一行，互不重叠 */
@@ -727,15 +727,16 @@ main .live i,main .lvtab.live:before,main .lvst.live i,main .gc-st.on:before,mai
 /* 训练进度页：只渲染 progress.json，通用列表/卡片，无循环动画、遮罩、滤镜、will-change */
 #v9{scroll-margin-top:calc(100px + env(safe-area-inset-top))}
 .p-tr h2{margin-bottom:8px}
-.tr-cur{margin:0 0 16px;padding:12px 12px 10px;border:1px solid rgba(51,225,255,.28)}
+.tr-cur{margin:0 0 12px;padding:10px 12px 8px;border:1px solid rgba(51,225,255,.28)}
 .tr-k{font-size:12px;color:var(--dim);letter-spacing:.08em;margin-bottom:6px}
 .tr-v{font-size:16px;font-weight:800;line-height:1.45;color:#f2f6ff}
 .tr-upd{margin-top:8px;font-size:12px;color:#b7c3dc}
-.tr-blk{margin:0 0 18px}
+.tr-blk{margin:0 0 12px}
 .tr-blk h3{margin:0 0 8px;font-size:14px;letter-spacing:.06em;color:#d5deef}
 .tr-ul,.tr-bt,.tr-live{list-style:none;margin:0;padding:0}
-.tr-ul li{position:relative;padding:7px 0 7px 14px;border-top:1px solid rgba(255,255,255,.08);font-size:14px;line-height:1.45;color:#e8eefc}
-.tr-ul li:before{content:"";position:absolute;left:0;top:15px;width:6px;height:6px;border:1px solid #7aa0c8;border-radius:1px}
+.tr-ul li{display:flex;align-items:flex-start;gap:8px;position:relative;padding:7px 0;border-top:1px solid rgba(255,255,255,.08);font-size:14px;line-height:1.45;color:#e8eefc}
+.tr-ul.tr-notes li{padding-left:14px}
+.tr-ul.tr-notes li:before{content:"";position:absolute;left:0;top:15px;width:6px;height:6px;border:1px solid #7aa0c8;border-radius:1px}
 .tr-bt{display:flex;flex-direction:column;gap:10px}
 .tr-card{padding:10px 12px;border:1px solid rgba(110,200,255,.2);background:rgba(8,14,26,.55)}
 .tr-ch{font-size:16px;font-weight:800;color:#f2f6ff}
@@ -749,3 +750,29 @@ main .live i,main .lvtab.live:before,main .lvst.live i,main .gc-st.on:before,mai
 .tl-s{font-size:12px;color:#ffd27a}
 .tl-r{margin-left:auto;font-family:var(--mono);font-weight:700;font-variant-numeric:tabular-nums}
 .tr-empty{text-align:center;padding:16px 8px;color:#e8d9a0;font-weight:700}
+
+/* 训练页总进度条：红霓虹+白描边，已完成段白热发光（只用 box-shadow/渐变，不用 filter/mask） */
+.tr-prog{display:flex;align-items:center;gap:10px;margin:2px 0 12px}
+.tr-bar{position:relative;flex:1;height:20px;border-radius:999px;background:#050308;border:2px solid #fff;
+box-shadow:0 0 0 1px rgba(255,255,255,.7),0 0 8px 2px rgba(255,40,40,.9),0 0 20px 6px rgba(255,0,20,.55),0 0 40px 12px rgba(180,0,0,.32)}
+.tr-fill{position:absolute;left:3px;top:3px;bottom:3px;width:var(--p,0%);border-radius:999px;
+background:linear-gradient(90deg,#ff5a5a 0%,#ffd0d0 32%,#fff 62%,#fff 100%);
+box-shadow:0 0 6px 2px #fff,0 0 12px 4px rgba(255,80,80,.95),0 0 24px 8px rgba(255,0,0,.55);
+transform:scaleX(0);transform-origin:left center}
+.tr-fill.run{animation:trFill .8s ease-out 1 forwards}
+@keyframes trFill{to{transform:none}}
+.tr-meta{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:2px;min-width:4.6em;line-height:1.15}
+.tr-meta b{font-family:var(--mono);font-size:16px;font-weight:800;color:#fff;text-shadow:0 0 8px rgba(255,40,40,.95),0 0 16px rgba(255,0,0,.65)}
+.tr-meta span{font-size:11px;color:#d5deef;letter-spacing:.04em}
+/* 清单图标：已完成绿勾、进行中小圈旋转、待做空框 */
+.tr-ico{flex:none;width:16px;height:16px;margin-top:2px;position:relative;display:inline-block}
+.tr-ico.ok{background:#16c26b;border-radius:4px;box-shadow:0 0 8px rgba(22,194,107,.55)}
+.tr-ico.ok:after{content:"";position:absolute;left:4px;top:1px;width:6px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.tr-ico.go{display:flex;align-items:center;justify-content:center}
+.tr-spin{display:block;width:12px;height:12px;border-radius:50%;border:2px solid rgba(51,225,255,.22);border-top-color:#5ee8ff;animation:trSpin .7s linear infinite}
+@keyframes trSpin{to{transform:rotate(360deg)}}
+.tr-ico.wait{border:1.5px solid #8aa0c4;border-radius:4px;background:transparent;box-sizing:border-box}
+@media (prefers-reduced-motion:reduce){
+  .tr-fill,.tr-spin{animation:none!important}
+  .tr-fill{transform:none}
+}

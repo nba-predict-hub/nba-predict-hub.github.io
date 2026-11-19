@@ -1364,7 +1364,7 @@
     if (pg === "lv") { var lv = null; (live.events || []).forEach(function (e) { if (!lv && e.state === "in") lv = e; }); if (lv && state.sel !== lv.id) { var tb = document.querySelector('#gameTabs .tab[data-id="' + lv.id + '"]'); if (tb) tb.click(); } }
     if (pg === "pr") drawPre();
     if (pg === "gl") drawGameList();
-    if (pg === "tr") drawTrain();
+    if (pg === "tr") { drawTrain(); playTrainBar(); }
     paintPage(); paintNav();
     try { sessionStorage.setItem("nba_tab", pg); } catch (e) {}
     if (old !== pg || keep) { var y = NAV.y[pg] || 0; window.scrollTo(0, y); requestAnimationFrame(function () { window.scrollTo(0, y); }); }
@@ -1434,10 +1434,29 @@
     }).catch(function () { state.v9 = null; }).then(function () { safe("V9模拟盘", drawV9, "v9Board"); });
   }
     function trMiss(v) { return v == null || String(v).trim() === "" ? "缺" : String(v); }
-  function trList(title, arr) {
+  function trList(title, arr, kind) {
     var h = '<div class="tr-blk"><h3>' + esc(title) + "</h3>";
     if (!arr || !arr.length) return h + '<p class="note">缺</p></div>';
-    return h + '<ul class="tr-ul">' + arr.map(function (x) { return "<li>" + esc(trMiss(x)) + "</li>"; }).join("") + "</ul></div>";
+    return h + '<ul class="tr-ul' + (kind ? " tr-" + kind : " tr-notes") + '">' + arr.map(function (x) {
+      var ico = "";
+      if (kind === "done") ico = '<i class="tr-ico ok" aria-hidden="true"></i>';
+      else if (kind === "doing") ico = '<i class="tr-ico go" aria-hidden="true"><b class="tr-spin"></b></i>';
+      else if (kind === "todo") ico = '<i class="tr-ico wait" aria-hidden="true"></i>';
+      return "<li>" + ico + "<span>" + esc(trMiss(x)) + "</span></li>";
+    }).join("") + "</ul></div>";
+  }
+  function trProgress(d) {
+    var nDone = (d.done || []).length, nDoing = (d.doing || []).length, nTodo = (d.todo || []).length, y = nDone + nDoing + nTodo;
+    if (!y) return '<div class="tr-prog"><div class="tr-bar" aria-hidden="true"></div><div class="tr-meta">缺</div></div>';
+    var raw = 100 * nDone / y, rnd = Math.round(raw * 10) / 10, pct = (Math.abs(rnd - Math.round(rnd)) < 0.05 ? String(Math.round(rnd)) : rnd.toFixed(1)) + "%";
+    return '<div class="tr-prog"><div class="tr-bar" role="progressbar" aria-valuenow="' + nDone + '" aria-valuemin="0" aria-valuemax="' + y + '" aria-label="' + pct + "，" + nDone + "/" + y + ' 项"><i class="tr-fill" style="--p:' + (raw) + '%"></i></div><div class="tr-meta"><b>' + pct + "</b><span>" + nDone + "/" + y + " 项</span></div></div>";
+  }
+  function playTrainBar() {
+    var fill = document.querySelector("#trainView .tr-fill");
+    if (!fill) return;
+    fill.classList.remove("run");
+    void fill.offsetWidth;
+    fill.classList.add("run");
   }
   function trWL(w, l) { return (w == null && l == null) ? "缺" : trMiss(w) + "-" + trMiss(l); }
   function drawTrain() {
@@ -1446,8 +1465,9 @@
     if (!d) {
       h += '<p class="tr-empty">缺</p><p class="note">来源 模型训练记录 progress.json · 更新于 缺</p>';
     } else {
+      h += trProgress(d);
       h += '<div class="tr-cur"><div class="tr-k">当前步骤</div><div class="tr-v">' + esc(trMiss(d.current)) + '</div><div class="tr-upd">更新于 ' + esc(trMiss(d.updated_at)) + "</div></div>";
-      h += trList("已完成", d.done) + trList("进行中", d.doing) + trList("待做", d.todo);
+      h += trList("已完成", d.done, "done") + trList("进行中", d.doing, "doing") + trList("待做", d.todo, "todo");
       h += '<div class="tr-blk"><h3>各版本检验成绩</h3>';
       var rows = d.backtests || [];
       if (!rows.length) h += '<p class="note">缺</p>';
