@@ -1,32 +1,8 @@
 {
- "updated_pt": "2026-11-18 18:38",
- "lines_updated_pt": "2026-11-18 18:37:27 PST",
+ "updated_pt": "2026-11-18 18:54",
+ "lines_updated_pt": "2026-11-18 18:50:50 PST",
  "source": "同事监控 monitor/lines.json（ESPN 记分板/核心接口的 DraftKings、Pinnacle 公开盘）；皇冠来自 monitor/crown.json",
  "games": {
-  "401910015": {
-   "away": "BOS",
-   "home": "DEN",
-   "books": [
-    {
-     "book": "DraftKings",
-     "line_home": -2.5,
-     "line_total": 218.5
-    },
-    {
-     "book": "Pinnacle",
-     "line_home": -2.5,
-     "line_total": 220.0
-    },
-    {
-     "book": "tpt",
-     "line_home": -2.5,
-     "line_total": "缺"
-    }
-   ],
-   "med_line_home": -2.5,
-   "med_total": 219.25,
-   "n": 3
-  },
   "401910017": {
    "away": "UTA",
    "home": "LAL",
@@ -83,11 +59,16 @@
      "book": "DraftKings",
      "line_home": 16.5,
      "line_total": 225.5
+    },
+    {
+     "book": "Pinnacle",
+     "line_home": 16.0,
+     "line_total": 225.5
     }
    ],
-   "med_line_home": 16.5,
+   "med_line_home": 16.25,
    "med_total": 225.5,
-   "n": 1
+   "n": 2
   }
  },
  "crown": [
