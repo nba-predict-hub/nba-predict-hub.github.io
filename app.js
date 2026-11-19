@@ -1187,14 +1187,14 @@
         // 只有上面的读取/解析失败才算“读取失败”；渲染出错只影响对应板块，加载动画一定收起
         return Promise.race([lp, new Promise(function (r) { setTimeout(r, 300); })]).then(function () { return loaderFeed(d); }).catch(function () {}).then(function () {
           safe("整页", function () { renderAll(true); });
-          state.shown = true; hideLoader(); lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); }); safe("比分", function () { pollScores(); }); safe("恢复", function () { FR.restore(); }); safe("导航", function () { FR.nav.build(); var t0 = null; try { t0 = sessionStorage.getItem("nba_tab"); } catch (e) {} FR.nav.set(/^(gl|gd|lv|pr|hs|tr)$/.test(t0 || "") ? t0 : "gl", true); }); loadV9(); loadProgress();
+          state.shown = true; hideLoader(); lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); }); safe("比分", function () { pollScores(); }); safe("恢复", function () { FR.restore(); }); safe("导航", function () { FR.nav.build(); var t0 = null; try { t0 = sessionStorage.getItem("nba_tab"); } catch (e) {} FR.nav.set(/^(gl|gd|lv|pr|hs|tr)$/.test(t0 || "") ? t0 : "gl", true); }); loadV9(); loadProgress(); loadLeaderboard();
         });
       }
       lp.then(function () { safe("雷速按钮", function () { var g = game(); if (g) renderLeisu(g); }); });
       if (changed) { var snap = {}; DATA_CARDS.forEach(function (k) { var e = $(k); if (e) snap[k] = e.innerHTML.replace(/<p class="chk"[\s\S]*?<\/p>/, ""); });
         safe("整页", function () { renderAll(false); });
         DATA_CARDS.forEach(function (k) { var e = $(k); if (e && snap[k] != null && snap[k] !== e.innerHTML.replace(/<p class="chk"[\s\S]*?<\/p>/, "")) { FR.upd[k] = { hm: hm(), t: Date.now() }; var c = e.closest(".card") || e; c.classList.remove("flash"); void c.offsetWidth; c.classList.add("flash"); } }); safe("日期页", function () { var c = dayState.cache[dayState.sel]; if (dayState.sel !== dayState.today && c) drawDay(dayState.sel, dayState.iso, c.events); }); toast("数据已更新 · " + String(d.generated_at || "").slice(11, 16)); }
-      loadV9(); loadProgress();
+      loadV9(); loadProgress(); loadLeaderboard();
     }, function (e) {
       if (first) { var t = document.querySelector(".ld-title"); if (t) t.textContent = "数据读取失败，60 秒后自动重试"; state.loadFailed = true; }
       else toast("刷新失败，先显示上次的数据");
@@ -1459,11 +1459,53 @@
     fill.classList.add("run");
   }
   function trWL(w, l) { return (w == null && l == null) ? "缺" : trMiss(w) + "-" + trMiss(l); }
+  function lbRows(data, table, period) {
+    var rows = Array.isArray(data) ? data : ((data && data.rows) || []);
+    return rows.filter(function (r) { return r && r.table === table && (!period || r.period === period); });
+  }
+  function lbOurs(r) { var n = String((r && r.name) || ""); return /V9/i.test(n) && /tier\s*A|A档/i.test(n); }
+  function lbPct(v) {
+    if (v == null || v === "") return "缺";
+    if (typeof v === "number") return v.toFixed(1) + "%";
+    var s = String(v); return /%$/.test(s) ? s : s;
+  }
+  function lbSort(rows) {
+    var has = rows.some(function (r) { return r && r.rank != null && r.rank !== ""; });
+    if (!has) return rows.slice();
+    return rows.slice().sort(function (a, b) {
+      var ar = a && a.rank, br = b && b.rank, am = ar == null || ar === "", bm = br == null || br === "";
+      if (am && bm) return 0; if (am) return 1; if (bm) return -1; return Number(ar) - Number(br);
+    });
+  }
+  function lbTable(rows, cap) {
+    var h = '<p class="tr-lb-cap">' + esc(cap) + "</p>";
+    if (!rows.length) return h + '<p class="note">缺</p>';
+    h += '<ul class="tr-lb-list"><li class="tr-lb-h"><span class="rk">名次</span><span class="nm">系统</span><span class="wl">胜-负</span><span class="pc">命中率</span></li>';
+    lbSort(rows).forEach(function (r) {
+      r = r || {};
+      h += '<li class="tr-lb-row' + (lbOurs(r) ? " ours" : "") + '"><span class="rk">' + esc(trMiss(r.rank)) + '</span><span class="nm">' + esc(trMiss(r.name)) + '</span><span class="wl">' + esc(trWL(r.w, r.l)) + '</span><span class="pc">' + esc(lbPct(r.pct)) + "</span></li>";
+    });
+    return h + "</ul>";
+  }
+  function renderLeaderboard() {
+    var h = '<div class="tr-blk tr-lb"><h3>公开预测者排行榜</h3>';
+    var data = state.leaderboard;
+    if (!data || (Array.isArray(data) && !data.length)) {
+      h += '<p class="note">缺</p></div>';
+      return h;
+    }
+    h += lbTable(lbRows(data, "own_top_edge_same_N", "2025-26"), "2025-26");
+    h += lbTable(lbRows(data, "season_2026_27"), "2026-27 · 不同场次、样本小");
+    h += '<p class="note tr-fn">同一收盘线对比；2025-26 只有一半是干净样本，真正检验看 11/19 起的模拟盘</p>';
+    h += '<p class="note">来源 leaderboard.json</p></div>';
+    return h;
+  }
   function drawTrain() {
     var box = $("trainView"); if (!box) return;
     var d = state.progress, h = "<h2>训练进度</h2>";
     if (!d) {
       h += '<p class="tr-empty">缺</p><p class="note">来源 模型训练记录 progress.json · 更新于 缺</p>';
+      h += renderLeaderboard();
     } else {
       h += trProgress(d);
       h += '<div class="tr-cur"><div class="tr-k">当前步骤</div><div class="tr-v">' + esc(trMiss(d.current)) + '</div><div class="tr-upd">更新于 ' + esc(trMiss(d.updated_at)) + "</div></div>";
@@ -1482,6 +1524,7 @@
           (r.note ? '<p class="note">' + esc(r.note) + "</p>" : "") + "</li>";
       }).join("") + "</ul>";
       h += '<p class="note tr-fn">' + esc(trMiss(d.backtest_note)) + "</p></div>";
+      h += renderLeaderboard();
       h += '<div class="tr-blk"><h3>实盘战绩</h3>';
       var live = d.live || [];
       if (!live.length) h += '<p class="note">缺</p>';
@@ -1509,6 +1552,12 @@
       if (!r.ok) { state.progress = null; return; }
       return r.json().then(function (j) { state.progress = j && typeof j === "object" ? j : null; });
     }).catch(function () { state.progress = null; }).then(function () { safe("训练进度", drawTrain, "trainView"); });
+  }
+  function loadLeaderboard() {
+    return fetch("leaderboard.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) {
+      if (!r.ok) { state.leaderboard = null; return; }
+      return r.json().then(function (j) { state.leaderboard = Array.isArray(j) ? j : (j && j.rows) || null; });
+    }).catch(function () { state.leaderboard = null; }).then(function () { safe("排行榜", drawTrain, "trainView"); });
   }
     function recBadge(sp, to) { return ""; } // 不再在卡片上标“最推荐/高把握”，避免像下注建议
   function recFor(s, iso) { var g = null; allGames().forEach(function (x) { if (String(x.espn_id) === String(s.id)) g = x; }); if (g) return recBadge(mainSpread(g), g.total);
