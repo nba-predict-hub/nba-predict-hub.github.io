@@ -1,80 +1,8 @@
 {
- "updated_pt": "2026-11-25 17:08",
- "lines_updated_pt": "2026-11-25 17:05:54 PST",
+ "updated_pt": "2026-11-25 18:48",
+ "lines_updated_pt": "2026-11-25 18:41:06 PST",
  "source": "同事监控 monitor/lines.json（ESPN 记分板/核心接口的 DraftKings、Pinnacle 公开盘）；皇冠来自 monitor/crown.json",
  "games": {
-  "401909321": {
-   "away": "LAC",
-   "home": "MEM",
-   "books": [
-    {
-     "book": "DraftKings",
-     "line_home": 7.5,
-     "line_total": 227.5
-    },
-    {
-     "book": "Pinnacle",
-     "line_home": 7.5,
-     "line_total": 228.0
-    },
-    {
-     "book": "tpt",
-     "line_home": 7.0,
-     "line_total": "缺"
-    }
-   ],
-   "med_line_home": 7.5,
-   "med_total": 227.75,
-   "n": 3
-  },
-  "401909322": {
-   "away": "BKN",
-   "home": "MIL",
-   "books": [
-    {
-     "book": "DraftKings",
-     "line_home": 1.5,
-     "line_total": 233.5
-    },
-    {
-     "book": "Pinnacle",
-     "line_home": 1.0,
-     "line_total": 234.0
-    },
-    {
-     "book": "tpt",
-     "line_home": 1.5,
-     "line_total": "缺"
-    }
-   ],
-   "med_line_home": 1.5,
-   "med_total": 233.75,
-   "n": 3
-  },
-  "401909323": {
-   "away": "PHX",
-   "home": "HOU",
-   "books": [
-    {
-     "book": "DraftKings",
-     "line_home": 9.5,
-     "line_total": 222.5
-    },
-    {
-     "book": "Pinnacle",
-     "line_home": 9.5,
-     "line_total": 223.0
-    },
-    {
-     "book": "tpt",
-     "line_home": 9.5,
-     "line_total": "缺"
-    }
-   ],
-   "med_line_home": 9.5,
-   "med_total": 222.75,
-   "n": 3
-  },
   "401909324": {
    "away": "SAC",
    "home": "GSW",
@@ -82,11 +10,11 @@
     {
      "book": "DraftKings",
      "line_home": 8.5,
-     "line_total": 215.5
+     "line_total": 216.5
     },
     {
      "book": "Pinnacle",
-     "line_home": 8.0,
+     "line_home": 9.0,
      "line_total": 215.5
     },
     {
@@ -95,8 +23,8 @@
      "line_total": "缺"
     }
    ],
-   "med_line_home": 8.0,
-   "med_total": 215.5,
+   "med_line_home": 8.5,
+   "med_total": 216.0,
    "n": 3
   },
   "401909325": {
@@ -106,12 +34,12 @@
     {
      "book": "DraftKings",
      "line_home": -3.5,
-     "line_total": 227.5
+     "line_total": 225.5
     },
     {
      "book": "Pinnacle",
-     "line_home": -2.5,
-     "line_total": 227.5
+     "line_home": -4.0,
+     "line_total": 225.5
     },
     {
      "book": "tpt",
@@ -120,7 +48,7 @@
     }
    ],
    "med_line_home": -3.5,
-   "med_total": 227.5,
+   "med_total": 225.5,
    "n": 3
   }
  },
