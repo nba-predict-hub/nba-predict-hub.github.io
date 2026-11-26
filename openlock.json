@@ -1,9 +1,45 @@
 {
- "generated_at": "2026-11-26 04:52:06 PT",
+ "generated_at": "2026-11-26 05:10:57 PT",
  "exists": true,
- "locked": 0,
+ "locked": 3,
  "skipped": 20,
  "rows": [
+  {
+   "game_date": "2026-11-27",
+   "game": "掘金 @ 爵士",
+   "status": "LOCKED",
+   "reason": "",
+   "tier": "NO_PICK",
+   "pick": "掘金",
+   "line": "-9.5",
+   "lock_time": "2026-11-26 04:58:45 PT",
+   "guard_info": false,
+   "flags": ""
+  },
+  {
+   "game_date": "2026-11-27",
+   "game": "老鹰 @ 凯尔特人",
+   "status": "LOCKED",
+   "reason": "",
+   "tier": "NO_PICK",
+   "pick": "凯尔特人",
+   "line": "-9.5",
+   "lock_time": "2026-11-26 04:58:45 PT",
+   "guard_info": false,
+   "flags": ""
+  },
+  {
+   "game_date": "2026-11-27",
+   "game": "76人 @ 步行者",
+   "status": "LOCKED",
+   "reason": "",
+   "tier": "NO_PICK",
+   "pick": "步行者",
+   "line": "+4.5",
+   "lock_time": "2026-11-26 04:58:45 PT",
+   "guard_info": false,
+   "flags": ""
+  },
   {
    "game_date": "",
    "game": "湖人 @ 马刺",
