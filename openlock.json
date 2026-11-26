@@ -1,9 +1,57 @@
 {
- "generated_at": "2026-11-26 11:54:55 PT",
+ "generated_at": "2026-11-26 11:59:57 PT",
  "exists": true,
  "locked": 4,
- "skipped": 20,
+ "skipped": 24,
  "rows": [
+  {
+   "game_date": "2026-11-27",
+   "game": "鹈鹕 @ 快船",
+   "status": "SKIPPED",
+   "reason": "记录器中断过，首次看到的盘口不是真正开盘价",
+   "tier": "",
+   "pick": "",
+   "line": "",
+   "lock_time": "2026-11-26 11:55:00 PT",
+   "guard_info": false,
+   "flags": ""
+  },
+  {
+   "game_date": "2026-11-27",
+   "game": "独行侠 @ 太阳",
+   "status": "SKIPPED",
+   "reason": "记录器中断过，首次看到的盘口不是真正开盘价",
+   "tier": "",
+   "pick": "",
+   "line": "",
+   "lock_time": "2026-11-26 11:55:00 PT",
+   "guard_info": false,
+   "flags": ""
+  },
+  {
+   "game_date": "2026-11-27",
+   "game": "篮网 @ 猛龙",
+   "status": "SKIPPED",
+   "reason": "记录器中断过，首次看到的盘口不是真正开盘价",
+   "tier": "",
+   "pick": "",
+   "line": "",
+   "lock_time": "2026-11-26 11:55:00 PT",
+   "guard_info": false,
+   "flags": ""
+  },
+  {
+   "game_date": "2026-11-27",
+   "game": "雄鹿 @ 活塞",
+   "status": "SKIPPED",
+   "reason": "记录器中断过，首次看到的盘口不是真正开盘价",
+   "tier": "",
+   "pick": "",
+   "line": "",
+   "lock_time": "2026-11-26 11:55:00 PT",
+   "guard_info": false,
+   "flags": ""
+  },
   {
    "game_date": "2026-11-27",
    "game": "灰熊 @ 森林狼",
