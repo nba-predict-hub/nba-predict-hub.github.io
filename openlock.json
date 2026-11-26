@@ -1,9 +1,21 @@
 {
- "generated_at": "2026-11-26 11:37:55 PT",
+ "generated_at": "2026-11-26 11:50:58 PT",
  "exists": true,
- "locked": 3,
+ "locked": 4,
  "skipped": 20,
  "rows": [
+  {
+   "game_date": "2026-11-27",
+   "game": "灰熊 @ 森林狼",
+   "status": "LOCKED",
+   "reason": "",
+   "tier": "NO_PICK",
+   "pick": "森林狼",
+   "line": "-2.5",
+   "lock_time": "2026-11-26 11:50:56 PT",
+   "guard_info": false,
+   "flags": ""
+  },
   {
    "game_date": "2026-11-27",
    "game": "掘金 @ 爵士",
