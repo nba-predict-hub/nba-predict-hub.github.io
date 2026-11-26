@@ -32,6 +32,7 @@ fi
 [ -f pre_odds.py ] && { timeout 30 python3 pre_odds.py || echo "pre_odds.py 失败（忽略）" >&2; }
 # V9 模拟盘账本：没有文件就写空数据，失败不打断其他导出
 [ -f tools/sync_v9_ledger.py ] && { timeout 30 python3 tools/sync_v9_ledger.py || echo "sync_v9_ledger.py 失败（忽略）" >&2; }
+[ -f tools/sync_openlock.py ] && { timeout 30 python3 tools/sync_openlock.py || echo "sync_openlock.py 失败（忽略）" >&2; }
 [ -f tools/sync_progress.py ] && { timeout 30 python3 tools/sync_progress.py || echo "sync_progress.py 失败（忽略）" >&2; }
 [ -f tools/sync_leaderboard.py ] && { timeout 30 python3 tools/sync_leaderboard.py || echo "sync_leaderboard.py 失败（忽略）" >&2; }
 if [ -d .git ]; then
@@ -44,8 +45,10 @@ if [ -d .git ]; then
   [ -f player_roles.json ] && git add player_roles.json
   [ -f pre_odds.json ] && git add pre_odds.json
   [ -f v9_ledger.json ] && git add v9_ledger.json
+  [ -f openlock.json ] && git add openlock.json
   [ -f progress.json ] && git add progress.json
   [ -f leaderboard.json ] && git add leaderboard.json
+  [ -f ledger_backup/live_ledger.csv ] && git add ledger_backup/live_ledger.csv
   if ! git diff --cached --quiet; then
     git commit -m "data: $(date '+%Y-%m-%d %H:%M %Z')" && git push
   fi

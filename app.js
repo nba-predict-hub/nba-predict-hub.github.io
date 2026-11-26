@@ -1422,6 +1422,15 @@
       });
       h += "</ul>";
     }
+    var ol = state.openlock;
+    if (ol && ol.exists && ol.rows && ol.rows.length) {
+      h += '<div class="v9-sum">开盘锁定前向测试：已锁 ' + ol.locked + " 场 · 跳过 " + ol.skipped + ' 场（仅记录，不是下注建议）</div><ul class="v9-list">';
+      ol.rows.slice(0, 10).forEach(function (r) {
+        var info = r.status === "LOCKED" ? ("方向 " + v9txt(r.pick) + " · 盘口 " + v9txt(r.line) + " · 档位 " + v9txt(r.tier) + (r.guard_info ? " · 大热门主力缺阵（仅提示）" : "")) : ("跳过：" + v9txt(r.reason));
+        h += '<li class="v9-row"><div class="v9-meta">' + esc(v9txt(r.game_date)) + " · " + esc(r.game) + '</div><div class="v9-body"><span>' + esc(info) + "</span></div></li>";
+      });
+      h += "</ul>";
+    }
     var src = (d && d.source) || "nba_model/out/live_ledger_v9.csv";
     var upd = (d && (d.source_updated || d.generated_at)) || "缺";
     h += '<p class="note">来源 ' + esc(src) + " · 更新于 " + esc(upd) + "</p>";
@@ -1431,7 +1440,9 @@
     return fetch("v9_ledger.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) {
       if (!r.ok) { state.v9 = null; return; }
       return r.json().then(function (j) { state.v9 = j && typeof j === "object" ? j : null; });
-    }).catch(function () { state.v9 = null; }).then(function () { safe("V9模拟盘", drawV9, "v9Board"); });
+    }).catch(function () { state.v9 = null; }).then(function () {
+      return fetch("openlock.json?t=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }).then(function (o) { state.openlock = o; });
+    }).then(function () { safe("V9模拟盘", drawV9, "v9Board"); });
   }
     function trMiss(v) { return v == null || String(v).trim() === "" ? "缺" : String(v); }
   function trList(title, arr, kind) {
