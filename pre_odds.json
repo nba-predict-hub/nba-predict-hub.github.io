@@ -1,6 +1,6 @@
 {
- "updated_pt": "2026-11-27 06:14",
- "lines_updated_pt": "2026-11-27 06:12:52 PST",
+ "updated_pt": "2026-11-27 09:09",
+ "lines_updated_pt": "2026-11-27 08:06:41 PST",
  "source": "同事监控 monitor/lines.json（ESPN 记分板/核心接口的 DraftKings、Pinnacle 公开盘）；皇冠来自 monitor/crown.json",
  "games": {
   "401909326": {
@@ -13,9 +13,9 @@
      "line_total": 222.5
     },
     {
-     "book": "Pinnacle",
+     "book": "tpt",
      "line_home": 4.5,
-     "line_total": 222.5
+     "line_total": "缺"
     }
    ],
    "med_line_home": 4.5,
@@ -28,17 +28,17 @@
    "books": [
     {
      "book": "DraftKings",
-     "line_home": 9.5,
+     "line_home": 10.5,
      "line_total": 218.5
     },
     {
-     "book": "Pinnacle",
-     "line_home": 10.0,
-     "line_total": 219.0
+     "book": "tpt",
+     "line_home": 10.5,
+     "line_total": "缺"
     }
    ],
-   "med_line_home": 9.75,
-   "med_total": 218.75,
+   "med_line_home": 10.5,
+   "med_total": 218.5,
    "n": 2
   },
   "401909328": {
@@ -48,16 +48,16 @@
     {
      "book": "DraftKings",
      "line_home": -3.5,
-     "line_total": 230.5
+     "line_total": 229.5
     },
     {
-     "book": "Pinnacle",
-     "line_home": -3.5,
-     "line_total": 229.5
+     "book": "tpt",
+     "line_home": -3.0,
+     "line_total": "缺"
     }
    ],
-   "med_line_home": -3.5,
-   "med_total": 230.0,
+   "med_line_home": -3.25,
+   "med_total": 229.5,
    "n": 2
   },
   "401909329": {
@@ -70,13 +70,13 @@
      "line_total": 219.5
     },
     {
-     "book": "Pinnacle",
-     "line_home": 9.0,
-     "line_total": 219.0
+     "book": "tpt",
+     "line_home": 9.5,
+     "line_total": "缺"
     }
    ],
-   "med_line_home": 9.25,
-   "med_total": 219.25,
+   "med_line_home": 9.5,
+   "med_total": 219.5,
    "n": 2
   },
   "401909330": {
@@ -86,16 +86,16 @@
     {
      "book": "DraftKings",
      "line_home": 8.5,
-     "line_total": 221.5
+     "line_total": 222.5
     },
     {
-     "book": "Pinnacle",
-     "line_home": 9.0,
-     "line_total": 222.0
+     "book": "tpt",
+     "line_home": 8.5,
+     "line_total": "缺"
     }
    ],
-   "med_line_home": 8.75,
-   "med_total": 221.75,
+   "med_line_home": 8.5,
+   "med_total": 222.5,
    "n": 2
   },
   "401909331": {
@@ -108,13 +108,13 @@
      "line_total": 222.5
     },
     {
-     "book": "Pinnacle",
+     "book": "tpt",
      "line_home": 4.5,
-     "line_total": 223.5
+     "line_total": "缺"
     }
    ],
    "med_line_home": 4.5,
-   "med_total": 223.0,
+   "med_total": 222.5,
    "n": 2
   },
   "401909332": {
@@ -123,17 +123,17 @@
    "books": [
     {
      "book": "DraftKings",
-     "line_home": 2.5,
+     "line_home": 1.5,
      "line_total": 226.5
     },
     {
-     "book": "Pinnacle",
+     "book": "tpt",
      "line_home": 2.0,
-     "line_total": 227.5
+     "line_total": "缺"
     }
    ],
-   "med_line_home": 2.25,
-   "med_total": 227.0,
+   "med_line_home": 1.75,
+   "med_total": 226.5,
    "n": 2
   },
   "401909333": {
@@ -143,16 +143,16 @@
     {
      "book": "DraftKings",
      "line_home": 6.5,
-     "line_total": 225.5
+     "line_total": 226.5
     },
     {
-     "book": "Pinnacle",
+     "book": "tpt",
      "line_home": 6.0,
-     "line_total": 225.0
+     "line_total": "缺"
     }
    ],
    "med_line_home": 6.25,
-   "med_total": 225.25,
+   "med_total": 226.5,
    "n": 2
   },
   "401909334": {
@@ -165,13 +165,13 @@
      "line_total": 229.5
     },
     {
-     "book": "Pinnacle",
+     "book": "tpt",
      "line_home": -10.0,
-     "line_total": 228.5
+     "line_total": "缺"
     }
    ],
    "med_line_home": -10.25,
-   "med_total": 229.0,
+   "med_total": 229.5,
    "n": 2
   },
   "401909335": {
@@ -181,16 +181,16 @@
     {
      "book": "DraftKings",
      "line_home": 2.5,
-     "line_total": 231.5
+     "line_total": 230.5
     },
     {
-     "book": "Pinnacle",
-     "line_home": 3.0,
-     "line_total": 231.5
+     "book": "tpt",
+     "line_home": 2.5,
+     "line_total": "缺"
     }
    ],
-   "med_line_home": 2.75,
-   "med_total": 231.5,
+   "med_line_home": 2.5,
+   "med_total": 230.5,
    "n": 2
   },
   "401909336": {
@@ -200,16 +200,16 @@
     {
      "book": "DraftKings",
      "line_home": 9.5,
-     "line_total": 221.5
+     "line_total": 219.5
     },
     {
-     "book": "Pinnacle",
-     "line_home": "缺",
+     "book": "tpt",
+     "line_home": 9.5,
      "line_total": "缺"
     }
    ],
    "med_line_home": 9.5,
-   "med_total": 221.5,
+   "med_total": 219.5,
    "n": 2
   }
  },

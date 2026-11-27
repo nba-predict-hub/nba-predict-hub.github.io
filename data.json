@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-27 08:06:42 PT",
- "generated_at_iso": "2026-11-27T08:06:42.906124-08:00",
+ "generated_at": "2026-11-27 09:09:51 PT",
+ "generated_at_iso": "2026-11-27T09:09:51.063041-08:00",
  "game_date": "2026-11-11",
  "last_lock": "2026-11-27 05:45:03 PT",
  "featured": "401909974",
@@ -1492,7 +1492,7 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "06:12",
+      "time": "08:06",
       "open_home": -5.5,
       "cur_home": 4.5,
       "total_open": 232.5,
@@ -1500,13 +1500,13 @@
       "in_median": true
      },
      {
-      "book": "平博",
+      "book": "美盘共识",
       "via": "",
-      "time": "06:12",
-      "open_home": null,
+      "time": "08:06",
+      "open_home": 4.5,
       "cur_home": 4.5,
       "total_open": null,
-      "total_cur": 222.5,
+      "total_cur": null,
       "in_median": true,
       "note": ""
      }
@@ -1515,16 +1515,15 @@
     "median_text": "尼克斯 -4.5",
     "median_n": 2,
     "median_total": 222.5,
-    "median_total_n": 2,
+    "median_total_n": 1,
     "spread_range": 0.0,
-    "source": "实时盘口，更新于 06:12",
+    "source": "实时盘口，更新于 08:06",
     "median_books": [
      "DraftKings",
-     "平博"
+     "美盘共识"
     ],
     "median_total_books": [
-     "DraftKings",
-     "平博"
+     "DraftKings"
     ],
     "crown": null,
     "leisu": null,
@@ -1655,7 +1654,7 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "06:12",
+      "time": "08:06",
       "open_home": -4.5,
       "cur_home": -3.5,
       "total_open": 234.5,
@@ -1663,31 +1662,30 @@
       "in_median": true
      },
      {
-      "book": "平博",
+      "book": "美盘共识",
       "via": "",
-      "time": "06:12",
-      "open_home": null,
-      "cur_home": -3.5,
+      "time": "08:06",
+      "open_home": -4.5,
+      "cur_home": -3.0,
       "total_open": null,
-      "total_cur": 229.5,
+      "total_cur": null,
       "in_median": true,
       "note": ""
      }
     ],
-    "median_home": -3.5,
-    "median_text": "76人 -3.5",
+    "median_home": -3.25,
+    "median_text": "76人 -3.25",
     "median_n": 2,
     "median_total": 229.5,
-    "median_total_n": 2,
-    "spread_range": 0.0,
-    "source": "实时盘口，更新于 06:12",
+    "median_total_n": 1,
+    "spread_range": 0.5,
+    "source": "实时盘口，更新于 08:06",
     "median_books": [
      "DraftKings",
-     "平博"
+     "美盘共识"
     ],
     "median_total_books": [
-     "DraftKings",
-     "平博"
+     "DraftKings"
     ],
     "crown": null,
     "leisu": null,
@@ -1818,39 +1816,38 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "06:12",
+      "time": "08:06",
       "open_home": 9.5,
       "cur_home": 8.5,
       "total_open": 222.5,
-      "total_cur": 221.5,
+      "total_cur": 222.5,
       "in_median": true
      },
      {
-      "book": "平博",
+      "book": "美盘共识",
       "via": "",
-      "time": "06:12",
-      "open_home": null,
-      "cur_home": 9.0,
+      "time": "08:06",
+      "open_home": 9.5,
+      "cur_home": 8.5,
       "total_open": null,
-      "total_cur": 222.0,
+      "total_cur": null,
       "in_median": true,
       "note": ""
      }
     ],
-    "median_home": 8.75,
-    "median_text": "凯尔特人 -8.75",
+    "median_home": 8.5,
+    "median_text": "凯尔特人 -8.5",
     "median_n": 2,
-    "median_total": 221.75,
-    "median_total_n": 2,
-    "spread_range": 0.5,
-    "source": "实时盘口，更新于 06:12",
+    "median_total": 222.5,
+    "median_total_n": 1,
+    "spread_range": 0.0,
+    "source": "实时盘口，更新于 08:06",
     "median_books": [
      "DraftKings",
-     "平博"
+     "美盘共识"
     ],
     "median_total_books": [
-     "DraftKings",
-     "平博"
+     "DraftKings"
     ],
     "crown": null,
     "leisu": null,
@@ -1981,21 +1978,21 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "06:12",
+      "time": "08:06",
       "open_home": -7.5,
       "cur_home": 6.5,
       "total_open": 232.5,
-      "total_cur": 225.5,
+      "total_cur": 226.5,
       "in_median": true
      },
      {
-      "book": "平博",
+      "book": "美盘共识",
       "via": "",
-      "time": "06:12",
-      "open_home": null,
+      "time": "08:06",
+      "open_home": 6.5,
       "cur_home": 6.0,
       "total_open": null,
-      "total_cur": 225.0,
+      "total_cur": null,
       "in_median": true,
       "note": ""
      }
@@ -2003,17 +2000,16 @@
     "median_home": 6.25,
     "median_text": "马刺 -6.25",
     "median_n": 2,
-    "median_total": 225.25,
-    "median_total_n": 2,
+    "median_total": 226.5,
+    "median_total_n": 1,
     "spread_range": 0.5,
-    "source": "实时盘口，更新于 06:12",
+    "source": "实时盘口，更新于 08:06",
     "median_books": [
      "DraftKings",
-     "平博"
+     "美盘共识"
     ],
     "median_total_books": [
-     "DraftKings",
-     "平博"
+     "DraftKings"
     ],
     "crown": null,
     "leisu": null,
@@ -2144,7 +2140,7 @@
      {
       "book": "DraftKings",
       "via": "ESPN core 接口",
-      "time": "06:12",
+      "time": "08:06",
       "open_home": -9.5,
       "cur_home": -10.5,
       "total_open": 228.5,
@@ -2152,13 +2148,13 @@
       "in_median": true
      },
      {
-      "book": "平博",
+      "book": "美盘共识",
       "via": "",
-      "time": "06:12",
-      "open_home": null,
+      "time": "08:06",
+      "open_home": -9.5,
       "cur_home": -10.0,
       "total_open": null,
-      "total_cur": 228.5,
+      "total_cur": null,
       "in_median": true,
       "note": ""
      }
@@ -2166,17 +2162,16 @@
     "median_home": -10.25,
     "median_text": "掘金 -10.25",
     "median_n": 2,
-    "median_total": 229.0,
-    "median_total_n": 2,
+    "median_total": 229.5,
+    "median_total_n": 1,
     "spread_range": 0.5,
-    "source": "实时盘口，更新于 06:12",
+    "source": "实时盘口，更新于 08:06",
     "median_books": [
      "DraftKings",
-     "平博"
+     "美盘共识"
     ],
     "median_total_books": [
-     "DraftKings",
-     "平博"
+     "DraftKings"
     ],
     "crown": null,
     "leisu": null,
@@ -7861,7 +7856,7 @@
   "首发名单：暂无",
   "官方伤病报告已更新到美东下午 5:00",
   "裁判：只有勇士@火箭有名单，其他场次暂无",
-  "平博每场都有盘，已算进多家中位数",
+  "平博不是每场都有盘，暂不算进中位数",
   "已开打的比赛：盘口停在开赛前",
   "本赛季 Massey、Sagarin 的命中率：暂无（没有存档）",
   "今晚的对错：比赛结束后才有",
@@ -7897,7 +7892,7 @@
   {
    "name": "实时盘口",
    "file": "monitor/lines.json",
-   "updated": "2026-11-27 06:12 PT",
+   "updated": "2026-11-27 08:06 PT",
    "note": "DraftKings、平博、美盘共识，含开盘和变盘",
    "exists": true
   },
