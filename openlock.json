@@ -1,9 +1,33 @@
 {
- "generated_at": "2026-11-27 12:49:14 PT",
+ "generated_at": "2026-11-27 17:24:58 PT",
  "exists": true,
  "locked": 5,
- "skipped": 24,
+ "skipped": 26,
  "rows": [
+  {
+   "game_date": "2026-11-28",
+   "game": "篮网 @ 黄蜂",
+   "status": "SKIPPED",
+   "reason": "记录器中断过，首次看到的盘口不是真正开盘价",
+   "tier": "",
+   "pick": "",
+   "line": "",
+   "lock_time": "2026-11-27 17:24:24 PT",
+   "guard_info": false,
+   "flags": ""
+  },
+  {
+   "game_date": "2026-11-28",
+   "game": "魔术 @ 奇才",
+   "status": "SKIPPED",
+   "reason": "记录器中断过，首次看到的盘口不是真正开盘价",
+   "tier": "",
+   "pick": "",
+   "line": "",
+   "lock_time": "2026-11-27 17:24:24 PT",
+   "guard_info": false,
+   "flags": ""
+  },
   {
    "game_date": "2026-11-27",
    "game": "勇士 @ 开拓者",
@@ -331,18 +355,6 @@
   {
    "game_date": "2026-11-19",
    "game": "开拓者 @ 雄鹿",
-   "status": "SKIPPED",
-   "reason": "记录器刚启动，这条盘口不是真正的开盘价",
-   "tier": "",
-   "pick": "",
-   "line": "",
-   "lock_time": "2026-11-19 04:40:16 PT",
-   "guard_info": false,
-   "flags": ""
-  },
-  {
-   "game_date": "2026-11-19",
-   "game": "勇士 @ 灰熊",
    "status": "SKIPPED",
    "reason": "记录器刚启动，这条盘口不是真正的开盘价",
    "tier": "",
